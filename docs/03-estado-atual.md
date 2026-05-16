@@ -2,9 +2,9 @@
 
 ## status geral
 
-Projeto com base documental inicial concluída e referências visuais do Stitch catalogadas.
+Projeto com base documental inicial concluída, referências visuais do Stitch catalogadas e solução base .NET MAUI Blazor Hybrid criada.
 
-A direção visual exportada do Stitch foi aprovada como base visual protegida para o Blue Atelier. A próxima etapa sugerida é preparar a criação da solução .NET MAUI Blazor Hybrid usando essas referências visuais aprovadas como base, sem redesenhar ou reinterpretar o visual.
+A direção visual exportada do Stitch foi aprovada como base visual protegida para o Blue Atelier. A solução técnica inicial já existe, mas ainda contém apenas um placeholder simples e não converte nenhuma tela do Stitch.
 
 ## repositório remoto
 
@@ -14,7 +14,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Catalogação das referências visuais exportadas do Stitch, registrando os HTMLs, imagens, arquivo `design.md`, padrões visuais aprovados, regras de proteção visual e limites para implementação futura.
+Criação da solução base .NET MAUI Blazor Hybrid do Blue Atelier, com projetos de camadas, projeto de testes, referências entre projetos, placeholder simples e build validado.
 
 ## decisões já tomadas
 
@@ -63,6 +63,15 @@ Catalogação das referências visuais exportadas do Stitch, registrando os HTML
 - A anotação `referencias-visuais/stitch/anotacoes/direcao-visual-aprovada.md` reforça que o visual moderno, minimalista, neutro e confortável deve ser preservado.
 - O documento `docs/15-referencias-visuais-stitch.md` cataloga as referências visuais aprovadas.
 - O Codex não pode redesenhar, reinterpretar, simplificar ou alterar o visual aprovado sem autorização explícita do usuário.
+- A solução base foi criada no arquivo `BlueAtelier.sln`.
+- A estrutura inicial usa pastas em letras minúsculas dentro de `src/` e `tests/`.
+- Os projetos criados são `BlueAtelier.App`, `BlueAtelier.Domain`, `BlueAtelier.Application`, `BlueAtelier.Infrastructure`, `BlueAtelier.Persistence` e `BlueAtelier.Tests`.
+- O app inicial usa .NET MAUI Blazor Hybrid com Razor Components.
+- O projeto `BlueAtelier.App` foi restringido para Windows local usando `net10.0-windows10.0.19041.0`.
+- Arquivos obrigatórios do template MAUI, como `MauiProgram.cs`, `MainPage.xaml` e `App.xaml`, foram preservados com os nomes gerados pelo template.
+- A tela inicial atual é apenas um placeholder de estruturação e não recria o visual aprovado do Stitch.
+- O banco SQLite, EF Core, migrations, entidades completas, serviços reais, sistema de arquivos, caminhos de rede e telas finais ainda não foram implementados.
+- A estrutura da solução foi documentada em `docs/16-estrutura-da-solucao.md`.
 - Toda tarefa futura deve ser validada conforme o checklist aplicável antes de avançar.
 - Tarefas de implementação devem executar build quando possível.
 - Tarefas com testes devem executar testes relevantes.
@@ -76,20 +85,23 @@ Catalogação das referências visuais exportadas do Stitch, registrando os HTML
 
 ## pendências atuais
 
-- Preparar a criação da solução .NET MAUI Blazor Hybrid usando as referências visuais aprovadas como base.
+- Criar a fundação visual do app a partir das referências do Stitch, começando por layout base, sidebar, topbar, tema claro/escuro e tokens visuais, ainda sem implementar todas as telas.
 - Manter os HTMLs, imagens e `design.md` do Stitch protegidos contra alterações não autorizadas.
 - Validar o repositório remoto após o push desta tarefa.
 
-## arquivos alterados ou protegidos na última tarefa
+## arquivos alterados ou criados na última tarefa
 
+- `.gitignore`
+- `BlueAtelier.sln`
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/15-referencias-visuais-stitch.md`
-- `referencias-visuais/stitch/design.md`
-- `referencias-visuais/stitch/anotacoes/direcao-visual-aprovada.md`
-- `referencias-visuais/stitch/html/*.html`
-- `referencias-visuais/stitch/imagens/*.png`
-- `referencias-visuais/stitch/readme.md`
+- `docs/16-estrutura-da-solucao.md`
+- `src/blueatelier.app/`
+- `src/blueatelier.domain/`
+- `src/blueatelier.application/`
+- `src/blueatelier.infrastructure/`
+- `src/blueatelier.persistence/`
+- `tests/blueatelier.tests/`
 
 ## validações executadas na última tarefa
 
@@ -104,21 +116,30 @@ Catalogação das referências visuais exportadas do Stitch, registrando os HTML
 - Leitura obrigatória do documento `docs/12-modelagem-do-banco.md`.
 - Leitura obrigatória do documento `docs/13-sistema-de-arquivos.md`.
 - Leitura obrigatória do documento `docs/14-checklist-de-validacao.md`.
-- Listagem dos arquivos encontrados em `referencias-visuais/stitch/`.
-- Listagem dos arquivos encontrados em `referencias-visuais/stitch/html/`.
-- Listagem dos arquivos encontrados em `referencias-visuais/stitch/imagens/`.
-- Verificação da existência de `referencias-visuais/stitch/design.md`.
-- Verificação da existência de `referencias-visuais/stitch/readme.md`.
+- Leitura obrigatória do documento `docs/15-referencias-visuais-stitch.md`.
+- Leitura obrigatória de `referencias-visuais/stitch/readme.md`.
 - Leitura de `referencias-visuais/stitch/design.md`.
 - Leitura de `referencias-visuais/stitch/anotacoes/direcao-visual-aprovada.md`.
-- Catalogação dos HTMLs exportados do Stitch.
-- Catalogação das imagens exportadas do Stitch.
-- Confirmação de que nenhum projeto .NET, Razor Component ou CSS final foi criado.
-- Confirmação de que nenhum HTML exportado foi reescrito.
-- Confirmação de que nenhuma imagem exportada foi alterada.
+- Execução de `dotnet --version`, retornando `10.0.203`.
+- Execução de `dotnet workload list`, confirmando `maui-windows` instalado.
+- Criação da solution `BlueAtelier.sln`.
+- Criação do projeto .NET MAUI Blazor Hybrid `BlueAtelier.App`.
+- Criação dos projetos de camada `BlueAtelier.Domain`, `BlueAtelier.Application`, `BlueAtelier.Infrastructure` e `BlueAtelier.Persistence`.
+- Criação do projeto de testes `BlueAtelier.Tests`.
+- Configuração das referências entre projetos conforme a arquitetura.
+- Adaptação mínima do app para foco Windows local.
+- Remoção segura de exemplos desnecessários do template.
+- Criação de placeholder simples deixando claro que o app está em estruturação.
+- Execução de `dotnet restore BlueAtelier.sln` com sucesso após permissão fora do sandbox para leitura do `NuGet.Config` do usuário.
+- Execução de `dotnet build BlueAtelier.sln` com sucesso, 0 avisos e 0 erros.
+- Execução de `dotnet test BlueAtelier.sln --no-build` com sucesso, 1 teste aprovado.
+- Confirmação de que nenhum HTML do Stitch foi alterado.
+- Confirmação de que nenhuma imagem do Stitch foi alterada.
+- Confirmação de que nenhuma tela do Stitch foi convertida.
+- Confirmação de que o app criado é apenas estrutura base.
 
 ## próxima tarefa sugerida
 
-Preparar a criação da solução .NET MAUI Blazor Hybrid usando as referências visuais aprovadas do Stitch como base.
+Criar a fundação visual do app a partir das referências do Stitch, começando por layout base, sidebar, topbar, tema claro/escuro e tokens visuais, ainda sem implementar todas as telas.
 
-Essa etapa deve respeitar `docs/06-arquitetura-tecnica.md`, `docs/07-mapa-de-telas.md`, `docs/08-design-system.md`, `docs/14-checklist-de-validacao.md` e `docs/15-referencias-visuais-stitch.md`. A implementação futura não pode redesenhar ou reinterpretar o visual aprovado sem autorização explícita.
+Essa etapa deve respeitar `docs/06-arquitetura-tecnica.md`, `docs/07-mapa-de-telas.md`, `docs/08-design-system.md`, `docs/14-checklist-de-validacao.md`, `docs/15-referencias-visuais-stitch.md` e `docs/16-estrutura-da-solucao.md`. A implementação futura não pode redesenhar ou reinterpretar o visual aprovado sem autorização explícita.

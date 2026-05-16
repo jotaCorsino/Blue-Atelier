@@ -140,6 +140,22 @@ Observação:
 
 Este documento foi criado após a conclusão da base documental inicial.
 
+### 12. estrutura da solução
+
+Arquivo:
+
+```txt
+docs/16-estrutura-da-solucao.md
+```
+
+Objetivo:
+
+Registrar a solution .NET criada, os projetos de camada, dependências entre projetos, comandos de restore/build, observações sobre MAUI workload e limites do que ainda não foi implementado.
+
+Observação:
+
+Este documento foi criado após o início da fase de implementação base.
+
 ## base documental inicial concluída
 
 A base documental inicial do Blue Atelier está concluída.
@@ -160,12 +176,15 @@ Documentos criados nesta base:
 ## documentos criados após a base documental inicial
 
 - `docs/15-referencias-visuais-stitch.md`
+- `docs/16-estrutura-da-solucao.md`
 
-Esse documento registra que a direção visual do Stitch foi aprovada e que os arquivos em `referencias-visuais/stitch/` devem ser tratados como referência visual protegida.
+O documento `docs/15-referencias-visuais-stitch.md` registra que a direção visual do Stitch foi aprovada e que os arquivos em `referencias-visuais/stitch/` devem ser tratados como referência visual protegida.
+
+O documento `docs/16-estrutura-da-solucao.md` registra que a fase de implementação base foi iniciada após a catalogação das referências visuais.
 
 ## próxima etapa sugerida
 
-Preparar a criação da solução .NET MAUI Blazor Hybrid usando as referências visuais aprovadas do Stitch como base.
+Criar a fundação visual do app a partir das referências do Stitch, começando por layout base, sidebar, topbar, tema claro/escuro e tokens visuais, ainda sem implementar todas as telas.
 
 Essa próxima etapa deve usar como base:
 
@@ -174,7 +193,6 @@ Essa próxima etapa deve usar como base:
 - `docs/08-design-system.md`
 - `docs/14-checklist-de-validacao.md`
 - `docs/15-referencias-visuais-stitch.md`
-
-Nenhum código do app deve ser criado antes de aprovação da próxima tarefa pelo usuário.
+- `docs/16-estrutura-da-solucao.md`
 
 Quando a implementação começar, o Codex deve preservar o visual aprovado do Stitch e não pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorização explícita.

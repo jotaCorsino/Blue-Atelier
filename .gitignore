@@ -1,0 +1,13 @@
+# .NET
+bin/
+obj/
+TestResults/
+*.user
+*.rsuser
+
+# Visual Studio
+.vs/
+
+# OS
+Thumbs.db
+Desktop.ini
