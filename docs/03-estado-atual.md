@@ -12,7 +12,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Criação da modelagem do banco SQLite do Blue Atelier, definindo princípios de persistência, entidades, enums, relacionamentos, índices, regras de integridade, migrations, backup, busca global, caminhos, arquivos vinculados, galeria, favoritos, materiais, fila de impressão e configurações.
+Criação da documentação do sistema de arquivos do Blue Atelier, definindo regras para arquivos e pastas reais do Windows, caminhos locais, caminhos de rede, unidades mapeadas, caminhos UNC, slugs, extensões aceitas, estruturas padrão de pastas, importação, vinculação, cópia, movimentação, fila de impressão, backup e prevenção de perda de dados.
 
 ## decisões já tomadas
 
@@ -46,6 +46,12 @@ Criação da modelagem do banco SQLite do Blue Atelier, definindo princípios de
 - A modelagem do banco SQLite foi definida em `docs/12-modelagem-do-banco.md`.
 - O banco SQLite deve guardar apenas metadados, relações, caminhos, status, tags, links, favoritos, materiais, configurações e histórico.
 - Arquivos pesados devem permanecer fora do banco, no sistema de arquivos.
+- A documentação do sistema de arquivos foi definida em `docs/13-sistema-de-arquivos.md`.
+- O app deve funcionar como camada visual e operacional sobre arquivos reais do Windows.
+- Remover vínculo no app não deve excluir o arquivo real.
+- Caminhos de rede offline devem ser tratados como condição normal e não podem travar o app.
+- Arquivos e pastas ausentes devem permanecer registrados até correção ou remoção explícita do vínculo.
+- Operações perigosas, como mover, sobrescrever ou excluir arquivos reais, devem exigir confirmação futura.
 - GitHub permanece como fonte de verdade e ChatGPT valida cada etapa pelo repositório remoto.
 - Nenhuma tarefa deve avançar sem commit, push e validação.
 - O desenvolvimento será feito uma tarefa por vez.
@@ -55,7 +61,6 @@ Criação da modelagem do banco SQLite do Blue Atelier, definindo princípios de
 
 ## pendências atuais
 
-- Criar documentação do sistema de arquivos.
 - Criar checklist de validação.
 - Validar o repositório remoto após o push desta tarefa.
 
@@ -63,7 +68,7 @@ Criação da modelagem do banco SQLite do Blue Atelier, definindo princípios de
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/12-modelagem-do-banco.md`
+- `docs/13-sistema-de-arquivos.md`
 
 ## validações executadas na última tarefa
 
@@ -75,7 +80,8 @@ Criação da modelagem do banco SQLite do Blue Atelier, definindo princípios de
 - Leitura obrigatória do documento `docs/09-prompts-stitch.md`.
 - Leitura obrigatória do documento `docs/10-prompts-antigravity.md`.
 - Leitura obrigatória do documento `docs/11-comandos-codex.md`.
-- Revisão documental da modelagem do banco criada.
+- Leitura obrigatória do documento `docs/12-modelagem-do-banco.md`.
+- Revisão documental do sistema de arquivos criado.
 - Atualização do índice de próximos documentos.
 - Verificação de status do Git antes das alterações.
 
@@ -84,7 +90,7 @@ Criação da modelagem do banco SQLite do Blue Atelier, definindo princípios de
 Criar o documento:
 
 ```txt
-docs/13-sistema-de-arquivos.md
+docs/14-checklist-de-validacao.md
 ```
 
-Esse documento deve definir estrutura de pastas, regras de nomes e slugs, extensões aceitas, operações com arquivos, tratamento de arquivos ausentes e integração com caminhos locais e de rede.
+Esse documento deve definir critérios de validação para tarefas documentais, técnicas, visuais e futuras implementações do Blue Atelier.

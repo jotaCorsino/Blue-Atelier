@@ -100,11 +100,9 @@ Objetivo:
 
 Definir entidades, relações, campos, índices e regras de persistência.
 
-## documentos pendentes
+### 9. sistema de arquivos
 
-### 1. sistema de arquivos
-
-Arquivo sugerido:
+Arquivo:
 
 ```txt
 docs/13-sistema-de-arquivos.md
@@ -114,7 +112,9 @@ Objetivo:
 
 Definir estrutura de pastas, caminhos, slugs, arquivos aceitos e integração com rede.
 
-### 2. validações
+## documentos pendentes
+
+### 1. validações
 
 Arquivo sugerido:
 
