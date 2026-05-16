@@ -28,11 +28,9 @@ Objetivo:
 
 Definir stack, camadas, banco de dados, serviços, estrutura de pastas do código, padrões e decisões técnicas.
 
-## documentos pendentes
+### 3. mapa de telas
 
-### 1. mapa de telas
-
-Arquivo sugerido:
+Arquivo:
 
 ```txt
 docs/07-mapa-de-telas.md
@@ -42,7 +40,9 @@ Objetivo:
 
 Descrever todas as telas do app, navegação, componentes e comportamento esperado.
 
-### 2. design system
+## documentos pendentes
+
+### 1. design system
 
 Arquivo sugerido:
 
@@ -54,7 +54,7 @@ Objetivo:
 
 Definir cores, tipografia, espaçamentos, cards, botões, layout, tema claro, tema escuro e regras visuais.
 
-### 3. prompts para stitch
+### 2. prompts para stitch
 
 Arquivo sugerido:
 
@@ -66,7 +66,7 @@ Objetivo:
 
 Guardar prompts para geração e refinamento visual das telas no Stitch.
 
-### 4. prompts para antigravity
+### 3. prompts para antigravity
 
 Arquivo sugerido:
 
@@ -78,7 +78,7 @@ Objetivo:
 
 Guardar prompts para tarefas de implementação assistida, revisão e validação no Antigravity.
 
-### 5. comandos para codex
+### 4. comandos para codex
 
 Arquivo sugerido:
 
@@ -90,7 +90,7 @@ Objetivo:
 
 Registrar comandos/prompt de cada tarefa enviada ao Codex, mantendo histórico operacional.
 
-### 6. banco de dados
+### 5. banco de dados
 
 Arquivo sugerido:
 
@@ -102,7 +102,7 @@ Objetivo:
 
 Definir entidades, relações, campos, índices e regras de persistência.
 
-### 7. sistema de arquivos
+### 6. sistema de arquivos
 
 Arquivo sugerido:
 
@@ -114,7 +114,7 @@ Objetivo:
 
 Definir estrutura de pastas, caminhos, slugs, arquivos aceitos e integração com rede.
 
-### 8. validações
+### 7. validações
 
 Arquivo sugerido:
 

@@ -12,7 +12,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Criação da arquitetura técnica oficial do Blue Atelier, definindo .NET MAUI Blazor Hybrid, C#, Razor Components, CSS próprio, SQLite, Entity Framework Core, separação em camadas, entidades previstas, serviços principais, estratégias para banco, arquivos, caminhos de rede, configurações, temas, favoritos, galeria, fila de impressão, testes, build local e limites do Codex em relação ao visual aprovado.
+Criação do mapa completo de telas do Blue Atelier, definindo as telas principais, navegação lateral, barra superior, busca global, barra rápida de favoritos, hierarquia coleção > modelo > detalhes, telas com mosaico, listas, tabelas e formulários, áreas opcionais, estados vazios, erro, offline, sucesso e carregamento, além das regras para evidência visual futura.
 
 ## decisões já tomadas
 
@@ -31,6 +31,9 @@ Criação da arquitetura técnica oficial do Blue Atelier, definindo .NET MAUI B
 - A arquitetura deve separar interface, domínio, aplicação, infraestrutura e persistência.
 - Arquivos pesados devem ficar no sistema de arquivos; o banco SQLite deve guardar metadados, caminhos, relações e estados.
 - Antigravity deve ser usado com economia em momentos estratégicos, enquanto o Codex permanece como engenheiro principal.
+- O mapa de telas oficial foi definido em `docs/07-mapa-de-telas.md`.
+- A hierarquia principal de navegação será coleção > modelo > detalhes do modelo.
+- Coleções, modelos e galerias devem priorizar mosaicos visuais; arquivos, fila, caminhos e configurações podem usar listas, tabelas e formulários.
 - O desenvolvimento será feito uma tarefa por vez.
 - O Codex será usado como engenheiro de implementação.
 - O visual aprovado não pode ser alterado pelo Codex sem autorização explícita.
@@ -38,8 +41,7 @@ Criação da arquitetura técnica oficial do Blue Atelier, definindo .NET MAUI B
 
 ## pendências atuais
 
-- Definir telas principais.
-- Definir fluxo de UI/UX.
+- Criar design system.
 - Criar prompts para Stitch.
 - Criar prompts para Antigravity.
 - Criar primeiro comando para Codex configurar o repositório.
@@ -52,17 +54,17 @@ Criação da arquitetura técnica oficial do Blue Atelier, definindo .NET MAUI B
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/06-arquitetura-tecnica.md`
+- `docs/07-mapa-de-telas.md`
 - `readme.md`
 
 ## validações executadas na última tarefa
 
 - Leitura obrigatória dos documentos `docs/01-descricao-geral-do-app.md`, `docs/02-regras-de-desenvolvimento-com-codex.md`, `docs/03-estado-atual.md` e `docs/04-proximos-documentos.md`.
 - Leitura obrigatória do documento `docs/05-planejamento-de-desenvolvimento.md`.
-- Consulta às documentações oficiais da Microsoft sobre .NET MAUI Blazor Hybrid, Entity Framework Core, SQLite e publicação Windows.
-- Revisão documental da arquitetura técnica criada.
+- Leitura obrigatória do documento `docs/06-arquitetura-tecnica.md`.
+- Revisão documental do mapa de telas criado.
 - Atualização do índice de próximos documentos.
-- Atualização do readme para incluir a arquitetura técnica.
+- Atualização do readme para incluir o mapa de telas.
 - Verificação de status do Git antes das alterações.
 
 ## próxima tarefa sugerida
@@ -70,7 +72,7 @@ Criação da arquitetura técnica oficial do Blue Atelier, definindo .NET MAUI B
 Criar o documento:
 
 ```txt
-docs/07-mapa-de-telas.md
+docs/08-design-system.md
 ```
 
-Esse documento deve definir todas as telas principais do app, navegação, hierarquia visual esperada, ações disponíveis, estados vazios, estados de erro e relação entre tela inicial, coleções, modelos, favoritos, materiais, fila de impressão, busca e configurações.
+Esse documento deve definir a linguagem visual do Blue Atelier, incluindo cores, tipografia, espaçamentos, cards, mosaicos, formulários, botões, tema claro, tema escuro, estados visuais e regras de proteção do visual aprovado.
