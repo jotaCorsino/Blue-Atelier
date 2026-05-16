@@ -12,7 +12,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Criação do planejamento de desenvolvimento completo do Blue Atelier, organizando as fases de documentação, UX/UI, arquitetura, banco SQLite, sistema de arquivos, coleções, modelos, galerias, links, favoritos, materiais, fila de impressão, configurações, busca global, caminhos de rede, refinamento visual, testes e empacotamento.
+Criação da arquitetura técnica oficial do Blue Atelier, definindo .NET MAUI Blazor Hybrid, C#, Razor Components, CSS próprio, SQLite, Entity Framework Core, separação em camadas, entidades previstas, serviços principais, estratégias para banco, arquivos, caminhos de rede, configurações, temas, favoritos, galeria, fila de impressão, testes, build local e limites do Codex em relação ao visual aprovado.
 
 ## decisões já tomadas
 
@@ -27,6 +27,10 @@ Criação do planejamento de desenvolvimento completo do Blue Atelier, organizan
 - O app deve suportar caminhos locais e caminhos de rede.
 - O app deve ter área de configurações para caminhos, rede, tema, backups e modelo padrão de pastas.
 - O app deve ter área de favoritos globais, estilo favoritos do navegador.
+- A stack oficial será .NET MAUI Blazor Hybrid, C#, SQLite, Entity Framework Core, Razor Components e CSS próprio.
+- A arquitetura deve separar interface, domínio, aplicação, infraestrutura e persistência.
+- Arquivos pesados devem ficar no sistema de arquivos; o banco SQLite deve guardar metadados, caminhos, relações e estados.
+- Antigravity deve ser usado com economia em momentos estratégicos, enquanto o Codex permanece como engenheiro principal.
 - O desenvolvimento será feito uma tarefa por vez.
 - O Codex será usado como engenheiro de implementação.
 - O visual aprovado não pode ser alterado pelo Codex sem autorização explícita.
@@ -34,8 +38,6 @@ Criação do planejamento de desenvolvimento completo do Blue Atelier, organizan
 
 ## pendências atuais
 
-- Definir a stack final.
-- Definir arquitetura inicial do projeto.
 - Definir telas principais.
 - Definir fluxo de UI/UX.
 - Criar prompts para Stitch.
@@ -50,15 +52,17 @@ Criação do planejamento de desenvolvimento completo do Blue Atelier, organizan
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/05-planejamento-de-desenvolvimento.md`
+- `docs/06-arquitetura-tecnica.md`
 - `readme.md`
 
 ## validações executadas na última tarefa
 
 - Leitura obrigatória dos documentos `docs/01-descricao-geral-do-app.md`, `docs/02-regras-de-desenvolvimento-com-codex.md`, `docs/03-estado-atual.md` e `docs/04-proximos-documentos.md`.
-- Revisão documental do planejamento criado.
+- Leitura obrigatória do documento `docs/05-planejamento-de-desenvolvimento.md`.
+- Consulta às documentações oficiais da Microsoft sobre .NET MAUI Blazor Hybrid, Entity Framework Core, SQLite e publicação Windows.
+- Revisão documental da arquitetura técnica criada.
 - Atualização do índice de próximos documentos.
-- Atualização do readme para incluir o planejamento.
+- Atualização do readme para incluir a arquitetura técnica.
 - Verificação de status do Git antes das alterações.
 
 ## próxima tarefa sugerida
@@ -66,7 +70,7 @@ Criação do planejamento de desenvolvimento completo do Blue Atelier, organizan
 Criar o documento:
 
 ```txt
-docs/06-arquitetura-tecnica.md
+docs/07-mapa-de-telas.md
 ```
 
-Esse documento deve definir a stack final, a arquitetura inicial do projeto, as camadas, a estrutura técnica, a estratégia de banco SQLite, os serviços principais e os padrões de implementação.
+Esse documento deve definir todas as telas principais do app, navegação, hierarquia visual esperada, ações disponíveis, estados vazios, estados de erro e relação entre tela inicial, coleções, modelos, favoritos, materiais, fila de impressão, busca e configurações.
