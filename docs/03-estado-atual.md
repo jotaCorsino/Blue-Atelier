@@ -12,7 +12,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Criação dos comandos e prompts operacionais para o Codex no Blue Atelier, registrando regras para continuidade, leitura obrigatória, identificação da próxima tarefa, modelos de prompt, modelos de resposta, validações, atualização de estado, commits, push e proteção do visual aprovado.
+Criação da modelagem do banco SQLite do Blue Atelier, definindo princípios de persistência, entidades, enums, relacionamentos, índices, regras de integridade, migrations, backup, busca global, caminhos, arquivos vinculados, galeria, favoritos, materiais, fila de impressão e configurações.
 
 ## decisões já tomadas
 
@@ -43,6 +43,9 @@ Criação dos comandos e prompts operacionais para o Codex no Blue Atelier, regi
 - O Antigravity será usado apenas como apoio estratégico, não como engenheiro principal do projeto.
 - Os prompts para Antigravity foram registrados em `docs/10-prompts-antigravity.md`.
 - Os comandos operacionais do Codex foram registrados em `docs/11-comandos-codex.md`.
+- A modelagem do banco SQLite foi definida em `docs/12-modelagem-do-banco.md`.
+- O banco SQLite deve guardar apenas metadados, relações, caminhos, status, tags, links, favoritos, materiais, configurações e histórico.
+- Arquivos pesados devem permanecer fora do banco, no sistema de arquivos.
 - GitHub permanece como fonte de verdade e ChatGPT valida cada etapa pelo repositório remoto.
 - Nenhuma tarefa deve avançar sem commit, push e validação.
 - O desenvolvimento será feito uma tarefa por vez.
@@ -52,7 +55,6 @@ Criação dos comandos e prompts operacionais para o Codex no Blue Atelier, regi
 
 ## pendências atuais
 
-- Criar modelagem do banco SQLite.
 - Criar documentação do sistema de arquivos.
 - Criar checklist de validação.
 - Validar o repositório remoto após o push desta tarefa.
@@ -61,7 +63,7 @@ Criação dos comandos e prompts operacionais para o Codex no Blue Atelier, regi
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/11-comandos-codex.md`
+- `docs/12-modelagem-do-banco.md`
 
 ## validações executadas na última tarefa
 
@@ -72,7 +74,8 @@ Criação dos comandos e prompts operacionais para o Codex no Blue Atelier, regi
 - Leitura obrigatória do documento `docs/08-design-system.md`.
 - Leitura obrigatória do documento `docs/09-prompts-stitch.md`.
 - Leitura obrigatória do documento `docs/10-prompts-antigravity.md`.
-- Revisão documental dos comandos para Codex criados.
+- Leitura obrigatória do documento `docs/11-comandos-codex.md`.
+- Revisão documental da modelagem do banco criada.
 - Atualização do índice de próximos documentos.
 - Verificação de status do Git antes das alterações.
 
@@ -81,7 +84,7 @@ Criação dos comandos e prompts operacionais para o Codex no Blue Atelier, regi
 Criar o documento:
 
 ```txt
-docs/12-modelagem-do-banco.md
+docs/13-sistema-de-arquivos.md
 ```
 
-Esse documento deve definir entidades, relações, campos, índices, enums, regras de persistência e estratégia de evolução do banco SQLite do Blue Atelier.
+Esse documento deve definir estrutura de pastas, regras de nomes e slugs, extensões aceitas, operações com arquivos, tratamento de arquivos ausentes e integração com caminhos locais e de rede.

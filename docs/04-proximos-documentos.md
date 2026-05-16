@@ -88,11 +88,9 @@ Objetivo:
 
 Registrar comandos/prompt de cada tarefa enviada ao Codex, mantendo histórico operacional.
 
-## documentos pendentes
+### 8. banco de dados
 
-### 1. banco de dados
-
-Arquivo sugerido:
+Arquivo:
 
 ```txt
 docs/12-modelagem-do-banco.md
@@ -102,7 +100,9 @@ Objetivo:
 
 Definir entidades, relações, campos, índices e regras de persistência.
 
-### 2. sistema de arquivos
+## documentos pendentes
+
+### 1. sistema de arquivos
 
 Arquivo sugerido:
 
@@ -114,7 +114,7 @@ Objetivo:
 
 Definir estrutura de pastas, caminhos, slugs, arquivos aceitos e integração com rede.
 
-### 3. validações
+### 2. validações
 
 Arquivo sugerido:
 
