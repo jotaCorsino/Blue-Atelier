@@ -2,7 +2,7 @@
 
 ## status geral
 
-Projeto em fase de concepção e documentação inicial.
+Projeto com base documental inicial concluída, pronto para iniciar a fase visual com Stitch para criação do primeiro conceito visual geral do Blue Atelier.
 
 ## repositório remoto
 
@@ -12,7 +12,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Criação da documentação do sistema de arquivos do Blue Atelier, definindo regras para arquivos e pastas reais do Windows, caminhos locais, caminhos de rede, unidades mapeadas, caminhos UNC, slugs, extensões aceitas, estruturas padrão de pastas, importação, vinculação, cópia, movimentação, fila de impressão, backup e prevenção de perda de dados.
+Criação do checklist de validação do Blue Atelier, definindo critérios para validar tarefas documentais, arquitetura, UI/UX planejada, design system, prompts, comandos, banco, sistema de arquivos, solução .NET, camadas, domínio, SQLite, migrations, serviços, arquivos, rede, fila, configurações, busca, favoritos, materiais, galeria, telas, visual, temas, estados, testes, build, commit, push e release local.
 
 ## decisões já tomadas
 
@@ -52,6 +52,12 @@ Criação da documentação do sistema de arquivos do Blue Atelier, definindo re
 - Caminhos de rede offline devem ser tratados como condição normal e não podem travar o app.
 - Arquivos e pastas ausentes devem permanecer registrados até correção ou remoção explícita do vínculo.
 - Operações perigosas, como mover, sobrescrever ou excluir arquivos reais, devem exigir confirmação futura.
+- O checklist de validação foi definido em `docs/14-checklist-de-validacao.md`.
+- A base documental inicial do projeto foi concluída.
+- Toda tarefa futura deve ser validada conforme o checklist aplicável antes de avançar.
+- Tarefas de implementação devem executar build quando possível.
+- Tarefas com testes devem executar testes relevantes.
+- Tarefas visuais futuras devem fornecer evidência visual.
 - GitHub permanece como fonte de verdade e ChatGPT valida cada etapa pelo repositório remoto.
 - Nenhuma tarefa deve avançar sem commit, push e validação.
 - O desenvolvimento será feito uma tarefa por vez.
@@ -61,14 +67,14 @@ Criação da documentação do sistema de arquivos do Blue Atelier, definindo re
 
 ## pendências atuais
 
-- Criar checklist de validação.
+- Iniciar fase visual com Stitch para criação do primeiro conceito visual geral do Blue Atelier.
 - Validar o repositório remoto após o push desta tarefa.
 
 ## arquivos alterados na última tarefa
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/13-sistema-de-arquivos.md`
+- `docs/14-checklist-de-validacao.md`
 
 ## validações executadas na última tarefa
 
@@ -81,16 +87,13 @@ Criação da documentação do sistema de arquivos do Blue Atelier, definindo re
 - Leitura obrigatória do documento `docs/10-prompts-antigravity.md`.
 - Leitura obrigatória do documento `docs/11-comandos-codex.md`.
 - Leitura obrigatória do documento `docs/12-modelagem-do-banco.md`.
-- Revisão documental do sistema de arquivos criado.
+- Leitura obrigatória do documento `docs/13-sistema-de-arquivos.md`.
+- Revisão documental do checklist de validação criado.
 - Atualização do índice de próximos documentos.
 - Verificação de status do Git antes das alterações.
 
 ## próxima tarefa sugerida
 
-Criar o documento:
+Iniciar a fase visual com Stitch para criação do primeiro conceito visual geral do Blue Atelier.
 
-```txt
-docs/14-checklist-de-validacao.md
-```
-
-Esse documento deve definir critérios de validação para tarefas documentais, técnicas, visuais e futuras implementações do Blue Atelier.
+Essa etapa deve usar o prompt mestre de `docs/09-prompts-stitch.md`, respeitar `docs/07-mapa-de-telas.md` e `docs/08-design-system.md`, e gerar uma primeira proposta visual para avaliação do usuário antes de qualquer implementação de tela.

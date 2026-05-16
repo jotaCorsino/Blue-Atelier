@@ -1,6 +1,6 @@
 # blue atelier — próximos documentos
 
-Este arquivo lista os documentos criados e os próximos documentos que ainda devem ser preparados para manter o projeto organizado.
+Este arquivo lista os documentos criados e registra o fechamento da base documental inicial do Blue Atelier.
 
 ## documentos já criados
 
@@ -112,11 +112,9 @@ Objetivo:
 
 Definir estrutura de pastas, caminhos, slugs, arquivos aceitos e integração com rede.
 
-## documentos pendentes
+### 10. checklist de validação
 
-### 1. validações
-
-Arquivo sugerido:
+Arquivo:
 
 ```txt
 docs/14-checklist-de-validacao.md
@@ -124,4 +122,34 @@ docs/14-checklist-de-validacao.md
 
 Objetivo:
 
-Definir critérios para validar cada tarefa implementada.
+Definir critérios para validar tarefas documentais, técnicas, visuais e futuras implementações antes de avançar.
+
+## base documental inicial concluída
+
+A base documental inicial do Blue Atelier está concluída.
+
+Documentos criados nesta base:
+
+- `docs/05-planejamento-de-desenvolvimento.md`
+- `docs/06-arquitetura-tecnica.md`
+- `docs/07-mapa-de-telas.md`
+- `docs/08-design-system.md`
+- `docs/09-prompts-stitch.md`
+- `docs/10-prompts-antigravity.md`
+- `docs/11-comandos-codex.md`
+- `docs/12-modelagem-do-banco.md`
+- `docs/13-sistema-de-arquivos.md`
+- `docs/14-checklist-de-validacao.md`
+
+## próxima etapa sugerida
+
+Iniciar a fase visual com Stitch para criação do primeiro conceito visual geral do Blue Atelier.
+
+Essa próxima etapa deve usar como base:
+
+- `docs/07-mapa-de-telas.md`
+- `docs/08-design-system.md`
+- `docs/09-prompts-stitch.md`
+- `docs/14-checklist-de-validacao.md`
+
+Nenhum código do app deve ser criado antes de aprovação da próxima tarefa pelo usuário.
