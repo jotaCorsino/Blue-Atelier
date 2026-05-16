@@ -12,7 +12,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Criação do mapa completo de telas do Blue Atelier, definindo as telas principais, navegação lateral, barra superior, busca global, barra rápida de favoritos, hierarquia coleção > modelo > detalhes, telas com mosaico, listas, tabelas e formulários, áreas opcionais, estados vazios, erro, offline, sucesso e carregamento, além das regras para evidência visual futura.
+Criação do design system oficial do Blue Atelier, definindo princípios visuais, personalidade, paleta de cores, tema claro, tema escuro, uso do azul de destaque, cores de status, tipografia, espaçamentos, bordas, sombras, layout, navegação, barras, cards, mosaicos, listas, formulários, botões, busca, badges, estados visuais, ícones, densidade, responsividade, acessibilidade básica, evidência visual futura e regras de proteção do visual aprovado.
 
 ## decisões já tomadas
 
@@ -34,6 +34,10 @@ Criação do mapa completo de telas do Blue Atelier, definindo as telas principa
 - O mapa de telas oficial foi definido em `docs/07-mapa-de-telas.md`.
 - A hierarquia principal de navegação será coleção > modelo > detalhes do modelo.
 - Coleções, modelos e galerias devem priorizar mosaicos visuais; arquivos, fila, caminhos e configurações podem usar listas, tabelas e formulários.
+- O design system oficial foi definido em `docs/08-design-system.md`.
+- A linguagem visual deve ser moderna, minimalista, neutra, confortável e inspirada em mosaicos visuais.
+- O azul deve ser usado apenas como cor de destaque e ação, sem dominar a interface.
+- O app deve ter tema claro e tema escuro coerentes.
 - O desenvolvimento será feito uma tarefa por vez.
 - O Codex será usado como engenheiro de implementação.
 - O visual aprovado não pode ser alterado pelo Codex sem autorização explícita.
@@ -41,7 +45,6 @@ Criação do mapa completo de telas do Blue Atelier, definindo as telas principa
 
 ## pendências atuais
 
-- Criar design system.
 - Criar prompts para Stitch.
 - Criar prompts para Antigravity.
 - Criar primeiro comando para Codex configurar o repositório.
@@ -54,17 +57,16 @@ Criação do mapa completo de telas do Blue Atelier, definindo as telas principa
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/07-mapa-de-telas.md`
-- `readme.md`
+- `docs/08-design-system.md`
 
 ## validações executadas na última tarefa
 
 - Leitura obrigatória dos documentos `docs/01-descricao-geral-do-app.md`, `docs/02-regras-de-desenvolvimento-com-codex.md`, `docs/03-estado-atual.md` e `docs/04-proximos-documentos.md`.
 - Leitura obrigatória do documento `docs/05-planejamento-de-desenvolvimento.md`.
 - Leitura obrigatória do documento `docs/06-arquitetura-tecnica.md`.
-- Revisão documental do mapa de telas criado.
+- Leitura obrigatória do documento `docs/07-mapa-de-telas.md`.
+- Revisão documental do design system criado.
 - Atualização do índice de próximos documentos.
-- Atualização do readme para incluir o mapa de telas.
 - Verificação de status do Git antes das alterações.
 
 ## próxima tarefa sugerida
@@ -72,7 +74,7 @@ Criação do mapa completo de telas do Blue Atelier, definindo as telas principa
 Criar o documento:
 
 ```txt
-docs/08-design-system.md
+docs/09-prompts-stitch.md
 ```
 
-Esse documento deve definir a linguagem visual do Blue Atelier, incluindo cores, tipografia, espaçamentos, cards, mosaicos, formulários, botões, tema claro, tema escuro, estados visuais e regras de proteção do visual aprovado.
+Esse documento deve registrar prompts para explorar propostas visuais no Stitch com base na descrição geral, arquitetura técnica, mapa de telas e design system oficial.

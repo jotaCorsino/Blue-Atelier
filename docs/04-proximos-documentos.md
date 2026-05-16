@@ -40,11 +40,9 @@ Objetivo:
 
 Descrever todas as telas do app, navegação, componentes e comportamento esperado.
 
-## documentos pendentes
+### 4. design system
 
-### 1. design system
-
-Arquivo sugerido:
+Arquivo:
 
 ```txt
 docs/08-design-system.md
@@ -54,7 +52,9 @@ Objetivo:
 
 Definir cores, tipografia, espaçamentos, cards, botões, layout, tema claro, tema escuro e regras visuais.
 
-### 2. prompts para stitch
+## documentos pendentes
+
+### 1. prompts para stitch
 
 Arquivo sugerido:
 
@@ -66,7 +66,7 @@ Objetivo:
 
 Guardar prompts para geração e refinamento visual das telas no Stitch.
 
-### 3. prompts para antigravity
+### 2. prompts para antigravity
 
 Arquivo sugerido:
 
@@ -78,7 +78,7 @@ Objetivo:
 
 Guardar prompts para tarefas de implementação assistida, revisão e validação no Antigravity.
 
-### 4. comandos para codex
+### 3. comandos para codex
 
 Arquivo sugerido:
 
@@ -90,7 +90,7 @@ Objetivo:
 
 Registrar comandos/prompt de cada tarefa enviada ao Codex, mantendo histórico operacional.
 
-### 5. banco de dados
+### 4. banco de dados
 
 Arquivo sugerido:
 
@@ -102,7 +102,7 @@ Objetivo:
 
 Definir entidades, relações, campos, índices e regras de persistência.
 
-### 6. sistema de arquivos
+### 5. sistema de arquivos
 
 Arquivo sugerido:
 
@@ -114,7 +114,7 @@ Objetivo:
 
 Definir estrutura de pastas, caminhos, slugs, arquivos aceitos e integração com rede.
 
-### 7. validações
+### 6. validações
 
 Arquivo sugerido:
 
