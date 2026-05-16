@@ -12,7 +12,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Criação dos prompts para Stitch do Blue Atelier, registrando um prompt mestre, prompts por tela, prompts para temas claro e escuro, prompts para estados vazios, erro e offline, além de regras para avaliar as saídas do Stitch antes de aprovação visual.
+Criação dos prompts para Antigravity do Blue Atelier, registrando usos estratégicos, limites de atuação, formatos de resposta, prompts de revisão técnica, validação visual, auditoria de tarefas, investigação de bugs e revisão antes de release local.
 
 ## decisões já tomadas
 
@@ -40,6 +40,10 @@ Criação dos prompts para Stitch do Blue Atelier, registrando um prompt mestre,
 - O app deve ter tema claro e tema escuro coerentes.
 - O Stitch será usado apenas para ideação visual e refinamento de UI/UX, não como fonte final de código.
 - Os prompts para Stitch foram registrados em `docs/09-prompts-stitch.md`.
+- O Antigravity será usado apenas como apoio estratégico, não como engenheiro principal do projeto.
+- Os prompts para Antigravity foram registrados em `docs/10-prompts-antigravity.md`.
+- GitHub permanece como fonte de verdade e ChatGPT valida cada etapa pelo repositório remoto.
+- Nenhuma tarefa deve avançar sem commit, push e validação.
 - O desenvolvimento será feito uma tarefa por vez.
 - O Codex será usado como engenheiro de implementação.
 - O visual aprovado não pode ser alterado pelo Codex sem autorização explícita.
@@ -47,7 +51,6 @@ Criação dos prompts para Stitch do Blue Atelier, registrando um prompt mestre,
 
 ## pendências atuais
 
-- Criar prompts para Antigravity.
 - Criar primeiro comando para Codex configurar o repositório.
 - Criar modelagem do banco SQLite.
 - Criar documentação do sistema de arquivos.
@@ -58,7 +61,7 @@ Criação dos prompts para Stitch do Blue Atelier, registrando um prompt mestre,
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/09-prompts-stitch.md`
+- `docs/10-prompts-antigravity.md`
 
 ## validações executadas na última tarefa
 
@@ -67,7 +70,8 @@ Criação dos prompts para Stitch do Blue Atelier, registrando um prompt mestre,
 - Leitura obrigatória do documento `docs/06-arquitetura-tecnica.md`.
 - Leitura obrigatória do documento `docs/07-mapa-de-telas.md`.
 - Leitura obrigatória do documento `docs/08-design-system.md`.
-- Revisão documental dos prompts para Stitch criados.
+- Leitura obrigatória do documento `docs/09-prompts-stitch.md`.
+- Revisão documental dos prompts para Antigravity criados.
 - Atualização do índice de próximos documentos.
 - Verificação de status do Git antes das alterações.
 
@@ -76,7 +80,7 @@ Criação dos prompts para Stitch do Blue Atelier, registrando um prompt mestre,
 Criar o documento:
 
 ```txt
-docs/10-prompts-antigravity.md
+docs/11-comandos-codex.md
 ```
 
-Esse documento deve registrar prompts para usar o Antigravity com economia em tarefas estratégicas de implementação, revisão, validação e exploração técnica.
+Esse documento deve registrar comandos e prompts operacionais para orientar o Codex em cada tarefa futura do Blue Atelier.
