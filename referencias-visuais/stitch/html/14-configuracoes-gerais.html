@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blue Atelier - Configurações</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style data-purpose="custom-fonts">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f7f7f5;
+      color: #1f2937; /* text-gray-800 equivalent */
+    }
+    
+    /* Custom scrollbar to match the design */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #d1d5db; 
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #9ca3af; 
+    }
+  </style>
+</head>
+<body class="h-screen flex overflow-hidden antialiased">
+<!-- BEGIN: Sidebar -->
+<aside class="w-64 flex-shrink-0 flex flex-col bg-[#f4f4f1] border-r border-gray-200" data-purpose="sidebar">
+<!-- Logo -->
+<div class="h-16 flex items-center px-6 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-blue-600 text-white rounded-md flex items-center justify-center font-bold text-lg shadow-sm">
+          A
+        </div>
+<span class="font-semibold text-gray-900 text-lg tracking-tight">Blue Atelier</span>
+</div>
+</div>
+<!-- Navigation -->
+<nav aria-label="Main Navigation" class="flex-1 overflow-y-auto py-2">
+<ul class="space-y-1 px-3">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-200/50 hover:text-gray-900 transition-colors" href="#">
+<i class="w-5 h-5 text-gray-500" data-lucide="home"></i>
+            Home
+          </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-200/50 hover:text-gray-900 transition-colors" href="#">
+<i class="w-5 h-5 text-gray-500" data-lucide="folder"></i>
+            Collections
+          </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-200/50 hover:text-gray-900 transition-colors" href="#">
+<i class="w-5 h-5 text-gray-500" data-lucide="box"></i>
+            Models
+          </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-200/50 hover:text-gray-900 transition-colors" href="#">
+<i class="w-5 h-5 text-gray-500" data-lucide="printer"></i>
+            Print Queue
+          </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-200/50 hover:text-gray-900 transition-colors" href="#">
+<i class="w-5 h-5 text-gray-500" data-lucide="clock"></i>
+            Recent Files
+          </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-200/50 hover:text-gray-900 transition-colors" href="#">
+<i class="w-5 h-5 text-gray-500" data-lucide="layers"></i>
+            Materials
+          </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-200/50 hover:text-gray-900 transition-colors" href="#">
+<i class="w-5 h-5 text-gray-500" data-lucide="heart"></i>
+            Favorites
+          </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-200/50 hover:text-gray-900 transition-colors" href="#">
+<i class="w-5 h-5 text-gray-500" data-lucide="search"></i>
+            Search
+          </a>
+</li>
+</ul>
+<div class="mt-8 px-3">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium bg-gray-200/70 text-gray-900 rounded-md relative shadow-sm" href="#">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-blue-600 rounded-r-full"></div>
+<i class="w-5 h-5 text-gray-700" data-lucide="settings"></i>
+              Settings
+            </a>
+</li>
+</ul>
+</div>
+</nav>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0" data-purpose="main-content">
+<!-- Topbar -->
+<header class="h-16 flex items-center px-8 border-b border-gray-200 bg-[#f7f7f5]" data-purpose="topbar">
+<div class="w-full max-w-2xl">
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="h-4 w-4 text-gray-400" data-lucide="search"></i>
+</div>
+<input class="block w-full pl-9 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm" placeholder="Search models, prints, paints..." type="text"/>
+</div>
+</div>
+</header>
+<!-- Content Scrollable Area -->
+<div class="flex-1 overflow-y-auto p-8" data-purpose="settings-content">
+<!-- Page Header -->
+<div class="mb-8">
+<h1 class="text-2xl font-bold text-gray-900 mb-1">Configurações</h1>
+<p class="text-sm text-gray-600">Gerencie caminhos, aparência, backup e preferências do seu atelier</p>
+</div>
+<div class="flex items-start gap-10">
+<!-- Settings Secondary Nav -->
+<nav aria-label="Settings Categories" class="w-56 flex-shrink-0">
+<ul class="space-y-1 text-sm font-medium">
+<li><a class="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md transition-colors" href="#">Geral</a></li>
+<li>
+<a class="block px-3 py-2 bg-gray-200/60 text-gray-900 rounded-md relative shadow-sm transition-colors" href="#">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-blue-500 rounded-r-full"></div>
+                Caminhos Locais
+              </a>
+</li>
+<li><a class="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md transition-colors" href="#">Caminhos de Rede</a></li>
+<li><a class="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md transition-colors" href="#">Aparência</a></li>
+<li><a class="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md transition-colors" href="#">Programas Padrão</a></li>
+<li><a class="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md transition-colors" href="#">Backup</a></li>
+<li><a class="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md transition-colors" href="#">Modelo de Pastas</a></li>
+<li><a class="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md transition-colors" href="#">Dados do App</a></li>
+</ul>
+</nav>
+<!-- Settings Panels Container -->
+<div class="flex-1 space-y-6 max-w-4xl" data-purpose="panels-container">
+<!-- Section: Caminhos Principais -->
+<section class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+<h2 class="text-base font-semibold text-gray-900 mb-5">Caminhos Principais</h2>
+<div class="grid grid-cols-2 gap-8">
+<!-- Path 1 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="block text-sm font-medium text-gray-700">Pasta principal do atelier</label>
+<span class="inline-flex items-center gap-1 text-xs font-medium text-green-700">
+<i class="w-3.5 h-3.5 text-green-500" data-lucide="check-circle-2"></i>
+                    Status: OK
+                  </span>
+</div>
+<input class="w-full text-sm border-gray-200 bg-gray-50 rounded-md text-gray-600 mb-3 focus:ring-0 shadow-inner" readonly="" type="text" value="C:\Users\Admin\Documents\BlueAtelier"/>
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors" type="button">
+<i class="w-3.5 h-3.5 text-gray-400" data-lucide="plus"></i>
+                    Alterar
+                  </button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors ml-auto" type="button">
+<i class="w-3.5 h-3.5 text-gray-400" data-lucide="external-link"></i>
+                    Testar
+                  </button>
+</div>
+</div>
+<!-- Path 2 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="block text-sm font-medium text-gray-700">Pasta de coleções</label>
+<span class="inline-flex items-center gap-1 text-xs font-medium text-green-700">
+<i class="w-3.5 h-3.5 text-green-500" data-lucide="check-circle-2"></i>
+                    Status: OK
+                  </span>
+</div>
+<input class="w-full text-sm border-gray-200 bg-gray-50 rounded-md text-gray-600 mb-3 focus:ring-0 shadow-inner" readonly="" type="text" value="C:\Users\Admin\Documents\BlueAtelier\Collections"/>
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors" type="button">
+<i class="w-3.5 h-3.5 text-gray-400" data-lucide="plus"></i>
+                    Alterar
+                  </button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors ml-auto" type="button">
+<i class="w-3.5 h-3.5 text-gray-400" data-lucide="external-link"></i>
+                    Testar
+                  </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Middle Row: Rede & Aparência -->
+<div class="grid grid-cols-2 gap-6">
+<!-- Section: Rede -->
+<section class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col">
+<h2 class="text-base font-semibold text-gray-900 mb-5">Rede</h2>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-2">
+<label class="block text-sm font-medium text-gray-700">Destino da fila de impressão</label>
+<span class="inline-flex items-center gap-1 text-xs font-medium text-yellow-600">
+<i class="w-3.5 h-3.5 text-yellow-500 fill-yellow-100" data-lucide="alert-triangle"></i>
+                    Offline
+                  </span>
+</div>
+<input class="w-full text-sm border-gray-200 bg-gray-50 rounded-md text-gray-600 shadow-inner focus:ring-0" readonly="" type="text" value="Z:\Network\Prints"/>
+</div>
+</section>
+<!-- Section: Aparência -->
+<section class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+<h2 class="text-base font-semibold text-gray-900 mb-4">Aparência</h2>
+<!-- Theme Toggles -->
+<div class="grid grid-cols-3 gap-3 mb-5">
+<!-- Tema Claro (Active) -->
+<button class="flex flex-col items-center justify-center p-3 border-2 border-blue-200 bg-blue-50 rounded-lg text-blue-700 focus:outline-none ring-1 ring-blue-500 ring-offset-1 transition-all" type="button">
+<i class="w-6 h-6 mb-1" data-lucide="sun"></i>
+<span class="text-xs font-medium">Tema Claro</span>
+</button>
+<!-- Tema Escuro -->
+<button class="flex flex-col items-center justify-center p-3 border border-gray-200 bg-gray-800 rounded-lg text-gray-300 hover:bg-gray-700 focus:outline-none transition-colors" type="button">
+<i class="w-6 h-6 mb-1" data-lucide="moon"></i>
+<span class="text-xs font-medium">Tema Escuro</span>
+</button>
+<!-- Automático -->
+<button class="flex flex-col items-center justify-center p-3 border border-gray-200 bg-white rounded-lg text-gray-600 hover:bg-gray-50 focus:outline-none shadow-sm transition-colors" type="button">
+<i class="w-6 h-6 mb-1" data-lucide="monitor"></i>
+<span class="text-xs font-medium">Automático</span>
+</button>
+</div>
+<!-- Color Accent Picker -->
+<div>
+<label class="block text-xs font-medium text-gray-700 mb-2">Cor de destaque</label>
+<div class="flex items-center gap-2 flex-wrap">
+<!-- Selected Color -->
+<button class="w-6 h-6 rounded-full bg-blue-500 ring-2 ring-offset-2 ring-blue-500 focus:outline-none" type="button"></button>
+<!-- Other Colors -->
+<button class="w-6 h-6 rounded-full bg-gray-900 focus:outline-none hover:ring-2 hover:ring-offset-1 hover:ring-gray-300 transition-all" type="button"></button>
+<button class="w-6 h-6 rounded-full bg-amber-700 focus:outline-none hover:ring-2 hover:ring-offset-1 hover:ring-gray-300 transition-all" type="button"></button>
+<button class="w-6 h-6 rounded-full bg-yellow-500 focus:outline-none hover:ring-2 hover:ring-offset-1 hover:ring-gray-300 transition-all" type="button"></button>
+<button class="w-6 h-6 rounded-full bg-emerald-500 focus:outline-none hover:ring-2 hover:ring-offset-1 hover:ring-gray-300 transition-all" type="button"></button>
+<button class="w-6 h-6 rounded-full bg-teal-500 focus:outline-none hover:ring-2 hover:ring-offset-1 hover:ring-gray-300 transition-all" type="button"></button>
+<button class="w-6 h-6 rounded-full bg-blue-400 focus:outline-none hover:ring-2 hover:ring-offset-1 hover:ring-gray-300 transition-all" type="button"></button>
+<button class="w-6 h-6 rounded-full bg-purple-500 focus:outline-none hover:ring-2 hover:ring-offset-1 hover:ring-gray-300 transition-all" type="button"></button>
+<button class="w-6 h-6 rounded-full bg-pink-500 focus:outline-none hover:ring-2 hover:ring-offset-1 hover:ring-gray-300 transition-all" type="button"></button>
+</div>
+</div>
+</section>
+</div>
+<!-- Section: Programas Padrão -->
+<section class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+<h2 class="text-base font-semibold text-gray-900 mb-5">Programas Padrão</h2>
+<div class="grid grid-cols-2 gap-8">
+<!-- Program 1 -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Slicer</label>
+<div class="relative">
+<select class="block w-full pl-10 pr-10 py-2 text-sm border-gray-200 rounded-md focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white shadow-sm cursor-pointer">
+<option>Lychee Slicer</option>
+<option>ChituBox</option>
+</select>
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 rounded overflow-hidden bg-gray-100 flex items-center justify-center">
+<img alt="Lychee" class="w-full h-full object-cover rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABqp7Kkje-7ey89pDTBQxP8TpNzQSW7eqiyG_j3W_cmejdXox1TyhxHxPkQEKOu68Cd1O7WFcQIdNO0eUtaY4aSmsigtSmPJIC3OiZ8W8Lu66C8gY4xSXg8DrNPGkm4-WynXN40GlFwpfyBTMx0riER0ikzu1dGZ3zgs6TjjV1P2YLbXazzD0wD06soaNpAPRoJ1fcyyJkFB56Tm_mVG7T7mM3GCW_j3r3StmXa4x43OrALlne-DjzJUnz__8EwPJNVYrcndAeMY0"/>
+</div>
+</div>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<i class="w-4 h-4 text-gray-400" data-lucide="chevron-down"></i>
+</div>
+</div>
+</div>
+<!-- Program 2 -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Modelagem</label>
+<div class="relative">
+<select class="block w-full pl-10 pr-10 py-2 text-sm border-gray-200 rounded-md focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white shadow-sm cursor-pointer">
+<option>Blender</option>
+<option>ZBrush</option>
+</select>
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 rounded overflow-hidden bg-gray-100 flex items-center justify-center">
+<img alt="Blender" class="w-full h-full object-cover rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRYDKpIsvtV9-uzhuW_nSqaUu-RkJvLqkkZN_yxsUWtiD_Tn-qg9L-SP10jHEEeOwXD9ZlT13kCV7kfU3xEuXMzM7aWcEACqTW80Y1E41J_AAKO1pDMi4Gs9mZaYugb4cItuyyCBFnCxFZlEc7Iwk0yWynmDOSgclxPwSV9tZx_dYQMjDxi5JxD9rziEbR8FXcjcMuQg4eZnMvDwIo3Ave0dhQ9X4PVIouYOu7NrvlFbGyGeENTIr9LWneS9NmiFh75EZ1Lg66EoU"/>
+</div>
+</div>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<i class="w-4 h-4 text-gray-400" data-lucide="chevron-down"></i>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- END: Main Content Area -->
+<script data-purpose="icon-initialization">
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body></html>

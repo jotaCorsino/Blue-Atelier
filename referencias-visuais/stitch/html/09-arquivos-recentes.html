@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Arquivos Recentes - Blue Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f9f9f7",
+                        "primary": "#0058be",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f1f1ef",
+                        "surface-container-high": "#e8e8e6",
+                        "surface-bright": "#f9f9f7",
+                        "secondary-fixed-dim": "#adcebe",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5a4300",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdf9a",
+                        "surface-container-highest": "#e2e3e1",
+                        "surface-dim": "#dadad8",
+                        "surface-container-low": "#f4f4f2",
+                        "on-background": "#1a1c1b",
+                        "on-surface-variant": "#424754",
+                        "on-tertiary-fixed": "#251a00",
+                        "on-primary-fixed": "#001a42",
+                        "primary-container": "#2170e4",
+                        "secondary-container": "#c8ead9",
+                        "on-secondary-fixed-variant": "#2f4d40",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary": "#755800",
+                        "primary-fixed": "#d8e2ff",
+                        "on-secondary-fixed": "#022016",
+                        "background": "#f9f9f7",
+                        "on-surface": "#1a1c1b",
+                        "outline-variant": "#c2c6d6",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#005ac2",
+                        "secondary": "#466558",
+                        "inverse-surface": "#2f3130",
+                        "tertiary-container": "#936f00",
+                        "surface-container": "#eeeeec",
+                        "outline": "#727785",
+                        "tertiary-fixed-dim": "#f7be1d",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e2e3e1",
+                        "primary-fixed-dim": "#adc6ff",
+                        "secondary-fixed": "#c8ead9",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-primary-container": "#fefcff",
+                        "on-secondary-container": "#4c6b5d",
+                        "inverse-primary": "#adc6ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sidebar-width": "260px",
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "margin-page": "32px",
+                        "card-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "mono-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "mono-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f7f7f5;
+        }
+    </style>
+</head>
+<body class="bg-[#f7f7f5] text-on-surface font-body-md min-h-screen antialiased flex">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[260px] bg-surface dark:bg-surface-dim shadow-[0px_4px_12px_rgba(0,0,0,0.03)] flex flex-col py-margin-page z-20">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-on-primary font-bold">B</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim">Blue Atelier</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Miniature Atelier</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto px-2 space-y-1">
+<a class="flex items-center gap-3 py-3 px-4 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">home</span>
+                Início
+            </a>
+<a class="flex items-center gap-3 py-3 px-4 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">folder_special</span>
+                Coleções
+            </a>
+<a class="flex items-center gap-3 py-3 px-4 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">deployed_code</span>
+                Modelos
+            </a>
+<a class="flex items-center gap-3 py-3 px-4 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+                Fila de Impressão
+            </a>
+<a class="flex items-center gap-3 py-3 px-4 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary border-l-4 border-primary rounded-r-lg font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+                Arquivos Recentes
+            </a>
+<a class="flex items-center gap-3 py-3 px-4 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">palette</span>
+                Materiais
+            </a>
+<a class="flex items-center gap-3 py-3 px-4 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">star</span>
+                Favoritos
+            </a>
+<a class="flex items-center gap-3 py-3 px-4 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">search</span>
+                Buscar
+            </a>
+<a class="flex items-center gap-3 py-3 px-4 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-title-md text-title-md mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Configurações
+            </a>
+</nav>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-260px)] h-16 bg-surface dark:bg-surface-dim border-b border-outline-variant flex justify-between items-center px-margin-page ml-[260px] z-10">
+<div class="flex items-center bg-surface-container-low rounded-full px-4 py-2 border border-outline-variant focus-within:ring-2 focus-within:ring-primary focus-within:ring-opacity-50 transition-shadow">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-64 text-on-surface placeholder-on-surface-variant" placeholder="Pesquisar arquivos..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-[260px] mt-16 p-margin-page w-full max-w-[1400px]">
+<!-- Header & Filters -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Arquivos Recentes</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Visualize os últimos arquivos acessados, modificados ou abertos no atelier.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm border border-primary-container transition-colors shadow-sm">Todos</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm border border-outline-variant hover:bg-surface-container-low transition-colors shadow-[0px_4px_12px_rgba(0,0,0,0.03)]">Hoje</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm border border-outline-variant hover:bg-surface-container-low transition-colors shadow-[0px_4px_12px_rgba(0,0,0,0.03)]">Arquivos 3D (.stl)</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm border border-outline-variant hover:bg-surface-container-low transition-colors shadow-[0px_4px_12px_rgba(0,0,0,0.03)]">Projetos (.lychee)</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm border border-outline-variant hover:bg-surface-container-low transition-colors shadow-[0px_4px_12px_rgba(0,0,0,0.03)]">Imagens</button>
+</div>
+</div>
+<!-- Files List (Bento-inspired List) -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0px_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+<!-- List Header -->
+<div class="grid grid-cols-[auto_1fr_1fr_120px_150px_auto] gap-4 p-4 border-b border-outline-variant bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+<div class="w-10"></div>
+<div>Nome do Arquivo</div>
+<div>Localização / Modelo</div>
+<div>Tamanho</div>
+<div>Status</div>
+<div class="w-24 text-right">Acesso</div>
+</div>
+<!-- List Items -->
+<div class="divide-y divide-outline-variant/50">
+<!-- Item 1: STL -->
+<div class="grid grid-cols-[auto_1fr_1fr_120px_150px_auto] gap-4 p-4 items-center hover:bg-surface-container-low transition-colors group cursor-pointer">
+<div class="w-10 h-10 rounded bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">deployed_code</span>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors">Orc_Warrior_Base_v2.stl</div>
+<div class="font-mono-sm text-mono-sm text-on-surface-variant mt-0.5">.stl</div>
+</div>
+<div class="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">folder</span>
+                        Fantasia / Orcs / Guerreiro
+                    </div>
+<div class="font-body-md text-body-md text-on-surface-variant">45 MB</div>
+<div>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-container/50 text-secondary border border-secondary-container font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                            Encontrado
+                        </span>
+</div>
+<div class="w-24 text-right font-body-md text-body-md text-on-surface-variant">10:45</div>
+</div>
+<!-- Item 2: Lychee -->
+<div class="grid grid-cols-[auto_1fr_1fr_120px_150px_auto] gap-4 p-4 items-center hover:bg-surface-container-low transition-colors group cursor-pointer">
+<div class="w-10 h-10 rounded bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors">Plate_01_Supports_final.lychee</div>
+<div class="font-mono-sm text-mono-sm text-on-surface-variant mt-0.5">.lychee</div>
+</div>
+<div class="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">folder</span>
+                        Sci-Fi / Space Marines / Placa 1
+                    </div>
+<div class="font-body-md text-body-md text-on-surface-variant">128 MB</div>
+<div>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-container/50 text-secondary border border-secondary-container font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                            Encontrado
+                        </span>
+</div>
+<div class="w-24 text-right font-body-md text-body-md text-on-surface-variant">Ontem</div>
+</div>
+<!-- Item 3: Missing Image -->
+<div class="grid grid-cols-[auto_1fr_1fr_120px_150px_auto] gap-4 p-4 items-center hover:bg-surface-container-low transition-colors group cursor-pointer opacity-75">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">image</span>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors line-through decoration-on-surface-variant">reference_painting_scheme.jpg</div>
+<div class="font-mono-sm text-mono-sm text-error mt-0.5">.jpg</div>
+</div>
+<div class="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">folder</span>
+                        Histórico / WWII / Referências
+                    </div>
+<div class="font-body-md text-body-md text-on-surface-variant">2.4 MB</div>
+<div>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container text-on-error-container border border-error-container/50 font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                            Ausente
+                        </span>
+</div>
+<div class="w-24 text-right font-body-md text-body-md text-on-surface-variant">Ontem</div>
+</div>
+<!-- Item 4: STL -->
+<div class="grid grid-cols-[auto_1fr_1fr_120px_150px_auto] gap-4 p-4 items-center hover:bg-surface-container-low transition-colors group cursor-pointer">
+<div class="w-10 h-10 rounded bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">deployed_code</span>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors">Dragon_Wings_Left.stl</div>
+<div class="font-mono-sm text-mono-sm text-on-surface-variant mt-0.5">.stl</div>
+</div>
+<div class="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">folder</span>
+                        Fantasia / Dragão Ancião
+                    </div>
+<div class="font-body-md text-body-md text-on-surface-variant">89 MB</div>
+<div>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-container/50 text-secondary border border-secondary-container font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                            Encontrado
+                        </span>
+</div>
+<div class="w-24 text-right font-body-md text-body-md text-on-surface-variant">2 Jan</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

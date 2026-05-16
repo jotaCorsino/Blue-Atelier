@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blue Atelier - Image Viewer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style data-purpose="custom-utilities">
+    /* Custom scrollbar for better appearance */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #e5e7eb;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #d1d5db;
+    }
+    
+    .toast-enter {
+      animation: toast-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes toast-in {
+      0% { opacity: 0; transform: translateY(10px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+  </style>
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            app: {
+              bg: '#f7f7f5',
+              surface: '#ffffff',
+              primary: '#3b82f6',
+              primaryHover: '#2563eb',
+              text: '#1f2937',
+              textMuted: '#6b7280',
+              border: '#e5e7eb'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<!-- Phosphor Icons for UI elements -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="bg-app-bg text-app-text h-screen overflow-hidden flex flex-col font-sans antialiased">
+<!-- BEGIN: Window Title Bar (Simulated) -->
+<header class="h-10 flex items-center justify-between px-4 bg-app-surface border-b border-app-border flex-shrink-0 drag-region select-none relative z-50">
+<div class="flex items-center gap-2">
+<i class="ph-fill ph-cube text-app-primary text-lg"></i>
+<span class="text-xs font-medium text-app-textMuted">Blue Atelier</span>
+</div>
+<div class="flex items-center gap-4 text-app-textMuted">
+<button class="hover:text-app-text transition-colors"><i class="ph ph-minus"></i></button>
+<button class="hover:text-app-text transition-colors"><i class="ph ph-square"></i></button>
+<button class="hover:text-red-500 transition-colors"><i class="ph ph-x"></i></button>
+</div>
+</header>
+<!-- END: Window Title Bar -->
+<div class="flex flex-1 overflow-hidden">
+<!-- BEGIN: Left Sidebar Navigation -->
+<nav class="w-64 bg-app-bg border-r border-app-border flex flex-col flex-shrink-0">
+<!-- App Logo -->
+<div class="h-16 flex items-center px-6">
+<div class="flex items-center gap-3">
+<i class="ph-fill ph-triangle text-app-primary text-2xl"></i>
+<span class="font-bold text-lg tracking-tight">Blue Atelier</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text hover:bg-gray-100 transition-colors" href="#">
+<i class="ph ph-house text-xl text-app-textMuted"></i>
+<span class="font-medium text-sm">Home</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text bg-gray-200/60 relative before:absolute before:left-0 before:top-2 before:bottom-2 before:w-1 before:bg-app-primary before:rounded-r transition-colors" href="#">
+<i class="ph ph-folder text-xl text-app-textMuted"></i>
+<span class="font-medium text-sm">Collections</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text hover:bg-gray-100 transition-colors" href="#">
+<i class="ph ph-cube text-xl text-app-textMuted"></i>
+<span class="font-medium text-sm">Models</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text hover:bg-gray-100 transition-colors" href="#">
+<i class="ph ph-printer text-xl text-app-textMuted"></i>
+<span class="font-medium text-sm">Print Queue</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text hover:bg-gray-100 transition-colors" href="#">
+<i class="ph ph-clock-counter-clockwise text-xl text-app-textMuted"></i>
+<span class="font-medium text-sm">Recent Files</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text hover:bg-gray-100 transition-colors" href="#">
+<i class="ph ph-stack text-xl text-app-textMuted"></i>
+<span class="font-medium text-sm">Materials</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text hover:bg-gray-100 transition-colors" href="#">
+<i class="ph ph-heart text-xl text-app-textMuted"></i>
+<span class="font-medium text-sm">Favorites</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text hover:bg-gray-100 transition-colors" href="#">
+<i class="ph ph-magnifying-glass text-xl text-app-textMuted"></i>
+<span class="font-medium text-sm">Search</span>
+</a>
+</div>
+<!-- Settings Link at Bottom -->
+<div class="p-3 border-t border-app-border">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text hover:bg-gray-100 transition-colors" href="#">
+<i class="ph ph-gear text-xl text-app-textMuted"></i>
+<span class="font-medium text-sm">Settings</span>
+</a>
+</div>
+</nav>
+<!-- END: Left Sidebar Navigation -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 bg-app-bg">
+<!-- BEGIN: Top Action Bar -->
+<div class="h-16 flex items-center justify-between px-8 border-b border-transparent flex-shrink-0">
+<!-- Search Input -->
+<div class="relative w-96">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="ph ph-magnifying-glass text-app-textMuted"></i>
+</div>
+<input class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-app-primary focus:border-app-primary sm:text-sm transition-shadow" placeholder="Search models, prints, paints..." type="text"/>
+</div>
+<!-- Back Button -->
+<button class="flex items-center gap-2 bg-app-primary hover:bg-app-primaryHover text-white px-4 py-2 rounded-lg font-medium text-sm shadow-sm transition-colors">
+<i class="ph ph-arrow-left text-lg"></i>
+          Back to Gallery
+        </button>
+</div>
+<!-- END: Top Action Bar -->
+<!-- BEGIN: Content Viewer Layout -->
+<div class="flex-1 flex overflow-hidden p-8 pt-4 gap-8">
+<!-- Image Preview Area (75%) -->
+<div class="flex-1 flex flex-col min-w-0 bg-app-bg rounded-2xl overflow-hidden shadow-sm border border-gray-100 relative group">
+<img alt="Textura de pedra antiga" class="w-full h-full object-cover rounded-2xl" src="https://lh3.googleusercontent.com/aida/ADBb0ugPMl-JfM_yalAJTKfFJ4JuUMVOkQjSTcHjw1z7IXuMoxMTV9V9HE0Eio2ssJgH0kucprqfL17D5IkplRdbQaoKjM-k3woYv3P4EPFDd-qZ7aklO2Q0sSUt2h3pPzgdrGKjVl969jblMwFVVkHG_qM1eoj7a-rcsDGH9-7TmhidjPE_-ziulfX1g_DD89Dmg8NSEPNqFSQMx4_QUTPHzo-VNneesd0Nj9sgM5yO8UeO7afprHHC67eWHg"/>
+<!-- Subtle overlay controls (optional, often expected in viewers) -->
+<div class="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex gap-3 items-center">
+<button class="hover:text-blue-300"><i class="ph ph-minus-circle text-lg"></i></button>
+<span>100%</span>
+<button class="hover:text-blue-300"><i class="ph ph-plus-circle text-lg"></i></button>
+</div>
+</div>
+<!-- Details Panel (25%) -->
+<aside class="w-80 flex-shrink-0 flex flex-col gap-4 overflow-y-auto pr-2 pb-8">
+<!-- Header Card -->
+<div class="bg-app-surface rounded-xl p-5 shadow-sm border border-gray-100">
+<div class="flex justify-between items-start mb-3">
+<h1 class="text-2xl font-bold leading-tight text-gray-900">Textura de<br/>pedra antiga</h1>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100">
+<i class="ph-fill ph-star text-amber-500"></i> Capa
+              </span>
+</div>
+<div class="mb-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-500 text-white">
+                Referência
+              </span>
+</div>
+<!-- Tags -->
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">pedra</span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">desgaste</span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">estátua</span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">pintura</span>
+</div>
+</div>
+<!-- Info Card -->
+<div class="bg-app-surface rounded-xl p-5 shadow-sm border border-gray-100">
+<dl class="space-y-3 text-sm">
+<div class="flex gap-4">
+<dt class="text-gray-500 w-16 flex-shrink-0">Coleção</dt>
+<dd class="text-gray-900 font-medium">Eldritch Horrors</dd>
+</div>
+<div class="flex gap-4">
+<dt class="text-gray-500 w-16 flex-shrink-0">Modelo</dt>
+<dd class="text-gray-900 font-medium">Cthulhu Idol</dd>
+</div>
+<div class="flex gap-4">
+<dt class="text-gray-500 w-16 flex-shrink-0">Arquivo</dt>
+<dd class="text-gray-900 font-medium truncate" title="stone-texture-reference.jpg">stone-texture-reference.jpg</dd>
+</div>
+<div class="flex gap-4">
+<dt class="text-gray-500 w-16 flex-shrink-0">Data</dt>
+<dd class="text-gray-900 font-medium">24/10/2023</dd>
+</div>
+<div class="flex gap-4 items-center pt-1">
+<dt class="flex-shrink-0 flex items-center justify-center">
+<i class="ph-fill ph-check-circle text-green-500 text-lg"></i>
+</dt>
+<dd class="text-gray-700 text-sm">Status <span class="text-gray-900 font-medium ml-1">Arquivo encontrado</span></dd>
+</div>
+</dl>
+</div>
+<!-- Actions Area -->
+<div class="flex flex-col gap-2 mt-2 relative">
+<button class="w-full bg-app-primary hover:bg-app-primaryHover text-white px-4 py-3 rounded-xl font-medium text-sm shadow-sm transition-colors mb-2">
+              Definir como Capa
+            </button>
+<button class="w-full flex items-center justify-center gap-2 bg-app-surface hover:bg-gray-50 text-gray-700 px-4 py-2.5 rounded-xl font-medium text-sm shadow-sm border border-gray-200 transition-colors">
+<i class="ph ph-arrows-out-simple text-lg text-gray-500"></i>
+              Abrir no Visualizador
+            </button>
+<button class="w-full flex items-center justify-center gap-2 bg-app-surface hover:bg-gray-50 text-gray-700 px-4 py-2.5 rounded-xl font-medium text-sm shadow-sm border border-gray-200 transition-colors relative" id="btn-copy-path">
+<i class="ph ph-folder-open text-lg text-gray-500"></i>
+              Abrir Pasta
+            </button>
+<div class="relative w-full">
+<button class="w-full flex items-center justify-center gap-2 bg-app-surface hover:bg-gray-50 text-gray-700 px-4 py-2.5 rounded-xl font-medium text-sm shadow-sm border border-gray-200 transition-colors" onclick="showToast()">
+<i class="ph ph-copy text-lg text-gray-500"></i>
+                Copiar Caminho
+              </button>
+<!-- Simulated Tooltip/Toast for 'Copiar Caminho' as per design req -->
+<div class="absolute -right-2 top-10 bg-blue-500 text-white text-xs px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5 z-10 hidden toast-enter" id="copy-toast">
+<i class="ph ph-check"></i> Caminho copiado
+              </div>
+</div>
+<button class="w-full flex items-center justify-center gap-2 bg-app-surface hover:bg-gray-50 text-gray-700 px-4 py-2.5 rounded-xl font-medium text-sm shadow-sm border border-gray-200 transition-colors">
+<i class="ph ph-pencil-simple text-lg text-gray-500"></i>
+              Editar Metadados
+            </button>
+</div>
+</aside>
+</div>
+<!-- END: Content Viewer Layout -->
+</main>
+<!-- END: Main Content Area -->
+</div>
+<script data-purpose="interaction-scripts">
+    function showToast() {
+      const toast = document.getElementById('copy-toast');
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 2500);
+    }
+  </script>
+</body></html>

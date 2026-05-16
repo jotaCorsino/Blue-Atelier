@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blue Atelier - Eldritch Horrors Collection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            appBg: '#f4f4f0',
+            sidebarBg: '#f7f7f5',
+            brandBlue: '#3b82f6',
+            brandBlueHover: '#2563eb',
+            textMain: '#1f2937',
+            textMuted: '#6b7280',
+            cardBg: '#ffffff',
+            borderLight: '#e5e7eb',
+            statusBg: '#dbeafe',
+            statusText: '#1e40af',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-scrollbars">
+    /* Custom Scrollbar for webkit */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #d1d5db;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #9ca3af;
+    }
+  </style>
+</head>
+<body class="bg-appBg text-textMain font-sans h-screen flex overflow-hidden">
+<!-- BEGIN: Sidebar -->
+<aside class="w-64 bg-sidebarBg border-r border-borderLight flex flex-col shrink-0">
+<!-- App Header -->
+<div class="h-16 flex items-center px-6">
+<div class="flex items-center gap-2">
+<svg class="w-6 h-6 text-brandBlue" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 2L2 22h20L12 2zm0 3.8l7.2 14.2H4.8L12 5.8z"></path>
+</svg>
+<span class="font-semibold text-lg tracking-tight">Blue Atelier</span>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-textMain hover:bg-gray-100 transition-colors" href="#">
+<svg class="w-5 h-5 text-textMuted" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        Home
+      </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md bg-white shadow-sm border border-borderLight text-textMain relative" href="#">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-brandBlue rounded-r-md"></div>
+<svg class="w-5 h-5 text-brandBlue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        Collections
+      </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-textMain hover:bg-gray-100 transition-colors" href="#">
+<svg class="w-5 h-5 text-textMuted" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        Models
+      </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-textMain hover:bg-gray-100 transition-colors" href="#">
+<svg class="w-5 h-5 text-textMuted" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        Print Queue
+      </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-textMain hover:bg-gray-100 transition-colors" href="#">
+<svg class="w-5 h-5 text-textMuted" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        Recent Files
+      </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-textMain hover:bg-gray-100 transition-colors" href="#">
+<svg class="w-5 h-5 text-textMuted" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        Materials
+      </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-textMain hover:bg-gray-100 transition-colors" href="#">
+<svg class="w-5 h-5 text-textMuted" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        Favorites
+      </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-textMain hover:bg-gray-100 transition-colors" href="#">
+<svg class="w-5 h-5 text-textMuted" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        Search
+      </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-textMain hover:bg-gray-100 transition-colors" href="#">
+<svg class="w-5 h-5 text-textMuted" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        Settings
+      </a>
+</nav>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden">
+<!-- Top Bar -->
+<header class="h-16 flex items-center justify-between px-8 shrink-0">
+<div class="relative w-96">
+<svg class="w-5 h-5 text-textMuted absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<input class="w-full pl-10 pr-4 py-1.5 rounded-md border border-borderLight bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brandBlue/50 transition-shadow" placeholder="Search models, prints, paints..." type="text"/>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto px-8 pb-12">
+<!-- Back Navigation -->
+<div class="mb-4">
+<a class="inline-flex items-center text-sm font-medium text-textMain hover:text-brandBlue transition-colors" href="#">
+<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Back to Collections
+        </a>
+</div>
+<!-- BEGIN: Hero Banner -->
+<section class="flex flex-col xl:flex-row gap-6 mb-8">
+<!-- Collection Image -->
+<div class="w-full xl:w-1/3 rounded-xl overflow-hidden shadow-sm shrink-0 h-48 xl:h-auto border border-borderLight/50">
+<img alt="Eldritch Horrors Collection Banner" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujzG-V7m_Hz5EgIiZ3UztxIINHBs4novI9kdxWs7wE3HFv1kD_tN6h8BZEwO-gh1GnhJKq_x77OY0MXH7_IYtbpyWS068NrNISVbxawipLKyIQeoxOE3aPidAjyR_EDxe1oAVDeo6dog4bu43UotHw2wObVoSQQyh_aULUXtRNp-9OHi9HmsIxTwtnVyS6B_oP7yckYnaY2qlJWJXJB_LGS9ATASsMOnNhzoM8za8NMNcAR0v3mTYf8IJE" style="object-position: top left; width: 100%; height: 100%; max-height: 220px;"/>
+</div>
+<!-- Collection Info -->
+<div class="flex-1 flex flex-col justify-between py-2">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<h1 class="text-3xl font-semibold tracking-tight text-textMain">Eldritch Horrors</h1>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-statusBg text-statusText">
+                In Production
+              </span>
+</div>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-white border border-borderLight text-textMuted">horror</span>
+<span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-white border border-borderLight text-textMuted">creatures</span>
+<span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-white border border-borderLight text-textMuted">busts</span>
+<span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-white border border-borderLight text-textMuted">dark painting</span>
+</div>
+<p class="text-textMain text-sm max-w-2xl leading-relaxed">
+              Sombrous creatures, monstrous busts, and miniatures inspired by cosmic horror.
+            </p>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-3 mt-4 xl:mt-0 xl:self-end">
+<button class="inline-flex items-center justify-center px-4 py-2 border border-borderLight shadow-sm text-sm font-medium rounded-md text-textMain bg-white hover:bg-gray-50 transition-colors">
+<svg class="w-4 h-4 mr-2 text-textMuted" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Open Folder
+            </button>
+<button class="inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-brandBlue hover:bg-brandBlueHover transition-colors">
+<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              New Model
+            </button>
+</div>
+</div>
+</section>
+<!-- END: Hero Banner -->
+<!-- Content Grid Layout -->
+<div class="flex flex-col lg:flex-row gap-6">
+<!-- BEGIN: Models Grid -->
+<div class="flex-1">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Model Card 1 -->
+<article class="bg-cardBg rounded-xl border border-borderLight shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+<div class="h-40 overflow-hidden relative">
+<img alt="Cthulhu Idol" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFf-bgDIM14TbxQHdMWJZKPW5mEjIIC26rNzf-lMHtK_3gGRuquEJ7ZdhehtpDg0uyeRHsYifle7IG6YgTZ8vyUd0NEMoYiHPVUPaP3sR2TCKEl3DYykI9IFnpxEf_ofOyz1GUEbmPNJ2vWzuaHeuUTyuson5l_pzT2lFvd5RKXEmOlIqwJai3lfMB8pNFf0N8ezle0TWQRnr9wHQsoedGv5EU0TKDEWC1rGH-YN_hVAR60lX1kyyopectl8NNrUuppAq8lRs6qDQ"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-textMain truncate">Cthulhu Idol</h3>
+<span class="text-xs font-semibold text-brandBlue bg-blue-50 px-2 py-0.5 rounded">60%</span>
+</div>
+<div class="text-xs text-textMuted mb-3">Painting</div>
+<div class="mt-auto w-full bg-gray-100 rounded-full h-1.5">
+<div class="bg-brandBlue h-1.5 rounded-full" style="width: 60%"></div>
+</div>
+</div>
+</article>
+<!-- Model Card 2 -->
+<article class="bg-cardBg rounded-xl border border-borderLight shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+<div class="h-40 overflow-hidden relative">
+<img alt="Deep One Bust" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtqw1OvZL93mbG8N1IRhJ8mBY1_O6Lopw1asPyvLfGYst8imuAjVAT4AjFrp5q_wj_ppOEoXB9xx9B4wmwU-iUT0RaUyrKGAP7AIlMrs0yk2Qq5U-_uU5I5MJMZvL8aEVe2UE9KGs0yCQnwcjsfoSHsT5y0EZT1XcfcWyMXQKpTRssERtS0-XmvIfwWPFskMzkrNb5U6PWno1yHjWblapboWq5cApgDi9yL-zSilkisvM5GMKivgv4FHOMeNXpgO-jaLQbAuaxX38"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-textMain truncate">Deep One Bust</h3>
+<span class="text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-0.5 rounded">25%</span>
+</div>
+<div class="text-xs text-textMuted mb-3">Printing</div>
+<div class="mt-auto w-full bg-gray-100 rounded-full h-1.5">
+<div class="bg-brandBlue h-1.5 rounded-full" style="width: 25%"></div>
+</div>
+</div>
+</article>
+<!-- Model Card 3 -->
+<article class="bg-cardBg rounded-xl border border-borderLight shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+<div class="h-40 overflow-hidden relative">
+<img alt="Tentacle Beast" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXFo99670N7DJSWd5KS-W6CKx--F2ZP5lJm-tRpSSYeUgD8t-AtrtQuc9sPc5bXtsIO0qfYXNv4wDGBIdKjBNHN-9Ggk4dmWYLsD5rmwMXLTiDEaRe6rtwk0cLyMybufUGBK9DBwrq-C9VTCivgPC9ID9TMsN93tfVLtK1UJ4Q6SKAwYyMww18LJxIP9yk0xh4tHakJnnzxOtjRHM7qzY5n5yGLQda1IG4tnhmQ4wXRfUdm_S7vnTfX1nYKZ1zeqB51xYaOiwr9Xg"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-textMain truncate">Tentacle Beast</h3>
+<span class="text-xs font-semibold text-brandBlue bg-blue-50 px-2 py-0.5 rounded">50%</span>
+</div>
+<div class="text-xs text-textMuted mb-3">Printing</div>
+<div class="mt-auto w-full bg-gray-100 rounded-full h-1.5">
+<div class="bg-brandBlue h-1.5 rounded-full" style="width: 50%"></div>
+</div>
+</div>
+</article>
+<!-- Model Card 4 -->
+<article class="bg-cardBg rounded-xl border border-borderLight shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+<div class="h-40 overflow-hidden relative">
+<img alt="Ancient Cultist" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAoDLg9A4OpsfKzqFhU9GzstTTbfagJePzbEPMrh_Lq_eZb-L4-OdYAawwKIF3_n7VLa_CcsPbTvmCLCLU9ZCRnyMXB3m7V4sLkuSkUoAe-4ibvqFWDcIbBIPhPtzJmaoJbURjI2laZDk-xo6VwPw3DnHkQptmYnE1AZ5IG067B0k9XJOJf9ZHx4XwkjFc1xJHZ6rupbCQ6shrN8mxQAxI-xdUoSU6APCiJ4ekI3FEi5Nelz1Ml-Y3UQG_t42vZyIbC3uZFhuSD58"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-textMain truncate">Ancient Cultist</h3>
+<span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Finished</span>
+</div>
+<div class="text-xs text-textMuted mb-3">Finished</div>
+<div class="mt-auto w-full bg-gray-100 rounded-full h-1.5">
+<div class="bg-brandBlue h-1.5 rounded-full" style="width: 100%"></div>
+</div>
+</div>
+</article>
+<!-- Model Card 5 -->
+<article class="bg-cardBg rounded-xl border border-borderLight shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+<div class="h-40 overflow-hidden relative">
+<img alt="Forgotten Horror" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBI2MjBdpkrzRXxBnjbojSja0-K5hKCGuNpoIfTWRE8jyAab3cmzA8vhujStCcAbXXh97xbz2PijEyfrQ_RaOCj3vtRWp1kHZ3JpxNN7tp0RmrSTL8caCteHkMKFvvAmboX94r_Pjtb0r3l7VdP0B_dzDEVFwpSG1861F0hNBYJW6oZsua49-y6wz14T6lP6GYQTyDEd_S0GxVVwS-yIh6aFi1-u9NtmJCPnfp2MlgjAg236TNe5id4nWyVPdeKZiD1tLIbQCkYvyw"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-textMain truncate">Forgotten Horror</h3>
+<span class="text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-0.5 rounded">25%</span>
+</div>
+<div class="text-xs text-textMuted mb-3">Printing</div>
+<div class="mt-auto w-full bg-gray-100 rounded-full h-1.5">
+<div class="bg-brandBlue h-1.5 rounded-full" style="width: 25%"></div>
+</div>
+</div>
+</article>
+<!-- Model Card 6 -->
+<article class="bg-cardBg rounded-xl border border-borderLight shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+<div class="h-40 overflow-hidden relative">
+<img alt="Abyssal Statue" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBo6j5-aiXU2ijPQho1Rc7gQDp-EEbraciHbqlNfFXfTIaCDz7twzwm2bvzvImClk4y3szfaivi-6mYixJSOZXBznS-X4_DpCecoxsyXrU43XV-qYpG7f8K_NnKZvvNRCJ4rxI8pQcVTkHOSW5Z-ilrb_Cca9CtyXZnepya7_fcFNE_UixIzkjZUFoVnTfYrKsmgYxlqhyp31fkYohIZXvdenIll_P_MYz99b1JtBCFVav8kZiVCzPyUOvQGFwP_se3gdeNE1HJWs"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-textMain truncate">Abyssal Statue</h3>
+<span class="text-xs font-semibold text-brandBlue bg-blue-50 px-2 py-0.5 rounded">30%</span>
+</div>
+<div class="text-xs text-textMuted mb-3">Sunken ruin piece</div>
+<div class="mt-auto w-full bg-gray-100 rounded-full h-1.5">
+<div class="bg-brandBlue h-1.5 rounded-full" style="width: 30%"></div>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- END: Models Grid -->
+<!-- BEGIN: Sidebar Sections -->
+<aside class="w-full lg:w-72 shrink-0 flex flex-col gap-6">
+<!-- Links Widget -->
+<div class="bg-cardBg rounded-xl border border-borderLight p-5 shadow-sm">
+<h3 class="text-sm font-semibold text-textMain mb-3">Links</h3>
+<ul class="space-y-2">
+<li><a class="text-sm text-brandBlue hover:underline" href="#">Eldritch STL Files</a></li>
+<li><a class="text-sm text-brandBlue hover:underline" href="#">Dark Paint Guides</a></li>
+<li><a class="text-sm text-brandBlue hover:underline" href="#">Inspiration Board</a></li>
+</ul>
+</div>
+<!-- Gallery / References Widget -->
+<div class="bg-cardBg rounded-xl border border-borderLight p-5 shadow-sm">
+<h3 class="text-sm font-semibold text-textMain mb-3">Gallery / References</h3>
+<div class="grid grid-cols-3 gap-2">
+<img alt="Ref 1" class="rounded-md object-cover w-full h-16 aspect-square" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClAEqEoyRu9qyeW7ftY0XMqHvt604Y0cAW59WTJVJONM_tlBw1BAUwOKDdDtXFN1H3bvXXfkKtVSWpjuOJW0yr-fz72huoublXwUK13ZuLAU-R0x4b_9_0ooYiAun2NKiUH1EojfBihybuDUrTrcIy0eAHZR8nxKj8OxfGnsIEz5CQEjZFb80HEFGKrVpPsFrULikJJxunBtaMxDBRmnWohWHKoNitjCZUluAQyd-ukNXbswMGZtZQhTIE5EOdUwmJ0EgzYUL5SYM"/>
+<img alt="Ref 2" class="rounded-md object-cover w-full h-16 aspect-square" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfH7QS0fVex_DJ54GAoUEzLn7dgTimdCFgwINgeXQhaSUmICbBeuU9QQWhEGwnILkkk4zN8Pj7-Vjfuy_JJi8bIKESxEpWWLl1jGl3LDwGJfZ5IlDOHlVGcWiLgI787HPuapeUbiiqLZNKfpr-TZusMvwv0sK5AiagD78J14Wwpv5X1oaAzw7tUJFnx6UzeYbW4DKj7wUnJvx8LkpduhcCW8XFrHPmooZgBXcth6-eDV9SkqNH1Pf6_gcXmyYyq9hID81IBOjcXvA"/>
+<img alt="Ref 3" class="rounded-md object-cover w-full h-16 aspect-square" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9pj9A_lHSI8mKTkRwRsigMPys9t5SQKhmslAxpdJR0ak98lEUTyvC4vzkmKrnzIxyVofi1fal5YscSyyHimj-4OYO2ktwEEDQ2kb7JBE-i13OHdJ10wNeqeM9uBRNj15Ymg5nkZeNBD3o3vzK1b7KLKkTDa1FC_7ixMLDiqLDRkBwW2suSZG91ZKKdBPO2vTvK5N1CjCWzs5kaw8U0qmpMMtUlKPdL0iWNNsOGdtIn2lnA6bQZCNk9SBbtDlLRcUeO4HzMrLI6Ys"/>
+<img alt="Ref 4" class="rounded-md object-cover w-full h-16 aspect-square" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyxdtrq6d0iCfJlk23UYbwro1dMEswo4DteesDg90nrYEhN5RjO-kJvSCxhorLmngc64BYoSp-LQF9IirbvEWqAMDiRu-qdNZW4oFPV6gYN3w7M44RE4TVXC3gXk7ymFPPSJEffAYhord0fnW7i6TYjWQIyofN3QH-Ord48fZMXXjERI09MJ5yEa-bZVUC3AL6noImxjAsQ1n5HsfEQQMrtw93QEsbGRdBnaufILdM-aRsA0-Yj9W1LwGEA33vL7fGsIAqAGbyHZM"/>
+<img alt="Ref 5" class="rounded-md object-cover w-full h-16 aspect-square" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn6-x5Sli4jrmVZTMrcrVh4Kra7ES17YFo0QvjUf33sk67XIGN-tYptdyzO_w6fnwYbkmPh9kru0t3cL1r4TwqjyrFeElrz9YQ_MYqto2eblMksjxHuGiVPhyLSv3adpDrpmx7POZppFoJqnXkqgkLs1Zmf_qFT-qX8_c12ibOh7VwD6ZGFtuQ3GjVw0XXykTKk0CQECCUdD6hTZBAnd2GybGGMS3tTwSzrkFN7Ht3RvS_VDIvaqkmURIwf_JnxBOxGhXdchTOISY"/>
+<div class="rounded-md bg-gray-100 flex items-center justify-center w-full h-16 aspect-square cursor-pointer hover:bg-gray-200 transition-colors">
+<svg class="w-5 h-5 text-textMuted" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+</div>
+<!-- Notes Widget -->
+<div class="bg-cardBg rounded-xl border border-borderLight p-5 shadow-sm flex-1">
+<h3 class="text-sm font-semibold text-textMain mb-3">Notes</h3>
+<p class="text-sm text-textMain leading-relaxed">
+              Focus on deep greens and purples for the main Cthulhu piece. Experiment with oil washes for the cultists.
+            </p>
+</div>
+</aside>
+<!-- END: Sidebar Sections -->
+</div>
+</div>
+</main>
+<!-- END: Main Content Area -->
+</body></html>

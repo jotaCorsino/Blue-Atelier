@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blue Atelier - Dark Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            app: {
+              bg: '#1a1a1a',
+              sidebar: '#121212',
+              card: '#262626',
+              border: '#333333',
+              text: {
+                primary: '#f3f4f6',
+                secondary: '#9ca3af',
+              },
+              accent: '#3b82f6',
+              accentHover: '#2563eb',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="custom-utilities">
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* Custom Scrollbar for a more app-like feel */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #4b5563; 
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6b7280; 
+    }
+  </style>
+</head>
+<body class="bg-app-bg text-app-text-primary h-screen w-screen overflow-hidden flex flex-col font-sans select-none">
+<!-- BEGIN: Window Title Bar -->
+<header class="h-10 flex items-center justify-between px-4 bg-app-sidebar/80 backdrop-blur-sm border-b border-app-border drag-region" data-purpose="title-bar">
+<div class="flex items-center gap-3 text-sm text-app-text-secondary">
+<div class="w-4 h-4 rounded bg-app-accent flex items-center justify-center text-white text-[10px] font-bold">BA</div>
+<span>Blue Atelier</span>
+</div>
+<div class="flex items-center gap-4 text-app-text-secondary">
+<button class="hover:text-app-text-primary transition-colors">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20 12H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<button class="hover:text-app-text-primary transition-colors">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><rect height="16" rx="2" ry="2" stroke-width="2" width="16" x="4" y="4"></rect></svg>
+</button>
+<button class="hover:text-red-500 transition-colors">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</header>
+<!-- END: Window Title Bar -->
+<div class="flex flex-1 overflow-hidden">
+<!-- BEGIN: Sidebar -->
+<aside class="w-64 bg-app-sidebar border-r border-app-border flex flex-col pt-6 pb-6 px-3 shrink-0" data-purpose="sidebar">
+<!-- Brand -->
+<div class="flex items-center gap-3 px-3 mb-8">
+<svg class="w-6 h-6 text-app-accent" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 2L2 22h20L12 2zm0 3.5l7.5 15h-15L12 5.5z"></path>
+</svg>
+<span class="text-xl font-semibold tracking-tight text-white">Blue Atelier</span>
+</div>
+<!-- Navigation -->
+<nav class="flex-1 space-y-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-app-card text-app-text-primary font-medium relative overflow-hidden group" href="#">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-app-accent rounded-r-full"></div>
+<svg class="w-5 h-5 text-app-accent" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Home
+        </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text-secondary hover:bg-white/5 hover:text-app-text-primary transition-colors font-medium" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Collections
+        </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text-secondary hover:bg-white/5 hover:text-app-text-primary transition-colors font-medium" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Models
+        </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text-secondary hover:bg-white/5 hover:text-app-text-primary transition-colors font-medium" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Print Queue
+        </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text-secondary hover:bg-white/5 hover:text-app-text-primary transition-colors font-medium" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Recent Files
+        </a>
+<div class="pt-4 pb-2">
+<div class="h-px bg-app-border mx-3"></div>
+</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text-secondary hover:bg-white/5 hover:text-app-text-primary transition-colors font-medium" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Materials
+        </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text-secondary hover:bg-white/5 hover:text-app-text-primary transition-colors font-medium" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Favorites
+        </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text-secondary hover:bg-white/5 hover:text-app-text-primary transition-colors font-medium" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Search
+        </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-app-text-secondary hover:bg-white/5 hover:text-app-text-primary transition-colors font-medium mt-auto" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Settings
+        </a>
+</nav>
+<!-- Action Button -->
+<div class="mt-6 px-3">
+<button class="w-full flex items-center justify-center gap-2 bg-app-accent hover:bg-app-accentHover text-white py-2.5 px-4 rounded-lg font-medium transition-colors shadow-sm">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          New Collection
+        </button>
+</div>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden" data-purpose="main-content">
+<!-- Top Bar -->
+<header class="h-16 flex items-center justify-between px-8 shrink-0">
+<!-- Search -->
+<div class="relative w-96">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<svg class="w-5 h-5 text-app-text-secondary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<input class="w-full bg-app-card border-none text-app-text-primary text-sm rounded-lg pl-10 pr-4 py-2 focus:ring-1 focus:ring-app-accent placeholder-app-text-secondary transition-shadow" placeholder="Search models, prints, paints..." type="text"/>
+</div>
+<!-- Status -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-app-card border border-app-border text-xs text-app-text-secondary">
+<span class="w-2 h-2 rounded-full bg-gray-500"></span>
+          Network path offline: Z:\My Miniatures
+        </div>
+</header>
+<!-- Content Scrollable Area -->
+<div class="flex-1 overflow-y-auto p-8 pt-2">
+<div class="max-w-7xl mx-auto space-y-10">
+<!-- Section: Recent Collections -->
+<section data-purpose="recent-collections">
+<h2 class="text-lg font-medium text-white mb-4">Recent Collections</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-app-card rounded-xl overflow-hidden border border-app-border shadow-sm flex flex-col hover:border-gray-500 transition-colors cursor-pointer group">
+<div class="h-40 bg-gray-800 relative overflow-hidden">
+<img alt="Eldritch Horrors" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAndWchhf4XdkDtV7jjlXNvo_7qEq9V0wZTPkX-nXsVemnHyrD1bQsezkXSQAMyxq6vLebxUI5xyEwcphEX3PG3isZuQ0QbTuXRW7RKupqx2gali9l4IODBRx_1-SBtfRYT_b6tuW82p1T50GkwYuTPW9vZ3MPlZeNaYMM1Oa16yvdA90iKXNJzS8MOdc9E3XOyEJROPnnY6jXBPraFkUjML7bWaNXirWs3ALO9gPQp6Qww4k1MJQAgY6phfZOqOC-HUnfZPRiql1k"/>
+</div>
+<div class="p-4 flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<h3 class="font-medium text-white">Eldritch Horrors</h3>
+<span class="text-[10px] uppercase tracking-wider font-semibold px-2 py-1 rounded bg-blue-900/50 text-blue-300">In Progress</span>
+</div>
+<p class="text-sm text-app-text-secondary">8 Models, 4 Painted</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-app-card rounded-xl overflow-hidden border border-app-border shadow-sm flex flex-col hover:border-gray-500 transition-colors cursor-pointer group">
+<div class="h-40 bg-gray-800 relative overflow-hidden">
+<img alt="Sci-Fi Marines" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRImgMC_Ei841R15esGG99PT2bRnYoP53nnAa7z8MYx0uynLvVGWUBh-jXG9tAsLnWghAE1KCr3j9BWqQS93C7taJ7jni3ktO_UElEdZEraHsUNmPI8urPMJsKxJTzNVJNFqbB3wMq3xoXY9f_o9TawepFDh50Y9qSb90n730HkuaenicyP1bcLJbdLc2e41Yh0c4_m2At8aEdUoXAafs13NJeWDcC2AiAoM-Nl-tUUQNQAwDQccG_PzfhCV0-Djq0VeiQJEfI-3A"/>
+</div>
+<div class="p-4 flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<h3 class="font-medium text-white">Sci-Fi Marines</h3>
+<span class="text-[10px] uppercase tracking-wider font-semibold px-2 py-1 rounded bg-green-900/30 text-green-400">Ready to Print</span>
+</div>
+<p class="text-sm text-app-text-secondary">15 Models, 12 STL Files</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-app-card rounded-xl overflow-hidden border border-app-border shadow-sm flex flex-col hover:border-gray-500 transition-colors cursor-pointer group">
+<div class="h-40 bg-gray-800 relative overflow-hidden">
+<img alt="Fantasy Adventurers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ16OpL3wURHUh1Majp2GDE6WL6DspsrTSjbAafD-ibJaGYH_xe9BzshZxJgtJCJmkb31NHDc76UAO0k1Hdph4nuOfeoSxS1trDHwpbJnOgdQ3ZLNeRe_pcM7j8QshpfxyvhQh_bdfUto2CAUmBvpYzlWj7OCMn7rvMsefEvAP0X3MOBe64v_atcxrzSTtrnCpY5lKWMKqMDaKxP8PgUOF9mxQ0jnwwnFCHphB2d_ZO3lG_efh9u-jQap_pHJXOhj9vpd36CwmLv4"/>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<h3 class="font-medium text-white">Fantasy Adventurers</h3>
+<span class="text-xs font-medium text-app-text-primary">40%</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-1.5 overflow-hidden">
+<div class="bg-app-accent h-1.5 rounded-full" style="width: 40%"></div>
+</div>
+<p class="text-sm text-app-text-secondary mt-1">5 Models, 2 Primed</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Models in Progress -->
+<section data-purpose="models-in-progress">
+<h2 class="text-lg font-medium text-white mb-4">Models in Progress</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-app-card rounded-xl overflow-hidden border border-app-border shadow-sm flex flex-col hover:border-gray-500 transition-colors cursor-pointer group">
+<div class="h-40 bg-gray-800 relative overflow-hidden">
+<img alt="Dragon Bust" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu0FIhHCW47EF-jjKlFLnqPvE2B07KFOU3p9KXODXzR8XGlOB7z9u6ntiQrfn4g7pPzKDOvnldxs5ljUYOiaVf0I5vOLdTlZWVS6R4ZjT6cnGV62I544IrnQElFzzXWo_V6eqcqCfskGXPEDrj71r3J1oN1joY8aD8rB1RPwY3WSpDPLirPc4S4xvm0-VR_WZosSn9hSc6a8b-XbMnb6kbYLeW2XYAAkY7_mq-IrXV5TWvnyQzvDI8jRJt_6yE9fkMAJ7u2eEAPFk"/>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<h3 class="font-medium text-white">Dragon Bust</h3>
+<span class="text-xs font-medium text-app-text-primary">65%</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-1.5 overflow-hidden">
+<div class="bg-app-accent h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+<p class="text-sm text-app-text-secondary mt-1">Painting - Stage 3: Glazing</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-app-card rounded-xl overflow-hidden border border-app-border shadow-sm flex flex-col hover:border-gray-500 transition-colors cursor-pointer group">
+<div class="h-40 bg-gray-800 relative overflow-hidden">
+<img alt="Tavern Diorama" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPjYRmjcYK5B4ve15ge3Dh7gILhW_y3Op0in_WylTHjbhIAlwJxZ052FonWrlffRxvUUUnA7dgG59fQ-sQ0XdIpp7bomqV_LNh6qDH4dIPDPiIyeWn6ewxMms6OYE3uh1A65XTD1j75GJySG3FkYkBAIpjKa3pMhpuoQnb8tmXVLmupeMdRZRrucPPIFriW-TnHX6YgboezRxTEP1lFjfMaNZY0vGm3cP6kSjNHSLO1_pnACaI1Zb_FYtvnODVe4GPMUfCpZmVjCc"/>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<h3 class="font-medium text-white">Tavern Diorama</h3>
+<span class="text-xs font-medium text-app-text-primary">20%</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-1.5 overflow-hidden">
+<div class="bg-app-accent h-1.5 rounded-full" style="width: 20%"></div>
+</div>
+<p class="text-sm text-app-text-secondary mt-1">Slicing - Supports Added</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-app-card rounded-xl overflow-hidden border border-app-border shadow-sm flex flex-col hover:border-gray-500 transition-colors cursor-pointer group">
+<div class="h-40 bg-gray-800 relative overflow-hidden">
+<img alt="Orc Warlord" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARABGV_tBJ5Yp2bspR_VbDS79sZd5Mf89DgK7znKm8gZZ_gRsywk_x4RxEcxYT3N_PkXFsbJZMgI3nYSPekMlgVZOTRIVf51P0X84-5anIezuHLwhRs5HVtpIUFHbXsMy7klbUBqCLA2E99Efzc6Jo3KDOWp3ISNop7X4oSe7rOnJ9EPJjCscsx0eVgfkAhx9NDH2JFGikYhMEXvLlmvMmCT96HpK-x2i-ecPo6d-2WDS-aWXw4C0V53ee0v_oSoES6gFJZf83My0"/>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<h3 class="font-medium text-white">Orc Warlord</h3>
+<span class="text-xs font-medium text-app-text-primary">90%</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-1.5 overflow-hidden">
+<div class="bg-app-accent h-1.5 rounded-full" style="width: 90%"></div>
+</div>
+<p class="text-sm text-app-text-secondary mt-1">Post-Processing - Curing</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Ready to Print -->
+<section class="pb-10" data-purpose="ready-to-print">
+<h2 class="text-lg font-medium text-white mb-4">Ready to Print</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Card 1 -->
+<div class="bg-app-card rounded-xl overflow-hidden border border-app-border shadow-sm flex hover:border-gray-500 transition-colors cursor-pointer group h-32">
+<div class="w-48 bg-gray-800 relative overflow-hidden shrink-0">
+<img alt="Modular Dungeon Tiles" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOmb70WJGSQQvLJrk0qgufsh_r5ygOX0icbhx6UT8NlulC4Y6SzmZiBk9fPEPgA2Igxjb1eAEuKrsrFzgGWZ3qH8E96Qz6251rDgTg6_a-gFgIBTT0V6UmeKYshZN8KF_iUTou47v78cG7t7er9xSYOYdiDVdM3FicHP19TU4ftpz12z5UNd-soRXXiSW270pmJFhQ_NuOUS1QTbSjhz9CyFzcx7HEQEDQP920JwYcbyuov_nV9NV1qKiseR5Mn1DLuNJ0rPVslXs"/>
+</div>
+<div class="p-4 flex flex-col justify-center flex-1">
+<h3 class="font-medium text-white mb-1">Modular Dungeon Tiles</h3>
+<p class="text-sm text-app-text-secondary">34 Files, Est. 12h 45m</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-app-card rounded-xl overflow-hidden border border-app-border shadow-sm flex hover:border-gray-500 transition-colors cursor-pointer group h-32">
+<div class="w-48 bg-gray-800 relative overflow-hidden shrink-0">
+<img alt="Ancient Ruins Scatter" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCTmQgspFlrC1dXi1874RdXwcqRcUSJfkG5JscdvT-ZsOYgGAbeCkfb0PLuSce957NUJ2fJEW1GGNKVT9bD7hFNxI5UxEJrtl0c3fiXhGgmez24XptWv3JeqMkXNyyM6jv51horl9coNqmHy8z2XgFUvbb5OK3SrA-cxybDZWNA642XxuVFqX7ZpOytQFLdmpxn59S9n50jkfGpD7LDaKaM4LFl7aP72wD98iAMzOwMAIt9cqJfSSo_vbxVZbbcUalZY1Ibv7LV0U"/>
+</div>
+<div class="p-4 flex flex-col justify-center flex-1">
+<h3 class="font-medium text-white mb-1">Ancient Ruins Scatter</h3>
+<p class="text-sm text-app-text-secondary">6 Files, Est. 4h 20m</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- END: Main Content Area -->
+</div>
+</body></html>

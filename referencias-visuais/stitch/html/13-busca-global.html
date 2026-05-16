@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Busca - Blue Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f9f9f7",
+                        "primary": "#0058be",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f1f1ef",
+                        "surface-container-high": "#e8e8e6",
+                        "surface-bright": "#f9f9f7",
+                        "secondary-fixed-dim": "#adcebe",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5a4300",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdf9a",
+                        "surface-container-highest": "#e2e3e1",
+                        "surface-dim": "#dadad8",
+                        "surface-container-low": "#f4f4f2",
+                        "on-background": "#1a1c1b",
+                        "on-surface-variant": "#424754",
+                        "on-tertiary-fixed": "#251a00",
+                        "on-primary-fixed": "#001a42",
+                        "primary-container": "#2170e4",
+                        "secondary-container": "#c8ead9",
+                        "on-secondary-fixed-variant": "#2f4d40",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary": "#755800",
+                        "primary-fixed": "#d8e2ff",
+                        "on-secondary-fixed": "#022016",
+                        "background": "#f9f9f7",
+                        "on-surface": "#1a1c1b",
+                        "outline-variant": "#c2c6d6",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#005ac2",
+                        "secondary": "#466558",
+                        "inverse-surface": "#2f3130",
+                        "tertiary-container": "#936f00",
+                        "surface-container": "#eeeeec",
+                        "outline": "#727785",
+                        "tertiary-fixed-dim": "#f7be1d",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e2e3e1",
+                        "primary-fixed-dim": "#adc6ff",
+                        "secondary-fixed": "#c8ead9",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-primary-container": "#fefcff",
+                        "on-secondary-container": "#4c6b5d",
+                        "inverse-primary": "#adc6ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sidebar-width": "260px",
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "margin-page": "32px",
+                        "card-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "mono-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "mono-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f5; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined[data-weight="fill"] { font-variation-settings: 'FILL' 1; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-[260px] bg-surface shadow-[0px_4px_12px_rgba(0,0,0,0.03)] flex flex-col py-margin-page hidden md:flex z-50">
+<div class="px-margin-page mb-8">
+<h1 class="font-headline-md text-headline-md text-primary">Blue Atelier</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Miniature Atelier</p>
+</div>
+<ul class="flex-1 flex flex-col gap-1 w-full">
+<li><a class="flex items-center gap-3 py-3 px-margin-page text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="home">home</span><span class="font-title-md text-title-md">Início</span></a></li>
+<li><a class="flex items-center gap-3 py-3 px-margin-page text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="folder_special">folder_special</span><span class="font-title-md text-title-md">Coleções</span></a></li>
+<li><a class="flex items-center gap-3 py-3 px-margin-page text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="deployed_code">deployed_code</span><span class="font-title-md text-title-md">Modelos</span></a></li>
+<li><a class="flex items-center gap-3 py-3 px-margin-page text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span><span class="font-title-md text-title-md">Fila de Impressão</span></a></li>
+<li><a class="flex items-center gap-3 py-3 px-margin-page text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="history">history</span><span class="font-title-md text-title-md">Arquivos Recentes</span></a></li>
+<li><a class="flex items-center gap-3 py-3 px-margin-page text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="palette">palette</span><span class="font-title-md text-title-md">Materiais</span></a></li>
+<li><a class="flex items-center gap-3 py-3 px-margin-page text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="star">star</span><span class="font-title-md text-title-md">Favoritos</span></a></li>
+<li><a class="flex items-center gap-3 py-3 px-margin-page bg-secondary-container text-on-secondary-container border-l-4 border-primary" href="#"><span class="material-symbols-outlined" data-icon="search">search</span><span class="font-title-md text-title-md">Buscar</span></a></li>
+<li><a class="flex items-center gap-3 py-3 px-margin-page text-on-surface-variant hover:bg-surface-container-high transition-colors mt-auto" href="#"><span class="material-symbols-outlined" data-icon="settings">settings</span><span class="font-title-md text-title-md">Configurações</span></a></li>
+</ul>
+</nav>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-full md:w-[calc(100%-260px)] h-16 bg-surface border-b border-outline-variant flex justify-between items-center px-margin-page z-40">
+<div class="flex items-center gap-4">
+<h2 class="font-headline-md text-headline-md md:hidden text-primary">Blue Atelier</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors focus:ring-2 focus:ring-primary focus:ring-opacity-50 rounded-full p-2"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors focus:ring-2 focus:ring-primary focus:ring-opacity-50 rounded-full p-2"><span class="material-symbols-outlined" data-icon="account_circle">account_circle</span></button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 mt-16 md:ml-[260px] p-margin-page overflow-y-auto w-full">
+<div class="max-w-5xl mx-auto">
+<!-- Global Search Header -->
+<div class="mb-12">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">Busca Global</h2>
+<div class="relative max-w-2xl">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-lowest border border-outline-variant rounded-xl font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none shadow-[0px_4px_12px_rgba(0,0,0,0.03)]" placeholder="Buscar modelos, coleções, materiais..." type="text" value="cthulhu"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface"><span class="material-symbols-outlined" data-icon="close">close</span></button>
+</div>
+<!-- Filter Chips -->
+<div class="flex flex-wrap gap-2 mt-4">
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary font-label-sm text-label-sm">Todos</button>
+<button class="px-4 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm">Coleções</button>
+<button class="px-4 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm">Modelos</button>
+<button class="px-4 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm">Arquivos (STL/OBJ)</button>
+<button class="px-4 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm">Materiais</button>
+</div>
+</div>
+<!-- Results Grids -->
+<div class="space-y-12">
+<!-- Models Results -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Modelos</h3>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#">Ver todos</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Model Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] overflow-hidden group">
+<div class="aspect-video bg-surface-container relative">
+<img alt="3D printed Cthulhu miniature" class="w-full h-full object-cover" data-alt="A highly detailed 3D printed miniature of Cthulhu resting on a clean wooden workbench in a well-lit studio. The miniature is unpainted grey resin, showing crisp details of tentacles and scales. The lighting is soft and natural, emphasizing the professional atelier environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZTdi-tFATbMU0EnJOZ1BTYwm1oCRshuU3zj5TUHOnS_MULDdweXSW1VfHRCBlaYK__0s8iE3xIfawLzrKBWQ3tTXQXPx4J0hJHOeUAh8yAHQE32r178e_xT1y9z46ItANHBT1RymJocFq7KHl_TARy-JfEKOvbeYV6uBb3LaLUWK56iinNQCxqRIILjbZ4IIKIMoeqdcfO74juF95ihOFLb13lLzGFs758r5M4zl5J-MAvrq-c5GPNjd2G0VxYnUivluggy2sBAc"/>
+<button class="absolute top-2 right-2 p-1.5 bg-surface/80 backdrop-blur rounded-full text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined" data-icon="bookmark">bookmark</span></button>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-title-md text-title-md text-on-surface">Cthulhu Idol V2</h4>
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded font-label-sm text-label-sm">Resin</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 text-sm">Escala 75mm, suportado</p>
+<div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[100%] rounded-full"></div>
+</div>
+<div class="mt-2 flex justify-between text-xs text-on-surface-variant">
+<span>Impresso</span>
+<span>Pintura pendente</span>
+</div>
+</div>
+</div>
+<!-- Model Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] overflow-hidden group">
+<div class="aspect-video bg-surface-container relative">
+<img alt="Painted Cthulhu bust" class="w-full h-full object-cover" data-alt="A partially painted 3D printed bust of Cthulhu, showing base coats of deep greens and purples. It sits on a minimal white pedestal in a clean studio setting. Soft directional light highlights the texture of the paint job." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlebCwh-5PnxoSJqSJRijHhEH_0yfh706WvLza_-4utOzKfvjktU6pVeY2eL8W84gYT1qSeK2qyCNAtSFW7mBjY1J5Q2HYYCVKt5QL9mCbMktsnf5lvfT0lSI6PEezIg5jJQWoNGdL4ICz9o_V8hBxWNq9DF0R_EMhF_KgGP1o2K7WPHVz9eYIPf9SAcrGN6TpsNlY03Bpt4YfY0yeQO9J7HByWRMaObxRkMkSqdcjeMhIn3lAYLkP6yz6Jgy0L-5y-XZgJUiB0YE"/>
+<button class="absolute top-2 right-2 p-1.5 bg-surface/80 backdrop-blur rounded-full text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined" data-icon="bookmark">bookmark</span></button>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-title-md text-title-md text-on-surface">Busto Cthulhu Gigante</h4>
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded font-label-sm text-label-sm">FDM</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 text-sm">Escala 1:10</p>
+<div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-[#466558] h-full w-[60%] rounded-full"></div>
+</div>
+<div class="mt-2 flex justify-between text-xs text-on-surface-variant">
+<span>Em progresso</span>
+<span>Pintura Base</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Files Results (Folder Tree style) -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Arquivos</h3>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.03)] p-card-padding">
+<ul class="space-y-2">
+<li class="flex items-center gap-3 p-2 hover:bg-surface-container-low rounded-lg group">
+<span class="material-symbols-outlined text-outline" data-icon="folder">folder</span>
+<span class="font-body-md text-body-md text-on-surface flex-1">Lovecraft_Mythos_Collection</span>
+<span class="text-xs text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">Contém "cthulhu_base.stl"</span>
+</li>
+<li class="flex items-center gap-3 p-2 hover:bg-surface-container-low rounded-lg pl-8 relative">
+<div class="absolute left-4 top-0 bottom-0 w-px bg-outline-variant"></div>
+<span class="material-symbols-outlined text-outline" data-icon="view_in_ar">view_in_ar</span>
+<span class="font-body-md text-body-md text-on-surface flex-1">cthulhu_idol_v2_supported.lys</span>
+<span class="text-xs text-on-surface-variant">142 MB</span>
+</li>
+<li class="flex items-center gap-3 p-2 hover:bg-surface-container-low rounded-lg pl-8 relative">
+<div class="absolute left-4 top-0 bottom-1/2 w-px bg-outline-variant"></div>
+<div class="absolute left-4 top-1/2 w-4 h-px bg-outline-variant"></div>
+<span class="material-symbols-outlined text-outline" data-icon="view_in_ar">view_in_ar</span>
+<span class="font-body-md text-body-md text-on-surface flex-1">cthulhu_tentacle_arm_L.stl</span>
+<span class="text-xs text-on-surface-variant">24 MB</span>
+</li>
+</ul>
+</div>
+</section>
+</div>
+</div>
+</main>
+</body></html>

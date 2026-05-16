@@ -2,7 +2,9 @@
 
 ## status geral
 
-Projeto com base documental inicial concluída, pronto para iniciar a fase visual com Stitch para criação do primeiro conceito visual geral do Blue Atelier.
+Projeto com base documental inicial concluída e referências visuais do Stitch catalogadas.
+
+A direção visual exportada do Stitch foi aprovada como base visual protegida para o Blue Atelier. A próxima etapa sugerida é preparar a criação da solução .NET MAUI Blazor Hybrid usando essas referências visuais aprovadas como base, sem redesenhar ou reinterpretar o visual.
 
 ## repositório remoto
 
@@ -12,7 +14,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Criação do checklist de validação do Blue Atelier, definindo critérios para validar tarefas documentais, arquitetura, UI/UX planejada, design system, prompts, comandos, banco, sistema de arquivos, solução .NET, camadas, domínio, SQLite, migrations, serviços, arquivos, rede, fila, configurações, busca, favoritos, materiais, galeria, telas, visual, temas, estados, testes, build, commit, push e release local.
+Catalogação das referências visuais exportadas do Stitch, registrando os HTMLs, imagens, arquivo `design.md`, padrões visuais aprovados, regras de proteção visual e limites para implementação futura.
 
 ## decisões já tomadas
 
@@ -54,6 +56,13 @@ Criação do checklist de validação do Blue Atelier, definindo critérios para
 - Operações perigosas, como mover, sobrescrever ou excluir arquivos reais, devem exigir confirmação futura.
 - O checklist de validação foi definido em `docs/14-checklist-de-validacao.md`.
 - A base documental inicial do projeto foi concluída.
+- A direção visual do Stitch foi aprovada como base visual do Blue Atelier.
+- Os HTMLs exportados em `referencias-visuais/stitch/html/` são referência visual protegida.
+- As imagens exportadas em `referencias-visuais/stitch/imagens/` são referência visual protegida.
+- O arquivo `referencias-visuais/stitch/design.md` deve orientar a preservação do estilo aprovado.
+- A anotação `referencias-visuais/stitch/anotacoes/direcao-visual-aprovada.md` reforça que o visual moderno, minimalista, neutro e confortável deve ser preservado.
+- O documento `docs/15-referencias-visuais-stitch.md` cataloga as referências visuais aprovadas.
+- O Codex não pode redesenhar, reinterpretar, simplificar ou alterar o visual aprovado sem autorização explícita do usuário.
 - Toda tarefa futura deve ser validada conforme o checklist aplicável antes de avançar.
 - Tarefas de implementação devem executar build quando possível.
 - Tarefas com testes devem executar testes relevantes.
@@ -67,14 +76,20 @@ Criação do checklist de validação do Blue Atelier, definindo critérios para
 
 ## pendências atuais
 
-- Iniciar fase visual com Stitch para criação do primeiro conceito visual geral do Blue Atelier.
+- Preparar a criação da solução .NET MAUI Blazor Hybrid usando as referências visuais aprovadas como base.
+- Manter os HTMLs, imagens e `design.md` do Stitch protegidos contra alterações não autorizadas.
 - Validar o repositório remoto após o push desta tarefa.
 
-## arquivos alterados na última tarefa
+## arquivos alterados ou protegidos na última tarefa
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/14-checklist-de-validacao.md`
+- `docs/15-referencias-visuais-stitch.md`
+- `referencias-visuais/stitch/design.md`
+- `referencias-visuais/stitch/anotacoes/direcao-visual-aprovada.md`
+- `referencias-visuais/stitch/html/*.html`
+- `referencias-visuais/stitch/imagens/*.png`
+- `referencias-visuais/stitch/readme.md`
 
 ## validações executadas na última tarefa
 
@@ -88,12 +103,22 @@ Criação do checklist de validação do Blue Atelier, definindo critérios para
 - Leitura obrigatória do documento `docs/11-comandos-codex.md`.
 - Leitura obrigatória do documento `docs/12-modelagem-do-banco.md`.
 - Leitura obrigatória do documento `docs/13-sistema-de-arquivos.md`.
-- Revisão documental do checklist de validação criado.
-- Atualização do índice de próximos documentos.
-- Verificação de status do Git antes das alterações.
+- Leitura obrigatória do documento `docs/14-checklist-de-validacao.md`.
+- Listagem dos arquivos encontrados em `referencias-visuais/stitch/`.
+- Listagem dos arquivos encontrados em `referencias-visuais/stitch/html/`.
+- Listagem dos arquivos encontrados em `referencias-visuais/stitch/imagens/`.
+- Verificação da existência de `referencias-visuais/stitch/design.md`.
+- Verificação da existência de `referencias-visuais/stitch/readme.md`.
+- Leitura de `referencias-visuais/stitch/design.md`.
+- Leitura de `referencias-visuais/stitch/anotacoes/direcao-visual-aprovada.md`.
+- Catalogação dos HTMLs exportados do Stitch.
+- Catalogação das imagens exportadas do Stitch.
+- Confirmação de que nenhum projeto .NET, Razor Component ou CSS final foi criado.
+- Confirmação de que nenhum HTML exportado foi reescrito.
+- Confirmação de que nenhuma imagem exportada foi alterada.
 
 ## próxima tarefa sugerida
 
-Iniciar a fase visual com Stitch para criação do primeiro conceito visual geral do Blue Atelier.
+Preparar a criação da solução .NET MAUI Blazor Hybrid usando as referências visuais aprovadas do Stitch como base.
 
-Essa etapa deve usar o prompt mestre de `docs/09-prompts-stitch.md`, respeitar `docs/07-mapa-de-telas.md` e `docs/08-design-system.md`, e gerar uma primeira proposta visual para avaliação do usuário antes de qualquer implementação de tela.
+Essa etapa deve respeitar `docs/06-arquitetura-tecnica.md`, `docs/07-mapa-de-telas.md`, `docs/08-design-system.md`, `docs/14-checklist-de-validacao.md` e `docs/15-referencias-visuais-stitch.md`. A implementação futura não pode redesenhar ou reinterpretar o visual aprovado sem autorização explícita.

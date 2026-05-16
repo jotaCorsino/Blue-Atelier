@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blue Atelier - Linked Files</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="base-styles">
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #e5e5e5; /* Simulating desktop background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+  </style>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'blue-primary': '#3b82f6',
+            'surface-light': '#f9f9f7',
+            'surface-dark': '#f4f4f2',
+            'text-primary': '#1f2937',
+            'text-secondary': '#4b5563',
+            'border-color': '#e5e7eb',
+            'status-green': '#10b981',
+            'status-orange': '#f59e0b',
+          },
+          borderRadius: {
+            'card': '0.5rem',
+            'app': '0.75rem',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="p-4 md:p-8">
+<!-- BEGIN: App Window Container -->
+<div class="w-full max-w-[1376px] h-[768px] bg-surface-light rounded-app shadow-2xl flex flex-col overflow-hidden border border-gray-300">
+<!-- BEGIN: Window Title Bar (Simulated) -->
+<div class="h-8 bg-surface-light flex justify-between items-center px-4 border-b border-border-color shrink-0">
+<div class="flex items-center space-x-2 text-xs text-text-secondary font-medium">
+<svg class="w-4 h-4 text-blue-primary" fill="currentColor" viewbox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"></path></svg>
+<span>Blue Atelier</span>
+</div>
+<div class="flex space-x-4 text-gray-500">
+<svg class="w-3 h-3 hover:text-gray-800 cursor-pointer" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20 12H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<svg class="w-3 h-3 hover:text-gray-800 cursor-pointer" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<svg class="w-3 h-3 hover:text-red-500 cursor-pointer" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+<!-- END: Window Title Bar -->
+<div class="flex flex-1 overflow-hidden">
+<!-- BEGIN: Sidebar -->
+<aside class="w-64 bg-surface-light border-r border-border-color flex flex-col pt-6 pb-4 shrink-0">
+<div class="px-6 mb-8 flex items-center space-x-3">
+<div class="w-8 h-8 bg-blue-primary rounded-lg flex items-center justify-center text-white font-bold text-xl">A</div>
+<span class="text-xl font-semibold text-text-primary">Blue Atelier</span>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center px-3 py-2 text-text-secondary hover:bg-surface-dark hover:text-text-primary rounded-md group" href="#">
+<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Home
+          </a>
+<a class="flex items-center px-3 py-2 text-text-secondary hover:bg-surface-dark hover:text-text-primary rounded-md group" href="#">
+<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Collections
+          </a>
+<a class="flex items-center px-3 py-2 bg-surface-dark text-text-primary rounded-md group font-medium" href="#">
+<svg class="w-5 h-5 mr-3 text-blue-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Models
+          </a>
+<a class="flex items-center px-3 py-2 text-text-secondary hover:bg-surface-dark hover:text-text-primary rounded-md group" href="#">
+<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Print Queue
+          </a>
+<a class="flex items-center px-3 py-2 text-text-secondary hover:bg-surface-dark hover:text-text-primary rounded-md group" href="#">
+<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Recent Files
+          </a>
+<a class="flex items-center px-3 py-2 text-text-secondary hover:bg-surface-dark hover:text-text-primary rounded-md group" href="#">
+<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Materials
+          </a>
+<a class="flex items-center px-3 py-2 text-text-secondary hover:bg-surface-dark hover:text-text-primary rounded-md group" href="#">
+<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Favorites
+          </a>
+<div class="pt-4 mt-4 border-t border-border-color">
+<a class="flex items-center px-3 py-2 text-text-secondary hover:bg-surface-dark hover:text-text-primary rounded-md group" href="#">
+<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Search
+            </a>
+<a class="flex items-center px-3 py-2 text-text-secondary hover:bg-surface-dark hover:text-text-primary rounded-md group" href="#">
+<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Settings
+            </a>
+</div>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full bg-blue-primary text-white flex items-center justify-center py-2 px-4 rounded-md hover:bg-blue-600 transition-colors">
+<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            New Collection
+          </button>
+</div>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 flex flex-col bg-surface-light relative overflow-hidden">
+<!-- BEGIN: Top Bar -->
+<header class="h-16 flex items-center justify-between px-8 shrink-0">
+<div class="flex-1 max-w-md relative">
+<svg class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<input class="w-full pl-9 pr-4 py-2 bg-white border border-border-color rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue-primary focus:border-blue-primary" placeholder="Search models, prints, paints..." type="text"/>
+</div>
+<button class="flex items-center text-sm text-text-secondary hover:text-text-primary border border-border-color bg-white px-3 py-1.5 rounded-md shadow-sm">
+<svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Back to Model Detail
+          </button>
+</header>
+<!-- END: Top Bar -->
+<!-- BEGIN: Scrollable Content -->
+<div class="flex-1 overflow-y-auto px-8 pb-12">
+<!-- Header Section -->
+<div class="flex items-start mb-8 mt-4">
+<img alt="Cthulhu Idol Cover" class="w-32 h-32 object-cover rounded-xl shadow-sm border border-gray-200 mr-6" src="https://lh3.googleusercontent.com/aida/ADBb0ug5vGisfo5QEg9I8lZn2J0PyuFZUpL1kabUSqCR_3TlhaZhfK0RSHpOUeJSiBesMQzZXUCdNfW2MSJ6wLkaQbY53F8YJ5WgknRmMH3fW9o0qBsDTH3jqLTkkeyycBh2thfhgSjRUjh9x-3D7LufZBUXfc-ZI0STOlRAnEZSjnz9sW8IG8oEb7YMJ1lhJOQRYUohNXxyj0Eim378RWFj0R510jQMcJwNyOpM0RcJdu4QifGXHp9KzAyvaw" style="object-position: left top; object-fit: cover;"/>
+<div>
+<h2 class="text-text-secondary text-sm font-medium mb-1">Arquivos Vinculados</h2>
+<h1 class="text-3xl font-bold text-text-primary mb-4">Cthulhu Idol</h1>
+<div class="flex space-x-3">
+<div class="bg-white border border-border-color rounded-lg px-4 py-2 flex items-center shadow-sm">
+<svg class="w-6 h-6 text-blue-primary mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div>
+<div class="font-bold text-lg leading-tight">3</div>
+<div class="text-xs text-text-secondary">3D Files</div>
+</div>
+</div>
+<div class="bg-white border border-border-color rounded-lg px-4 py-2 flex items-center shadow-sm">
+<svg class="w-6 h-6 text-teal-500 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div>
+<div class="font-bold text-lg leading-tight">2</div>
+<div class="text-xs text-text-secondary">Slicing</div>
+</div>
+</div>
+<div class="bg-white border border-border-color rounded-lg px-4 py-2 flex items-center shadow-sm">
+<svg class="w-6 h-6 text-indigo-500 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div>
+<div class="font-bold text-lg leading-tight">1</div>
+<div class="text-xs text-text-secondary">Ready to Print</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex space-x-3 mb-8">
+<button class="bg-blue-primary text-white flex items-center px-4 py-2 rounded-md hover:bg-blue-600 transition-colors shadow-sm text-sm font-medium">
+<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Adicionar Arquivo
+            </button>
+<button class="bg-blue-50 text-blue-700 border border-blue-200 flex items-center px-4 py-2 rounded-md hover:bg-blue-100 transition-colors shadow-sm text-sm font-medium">
+<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Vincular Pasta
+            </button>
+<button class="bg-blue-50 text-blue-700 border border-blue-200 flex items-center px-4 py-2 rounded-md hover:bg-blue-100 transition-colors shadow-sm text-sm font-medium">
+<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Abrir Pasta Principal
+            </button>
+</div>
+<!-- File Lists -->
+<div class="space-y-8">
+<!-- SECTION: Arquivos 3D -->
+<div>
+<h3 class="text-lg font-semibold text-text-primary mb-3">Arquivos 3D</h3>
+<div class="bg-white border border-border-color rounded-xl shadow-sm overflow-hidden">
+<!-- Row -->
+<div class="flex items-center px-4 py-3 border-b border-border-color hover:bg-gray-50 group">
+<svg class="w-5 h-5 text-blue-primary mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="flex-1 font-medium text-sm text-gray-800">Cthulhu_Body.stl</div>
+<div class="w-32 text-xs text-text-secondary">STL File</div>
+<div class="w-32 flex items-center text-xs text-status-green">
+<svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path></svg>
+                    Encontrado
+                  </div>
+<div class="w-24 text-xs text-text-secondary text-right">12 Out, 2023</div>
+<div class="w-24 flex justify-end space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+</div>
+</div>
+<!-- Row -->
+<div class="flex items-center px-4 py-3 border-b border-border-color hover:bg-gray-50 group">
+<svg class="w-5 h-5 text-blue-primary mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="flex-1 font-medium text-sm text-gray-800">Cthulhu_Base.stl</div>
+<div class="w-32 text-xs text-text-secondary">STL File</div>
+<div class="w-32 flex items-center text-xs text-status-green">
+<svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path></svg>
+                    Encontrado
+                  </div>
+<div class="w-24 text-xs text-text-secondary text-right">12 Out, 2023</div>
+<div class="w-24 flex justify-end space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+</div>
+</div>
+<!-- Row -->
+<div class="flex items-center px-4 py-3 hover:bg-gray-50 group">
+<svg class="w-5 h-5 text-blue-primary mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="flex-1 font-medium text-sm text-gray-800">Tentacle_Pack.stl</div>
+<div class="w-32 text-xs text-text-secondary">STL File</div>
+<div class="w-32 flex items-center text-xs text-status-green">
+<svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path></svg>
+                    Encontrado
+                  </div>
+<div class="w-24 text-xs text-text-secondary text-right">15 Out, 2023</div>
+<div class="w-24 flex justify-end space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION: Fatiamento & Impressão -->
+<div>
+<h3 class="text-lg font-semibold text-text-primary mb-3">Fatiamento &amp; Impressão</h3>
+<div class="bg-white border border-border-color rounded-xl shadow-sm overflow-hidden">
+<!-- Row -->
+<div class="flex items-center px-4 py-3 border-b border-border-color hover:bg-gray-50 group">
+<svg class="w-5 h-5 text-teal-500 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="flex-1 font-medium text-sm text-gray-800">Cthulhu_Idol_Supported.lychee</div>
+<div class="w-32 text-xs text-text-secondary">Lychee File</div>
+<div class="w-32 flex items-center text-xs text-status-green">
+<svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path></svg>
+                    Encontrado
+                  </div>
+<div class="w-24 text-xs text-text-secondary text-right">16 Out, 2023</div>
+<div class="w-24 flex justify-end space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+</div>
+</div>
+<!-- Row (Missing) -->
+<div class="flex items-center px-4 py-3 hover:bg-gray-50 group">
+<svg class="w-5 h-5 text-indigo-500 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="flex-1 font-medium text-sm text-gray-500">Cthulhu_Idol.ctb</div>
+<div class="w-32 text-xs text-text-secondary">CTB File</div>
+<div class="w-32 flex items-center text-xs text-status-orange">
+<svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" fill-rule="evenodd"></path></svg>
+                    Ausente
+                  </div>
+<div class="w-24 text-xs text-text-secondary text-right">---</div>
+<div class="w-24 flex justify-end space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-gray-300 cursor-not-allowed"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION: Documentos & Notas -->
+<div>
+<h3 class="text-lg font-semibold text-text-primary mb-3">Documentos &amp; Notas</h3>
+<div class="bg-white border border-border-color rounded-xl shadow-sm overflow-hidden">
+<!-- Row -->
+<div class="flex items-center px-4 py-3 border-b border-border-color hover:bg-gray-50 group">
+<svg class="w-5 h-5 text-gray-500 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="flex-1 font-medium text-sm text-gray-800">Print_Settings.md</div>
+<div class="w-32 text-xs text-text-secondary">Markdown File</div>
+<div class="w-32 flex items-center text-xs text-status-green">
+<svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path></svg>
+                    Encontrado
+                  </div>
+<div class="w-24 text-xs text-text-secondary text-right">12 Out, 2023</div>
+<div class="w-24 flex justify-end space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+</div>
+</div>
+<!-- Row -->
+<div class="flex items-center px-4 py-3 hover:bg-gray-50 group">
+<svg class="w-5 h-5 text-gray-500 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="flex-1 font-medium text-sm text-gray-800">Reference_Photo.jpg</div>
+<div class="w-32 text-xs text-text-secondary">JPEG Image</div>
+<div class="w-32 flex items-center text-xs text-status-green">
+<svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path></svg>
+                    Encontrado
+                  </div>
+<div class="w-24 text-xs text-text-secondary text-right">10 Out, 2023</div>
+<div class="w-24 flex justify-end space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-blue-primary"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<button class="text-gray-400 hover:text-red-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END: Scrollable Content -->
+</main>
+<!-- END: Main Content Area -->
+</div>
+</div>
+<!-- END: App Window Container -->
+</body></html>

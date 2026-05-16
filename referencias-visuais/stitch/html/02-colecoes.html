@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blue Atelier - Collections</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+              950: '#172554',
+            },
+            surface: {
+              DEFAULT: '#f9f9f7',
+              dim: '#dadad8',
+              bright: '#f9f9f7',
+              lowest: '#ffffff',
+              low: '#f4f4f2',
+              container: '#eeeeec',
+              high: '#e8e8e6',
+              highest: '#e2e2e0',
+            },
+            onSurface: {
+              DEFAULT: '#1b1c1a',
+              variant: '#444843',
+            },
+            outline: {
+              DEFAULT: '#757873',
+              variant: '#c4c8c2',
+            }
+          },
+          borderRadius: {
+            'none': '0',
+            'sm': '0.125rem',
+            DEFAULT: '0.25rem',
+            'md': '0.375rem',
+            'lg': '0.5rem',
+            'xl': '0.75rem',
+            '2xl': '1rem',
+            '3xl': '1.5rem',
+            'full': '9999px',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f7f7f5;
+      color: #1b1c1a;
+    }
+    
+    /* Custom Scrollbar for better Windows App feel */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c4c8c2;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #757873;
+    }
+  </style>
+<!-- Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="h-screen flex flex-col overflow-hidden text-sm">
+<!-- BEGIN: TitleBar -->
+<header class="h-10 bg-surface-lowest border-b border-surface-container flex items-center justify-between px-3 shrink-0 select-none">
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 bg-brand-500 rounded-sm flex items-center justify-center text-white text-[10px] font-bold">A</div>
+<span class="text-xs font-medium text-onSurface-variant">Blue Atelier</span>
+</div>
+<div class="flex items-center gap-4 text-onSurface-variant">
+<button class="hover:bg-surface-container px-2 py-1 rounded"><i class="fa-solid fa-minus text-[10px]"></i></button>
+<button class="hover:bg-surface-container px-2 py-1 rounded"><i class="fa-regular fa-square text-[10px]"></i></button>
+<button class="hover:bg-red-500 hover:text-white px-2 py-1 rounded"><i class="fa-solid fa-xmark text-[12px]"></i></button>
+</div>
+</header>
+<!-- END: TitleBar -->
+<div class="flex flex-1 overflow-hidden">
+<!-- BEGIN: Sidebar -->
+<aside class="w-64 bg-surface-lowest border-r border-surface-container flex flex-col shrink-0">
+<div class="p-4 flex items-center gap-3">
+<div class="w-6 h-6 text-brand-500 text-xl font-bold flex items-center justify-center">A</div>
+<span class="text-lg font-semibold text-onSurface">Blue Atelier</span>
+</div>
+<nav class="flex-1 px-3 py-2 space-y-1 overflow-y-auto">
+<!-- Navigation Link -->
+<a class="flex items-center gap-3 px-3 py-2 text-onSurface-variant rounded-lg hover:bg-surface-container transition-colors" href="#">
+<i class="fa-solid fa-house w-5 text-center"></i>
+<span>Home</span>
+</a>
+<!-- Active Navigation Link -->
+<a class="flex items-center gap-3 px-3 py-2 text-onSurface bg-surface-container rounded-lg font-medium border-l-4 border-brand-500 relative left-[-3px] pl-[15px]" href="#">
+<i class="fa-regular fa-folder-open w-5 text-center"></i>
+<span>Collections</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-onSurface-variant rounded-lg hover:bg-surface-container transition-colors" href="#">
+<i class="fa-solid fa-cube w-5 text-center"></i>
+<span>Models</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-onSurface-variant rounded-lg hover:bg-surface-container transition-colors" href="#">
+<i class="fa-solid fa-clipboard-list w-5 text-center"></i>
+<span>Print Queue</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-onSurface-variant rounded-lg hover:bg-surface-container transition-colors" href="#">
+<i class="fa-solid fa-clock-rotate-left w-5 text-center"></i>
+<span>Recent Files</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-onSurface-variant rounded-lg hover:bg-surface-container transition-colors" href="#">
+<i class="fa-solid fa-layer-group w-5 text-center"></i>
+<span>Materials</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-onSurface-variant rounded-lg hover:bg-surface-container transition-colors" href="#">
+<i class="fa-regular fa-heart w-5 text-center"></i>
+<span>Favorites</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-onSurface-variant rounded-lg hover:bg-surface-container transition-colors mt-4" href="#">
+<i class="fa-solid fa-magnifying-glass w-5 text-center"></i>
+<span>Search</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-onSurface-variant rounded-lg hover:bg-surface-container transition-colors" href="#">
+<i class="fa-solid fa-gear w-5 text-center"></i>
+<span>Settings</span>
+</a>
+</nav>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content -->
+<main class="flex-1 flex flex-col min-w-0 bg-[#f7f7f5]">
+<!-- Top Bar -->
+<div class="px-8 py-5 flex items-center justify-between shrink-0">
+<!-- Search -->
+<div class="relative w-[400px]">
+<i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-outline-variant"></i>
+<input class="w-full pl-9 pr-4 py-2 bg-surface-lowest border border-outline-variant rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent placeholder-onSurface-variant/50 shadow-sm" placeholder="Search models, prints, paints..." type="text"/>
+</div>
+<!-- Action Button -->
+<button class="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors shadow-sm">
+<i class="fa-solid fa-plus"></i>
+          New Collection
+        </button>
+</div>
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto px-8 pb-8">
+<!-- Header & Filters -->
+<div class="flex items-end justify-between mb-6">
+<h1 class="text-2xl font-semibold text-onSurface tracking-tight">Collections</h1>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 bg-brand-500 text-white rounded-full text-sm font-medium shadow-sm">All</button>
+<button class="px-4 py-1.5 bg-surface-lowest text-onSurface-variant border border-outline-variant rounded-full text-sm font-medium hover:bg-surface-low transition-colors shadow-sm">In Progress</button>
+<button class="px-4 py-1.5 bg-surface-lowest text-onSurface-variant border border-outline-variant rounded-full text-sm font-medium hover:bg-surface-low transition-colors shadow-sm">Ready</button>
+<button class="px-4 py-1.5 bg-surface-lowest text-onSurface-variant border border-outline-variant rounded-full text-sm font-medium hover:bg-surface-low transition-colors shadow-sm">Archived</button>
+</div>
+</div>
+<!-- Collections Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-lowest rounded-xl p-3 shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow cursor-pointer flex flex-col group">
+<div class="relative w-full pt-[56.25%] rounded-lg overflow-hidden mb-3 bg-surface-container">
+<img alt="Eldritch Horrors Painted Miniatures" class="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsgK9XJc9MbD7S_4LoZVRdN6FyNSJloUdedLCiHHI4zyegA93BsBueyaP6yO_x_trxmUWF9CwLrd8__Xzc20pCHb6QRfU-HFiSzjOnS4ne1eAZ46sxt_n8jriOsDr-Dt2oF83rYH5mujWJKMpAHZHBhT55TSZqGrErXaK2KaS2WvKs5309VsEXWEGec2NbQiq878dFnWMs3yC_pot4Go1cblkZ54FYOmERDkoEPi59Sdq1U46WzzLh0M-52Hj4YNp6Bdh995ggzAU"/>
+</div>
+<div class="flex justify-between items-start mb-1 px-1">
+<h3 class="font-semibold text-base text-onSurface truncate pr-2">Eldritch Horrors</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-100 text-brand-700 shrink-0">In Progress</span>
+</div>
+<p class="text-sm text-onSurface-variant px-1">8 Models, 4 Painted</p>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-lowest rounded-xl p-3 shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow cursor-pointer flex flex-col group">
+<div class="relative w-full pt-[56.25%] rounded-lg overflow-hidden mb-3 bg-surface-container">
+<img alt="Sci-Fi Marines 3D Render" class="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChTtzMfmRIhpf0-GRA4PYyqHNLpBWiGYZFkkpfpFRWi-N5i1Bq_eALaDXoK5A7g22ZsAKp9NwZp6Eio8q-Sa2PaN7C9hWNVVGJguA8I-x_ApSYXN_LZm3msFbLm9sO5UdttE83B7GqCQqaY4YNSevFk53UlxX4o3CReqMEA31kfelyFrGHgvyjIjgC6ZvD_cgMP__XFLizbhJmUryafi9YqT96RbmvljIiDgJjkL0QrKH5Kd_9pzKKDOI7Drwbb3LgxEGHrBEPn4A"/>
+</div>
+<div class="flex justify-between items-start mb-1 px-1">
+<h3 class="font-semibold text-base text-onSurface truncate pr-2">Sci-Fi Marines</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-sky-100 text-sky-700 shrink-0">Ready to Print</span>
+</div>
+<p class="text-sm text-onSurface-variant px-1">15 Models, 12 STL Files</p>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-lowest rounded-xl p-3 shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow cursor-pointer flex flex-col group">
+<div class="relative w-full pt-[56.25%] rounded-lg overflow-hidden mb-3 bg-surface-container">
+<img alt="Fantasy Adventurers WIP" class="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk4MrxpwPACl90SvznuwzBzlXy8FCqtxW1xWpe_kCTPETWB0KnpuD3OcXd3TKEj2HKeyPsxXp48u6pSoboDs0tRvEnKyPd_Fg2dUwaktl5OCLcUg3sCIwbaJF9VHRPOpPUPCYczAKTPNdkrZxRzS4yjT02Q3QZXh_66M3fVXuzDbg6t-TSyMy_HciVWq-H645IEY09aKRcuWaexiO1q6eEoq1OysYen6uiwDF4xoHCuYSy1TdJgOFYJd29WnQkAXrwbmW25vJCVmA"/>
+</div>
+<div class="flex justify-between items-start mb-1 px-1">
+<h3 class="font-semibold text-base text-onSurface truncate pr-2">Fantasy Adventurers</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-surface-high text-onSurface-variant shrink-0">40% Complete</span>
+</div>
+<p class="text-sm text-onSurface-variant px-1">5 Models, 2 Primed</p>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-lowest rounded-xl p-3 shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow cursor-pointer flex flex-col group">
+<div class="relative w-full pt-[56.25%] rounded-lg overflow-hidden mb-3 bg-surface-container">
+<img alt="Dragon Busts Painted" class="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiaEJFCOA4PAXKr4Wln5SigIqYIHangV_XTiKTzlt7F8IFave8b6nB0vU7YNpvMeIYNnlheissbG3WIN74zcLMcGISKhknh6Hpu_E2xvqbkm8__Q-f7g7brA3M4Xn2c2Cdstq4P0Q8b_-vEd3tPbYBGJmcubMcijAL7H0ZlW_oKfJrn6Y7hkI31lCxtOv8Oxrm8-CvQibMDRnppW9tZOcvqoBLUyE_Le_GWqjQgLcXbfEeA1i96ePO7vGvtqusSdioru8c0u46-aE"/>
+</div>
+<div class="flex justify-between items-start mb-1 px-1">
+<h3 class="font-semibold text-base text-onSurface truncate pr-2">Dragon Busts</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-100 text-brand-700 shrink-0">In Progress</span>
+</div>
+<p class="text-sm text-onSurface-variant px-1">2 Models, 1 Sculpted</p>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-lowest rounded-xl p-3 shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow cursor-pointer flex flex-col group">
+<div class="relative w-full pt-[56.25%] rounded-lg overflow-hidden mb-3 bg-surface-container">
+<img alt="Tavern Diorama 3D Model" class="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8Om8DmjDqWpDE8u2HI6-dosCHCAQpdxlr8euXsfXY5SExRUzwUd5gQ0TlS8srfmScFsGGxiJl_LXoKVk90C-Szq7As9rIcuQk2domhdCDG8VDJycYaBEy3gV08voEt2rLgQj7hVXbnY2Np9-ZZrCkvGKawN0-3Olt_9zQzWhGs-39QIXnhTy_Iye6QXRJIxgCVehRtTnNF20UtmBoKN1vWi5k3frq9lNjdN1jmFMl0t25YjO9CNxd4C0WpV4OYfQdR9zLEMuzn-Y"/>
+</div>
+<div class="flex justify-between items-start mb-1 px-1">
+<h3 class="font-semibold text-base text-onSurface truncate pr-2">Tavern Diorama</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-surface-high text-onSurface-variant shrink-0">20% Complete</span>
+</div>
+<p class="text-sm text-onSurface-variant px-1">1 Model, Multiple Parts</p>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface-lowest rounded-xl p-3 shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow cursor-pointer flex flex-col group">
+<div class="relative w-full pt-[56.25%] rounded-lg overflow-hidden mb-3 bg-surface-container">
+<img alt="Ancient Ruins Scenery" class="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkqNfr5SJfH512it-uTTp-d4DYEVlt9ALd3h-N-qNtwU_o2k1bFqOJtCRh2aYiAhpskgd835ITc_zRyZGR5J7Q9cRHofOXl6H8yiodEpgr7ltmqTVIj15-90YjoMPM_k3EKJot7BBDr5teWBCp0JhTNNzdj3qz1NOfadFOPHzQT1TTK3fg95_Aor1Tn1XInN8hnjUwqLGK2gt8jywdTq5h_iYN9fSKwnG8oawBl4ugdNXDz5zC0EFq-66JU2j8ZgDA-NoPFCbVdAQ"/>
+</div>
+<div class="flex justify-between items-start mb-1 px-1">
+<h3 class="font-semibold text-base text-onSurface truncate pr-2">Ancient Ruins</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-sky-100 text-sky-700 shrink-0">Ready to Print</span>
+</div>
+<p class="text-sm text-onSurface-variant px-1">10 Models, Scenery Set</p>
+</div>
+</div>
+</div>
+</main>
+<!-- END: Main Content -->
+</div>
+</body></html>
