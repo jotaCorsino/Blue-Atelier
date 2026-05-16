@@ -1,0 +1,34 @@
+:root {
+    color-scheme: light dark;
+    --ba-font-family: "Segoe UI", Inter, Arial, sans-serif;
+    --ba-font-size-sm: 0.875rem;
+    --ba-font-size-md: 1rem;
+    --ba-font-size-lg: 1.25rem;
+    --ba-font-size-xl: 2rem;
+    --ba-line-height: 1.55;
+    --ba-sidebar-width: 260px;
+    --ba-space-1: 0.25rem;
+    --ba-space-2: 0.5rem;
+    --ba-space-3: 0.75rem;
+    --ba-space-4: 1rem;
+    --ba-space-5: 1.25rem;
+    --ba-space-6: 1.5rem;
+    --ba-space-8: 2rem;
+    --ba-space-10: 2.5rem;
+    --ba-radius-sm: 0.5rem;
+    --ba-radius-md: 0.75rem;
+    --ba-radius-lg: 1rem;
+    --ba-radius-xl: 1.5rem;
+    --ba-radius-pill: 999px;
+    --ba-shadow-soft: 0 4px 12px rgb(0 0 0 / 3%);
+    --ba-shadow-raised: 0 8px 24px rgb(0 0 0 / 8%);
+    --ba-accent: #0058be;
+    --ba-accent-strong: #2170e4;
+    --ba-accent-soft: #d8e2ff;
+    --ba-success: #466558;
+    --ba-success-soft: #c8ead9;
+    --ba-warning: #755800;
+    --ba-warning-soft: #ffdf9a;
+    --ba-error: #ba1a1a;
+    --ba-error-soft: #ffdad6;
+}

@@ -1,0 +1,20 @@
+<button class="app-button app-button-@Variant @Class" type="@Type" disabled="@Disabled">
+    @ChildContent
+</button>
+
+@code {
+    [Parameter]
+    public string Variant { get; set; } = "primary";
+
+    [Parameter]
+    public string Type { get; set; } = "button";
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

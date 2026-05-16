@@ -156,6 +156,22 @@ Observação:
 
 Este documento foi criado após o início da fase de implementação base.
 
+### 13. fundação visual
+
+Arquivo:
+
+```txt
+docs/17-fundacao-visual.md
+```
+
+Objetivo:
+
+Registrar a fundação visual compartilhada do app, incluindo layout base, sidebar, topbar, componentes base, tokens CSS, temas claro/escuro e limites para próximas tarefas visuais.
+
+Observação:
+
+Este documento foi criado após a criação da solução base e marca o início da fundação visual reutilizável.
+
 ## base documental inicial concluída
 
 A base documental inicial do Blue Atelier está concluída.
@@ -177,14 +193,17 @@ Documentos criados nesta base:
 
 - `docs/15-referencias-visuais-stitch.md`
 - `docs/16-estrutura-da-solucao.md`
+- `docs/17-fundacao-visual.md`
 
 O documento `docs/15-referencias-visuais-stitch.md` registra que a direção visual do Stitch foi aprovada e que os arquivos em `referencias-visuais/stitch/` devem ser tratados como referência visual protegida.
 
 O documento `docs/16-estrutura-da-solucao.md` registra que a fase de implementação base foi iniciada após a catalogação das referências visuais.
 
+O documento `docs/17-fundacao-visual.md` registra que a fundação visual foi iniciada após a criação da solução base.
+
 ## próxima etapa sugerida
 
-Criar a fundação visual do app a partir das referências do Stitch, começando por layout base, sidebar, topbar, tema claro/escuro e tokens visuais, ainda sem implementar todas as telas.
+Implementar a tela inicial real do Blue Atelier com base em `referencias-visuais/stitch/html/01-inicio.html` e na fundação visual criada.
 
 Essa próxima etapa deve usar como base:
 
@@ -194,5 +213,6 @@ Essa próxima etapa deve usar como base:
 - `docs/14-checklist-de-validacao.md`
 - `docs/15-referencias-visuais-stitch.md`
 - `docs/16-estrutura-da-solucao.md`
+- `docs/17-fundacao-visual.md`
 
 Quando a implementação começar, o Codex deve preservar o visual aprovado do Stitch e não pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorização explícita.

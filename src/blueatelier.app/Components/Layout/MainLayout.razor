@@ -1,3 +1,13 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 
-@Body
+<div class="app-shell">
+    <AppSidebar />
+
+    <div class="app-workspace">
+        <AppTopbar />
+
+        <main class="app-main" id="main-content">
+            @Body
+        </main>
+    </div>
+</div>

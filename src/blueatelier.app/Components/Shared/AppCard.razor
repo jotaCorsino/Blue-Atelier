@@ -1,0 +1,34 @@
+<section class="app-card @Class">
+    @if (!string.IsNullOrWhiteSpace(Eyebrow) || !string.IsNullOrWhiteSpace(Title))
+    {
+        <header class="app-card-header">
+            @if (!string.IsNullOrWhiteSpace(Eyebrow))
+            {
+                <p class="app-card-eyebrow">@Eyebrow</p>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Title))
+            {
+                <h2>@Title</h2>
+            }
+        </header>
+    }
+
+    <div class="app-card-body">
+        @ChildContent
+    </div>
+</section>
+
+@code {
+    [Parameter]
+    public string? Eyebrow { get; set; }
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

@@ -2,9 +2,9 @@
 
 ## status geral
 
-Projeto com base documental inicial concluída, referências visuais do Stitch catalogadas e solução base .NET MAUI Blazor Hybrid criada.
+Projeto com base documental inicial concluída, referências visuais do Stitch catalogadas, solução base .NET MAUI Blazor Hybrid criada e fundação visual compartilhada iniciada.
 
-A direção visual exportada do Stitch foi aprovada como base visual protegida para o Blue Atelier. A solução técnica inicial já existe, mas ainda contém apenas um placeholder simples e não converte nenhuma tela do Stitch.
+A direção visual exportada do Stitch foi aprovada como base visual protegida para o Blue Atelier. A fundação visual agora possui layout base, sidebar, topbar, tokens CSS, temas claro/escuro e componentes compartilhados, mas ainda não converte a tela inicial completa do Stitch.
 
 ## repositório remoto
 
@@ -14,7 +14,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Criação da solução base .NET MAUI Blazor Hybrid do Blue Atelier, com projetos de camadas, projeto de testes, referências entre projetos, placeholder simples e build validado.
+Criação da fundação visual compartilhada do app, com layout base, sidebar fixa, topbar discreta, tokens CSS, temas claro/escuro, componentes base e placeholder visual usando a nova estrutura.
 
 ## decisões já tomadas
 
@@ -72,6 +72,17 @@ Criação da solução base .NET MAUI Blazor Hybrid do Blue Atelier, com projeto
 - A tela inicial atual é apenas um placeholder de estruturação e não recria o visual aprovado do Stitch.
 - O banco SQLite, EF Core, migrations, entidades completas, serviços reais, sistema de arquivos, caminhos de rede e telas finais ainda não foram implementados.
 - A estrutura da solução foi documentada em `docs/16-estrutura-da-solucao.md`.
+- A fundação visual foi iniciada após a criação da solução base.
+- O CSS visual foi reorganizado em `src/blueatelier.app/wwwroot/css/`.
+- Os tokens visuais iniciais foram definidos em `src/blueatelier.app/wwwroot/css/tokens.css`.
+- Os temas claro e escuro foram definidos em `src/blueatelier.app/wwwroot/css/themes.css`.
+- O layout base foi definido em `src/blueatelier.app/Components/Layout/MainLayout.razor`.
+- A sidebar foi criada em `src/blueatelier.app/Components/Layout/AppSidebar.razor`.
+- A topbar foi criada em `src/blueatelier.app/Components/Layout/AppTopbar.razor`.
+- Os componentes base `AppCard`, `AppBadge` e `AppButton` foram criados em `src/blueatelier.app/Components/Shared/`.
+- A Home atual virou um placeholder visual da fundação, sem implementar o dashboard real.
+- As cores roxas padrão do template MAUI foram substituídas por azul coerente com o Blue Atelier.
+- A fundação visual foi documentada em `docs/17-fundacao-visual.md`.
 - Toda tarefa futura deve ser validada conforme o checklist aplicável antes de avançar.
 - Tarefas de implementação devem executar build quando possível.
 - Tarefas com testes devem executar testes relevantes.
@@ -85,23 +96,31 @@ Criação da solução base .NET MAUI Blazor Hybrid do Blue Atelier, com projeto
 
 ## pendências atuais
 
-- Criar a fundação visual do app a partir das referências do Stitch, começando por layout base, sidebar, topbar, tema claro/escuro e tokens visuais, ainda sem implementar todas as telas.
+- Implementar a tela inicial real do Blue Atelier com base em `referencias-visuais/stitch/html/01-inicio.html` e na fundação visual criada.
 - Manter os HTMLs, imagens e `design.md` do Stitch protegidos contra alterações não autorizadas.
 - Validar o repositório remoto após o push desta tarefa.
 
 ## arquivos alterados ou criados na última tarefa
 
-- `.gitignore`
-- `BlueAtelier.sln`
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/16-estrutura-da-solucao.md`
-- `src/blueatelier.app/`
-- `src/blueatelier.domain/`
-- `src/blueatelier.application/`
-- `src/blueatelier.infrastructure/`
-- `src/blueatelier.persistence/`
-- `tests/blueatelier.tests/`
+- `docs/17-fundacao-visual.md`
+- `src/blueatelier.app/BlueAtelier.App.csproj`
+- `src/blueatelier.app/Components/_Imports.razor`
+- `src/blueatelier.app/Components/Layout/MainLayout.razor`
+- `src/blueatelier.app/Components/Layout/AppSidebar.razor`
+- `src/blueatelier.app/Components/Layout/AppTopbar.razor`
+- `src/blueatelier.app/Components/Shared/AppCard.razor`
+- `src/blueatelier.app/Components/Shared/AppBadge.razor`
+- `src/blueatelier.app/Components/Shared/AppButton.razor`
+- `src/blueatelier.app/Components/Pages/Home.razor`
+- `src/blueatelier.app/wwwroot/css/tokens.css`
+- `src/blueatelier.app/wwwroot/css/themes.css`
+- `src/blueatelier.app/wwwroot/css/app.css`
+- `src/blueatelier.app/wwwroot/index.html`
+- `src/blueatelier.app/Resources/AppIcon/appicon.svg`
+- `src/blueatelier.app/Resources/AppIcon/appiconfg.svg`
+- `src/blueatelier.app/Resources/Splash/splash.svg`
 
 ## validações executadas na última tarefa
 
@@ -110,36 +129,32 @@ Criação da solução base .NET MAUI Blazor Hybrid do Blue Atelier, com projeto
 - Leitura obrigatória do documento `docs/06-arquitetura-tecnica.md`.
 - Leitura obrigatória do documento `docs/07-mapa-de-telas.md`.
 - Leitura obrigatória do documento `docs/08-design-system.md`.
-- Leitura obrigatória do documento `docs/09-prompts-stitch.md`.
-- Leitura obrigatória do documento `docs/10-prompts-antigravity.md`.
-- Leitura obrigatória do documento `docs/11-comandos-codex.md`.
-- Leitura obrigatória do documento `docs/12-modelagem-do-banco.md`.
-- Leitura obrigatória do documento `docs/13-sistema-de-arquivos.md`.
 - Leitura obrigatória do documento `docs/14-checklist-de-validacao.md`.
 - Leitura obrigatória do documento `docs/15-referencias-visuais-stitch.md`.
+- Leitura obrigatória do documento `docs/16-estrutura-da-solucao.md`.
 - Leitura obrigatória de `referencias-visuais/stitch/readme.md`.
 - Leitura de `referencias-visuais/stitch/design.md`.
 - Leitura de `referencias-visuais/stitch/anotacoes/direcao-visual-aprovada.md`.
-- Execução de `dotnet --version`, retornando `10.0.203`.
-- Execução de `dotnet workload list`, confirmando `maui-windows` instalado.
-- Criação da solution `BlueAtelier.sln`.
-- Criação do projeto .NET MAUI Blazor Hybrid `BlueAtelier.App`.
-- Criação dos projetos de camada `BlueAtelier.Domain`, `BlueAtelier.Application`, `BlueAtelier.Infrastructure` e `BlueAtelier.Persistence`.
-- Criação do projeto de testes `BlueAtelier.Tests`.
-- Configuração das referências entre projetos conforme a arquitetura.
-- Adaptação mínima do app para foco Windows local.
-- Remoção segura de exemplos desnecessários do template.
-- Criação de placeholder simples deixando claro que o app está em estruturação.
-- Execução de `dotnet restore BlueAtelier.sln` com sucesso após permissão fora do sandbox para leitura do `NuGet.Config` do usuário.
-- Execução de `dotnet build BlueAtelier.sln` com sucesso, 0 avisos e 0 erros.
-- Execução de `dotnet test BlueAtelier.sln --no-build` com sucesso, 1 teste aprovado.
+- Leitura obrigatória de `referencias-visuais/stitch/html/01-inicio.html`.
+- Criação do layout base do app.
+- Criação da sidebar fixa com os itens principais previstos.
+- Criação da topbar discreta com busca visual provisória.
+- Criação dos componentes base `AppCard`, `AppBadge` e `AppButton`.
+- Criação de tokens CSS iniciais.
+- Criação de tema claro.
+- Criação de tema escuro.
+- Substituição visual do placeholder técnico anterior por placeholder visual usando a nova estrutura.
+- Substituição das cores roxas padrão do template MAUI por azul coerente com o Blue Atelier.
 - Confirmação de que nenhum HTML do Stitch foi alterado.
 - Confirmação de que nenhuma imagem do Stitch foi alterada.
-- Confirmação de que nenhuma tela do Stitch foi convertida.
-- Confirmação de que o app criado é apenas estrutura base.
+- Confirmação de que nenhuma tela completa do Stitch foi convertida.
+- Execução de `dotnet restore BlueAtelier.sln` com sucesso.
+- Execução de `dotnet build BlueAtelier.sln` com sucesso, 0 avisos e 0 erros.
+- Execução de `dotnet test BlueAtelier.sln --no-build` com sucesso, 1 teste aprovado.
+- Evidência visual descrita: placeholder com shell do app, sidebar fixa, topbar discreta, cards, badges e botões base.
 
 ## próxima tarefa sugerida
 
-Criar a fundação visual do app a partir das referências do Stitch, começando por layout base, sidebar, topbar, tema claro/escuro e tokens visuais, ainda sem implementar todas as telas.
+Implementar a tela inicial real do Blue Atelier com base em `referencias-visuais/stitch/html/01-inicio.html` e na fundação visual criada.
 
-Essa etapa deve respeitar `docs/06-arquitetura-tecnica.md`, `docs/07-mapa-de-telas.md`, `docs/08-design-system.md`, `docs/14-checklist-de-validacao.md`, `docs/15-referencias-visuais-stitch.md` e `docs/16-estrutura-da-solucao.md`. A implementação futura não pode redesenhar ou reinterpretar o visual aprovado sem autorização explícita.
+Essa etapa deve respeitar `docs/06-arquitetura-tecnica.md`, `docs/07-mapa-de-telas.md`, `docs/08-design-system.md`, `docs/14-checklist-de-validacao.md`, `docs/15-referencias-visuais-stitch.md`, `docs/16-estrutura-da-solucao.md` e `docs/17-fundacao-visual.md`. A implementação futura não pode redesenhar ou reinterpretar o visual aprovado sem autorização explícita.

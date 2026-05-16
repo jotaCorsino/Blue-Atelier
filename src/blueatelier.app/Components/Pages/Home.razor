@@ -1,19 +1,41 @@
 @page "/"
 
-<main class="setup-shell">
-    <section class="setup-card" aria-labelledby="setup-title">
-        <p class="setup-eyebrow">Blue Atelier</p>
-        <h1 id="setup-title">Estrutura inicial do app</h1>
-
+<section class="home-foundation">
+    <div class="page-heading">
+        <AppBadge Tone="accent">Base visual criada</AppBadge>
+        <h1>Blue Atelier</h1>
         <p>
-            A base .NET MAUI Blazor Hybrid foi criada e esta pronta para as proximas etapas tecnicas.
-            Esta tela e apenas provisoria e nao recria o visual aprovado do Stitch.
+            A fundacao visual compartilhada esta pronta para receber as telas reais.
+            Este placeholder demonstra layout, cards, badges e botoes sem converter o HTML do Stitch.
         </p>
+    </div>
 
-        <ul class="setup-list">
-            <li>Solution e projetos de camada preparados.</li>
-            <li>App focado em Windows local.</li>
-            <li>SQLite, telas finais e regras de negocio ainda nao implementados.</li>
-        </ul>
-    </section>
-</main>
+    <div class="foundation-grid">
+        <AppCard Eyebrow="Layout" Title="Shell do app">
+            <p>
+                Sidebar fixa, topbar discreta e area principal fluida foram preparados para as proximas telas.
+            </p>
+            <div class="card-actions">
+                <AppButton Variant="primary">Acao principal</AppButton>
+                <AppButton Variant="ghost">Acao neutra</AppButton>
+            </div>
+        </AppCard>
+
+        <AppCard Eyebrow="Status" Title="Referencias protegidas">
+            <p>
+                Os HTMLs e imagens do Stitch continuam sendo referencia visual aprovada, sem alteracao nesta tarefa.
+            </p>
+            <div class="badge-row">
+                <AppBadge Tone="success">Stitch aprovado</AppBadge>
+                <AppBadge Tone="warning">Telas finais pendentes</AppBadge>
+            </div>
+        </AppCard>
+
+        <AppCard Eyebrow="Proxima etapa" Title="Tela inicial real">
+            <p>
+                A proxima tarefa sugerida e implementar a Home real usando esta fundacao e a referencia
+                `01-inicio.html`.
+            </p>
+        </AppCard>
+    </div>
+</section>

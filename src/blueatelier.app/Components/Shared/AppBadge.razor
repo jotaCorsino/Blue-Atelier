@@ -1,0 +1,14 @@
+<span class="app-badge app-badge-@Tone @Class">
+    @ChildContent
+</span>
+
+@code {
+    [Parameter]
+    public string Tone { get; set; } = "neutral";
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}
