@@ -52,11 +52,9 @@ Objetivo:
 
 Definir cores, tipografia, espaçamentos, cards, botões, layout, tema claro, tema escuro e regras visuais.
 
-## documentos pendentes
+### 5. prompts para stitch
 
-### 1. prompts para stitch
-
-Arquivo sugerido:
+Arquivo:
 
 ```txt
 docs/09-prompts-stitch.md
@@ -66,7 +64,9 @@ Objetivo:
 
 Guardar prompts para geração e refinamento visual das telas no Stitch.
 
-### 2. prompts para antigravity
+## documentos pendentes
+
+### 1. prompts para antigravity
 
 Arquivo sugerido:
 
@@ -78,7 +78,7 @@ Objetivo:
 
 Guardar prompts para tarefas de implementação assistida, revisão e validação no Antigravity.
 
-### 3. comandos para codex
+### 2. comandos para codex
 
 Arquivo sugerido:
 
@@ -90,7 +90,7 @@ Objetivo:
 
 Registrar comandos/prompt de cada tarefa enviada ao Codex, mantendo histórico operacional.
 
-### 4. banco de dados
+### 3. banco de dados
 
 Arquivo sugerido:
 
@@ -102,7 +102,7 @@ Objetivo:
 
 Definir entidades, relações, campos, índices e regras de persistência.
 
-### 5. sistema de arquivos
+### 4. sistema de arquivos
 
 Arquivo sugerido:
 
@@ -114,7 +114,7 @@ Objetivo:
 
 Definir estrutura de pastas, caminhos, slugs, arquivos aceitos e integração com rede.
 
-### 6. validações
+### 5. validações
 
 Arquivo sugerido:
 

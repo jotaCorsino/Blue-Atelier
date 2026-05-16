@@ -12,7 +12,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Criação do design system oficial do Blue Atelier, definindo princípios visuais, personalidade, paleta de cores, tema claro, tema escuro, uso do azul de destaque, cores de status, tipografia, espaçamentos, bordas, sombras, layout, navegação, barras, cards, mosaicos, listas, formulários, botões, busca, badges, estados visuais, ícones, densidade, responsividade, acessibilidade básica, evidência visual futura e regras de proteção do visual aprovado.
+Criação dos prompts para Stitch do Blue Atelier, registrando um prompt mestre, prompts por tela, prompts para temas claro e escuro, prompts para estados vazios, erro e offline, além de regras para avaliar as saídas do Stitch antes de aprovação visual.
 
 ## decisões já tomadas
 
@@ -38,6 +38,8 @@ Criação do design system oficial do Blue Atelier, definindo princípios visuai
 - A linguagem visual deve ser moderna, minimalista, neutra, confortável e inspirada em mosaicos visuais.
 - O azul deve ser usado apenas como cor de destaque e ação, sem dominar a interface.
 - O app deve ter tema claro e tema escuro coerentes.
+- O Stitch será usado apenas para ideação visual e refinamento de UI/UX, não como fonte final de código.
+- Os prompts para Stitch foram registrados em `docs/09-prompts-stitch.md`.
 - O desenvolvimento será feito uma tarefa por vez.
 - O Codex será usado como engenheiro de implementação.
 - O visual aprovado não pode ser alterado pelo Codex sem autorização explícita.
@@ -45,7 +47,6 @@ Criação do design system oficial do Blue Atelier, definindo princípios visuai
 
 ## pendências atuais
 
-- Criar prompts para Stitch.
 - Criar prompts para Antigravity.
 - Criar primeiro comando para Codex configurar o repositório.
 - Criar modelagem do banco SQLite.
@@ -57,7 +58,7 @@ Criação do design system oficial do Blue Atelier, definindo princípios visuai
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/08-design-system.md`
+- `docs/09-prompts-stitch.md`
 
 ## validações executadas na última tarefa
 
@@ -65,7 +66,8 @@ Criação do design system oficial do Blue Atelier, definindo princípios visuai
 - Leitura obrigatória do documento `docs/05-planejamento-de-desenvolvimento.md`.
 - Leitura obrigatória do documento `docs/06-arquitetura-tecnica.md`.
 - Leitura obrigatória do documento `docs/07-mapa-de-telas.md`.
-- Revisão documental do design system criado.
+- Leitura obrigatória do documento `docs/08-design-system.md`.
+- Revisão documental dos prompts para Stitch criados.
 - Atualização do índice de próximos documentos.
 - Verificação de status do Git antes das alterações.
 
@@ -74,7 +76,7 @@ Criação do design system oficial do Blue Atelier, definindo princípios visuai
 Criar o documento:
 
 ```txt
-docs/09-prompts-stitch.md
+docs/10-prompts-antigravity.md
 ```
 
-Esse documento deve registrar prompts para explorar propostas visuais no Stitch com base na descrição geral, arquitetura técnica, mapa de telas e design system oficial.
+Esse documento deve registrar prompts para usar o Antigravity com economia em tarefas estratégicas de implementação, revisão, validação e exploração técnica.
