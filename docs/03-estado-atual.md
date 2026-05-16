@@ -12,7 +12,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Criação dos prompts para Antigravity do Blue Atelier, registrando usos estratégicos, limites de atuação, formatos de resposta, prompts de revisão técnica, validação visual, auditoria de tarefas, investigação de bugs e revisão antes de release local.
+Criação dos comandos e prompts operacionais para o Codex no Blue Atelier, registrando regras para continuidade, leitura obrigatória, identificação da próxima tarefa, modelos de prompt, modelos de resposta, validações, atualização de estado, commits, push e proteção do visual aprovado.
 
 ## decisões já tomadas
 
@@ -42,6 +42,7 @@ Criação dos prompts para Antigravity do Blue Atelier, registrando usos estrat�
 - Os prompts para Stitch foram registrados em `docs/09-prompts-stitch.md`.
 - O Antigravity será usado apenas como apoio estratégico, não como engenheiro principal do projeto.
 - Os prompts para Antigravity foram registrados em `docs/10-prompts-antigravity.md`.
+- Os comandos operacionais do Codex foram registrados em `docs/11-comandos-codex.md`.
 - GitHub permanece como fonte de verdade e ChatGPT valida cada etapa pelo repositório remoto.
 - Nenhuma tarefa deve avançar sem commit, push e validação.
 - O desenvolvimento será feito uma tarefa por vez.
@@ -51,7 +52,6 @@ Criação dos prompts para Antigravity do Blue Atelier, registrando usos estrat�
 
 ## pendências atuais
 
-- Criar primeiro comando para Codex configurar o repositório.
 - Criar modelagem do banco SQLite.
 - Criar documentação do sistema de arquivos.
 - Criar checklist de validação.
@@ -61,7 +61,7 @@ Criação dos prompts para Antigravity do Blue Atelier, registrando usos estrat�
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/10-prompts-antigravity.md`
+- `docs/11-comandos-codex.md`
 
 ## validações executadas na última tarefa
 
@@ -71,7 +71,8 @@ Criação dos prompts para Antigravity do Blue Atelier, registrando usos estrat�
 - Leitura obrigatória do documento `docs/07-mapa-de-telas.md`.
 - Leitura obrigatória do documento `docs/08-design-system.md`.
 - Leitura obrigatória do documento `docs/09-prompts-stitch.md`.
-- Revisão documental dos prompts para Antigravity criados.
+- Leitura obrigatória do documento `docs/10-prompts-antigravity.md`.
+- Revisão documental dos comandos para Codex criados.
 - Atualização do índice de próximos documentos.
 - Verificação de status do Git antes das alterações.
 
@@ -80,7 +81,7 @@ Criação dos prompts para Antigravity do Blue Atelier, registrando usos estrat�
 Criar o documento:
 
 ```txt
-docs/11-comandos-codex.md
+docs/12-modelagem-do-banco.md
 ```
 
-Esse documento deve registrar comandos e prompts operacionais para orientar o Codex em cada tarefa futura do Blue Atelier.
+Esse documento deve definir entidades, relações, campos, índices, enums, regras de persistência e estratégia de evolução do banco SQLite do Blue Atelier.

@@ -76,11 +76,9 @@ Objetivo:
 
 Guardar prompts para tarefas de implementação assistida, revisão e validação no Antigravity.
 
-## documentos pendentes
+### 7. comandos para codex
 
-### 1. comandos para codex
-
-Arquivo sugerido:
+Arquivo:
 
 ```txt
 docs/11-comandos-codex.md
@@ -90,7 +88,9 @@ Objetivo:
 
 Registrar comandos/prompt de cada tarefa enviada ao Codex, mantendo histórico operacional.
 
-### 2. banco de dados
+## documentos pendentes
+
+### 1. banco de dados
 
 Arquivo sugerido:
 
@@ -102,7 +102,7 @@ Objetivo:
 
 Definir entidades, relações, campos, índices e regras de persistência.
 
-### 3. sistema de arquivos
+### 2. sistema de arquivos
 
 Arquivo sugerido:
 
@@ -114,7 +114,7 @@ Objetivo:
 
 Definir estrutura de pastas, caminhos, slugs, arquivos aceitos e integração com rede.
 
-### 4. validações
+### 3. validações
 
 Arquivo sugerido:
 
