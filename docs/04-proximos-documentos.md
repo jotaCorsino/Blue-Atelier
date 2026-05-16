@@ -172,6 +172,22 @@ Observação:
 
 Este documento foi criado após a criação da solução base e marca o início da fundação visual reutilizável.
 
+### 14. tela inicial
+
+Arquivo:
+
+```txt
+docs/18-tela-inicial.md
+```
+
+Objetivo:
+
+Registrar a implementação da primeira tela real do app, incluindo referência visual usada, seções implementadas, dados mockados, arquivos alterados, validações e limites do que ainda é provisório.
+
+Observação:
+
+Este documento foi criado após a fundação visual e registra que a primeira tela real foi implementada com base no Stitch.
+
 ## base documental inicial concluída
 
 A base documental inicial do Blue Atelier está concluída.
@@ -194,6 +210,7 @@ Documentos criados nesta base:
 - `docs/15-referencias-visuais-stitch.md`
 - `docs/16-estrutura-da-solucao.md`
 - `docs/17-fundacao-visual.md`
+- `docs/18-tela-inicial.md`
 
 O documento `docs/15-referencias-visuais-stitch.md` registra que a direção visual do Stitch foi aprovada e que os arquivos em `referencias-visuais/stitch/` devem ser tratados como referência visual protegida.
 
@@ -201,9 +218,11 @@ O documento `docs/16-estrutura-da-solucao.md` registra que a fase de implementa�
 
 O documento `docs/17-fundacao-visual.md` registra que a fundação visual foi iniciada após a criação da solução base.
 
+O documento `docs/18-tela-inicial.md` registra que a primeira tela real foi implementada após a fundação visual, ainda usando dados mockados e sem implementar banco, serviços reais ou outras telas.
+
 ## próxima etapa sugerida
 
-Implementar a tela inicial real do Blue Atelier com base em `referencias-visuais/stitch/html/01-inicio.html` e na fundação visual criada.
+Implementar a tela de Coleções com base em `referencias-visuais/stitch/html/02-colecoes.html`.
 
 Essa próxima etapa deve usar como base:
 
@@ -214,5 +233,6 @@ Essa próxima etapa deve usar como base:
 - `docs/15-referencias-visuais-stitch.md`
 - `docs/16-estrutura-da-solucao.md`
 - `docs/17-fundacao-visual.md`
+- `docs/18-tela-inicial.md`
 
-Quando a implementação começar, o Codex deve preservar o visual aprovado do Stitch e não pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorização explícita.
+Nas próximas telas, o Codex deve preservar o visual aprovado do Stitch e não pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorização explícita.

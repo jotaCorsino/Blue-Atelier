@@ -1,41 +1,224 @@
 @page "/"
 
-<section class="home-foundation">
-    <div class="page-heading">
-        <AppBadge Tone="accent">Base visual criada</AppBadge>
-        <h1>Blue Atelier</h1>
-        <p>
-            A fundacao visual compartilhada esta pronta para receber as telas reais.
-            Este placeholder demonstra layout, cards, badges e botoes sem converter o HTML do Stitch.
-        </p>
+<section class="home-dashboard" aria-labelledby="home-title">
+    <header class="home-header">
+        <div class="home-header-copy">
+            <AppBadge Tone="accent">Atelier local</AppBadge>
+            <h1 id="home-title">Início</h1>
+            <p>
+                Painel visual para acompanhar coleções, modelos em andamento, arquivos recentes
+                e itens prontos para impressão.
+            </p>
+        </div>
+
+        <div class="home-actions" aria-label="Ações principais da tela inicial">
+            <AppButton Variant="primary">Criar nova coleção</AppButton>
+            <AppButton Variant="ghost">Importar modelo</AppButton>
+        </div>
+    </header>
+
+    <aside class="network-alert" role="status" aria-label="Aviso de caminho de rede">
+        <span class="network-alert-icon" aria-hidden="true">NW</span>
+        <div>
+            <strong>Destino de rede offline:</strong>
+            <span>\\atelier-notebook\fila-impressao\</span>
+        </div>
+    </aside>
+
+    <section class="summary-grid" aria-label="Resumo do atelier">
+        @foreach (var card in SummaryCards)
+        {
+            <AppCard Class="summary-card">
+                <span class="summary-label">@card.Label</span>
+                <strong class="summary-value">@card.Value</strong>
+                <span class="summary-detail">@card.Detail</span>
+            </AppCard>
+        }
+    </section>
+
+    <section class="home-section" aria-labelledby="recent-collections-title">
+        <div class="section-heading">
+            <div>
+                <h2 id="recent-collections-title">Coleções recentes</h2>
+                <p>Mosaico visual com linhas acompanhadas recentemente.</p>
+            </div>
+            <AppBadge Tone="neutral">Mock visual</AppBadge>
+        </div>
+
+        <div class="collection-grid">
+            @foreach (var collection in Collections)
+            {
+                <article class="collection-card">
+                    <div class="collection-art art-tone-@collection.Tone" aria-hidden="true">
+                        <span>@collection.Code</span>
+                    </div>
+                    <div class="collection-card-body">
+                        <div class="collection-title-row">
+                            <h3>@collection.Name</h3>
+                            <AppBadge Tone="@collection.BadgeTone">@collection.Status</AppBadge>
+                        </div>
+                        <p>@collection.Detail</p>
+                    </div>
+                </article>
+            }
+        </div>
+    </section>
+
+    <div class="home-columns">
+        <section class="home-section" aria-labelledby="models-progress-title">
+            <div class="section-heading">
+                <div>
+                    <h2 id="models-progress-title">Modelos em andamento</h2>
+                    <p>Status de produção e pintura dos modelos ativos.</p>
+                </div>
+            </div>
+
+            <div class="model-grid">
+                @foreach (var model in ModelsInProgress)
+                {
+                    <article class="model-card">
+                        <div class="model-card-header">
+                            <div>
+                                <h3>@model.Name</h3>
+                                <p>@model.Detail</p>
+                            </div>
+                            <AppBadge Tone="@model.BadgeTone">@model.Status</AppBadge>
+                        </div>
+
+                        <div class="model-progress" aria-label="@($"{model.Name}: {model.Progress}% concluído")">
+                            <div class="model-progress-meta">
+                                <span>Progresso</span>
+                                <strong>@($"{model.Progress}%")</strong>
+                            </div>
+                            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="@model.Progress">
+                                <span class="progress-fill" style="@($"width: {model.Progress}%")"></span>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+        </section>
+
+        <section class="home-section" aria-labelledby="ready-print-title">
+            <div class="section-heading">
+                <div>
+                    <h2 id="ready-print-title">Prontos para impressão</h2>
+                    <p>Arquivos preparados para envio manual à fila.</p>
+                </div>
+            </div>
+
+            <div class="print-list">
+                @foreach (var item in ReadyToPrint)
+                {
+                    <article class="print-item">
+                        <div class="file-mark" aria-hidden="true">3D</div>
+                        <div class="print-item-main">
+                            <h3>@item.Name</h3>
+                            <p>@item.FileName</p>
+                        </div>
+                        <AppBadge Tone="@item.BadgeTone">@item.Status</AppBadge>
+                        <AppButton Variant="ghost" Class="print-action">Enviar</AppButton>
+                    </article>
+                }
+            </div>
+        </section>
     </div>
 
-    <div class="foundation-grid">
-        <AppCard Eyebrow="Layout" Title="Shell do app">
-            <p>
-                Sidebar fixa, topbar discreta e area principal fluida foram preparados para as proximas telas.
-            </p>
-            <div class="card-actions">
-                <AppButton Variant="primary">Acao principal</AppButton>
-                <AppButton Variant="ghost">Acao neutra</AppButton>
+    <div class="home-columns home-columns-compact">
+        <section class="home-section" aria-labelledby="recent-files-title">
+            <div class="section-heading">
+                <div>
+                    <h2 id="recent-files-title">Arquivos recentes</h2>
+                    <p>Atalhos visuais para referências e arquivos usados no atelier.</p>
+                </div>
             </div>
-        </AppCard>
 
-        <AppCard Eyebrow="Status" Title="Referencias protegidas">
-            <p>
-                Os HTMLs e imagens do Stitch continuam sendo referencia visual aprovada, sem alteracao nesta tarefa.
-            </p>
-            <div class="badge-row">
-                <AppBadge Tone="success">Stitch aprovado</AppBadge>
-                <AppBadge Tone="warning">Telas finais pendentes</AppBadge>
+            <div class="recent-file-list">
+                @foreach (var file in RecentFiles)
+                {
+                    <article class="recent-file-item">
+                        <span class="file-type">@file.Type</span>
+                        <div>
+                            <h3>@file.Name</h3>
+                            <p>@file.Location</p>
+                        </div>
+                    </article>
+                }
             </div>
-        </AppCard>
+        </section>
 
-        <AppCard Eyebrow="Proxima etapa" Title="Tela inicial real">
-            <p>
-                A proxima tarefa sugerida e implementar a Home real usando esta fundacao e a referencia
-                `01-inicio.html`.
-            </p>
-        </AppCard>
+        <section class="home-section" aria-labelledby="quick-favorites-title">
+            <div class="section-heading">
+                <div>
+                    <h2 id="quick-favorites-title">Favoritos rápidos</h2>
+                    <p>Links importantes para consulta futura.</p>
+                </div>
+            </div>
+
+            <div class="favorite-strip">
+                @foreach (var favorite in QuickFavorites)
+                {
+                    <button class="favorite-chip" type="button">
+                        <span aria-hidden="true">★</span>
+                        <span>@favorite</span>
+                    </button>
+                }
+            </div>
+        </section>
     </div>
 </section>
+
+@code {
+    private static readonly SummaryCard[] SummaryCards =
+    [
+        new("Coleções ativas", "4", "12 modelos organizados"),
+        new("Modelos em andamento", "3", "pintura e preparo"),
+        new("Prontos para impressão", "2", "arquivos validados"),
+        new("Arquivos recentes", "3", "últimas consultas")
+    ];
+
+    private static readonly CollectionCard[] Collections =
+    [
+        new("Eldritch Horrors", "8 modelos, 4 pintados", "Em andamento", "accent", "EH", "blue"),
+        new("Sci-Fi Marines", "12 modelos, 7 prontos", "Pronta", "success", "SM", "green"),
+        new("Fantasy Adventurers", "6 modelos, 2 em pintura", "Em revisão", "warning", "FA", "amber"),
+        new("Dragon Busts", "4 bustos, 1 finalizado", "Arquivo", "neutral", "DB", "slate")
+    ];
+
+    private static readonly ModelCard[] ModelsInProgress =
+    [
+        new("Cthulhu Idol", "Base e textura de pedra", "Pintura", "accent", 60),
+        new("Deep One Bust", "Detalhes de pele e sombra", "Preparando", "warning", 35),
+        new("Tentacle Beast", "Montagem e primer", "Montagem", "neutral", 20)
+    ];
+
+    private static readonly PrintItem[] ReadyToPrint =
+    [
+        new("Ancient Cultist", "ancient-cultist-ready.ctb", "Pronto", "success"),
+        new("Abyssal Statue", "abyssal-statue-0.05.ctb", "Revisado", "accent")
+    ];
+
+    private static readonly RecentFile[] RecentFiles =
+    [
+        new("cthulhu-idol-ready.ctb", "CTB", "fila-impressao"),
+        new("stone-texture-reference.jpg", "JPG", "referencias"),
+        new("painting-notes.md", "MD", "notas")
+    ];
+
+    private static readonly string[] QuickFavorites =
+    [
+        "MyMiniFactory",
+        "Resin Settings",
+        "Stone Textures"
+    ];
+
+    private sealed record SummaryCard(string Label, string Value, string Detail);
+
+    private sealed record CollectionCard(string Name, string Detail, string Status, string BadgeTone, string Code, string Tone);
+
+    private sealed record ModelCard(string Name, string Detail, string Status, string BadgeTone, int Progress);
+
+    private sealed record PrintItem(string Name, string FileName, string Status, string BadgeTone);
+
+    private sealed record RecentFile(string Name, string Type, string Location);
+}

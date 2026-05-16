@@ -2,9 +2,9 @@
 
 ## status geral
 
-Projeto com base documental inicial concluída, referências visuais do Stitch catalogadas, solução base .NET MAUI Blazor Hybrid criada e fundação visual compartilhada iniciada.
+Projeto com base documental inicial concluída, referências visuais do Stitch catalogadas, solução base .NET MAUI Blazor Hybrid criada, fundação visual compartilhada iniciada e primeira tela real implementada.
 
-A direção visual exportada do Stitch foi aprovada como base visual protegida para o Blue Atelier. A fundação visual agora possui layout base, sidebar, topbar, tokens CSS, temas claro/escuro e componentes compartilhados, mas ainda não converte a tela inicial completa do Stitch.
+A direção visual exportada do Stitch foi aprovada como base visual protegida para o Blue Atelier. A tela inicial real foi implementada com base em `referencias-visuais/stitch/html/01-inicio.html`, usando a fundação visual criada, dados mockados e CSS próprio. As demais telas ainda não foram implementadas.
 
 ## repositório remoto
 
@@ -14,7 +14,7 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## última tarefa realizada
 
-Criação da fundação visual compartilhada do app, com layout base, sidebar fixa, topbar discreta, tokens CSS, temas claro/escuro, componentes base e placeholder visual usando a nova estrutura.
+Implementação da tela inicial real do Blue Atelier com base no Stitch, substituindo o placeholder visual anterior por uma Home com cabeçalho, aviso de rede offline, cards de resumo, coleções recentes, modelos em andamento, itens prontos para impressão, arquivos recentes e favoritos rápidos.
 
 ## decisões já tomadas
 
@@ -80,9 +80,16 @@ Criação da fundação visual compartilhada do app, com layout base, sidebar fi
 - A sidebar foi criada em `src/blueatelier.app/Components/Layout/AppSidebar.razor`.
 - A topbar foi criada em `src/blueatelier.app/Components/Layout/AppTopbar.razor`.
 - Os componentes base `AppCard`, `AppBadge` e `AppButton` foram criados em `src/blueatelier.app/Components/Shared/`.
-- A Home atual virou um placeholder visual da fundação, sem implementar o dashboard real.
+- O placeholder visual da fundação foi substituído pela tela inicial real.
 - As cores roxas padrão do template MAUI foram substituídas por azul coerente com o Blue Atelier.
 - A fundação visual foi documentada em `docs/17-fundacao-visual.md`.
+- A tela inicial real foi implementada em `src/blueatelier.app/Components/Pages/Home.razor`.
+- A Home usa dados estáticos/mockados apenas para representação visual.
+- A Home foi estilizada em `src/blueatelier.app/wwwroot/css/app.css`, preservando sidebar, topbar, tokens e temas da fundação visual.
+- A Home inclui aviso discreto de caminho de rede offline como condição normal, não erro grave.
+- Nenhuma outra tela real foi implementada nesta tarefa.
+- Banco SQLite, EF Core, migrations, serviços reais, sistema de arquivos real, busca real e fila de impressão real continuam pendentes.
+- A implementação da Home foi documentada em `docs/18-tela-inicial.md`.
 - Toda tarefa futura deve ser validada conforme o checklist aplicável antes de avançar.
 - Tarefas de implementação devem executar build quando possível.
 - Tarefas com testes devem executar testes relevantes.
@@ -96,7 +103,7 @@ Criação da fundação visual compartilhada do app, com layout base, sidebar fi
 
 ## pendências atuais
 
-- Implementar a tela inicial real do Blue Atelier com base em `referencias-visuais/stitch/html/01-inicio.html` e na fundação visual criada.
+- Implementar a tela de Coleções com base em `referencias-visuais/stitch/html/02-colecoes.html`.
 - Manter os HTMLs, imagens e `design.md` do Stitch protegidos contra alterações não autorizadas.
 - Validar o repositório remoto após o push desta tarefa.
 
@@ -104,23 +111,9 @@ Criação da fundação visual compartilhada do app, com layout base, sidebar fi
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/17-fundacao-visual.md`
-- `src/blueatelier.app/BlueAtelier.App.csproj`
-- `src/blueatelier.app/Components/_Imports.razor`
-- `src/blueatelier.app/Components/Layout/MainLayout.razor`
-- `src/blueatelier.app/Components/Layout/AppSidebar.razor`
-- `src/blueatelier.app/Components/Layout/AppTopbar.razor`
-- `src/blueatelier.app/Components/Shared/AppCard.razor`
-- `src/blueatelier.app/Components/Shared/AppBadge.razor`
-- `src/blueatelier.app/Components/Shared/AppButton.razor`
+- `docs/18-tela-inicial.md`
 - `src/blueatelier.app/Components/Pages/Home.razor`
-- `src/blueatelier.app/wwwroot/css/tokens.css`
-- `src/blueatelier.app/wwwroot/css/themes.css`
 - `src/blueatelier.app/wwwroot/css/app.css`
-- `src/blueatelier.app/wwwroot/index.html`
-- `src/blueatelier.app/Resources/AppIcon/appicon.svg`
-- `src/blueatelier.app/Resources/AppIcon/appiconfg.svg`
-- `src/blueatelier.app/Resources/Splash/splash.svg`
 
 ## validações executadas na última tarefa
 
@@ -132,29 +125,29 @@ Criação da fundação visual compartilhada do app, com layout base, sidebar fi
 - Leitura obrigatória do documento `docs/14-checklist-de-validacao.md`.
 - Leitura obrigatória do documento `docs/15-referencias-visuais-stitch.md`.
 - Leitura obrigatória do documento `docs/16-estrutura-da-solucao.md`.
+- Leitura obrigatória do documento `docs/17-fundacao-visual.md`.
 - Leitura obrigatória de `referencias-visuais/stitch/readme.md`.
 - Leitura de `referencias-visuais/stitch/design.md`.
 - Leitura de `referencias-visuais/stitch/anotacoes/direcao-visual-aprovada.md`.
 - Leitura obrigatória de `referencias-visuais/stitch/html/01-inicio.html`.
-- Criação do layout base do app.
-- Criação da sidebar fixa com os itens principais previstos.
-- Criação da topbar discreta com busca visual provisória.
-- Criação dos componentes base `AppCard`, `AppBadge` e `AppButton`.
-- Criação de tokens CSS iniciais.
-- Criação de tema claro.
-- Criação de tema escuro.
-- Substituição visual do placeholder técnico anterior por placeholder visual usando a nova estrutura.
-- Substituição das cores roxas padrão do template MAUI por azul coerente com o Blue Atelier.
+- Implementação da tela inicial real em Razor Components.
+- Substituição do placeholder visual anterior da Home.
+- Criação das seções de cabeçalho, aviso de rede offline, resumo, coleções recentes, modelos em andamento, prontos para impressão, arquivos recentes e favoritos rápidos.
+- Uso de dados mockados apenas para representação visual.
+- Confirmação de que somente a tela inicial foi implementada.
+- Confirmação de que nenhuma outra tela real foi implementada.
 - Confirmação de que nenhum HTML do Stitch foi alterado.
 - Confirmação de que nenhuma imagem do Stitch foi alterada.
-- Confirmação de que nenhuma tela completa do Stitch foi convertida.
+- Confirmação de que a Home foi traduzida para Razor/CSS próprio sem copiar o HTML do Stitch como código final.
+- Confirmação de que Tailwind, Bootstrap externo ou CDN não foram usados.
+- Confirmação de que banco SQLite, EF Core, migrations, serviços reais, sistema de arquivos real, busca real e fila de impressão real não foram implementados.
 - Execução de `dotnet restore BlueAtelier.sln` com sucesso.
 - Execução de `dotnet build BlueAtelier.sln` com sucesso, 0 avisos e 0 erros.
 - Execução de `dotnet test BlueAtelier.sln --no-build` com sucesso, 1 teste aprovado.
-- Evidência visual descrita: placeholder com shell do app, sidebar fixa, topbar discreta, cards, badges e botões base.
+- Evidência visual descrita: Home com sidebar e topbar existentes, cabeçalho de Início, botões principais, aviso discreto de rede offline, cards de resumo, mosaico de coleções, cards de progresso, lista de prontos para impressão, arquivos recentes e favoritos rápidos.
 
 ## próxima tarefa sugerida
 
-Implementar a tela inicial real do Blue Atelier com base em `referencias-visuais/stitch/html/01-inicio.html` e na fundação visual criada.
+Implementar a tela de Coleções com base em `referencias-visuais/stitch/html/02-colecoes.html`.
 
-Essa etapa deve respeitar `docs/06-arquitetura-tecnica.md`, `docs/07-mapa-de-telas.md`, `docs/08-design-system.md`, `docs/14-checklist-de-validacao.md`, `docs/15-referencias-visuais-stitch.md`, `docs/16-estrutura-da-solucao.md` e `docs/17-fundacao-visual.md`. A implementação futura não pode redesenhar ou reinterpretar o visual aprovado sem autorização explícita.
+Essa etapa deve respeitar `docs/06-arquitetura-tecnica.md`, `docs/07-mapa-de-telas.md`, `docs/08-design-system.md`, `docs/14-checklist-de-validacao.md`, `docs/15-referencias-visuais-stitch.md`, `docs/16-estrutura-da-solucao.md`, `docs/17-fundacao-visual.md` e `docs/18-tela-inicial.md`. A implementação futura não pode redesenhar ou reinterpretar o visual aprovado sem autorização explícita.
