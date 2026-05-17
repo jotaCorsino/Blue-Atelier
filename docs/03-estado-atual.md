@@ -2,13 +2,14 @@
 
 ## status geral
 
-Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e tres telas reais criadas com dados mockados:
+Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e quatro telas reais criadas com dados mockados:
 
 - Home;
 - Colecoes;
-- Detalhe da Colecao.
+- Detalhe da Colecao;
+- Detalhe do Modelo.
 
-A Home, a tela de Colecoes, a tela de Detalhe da Colecao, a fundacao visual atual e os ajustes globais de UX foram validados visualmente pelo usuario e estao aprovados.
+A Home, a tela de Colecoes, a tela de Detalhe da Colecao, a tela de Detalhe do Modelo, a fundacao visual atual e os ajustes globais de UX foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -22,17 +23,13 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 A ultima tarefa concluida consolidou:
 
-- implementacao da tela Detalhe da Colecao com base em `referencias-visuais/stitch/html/03-detalhe-colecao.html`;
-- rota visual `/colecoes/eldritch-horrors`;
-- ajustes globais de UX;
-- melhoria de hover dos cards;
-- cards de colecao clicaveis por inteiro;
-- substituicao/remocao do rotulo generico `Acoes`;
-- padronizacao de icones da sidebar com SVG inline;
-- criacao de affordances visuais para edicao futura;
-- atualizacao da stack tipografica;
+- implementacao da tela Detalhe do Modelo com base em `referencias-visuais/stitch/html/04-detalhe-modelo.html`;
+- rota `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
+- navegacao visual a partir do Detalhe da Colecao;
+- uso de dados mockados;
 - preservacao da Home aprovada;
 - preservacao da tela de Colecoes aprovada;
+- preservacao do Detalhe da Colecao aprovado;
 - aprovacao visual manual pelo usuario.
 
 ## decisoes ja tomadas
@@ -86,15 +83,15 @@ Implementado:
 - Home corrigida e aprovada;
 - tela de Colecoes aprovada;
 - tela de Detalhe da Colecao aprovada;
+- tela de Detalhe do Modelo aprovada;
 - hover global de cards clicaveis;
 - affordances visuais de edicao futura;
 - tipografia moderna com stack de sistema.
 
 Ainda nao implementado:
 
-- Detalhe do Modelo;
 - tela de Modelos;
-- Galeria;
+- Galeria do Modelo;
 - SQLite;
 - EF Core;
 - migrations;
@@ -113,29 +110,28 @@ Implementacao:
 
 - `src/blueatelier.app/Components/Layout/AppSidebar.razor`
 - `src/blueatelier.app/Components/Layout/AppTopbar.razor`
-- `src/blueatelier.app/Components/Pages/Colecoes.razor`
 - `src/blueatelier.app/Components/Pages/DetalheColecao.razor`
+- `src/blueatelier.app/Components/Pages/DetalheModelo.razor`
 - `src/blueatelier.app/Components/Shared/AppIcon.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
-- `src/blueatelier.app/wwwroot/css/tokens.css`
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/21-detalhe-colecao.md`
-- `docs/22-ajustes-ux-identidade-visual.md`
+- `docs/23-detalhe-modelo.md`
 
 ## validacoes executadas na ultima tarefa
 
 - `referencias-visuais/stitch/design.md` foi respeitado.
-- `referencias-visuais/stitch/html/03-detalhe-colecao.html` foi usado para a tela de Detalhe da Colecao.
+- `referencias-visuais/stitch/html/04-detalhe-modelo.html` foi usado para a tela de Detalhe do Modelo.
 - Home permaneceu preservada.
 - Colecoes permaneceu preservada.
+- Detalhe da Colecao permaneceu preservado.
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- Nenhuma funcionalidade real de edicao foi implementada.
+- Nenhuma funcionalidade real foi implementada.
 - Nenhum banco SQLite foi criado.
 - Nenhum EF Core foi implementado.
 - Nenhuma migration foi criada.
@@ -148,10 +144,10 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Implementar a tela de Detalhe do Modelo com base em:
+Implementar a tela de Galeria do Modelo com base em:
 
 ```txt
-referencias-visuais/stitch/html/04-detalhe-modelo.html
+referencias-visuais/stitch/html/05-galeria-modelo.html
 ```
 
-A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.
+A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.

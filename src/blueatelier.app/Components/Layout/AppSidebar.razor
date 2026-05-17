@@ -22,10 +22,10 @@
             <span>@(IsHomePage ? "Home" : "Inicio")</span>
         </NavLink>
 
-        <NavLink class="sidebar-link" href="/colecoes">
+        <a class="sidebar-link @(IsCollectionsNavActive ? "active" : null)" href="/colecoes">
             <span class="sidebar-icon" aria-hidden="true"><AppIcon Name="collections" /></span>
             <span>@(IsHomePage ? "Collections" : "Colecoes")</span>
-        </NavLink>
+        </a>
 
         @foreach (var item in FutureItems)
         {
@@ -34,7 +34,7 @@
                 <span class="sidebar-home-divider" aria-hidden="true"></span>
             }
 
-            <a class="sidebar-link sidebar-link-disabled" href="#" aria-disabled="true" @onclick:preventDefault>
+            <a class="sidebar-link sidebar-link-disabled @(IsFutureItemActive(item) ? "active" : null)" href="#" aria-disabled="true" @onclick:preventDefault>
                 <span class="sidebar-icon" aria-hidden="true"><AppIcon Name="@item.Icon" /></span>
                 <span>@(IsHomePage ? item.HomeLabel : item.Label)</span>
             </a>
@@ -67,6 +67,23 @@
         {
             var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
             return string.IsNullOrWhiteSpace(relativePath);
+        }
+    }
+
+    private bool IsFutureItemActive(SidebarItem item)
+    {
+        var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+        return item.Icon == "models"
+            && string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool IsCollectionsNavActive
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.Equals(relativePath, "colecoes", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(relativePath, "colecoes/eldritch-horrors", StringComparison.OrdinalIgnoreCase);
         }
     }
 

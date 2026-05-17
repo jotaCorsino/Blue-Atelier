@@ -112,6 +112,12 @@ Arquivo: `docs/22-ajustes-ux-identidade-visual.md`
 
 Objetivo: registrar os ajustes globais aprovados de hover, cards clicaveis, icones da sidebar, affordances de edicao futura e tipografia.
 
+### 19. detalhe do Modelo
+
+Arquivo: `docs/23-detalhe-modelo.md`
+
+Objetivo: registrar a implementacao da tela de Detalhe do Modelo, incluindo rota, referencia visual usada, secoes implementadas, dados mockados, navegacao a partir do Detalhe da Colecao e aprovacao visual manual.
+
 ## base documental inicial concluida
 
 A base documental inicial do Blue Atelier esta concluida.
@@ -139,6 +145,7 @@ Documentos criados nesta base:
 - `docs/20-correcao-visual-home-e-fundacao.md`
 - `docs/21-detalhe-colecao.md`
 - `docs/22-ajustes-ux-identidade-visual.md`
+- `docs/23-detalhe-modelo.md`
 
 O documento `docs/15-referencias-visuais-stitch.md` registra que a direcao visual do Stitch foi aprovada e que os arquivos em `referencias-visuais/stitch/` devem ser tratados como referencia visual protegida.
 
@@ -156,12 +163,14 @@ O documento `docs/21-detalhe-colecao.md` registra que a tela de Detalhe da Colec
 
 O documento `docs/22-ajustes-ux-identidade-visual.md` registra que houve ajustes globais aprovados de UX e identidade visual, incluindo hover, cards clicaveis, icones da sidebar, affordances de edicao e tipografia.
 
+O documento `docs/23-detalhe-modelo.md` registra que a tela de Detalhe do Modelo foi implementada e aprovada visualmente pelo usuario.
+
 ## proxima etapa sugerida
 
-Implementar a tela de Detalhe do Modelo com base em:
+Implementar a tela de Galeria do Modelo com base em:
 
 ```txt
-referencias-visuais/stitch/html/04-detalhe-modelo.html
+referencias-visuais/stitch/html/05-galeria-modelo.html
 ```
 
 Essa proxima etapa deve usar como base:
@@ -178,5 +187,6 @@ Essa proxima etapa deve usar como base:
 - `docs/20-correcao-visual-home-e-fundacao.md`
 - `docs/21-detalhe-colecao.md`
 - `docs/22-ajustes-ux-identidade-visual.md`
+- `docs/23-detalhe-modelo.md`
 
-Nas proximas telas, o Codex deve preservar a Home, a tela de Colecoes, o Detalhe da Colecao e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.
+Nas proximas telas, o Codex deve preservar a Home, a tela de Colecoes, o Detalhe da Colecao, o Detalhe do Modelo e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.

@@ -85,7 +85,10 @@
             <div class="collection-detail-model-grid">
                 @foreach (var model in Models)
                 {
-                    <article class="collection-model-card">
+                    <a class="collection-model-card collection-model-card-link"
+                       href="@(model.DetailPath ?? "#")"
+                       @onclick:preventDefault="@(model.DetailPath is null)"
+                       aria-label="@($"Open model {model.Name}")">
                         <div class="collection-model-cover model-cover-@model.Cover">
                             <span class="collection-model-shape"></span>
                             <span class="card-edit-affordance model-edit-affordance">
@@ -106,7 +109,7 @@
                                 <span style="@($"width: {model.Progress}%")"></span>
                             </div>
                         </div>
-                    </article>
+                    </a>
                 }
             </div>
         </section>
@@ -167,12 +170,12 @@
 
     private static readonly CollectionModel[] Models =
     [
-        new("Cthulhu Idol", "Painting", "60%", "blue", "idol", 60),
-        new("Deep One Bust", "Printing", "25%", "amber", "bust", 25),
-        new("Tentacle Beast", "Printing", "50%", "blue", "beast", 50),
-        new("Ancient Cultist", "Finished", "Finished", "green", "cultist", 100),
-        new("Forgotten Horror", "Printing", "25%", "amber", "forgotten", 25),
-        new("Abyssal Statue", "Sunken ruin piece", "30%", "blue", "statue", 30)
+        new("Cthulhu Idol", "Painting", "60%", "blue", "idol", 60, "/colecoes/eldritch-horrors/modelos/cthulhu-idol"),
+        new("Deep One Bust", "Printing", "25%", "amber", "bust", 25, null),
+        new("Tentacle Beast", "Printing", "50%", "blue", "beast", 50, null),
+        new("Ancient Cultist", "Finished", "Finished", "green", "cultist", 100, null),
+        new("Forgotten Horror", "Printing", "25%", "amber", "forgotten", 25, null),
+        new("Abyssal Statue", "Sunken ruin piece", "30%", "blue", "statue", 30, null)
     ];
 
     private static readonly string[] Links =
@@ -197,5 +200,6 @@
         string Status,
         string StatusTone,
         string Cover,
-        int Progress);
+        int Progress,
+        string? DetailPath);
 }
