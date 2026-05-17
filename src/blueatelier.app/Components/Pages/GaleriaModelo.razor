@@ -1,0 +1,110 @@
+@page "/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria"
+
+<section class="model-gallery-page" aria-labelledby="model-gallery-page-title">
+    <a class="collection-detail-back" href="/colecoes/eldritch-horrors/modelos/cthulhu-idol">
+        <span aria-hidden="true">&lt;</span>
+        <span>Back to Cthulhu Idol</span>
+    </a>
+
+    <header class="model-gallery-header">
+        <div class="model-gallery-header-copy">
+            <h1 id="model-gallery-page-title">Galeria</h1>
+            <p>Imagens, referencias e registros visuais do modelo.</p>
+            <div class="model-gallery-context" aria-label="Contexto da galeria">
+                <span>Cthulhu Idol</span>
+                <span aria-hidden="true">/</span>
+                <a href="/colecoes/eldritch-horrors">Eldritch Horrors</a>
+            </div>
+        </div>
+
+        <div class="model-gallery-actions" aria-label="Acoes visuais da galeria">
+            <button class="model-gallery-action model-gallery-action-primary" type="button">
+                <span aria-hidden="true">+</span>
+                Adicionar imagem
+            </button>
+            <button class="model-gallery-action" type="button">
+                <AppIcon Name="image" />
+                Adicionar referencia
+            </button>
+            <button class="model-gallery-action" type="button">
+                <AppIcon Name="settings" />
+                Organizar galeria
+            </button>
+            <button class="model-gallery-action" type="button">
+                <AppIcon Name="edit" />
+                Editar informacoes
+            </button>
+        </div>
+    </header>
+
+    <nav class="model-gallery-filters" aria-label="Filtros visuais da galeria">
+        @foreach (var filter in Filters)
+        {
+            <button class="model-gallery-filter @(filter.IsActive ? "model-gallery-filter-active" : null)" type="button">
+                @filter.Label
+            </button>
+        }
+    </nav>
+
+    <section class="model-gallery-masonry" aria-label="Mosaico visual da galeria">
+        @foreach (var item in GalleryItems)
+        {
+            <article class="model-gallery-card gallery-card-@item.Size">
+                <div class="model-gallery-art gallery-art-@item.Art" aria-hidden="true">
+                    @if (item.IsCover)
+                    {
+                        <span class="gallery-cover-badge">Capa</span>
+                    }
+
+                    <span class="gallery-edit-affordance">
+                        <AppIcon Name="edit" />
+                        <span>Editar</span>
+                    </span>
+                    <span class="gallery-art-shape"></span>
+                </div>
+
+                <div class="model-gallery-card-body">
+                    <div>
+                        <h2>@item.Title</h2>
+                        <span>@item.Category</span>
+                    </div>
+                    <p>@item.Description</p>
+                </div>
+            </article>
+        }
+    </section>
+</section>
+
+@code {
+    private static readonly GalleryFilter[] Filters =
+    [
+        new("Todas", true),
+        new("Referencias", false),
+        new("Impressao", false),
+        new("Pintura", false),
+        new("Finalizadas", false),
+        new("Notas visuais", false)
+    ];
+
+    private static readonly GalleryItem[] GalleryItems =
+    [
+        new("Main reference", "Referencias", "Mood principal do modelo / atualizado hoje", "main", "tall", true),
+        new("Printed front view", "Impressao", "Registro frontal depois da cura", "front", "wide", false),
+        new("Primer test", "Pintura", "Teste de primer preto fosco", "primer", "square", false),
+        new("Green base coat", "Pintura", "Base verde aplicada em duas camadas", "green", "tall", false),
+        new("Purple wash study", "Pintura", "Estudo de wash roxo nas sombras", "purple", "wide", false),
+        new("Final angle", "Finalizadas", "Angulo final para comparacao de volume", "final", "square", false),
+        new("Stone texture", "Notas visuais", "Textura de pedra para a base", "stone", "wide", false),
+        new("Tentacle detail", "Referencias", "Detalhe dos tentaculos e brilho final", "tentacle", "square", false)
+    ];
+
+    private sealed record GalleryFilter(string Label, bool IsActive);
+
+    private sealed record GalleryItem(
+        string Title,
+        string Category,
+        string Description,
+        string Art,
+        string Size,
+        bool IsCover);
+}

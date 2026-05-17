@@ -14,6 +14,15 @@
             <AppButton Variant="primary">+ Nova colecao</AppButton>
         </div>
     }
+    else if (IsModelGalleryPage)
+    {
+        <div class="topbar-actions" aria-label="Acoes da galeria do modelo">
+            <a class="topbar-link-button" href="/colecoes/eldritch-horrors/modelos/cthulhu-idol">
+                <span aria-hidden="true">&lt;</span>
+                <span>Back to Cthulhu Idol</span>
+            </a>
+        </div>
+    }
     else if (IsModelDetailPage)
     {
         <div class="topbar-actions" aria-label="Acoes do detalhe do modelo">
@@ -80,6 +89,15 @@
         }
     }
 
+    private bool IsModelGalleryPage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
     private string SearchPlaceholder
     {
         get
@@ -89,7 +107,7 @@
                 return "Buscar colecoes...";
             }
 
-            if (IsHomePage || IsCollectionDetailPage || IsModelDetailPage)
+            if (IsHomePage || IsCollectionDetailPage || IsModelDetailPage || IsModelGalleryPage)
             {
                 return "Search models, prints, paints...";
             }
