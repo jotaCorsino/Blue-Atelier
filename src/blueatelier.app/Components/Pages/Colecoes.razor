@@ -32,8 +32,16 @@
     <div class="collections-grid" aria-label="Mosaico de coleções">
         @foreach (var collection in Collections)
         {
-            <article class="collections-card">
-                <div class="collections-card-cover @collection.CoverClass" aria-hidden="true"></div>
+            <a class="collections-card collections-card-link"
+               href="@(collection.DetailPath ?? "#")"
+               @onclick:preventDefault="@(collection.DetailPath is null)"
+               aria-label="@($"Ver coleção {collection.Name}")">
+                <div class="collections-card-cover @collection.CoverClass" aria-hidden="true">
+                    <span class="card-edit-affordance">
+                        <AppIcon Name="edit" />
+                        <span>Editar</span>
+                    </span>
+                </div>
 
                 <div class="collections-card-body">
                     <div class="collections-card-title-row">
@@ -53,10 +61,13 @@
                     <div class="collections-card-footer">
                         <span>@collection.ModelCount</span>
                         <span>@collection.UpdatedAt</span>
-                        <button type="button" aria-label="@($"Ações de {collection.Name}")">Ações</button>
+                        <span class="collections-card-action">
+                            @(collection.DetailPath is null ? "Em breve" : "Ver coleção")
+                            <AppIcon Name="arrow" />
+                        </span>
                     </div>
                 </div>
-            </article>
+            </a>
         }
     </div>
 
@@ -92,7 +103,8 @@
             "progress",
             "Atualizada hoje",
             "cover-eldritch",
-            ["dark fantasy", "resina"]
+            ["dark fantasy", "resina"],
+            "/colecoes/eldritch-horrors"
         ),
         new(
             "Sci-Fi Marines",
@@ -102,7 +114,8 @@
             "ready",
             "Atualizada ontem",
             "cover-marines",
-            ["sci-fi", "stl"]
+            ["sci-fi", "stl"],
+            null
         ),
         new(
             "Fantasy Adventurers",
@@ -112,7 +125,8 @@
             "muted",
             "Atualizada há 3 dias",
             "cover-adventurers",
-            ["fantasia", "pintura"]
+            ["fantasia", "pintura"],
+            null
         ),
         new(
             "Dragon Busts",
@@ -122,7 +136,8 @@
             "progress",
             "Atualizada há 5 dias",
             "cover-dragons",
-            ["busto", "criaturas"]
+            ["busto", "criaturas"],
+            null
         ),
         new(
             "Tavern Dioramas",
@@ -132,7 +147,8 @@
             "muted",
             "Atualizada há 1 semana",
             "cover-tavern",
-            ["cenário", "diorama"]
+            ["cenário", "diorama"],
+            null
         ),
         new(
             "Ancient Ruins",
@@ -142,7 +158,8 @@
             "ready",
             "Atualizada há 1 semana",
             "cover-ruins",
-            ["cenário", "bases"]
+            ["cenário", "bases"],
+            null
         ),
         new(
             "Painting Studies",
@@ -152,7 +169,8 @@
             "progress",
             "Atualizada há 2 semanas",
             "cover-painting",
-            ["estudo", "cores"]
+            ["estudo", "cores"],
+            null
         ),
         new(
             "Miniature Bases",
@@ -162,7 +180,8 @@
             "archived",
             "Atualizada há 1 mês",
             "cover-bases",
-            ["bases", "textura"]
+            ["bases", "textura"],
+            null
         )
     ];
 
@@ -176,6 +195,7 @@
         string StatusTone,
         string UpdatedAt,
         string CoverClass,
-        string[] Tags
+        string[] Tags,
+        string? DetailPath
     );
 }

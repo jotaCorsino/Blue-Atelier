@@ -1,11 +1,14 @@
 :root {
     color-scheme: light dark;
-    --ba-font-family: "Segoe UI", Inter, Arial, sans-serif;
+    --ba-font-family: Inter, "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --ba-heading-font-family: Inter, "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+    --ba-font-size-xs: 0.75rem;
     --ba-font-size-sm: 0.875rem;
-    --ba-font-size-md: 1rem;
+    --ba-font-size-md: 0.95rem;
     --ba-font-size-lg: 1.25rem;
     --ba-font-size-xl: 2rem;
-    --ba-line-height: 1.55;
+    --ba-line-height: 1.5;
+    --ba-heading-line-height: 1.15;
     --ba-sidebar-width: 260px;
     --ba-space-1: 0.25rem;
     --ba-space-2: 0.5rem;
@@ -22,6 +25,8 @@
     --ba-radius-pill: 999px;
     --ba-shadow-soft: 0 4px 12px rgb(0 0 0 / 3%);
     --ba-shadow-raised: 0 8px 24px rgb(0 0 0 / 8%);
+    --ba-shadow-hover: 0 14px 34px rgb(15 23 42 / 12%), 0 0 0 1px rgb(59 130 246 / 24%);
+    --ba-shadow-hover-dark: 0 16px 38px rgb(0 0 0 / 24%), 0 0 0 1px rgb(59 130 246 / 34%);
     --ba-accent: #0058be;
     --ba-accent-strong: #2170e4;
     --ba-accent-soft: #d8e2ff;

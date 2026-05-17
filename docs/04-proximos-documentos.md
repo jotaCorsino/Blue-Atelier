@@ -100,6 +100,18 @@ Arquivo: `docs/20-correcao-visual-home-e-fundacao.md`
 
 Objetivo: registrar a correcao visual aprovada da Home e da fundacao visual, feita para aproximar a implementacao da referencia do Stitch sem alterar a tela de Colecoes aprovada.
 
+### 17. detalhe da Colecao
+
+Arquivo: `docs/21-detalhe-colecao.md`
+
+Objetivo: registrar a implementacao da tela de Detalhe da Colecao, incluindo rota, referencia visual usada, secoes implementadas, dados mockados, acoes visuais provisorias e aprovacao visual manual.
+
+### 18. ajustes de UX e identidade visual
+
+Arquivo: `docs/22-ajustes-ux-identidade-visual.md`
+
+Objetivo: registrar os ajustes globais aprovados de hover, cards clicaveis, icones da sidebar, affordances de edicao futura e tipografia.
+
 ## base documental inicial concluida
 
 A base documental inicial do Blue Atelier esta concluida.
@@ -125,6 +137,8 @@ Documentos criados nesta base:
 - `docs/18-tela-inicial.md`
 - `docs/19-tela-colecoes.md`
 - `docs/20-correcao-visual-home-e-fundacao.md`
+- `docs/21-detalhe-colecao.md`
+- `docs/22-ajustes-ux-identidade-visual.md`
 
 O documento `docs/15-referencias-visuais-stitch.md` registra que a direcao visual do Stitch foi aprovada e que os arquivos em `referencias-visuais/stitch/` devem ser tratados como referencia visual protegida.
 
@@ -138,12 +152,16 @@ O documento `docs/19-tela-colecoes.md` registra que a tela de Colecoes foi imple
 
 O documento `docs/20-correcao-visual-home-e-fundacao.md` registra que houve uma correcao visual aprovada da Home e da fundacao visual, mantendo a tela de Colecoes preservada.
 
+O documento `docs/21-detalhe-colecao.md` registra que a tela de Detalhe da Colecao foi implementada e aprovada visualmente pelo usuario.
+
+O documento `docs/22-ajustes-ux-identidade-visual.md` registra que houve ajustes globais aprovados de UX e identidade visual, incluindo hover, cards clicaveis, icones da sidebar, affordances de edicao e tipografia.
+
 ## proxima etapa sugerida
 
-Implementar a tela de Detalhe da Colecao com base em:
+Implementar a tela de Detalhe do Modelo com base em:
 
 ```txt
-referencias-visuais/stitch/html/03-detalhe-colecao.html
+referencias-visuais/stitch/html/04-detalhe-modelo.html
 ```
 
 Essa proxima etapa deve usar como base:
@@ -158,5 +176,7 @@ Essa proxima etapa deve usar como base:
 - `docs/18-tela-inicial.md`
 - `docs/19-tela-colecoes.md`
 - `docs/20-correcao-visual-home-e-fundacao.md`
+- `docs/21-detalhe-colecao.md`
+- `docs/22-ajustes-ux-identidade-visual.md`
 
-Nas proximas telas, o Codex deve preservar a Home, a tela de Colecoes e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.
+Nas proximas telas, o Codex deve preservar a Home, a tela de Colecoes, o Detalhe da Colecao e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.

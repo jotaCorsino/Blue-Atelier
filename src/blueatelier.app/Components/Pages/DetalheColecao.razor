@@ -1,0 +1,201 @@
+@page "/colecoes/eldritch-horrors"
+
+<section class="collection-detail-page" aria-labelledby="collection-detail-title">
+    <a class="collection-detail-back" href="/colecoes">
+        <span aria-hidden="true">←</span>
+        <span>Back to Collections</span>
+    </a>
+
+    <section class="collection-detail-hero" aria-label="Resumo da coleção Eldritch Horrors">
+        <div class="collection-detail-banner" aria-hidden="true">
+            <div class="collection-preview-window">
+                <span class="collection-preview-dot"></span>
+                <span class="collection-preview-dot"></span>
+                <span class="collection-preview-dot"></span>
+            </div>
+
+            <div class="collection-preview-layout">
+                <div class="collection-preview-sidebar">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="collection-preview-main">
+                    <div class="collection-preview-title"></div>
+                    <div class="collection-preview-grid">
+                        @foreach (var preview in PreviewBlocks)
+                        {
+                            <span class="collection-preview-card preview-@preview"></span>
+                        }
+                    </div>
+                </div>
+
+                <div class="collection-preview-panel">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="collection-detail-info">
+            <div class="collection-detail-title-row">
+                <h1 id="collection-detail-title">Eldritch Horrors</h1>
+                <span class="collection-detail-status">In Production</span>
+            </div>
+
+            <div class="collection-detail-tags" aria-label="Tags da coleção">
+                @foreach (var tag in Tags)
+                {
+                    <span>@tag</span>
+                }
+            </div>
+
+            <p class="collection-detail-description">
+                Sombrous creatures, monstrous busts, and miniatures inspired by cosmic horror.
+            </p>
+
+            <p class="collection-detail-meta">
+                8 models · Updated today · Local folder linked
+            </p>
+
+            <div class="collection-detail-actions" aria-label="Ferramentas visuais da coleção">
+                <AppButton Variant="ghost" Class="collection-detail-action">
+                    <AppIcon Name="edit" />
+                    Editar coleção
+                </AppButton>
+                <AppButton Variant="ghost" Class="collection-detail-action">
+                    <AppIcon Name="folder" />
+                    Open Folder
+                </AppButton>
+                <AppButton Variant="primary" Class="collection-detail-action">
+                    <span aria-hidden="true">+</span>
+                    New Model
+                </AppButton>
+            </div>
+        </div>
+    </section>
+
+    <div class="collection-detail-content">
+        <section class="collection-detail-models" aria-labelledby="collection-models-title">
+            <h2 class="visually-hidden" id="collection-models-title">Models in this collection</h2>
+
+            <div class="collection-detail-model-grid">
+                @foreach (var model in Models)
+                {
+                    <article class="collection-model-card">
+                        <div class="collection-model-cover model-cover-@model.Cover">
+                            <span class="collection-model-shape"></span>
+                            <span class="card-edit-affordance model-edit-affordance">
+                                <AppIcon Name="edit" />
+                                <span>Editar</span>
+                            </span>
+                        </div>
+
+                        <div class="collection-model-body">
+                            <div class="collection-model-title-row">
+                                <h3>@model.Name</h3>
+                                <span class="collection-model-status collection-model-status-@model.StatusTone">@model.Status</span>
+                            </div>
+
+                            <p>@model.Stage</p>
+
+                            <div class="collection-model-progress" aria-label="@($"{model.Name}: {model.Progress}%")">
+                                <span style="@($"width: {model.Progress}%")"></span>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+        </section>
+
+        <aside class="collection-detail-side" aria-label="Referências da coleção">
+            <section class="collection-side-card" aria-labelledby="collection-links-title">
+                <h2 id="collection-links-title">Links</h2>
+                <ul class="collection-link-list">
+                    @foreach (var link in Links)
+                    {
+                        <li>
+                            <a href="#" @onclick:preventDefault>@link</a>
+                        </li>
+                    }
+                </ul>
+            </section>
+
+            <section class="collection-side-card" aria-labelledby="collection-gallery-title">
+                <h2 id="collection-gallery-title">Gallery / References</h2>
+                <div class="collection-reference-grid">
+                    @foreach (var reference in References)
+                    {
+                        <span class="collection-reference-thumb reference-@reference" aria-hidden="true"></span>
+                    }
+                    <button class="collection-reference-add" type="button" aria-label="Adicionar referência visual">+</button>
+                </div>
+            </section>
+
+            <section class="collection-side-card" aria-labelledby="collection-notes-title">
+                <h2 id="collection-notes-title">Notes</h2>
+                <p>
+                    Focus on deep greens and purples for the main Cthulhu piece.
+                    Experiment with oil washes for the cultists.
+                </p>
+            </section>
+        </aside>
+    </div>
+</section>
+
+@code {
+    private static readonly string[] Tags =
+    [
+        "horror",
+        "creatures",
+        "busts",
+        "dark painting"
+    ];
+
+    private static readonly string[] PreviewBlocks =
+    [
+        "banner",
+        "idol",
+        "bust",
+        "beast",
+        "cultist",
+        "statue"
+    ];
+
+    private static readonly CollectionModel[] Models =
+    [
+        new("Cthulhu Idol", "Painting", "60%", "blue", "idol", 60),
+        new("Deep One Bust", "Printing", "25%", "amber", "bust", 25),
+        new("Tentacle Beast", "Printing", "50%", "blue", "beast", 50),
+        new("Ancient Cultist", "Finished", "Finished", "green", "cultist", 100),
+        new("Forgotten Horror", "Printing", "25%", "amber", "forgotten", 25),
+        new("Abyssal Statue", "Sunken ruin piece", "30%", "blue", "statue", 30)
+    ];
+
+    private static readonly string[] Links =
+    [
+        "MyMiniFactory collection",
+        "Painting references",
+        "Resin settings"
+    ];
+
+    private static readonly string[] References =
+    [
+        "lens",
+        "eye",
+        "rune",
+        "glow",
+        "stone"
+    ];
+
+    private sealed record CollectionModel(
+        string Name,
+        string Stage,
+        string Status,
+        string StatusTone,
+        string Cover,
+        int Progress);
+}

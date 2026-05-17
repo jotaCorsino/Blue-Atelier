@@ -18,12 +18,12 @@
 
     <nav class="sidebar-nav">
         <NavLink class="sidebar-link" href="/" Match="NavLinkMatch.All">
-            <span class="sidebar-icon" aria-hidden="true">IN</span>
+            <span class="sidebar-icon" aria-hidden="true"><AppIcon Name="home" /></span>
             <span>@(IsHomePage ? "Home" : "Inicio")</span>
         </NavLink>
 
         <NavLink class="sidebar-link" href="/colecoes">
-            <span class="sidebar-icon" aria-hidden="true">CO</span>
+            <span class="sidebar-icon" aria-hidden="true"><AppIcon Name="collections" /></span>
             <span>@(IsHomePage ? "Collections" : "Colecoes")</span>
         </NavLink>
 
@@ -35,7 +35,7 @@
             }
 
             <a class="sidebar-link sidebar-link-disabled" href="#" aria-disabled="true" @onclick:preventDefault>
-                <span class="sidebar-icon" aria-hidden="true">@item.Icon</span>
+                <span class="sidebar-icon" aria-hidden="true"><AppIcon Name="@item.Icon" /></span>
                 <span>@(IsHomePage ? item.HomeLabel : item.Label)</span>
             </a>
         }
@@ -52,13 +52,13 @@
 @code {
     private static readonly SidebarItem[] FutureItems =
     [
-        new("Modelos", "Models", "MO"),
-        new("Fila de Impressao", "Print Queue", "FI"),
-        new("Arquivos Recentes", "Recent Files", "AR"),
-        new("Materiais", "Materials", "MA", true),
-        new("Favoritos", "Favorites", "FA"),
-        new("Busca", "Search", "BU"),
-        new("Configuracoes", "Settings", "CF")
+        new("Modelos", "Models", "models"),
+        new("Fila de Impressao", "Print Queue", "print"),
+        new("Arquivos Recentes", "Recent Files", "recent"),
+        new("Materiais", "Materials", "materials", true),
+        new("Favoritos", "Favorites", "favorites"),
+        new("Busca", "Search", "search"),
+        new("Configuracoes", "Settings", "settings")
     ];
 
     private bool IsHomePage

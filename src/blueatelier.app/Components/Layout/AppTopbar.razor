@@ -14,6 +14,10 @@
             <AppButton Variant="primary">+ Nova colecao</AppButton>
         </div>
     }
+    else if (IsCollectionDetailPage)
+    {
+        <span class="topbar-spacer" aria-hidden="true"></span>
+    }
     else if (IsHomePage)
     {
         <div class="topbar-status topbar-network-status" role="status">
@@ -49,6 +53,15 @@
         }
     }
 
+    private bool IsCollectionDetailPage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.Equals(relativePath, "colecoes/eldritch-horrors", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
     private string SearchPlaceholder
     {
         get
@@ -58,7 +71,7 @@
                 return "Buscar colecoes...";
             }
 
-            if (IsHomePage)
+            if (IsHomePage || IsCollectionDetailPage)
             {
                 return "Search models, prints, paints...";
             }

@@ -2,12 +2,13 @@
 
 ## status geral
 
-Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e duas telas reais criadas com dados mockados:
+Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e tres telas reais criadas com dados mockados:
 
 - Home;
-- Colecoes.
+- Colecoes;
+- Detalhe da Colecao.
 
-A tela de Colecoes, a Home corrigida e a fundacao visual corrigida foram validadas visualmente pelo usuario e estao aprovadas no estado atual.
+A Home, a tela de Colecoes, a tela de Detalhe da Colecao, a fundacao visual atual e os ajustes globais de UX foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -21,11 +22,18 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 A ultima tarefa concluida consolidou:
 
-- implementacao da tela de Colecoes com base em `referencias-visuais/stitch/html/02-colecoes.html`;
-- correcao visual da Home com base em `referencias-visuais/stitch/html/01-inicio.html`;
-- correcao visual da fundacao visual global;
-- preservacao da tela de Colecoes durante a correcao da Home;
-- aprovacao visual manual pelo usuario da tela de Colecoes, da Home corrigida e da fundacao visual corrigida.
+- implementacao da tela Detalhe da Colecao com base em `referencias-visuais/stitch/html/03-detalhe-colecao.html`;
+- rota visual `/colecoes/eldritch-horrors`;
+- ajustes globais de UX;
+- melhoria de hover dos cards;
+- cards de colecao clicaveis por inteiro;
+- substituicao/remocao do rotulo generico `Acoes`;
+- padronizacao de icones da sidebar com SVG inline;
+- criacao de affordances visuais para edicao futura;
+- atualizacao da stack tipografica;
+- preservacao da Home aprovada;
+- preservacao da tela de Colecoes aprovada;
+- aprovacao visual manual pelo usuario.
 
 ## decisoes ja tomadas
 
@@ -73,15 +81,19 @@ Implementado:
 - sidebar em `AppSidebar.razor`;
 - topbar em `AppTopbar.razor`;
 - componentes base `AppCard`, `AppBadge` e `AppButton`;
+- componente `AppIcon` com icones SVG inline;
 - tokens e temas CSS em `wwwroot/css/`;
 - Home corrigida e aprovada;
-- tela de Colecoes aprovada.
+- tela de Colecoes aprovada;
+- tela de Detalhe da Colecao aprovada;
+- hover global de cards clicaveis;
+- affordances visuais de edicao futura;
+- tipografia moderna com stack de sistema.
 
 Ainda nao implementado:
 
-- Detalhe da Colecao;
-- tela de Modelos;
 - Detalhe do Modelo;
+- tela de Modelos;
 - Galeria;
 - SQLite;
 - EF Core;
@@ -92,50 +104,54 @@ Ainda nao implementado:
 - busca real;
 - filtros reais persistidos;
 - fila de impressao real;
-- configuracoes reais.
+- configuracoes reais;
+- edicao real de colecoes, modelos ou cards.
 
 ## arquivos alterados ou criados na ultima tarefa
 
 Implementacao:
 
-- `src/blueatelier.app/Components/Layout/MainLayout.razor`
 - `src/blueatelier.app/Components/Layout/AppSidebar.razor`
 - `src/blueatelier.app/Components/Layout/AppTopbar.razor`
-- `src/blueatelier.app/Components/Pages/Home.razor`
 - `src/blueatelier.app/Components/Pages/Colecoes.razor`
+- `src/blueatelier.app/Components/Pages/DetalheColecao.razor`
+- `src/blueatelier.app/Components/Shared/AppIcon.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
+- `src/blueatelier.app/wwwroot/css/tokens.css`
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/19-tela-colecoes.md`
-- `docs/20-correcao-visual-home-e-fundacao.md`
+- `docs/21-detalhe-colecao.md`
+- `docs/22-ajustes-ux-identidade-visual.md`
 
 ## validacoes executadas na ultima tarefa
 
 - `referencias-visuais/stitch/design.md` foi respeitado.
-- `referencias-visuais/stitch/html/01-inicio.html` foi usado para corrigir a Home.
-- `referencias-visuais/stitch/html/02-colecoes.html` foi usado para a tela de Colecoes.
+- `referencias-visuais/stitch/html/03-detalhe-colecao.html` foi usado para a tela de Detalhe da Colecao.
+- Home permaneceu preservada.
+- Colecoes permaneceu preservada.
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- Nenhuma tela nova alem de Colecoes foi implementada.
+- Nenhuma funcionalidade real de edicao foi implementada.
 - Nenhum banco SQLite foi criado.
 - Nenhum EF Core foi implementado.
 - Nenhuma migration foi criada.
 - Nenhum servico real foi implementado.
 - Nenhum sistema de arquivos real foi implementado.
+- Nenhum CDN, Tailwind, Bootstrap ou biblioteca externa foi usado.
 - `dotnet restore BlueAtelier.sln` executado com sucesso.
 - `dotnet build BlueAtelier.sln` executado com sucesso.
 - `dotnet test BlueAtelier.sln --no-build` executado com sucesso.
 
 ## proxima tarefa sugerida
 
-Implementar a tela de Detalhe da Colecao com base em:
+Implementar a tela de Detalhe do Modelo com base em:
 
 ```txt
-referencias-visuais/stitch/html/03-detalhe-colecao.html
+referencias-visuais/stitch/html/04-detalhe-modelo.html
 ```
 
-A proxima tarefa deve preservar a tela de Colecoes, a Home e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.
+A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.
