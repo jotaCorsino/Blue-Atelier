@@ -1,11 +1,69 @@
-<header class="app-topbar">
+@using Microsoft.AspNetCore.Components
+@inject NavigationManager Navigation
+
+<header class="app-topbar @(IsHomePage ? "app-topbar-home" : null)">
     <label class="topbar-search" aria-label="Busca visual provisoria">
         <span aria-hidden="true">S</span>
-        <input type="search" placeholder="Buscar modelos, colecoes, arquivos..." disabled />
+        <input type="search" placeholder="@SearchPlaceholder" disabled />
     </label>
 
-    <div class="topbar-status">
-        <span class="status-dot" aria-hidden="true"></span>
-        <span>Fundacao visual</span>
-    </div>
+    @if (IsCollectionsPage)
+    {
+        <div class="topbar-actions" aria-label="Acoes de colecoes">
+            <AppButton Variant="ghost">Importar pasta</AppButton>
+            <AppButton Variant="primary">+ Nova colecao</AppButton>
+        </div>
+    }
+    else if (IsHomePage)
+    {
+        <div class="topbar-status topbar-network-status" role="status">
+            <span class="status-dot status-dot-muted" aria-hidden="true"></span>
+            <span>Network path offline: Z:\My Miniatures</span>
+        </div>
+    }
+    else
+    {
+        <div class="topbar-status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Fundacao visual</span>
+        </div>
+    }
 </header>
+
+@code {
+    private bool IsCollectionsPage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.Equals(relativePath, "colecoes", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    private bool IsHomePage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.IsNullOrWhiteSpace(relativePath);
+        }
+    }
+
+    private string SearchPlaceholder
+    {
+        get
+        {
+            if (IsCollectionsPage)
+            {
+                return "Buscar colecoes...";
+            }
+
+            if (IsHomePage)
+            {
+                return "Search models, prints, paints...";
+            }
+
+            return "Buscar modelos, colecoes, arquivos...";
+        }
+    }
+}

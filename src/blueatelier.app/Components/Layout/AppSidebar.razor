@@ -1,37 +1,74 @@
-<aside class="app-sidebar" aria-label="Navegacao principal">
+@using Microsoft.AspNetCore.Components
+@inject NavigationManager Navigation
+
+<aside class="app-sidebar @(IsHomePage ? "app-sidebar-home" : null)" aria-label="Navegacao principal">
     <div class="sidebar-brand" aria-label="Blue Atelier">
-        <span class="sidebar-brand-mark">BA</span>
+        <span class="sidebar-brand-mark @(IsHomePage ? "sidebar-brand-mark-home" : null)" aria-hidden="true">
+            @if (IsHomePage)
+            {
+                <span class="sidebar-brand-triangle"></span>
+            }
+            else
+            {
+                <span>BA</span>
+            }
+        </span>
         <span class="sidebar-brand-text">Blue Atelier</span>
     </div>
 
     <nav class="sidebar-nav">
         <NavLink class="sidebar-link" href="/" Match="NavLinkMatch.All">
             <span class="sidebar-icon" aria-hidden="true">IN</span>
-            <span>Inicio</span>
+            <span>@(IsHomePage ? "Home" : "Inicio")</span>
+        </NavLink>
+
+        <NavLink class="sidebar-link" href="/colecoes">
+            <span class="sidebar-icon" aria-hidden="true">CO</span>
+            <span>@(IsHomePage ? "Collections" : "Colecoes")</span>
         </NavLink>
 
         @foreach (var item in FutureItems)
         {
+            if (IsHomePage && item.HasDividerBefore)
+            {
+                <span class="sidebar-home-divider" aria-hidden="true"></span>
+            }
+
             <a class="sidebar-link sidebar-link-disabled" href="#" aria-disabled="true" @onclick:preventDefault>
                 <span class="sidebar-icon" aria-hidden="true">@item.Icon</span>
-                <span>@item.Label</span>
+                <span>@(IsHomePage ? item.HomeLabel : item.Label)</span>
             </a>
         }
     </nav>
+
+    @if (IsHomePage)
+    {
+        <div class="sidebar-home-action">
+            <AppButton Variant="primary" Class="sidebar-new-collection">+ New Collection</AppButton>
+        </div>
+    }
 </aside>
 
 @code {
     private static readonly SidebarItem[] FutureItems =
     [
-        new("Colecoes", "CO"),
-        new("Modelos", "MO"),
-        new("Fila de Impressao", "FI"),
-        new("Arquivos Recentes", "AR"),
-        new("Materiais", "MA"),
-        new("Favoritos", "FA"),
-        new("Busca", "BU"),
-        new("Configuracoes", "CF")
+        new("Modelos", "Models", "MO"),
+        new("Fila de Impressao", "Print Queue", "FI"),
+        new("Arquivos Recentes", "Recent Files", "AR"),
+        new("Materiais", "Materials", "MA", true),
+        new("Favoritos", "Favorites", "FA"),
+        new("Busca", "Search", "BU"),
+        new("Configuracoes", "Settings", "CF")
     ];
 
-    private sealed record SidebarItem(string Label, string Icon);
+    private bool IsHomePage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.IsNullOrWhiteSpace(relativePath);
+        }
+    }
+
+    private sealed record SidebarItem(string Label, string HomeLabel, string Icon, bool HasDividerBefore = false);
 }

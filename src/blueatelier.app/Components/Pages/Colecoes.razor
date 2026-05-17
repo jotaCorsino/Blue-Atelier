@@ -1,0 +1,181 @@
+@page "/colecoes"
+
+<section class="collections-page" aria-labelledby="collections-title">
+    <header class="collections-heading">
+        <div>
+            <h1 id="collections-title">Coleções</h1>
+            <p>Organize linhas, temas e grupos de modelos do atelier.</p>
+        </div>
+
+        <div class="collections-filter-pills" aria-label="Filtros visuais de coleções">
+            @foreach (var filter in Filters)
+            {
+                <button class="collection-filter-pill @(filter.IsActive ? "collection-filter-pill-active" : null)" type="button">
+                    @filter.Label
+                </button>
+            }
+        </div>
+    </header>
+
+    <div class="collections-tools" aria-label="Ordenação visual provisória">
+        <label class="collections-sort">
+            <span>Ordenar</span>
+            <select disabled>
+                <option>Atualizadas recentemente</option>
+                <option>Nome</option>
+                <option>Quantidade de modelos</option>
+                <option>Status</option>
+            </select>
+        </label>
+    </div>
+
+    <div class="collections-grid" aria-label="Mosaico de coleções">
+        @foreach (var collection in Collections)
+        {
+            <article class="collections-card">
+                <div class="collections-card-cover @collection.CoverClass" aria-hidden="true"></div>
+
+                <div class="collections-card-body">
+                    <div class="collections-card-title-row">
+                        <h2>@collection.Name</h2>
+                        <span class="collections-status collections-status-@collection.StatusTone">@collection.Status</span>
+                    </div>
+
+                    <p class="collections-card-description">@collection.Description</p>
+
+                    <div class="collections-card-tags" aria-label="@($"Tags de {collection.Name}")">
+                        @foreach (var tag in collection.Tags)
+                        {
+                            <span>@tag</span>
+                        }
+                    </div>
+
+                    <div class="collections-card-footer">
+                        <span>@collection.ModelCount</span>
+                        <span>@collection.UpdatedAt</span>
+                        <button type="button" aria-label="@($"Ações de {collection.Name}")">Ações</button>
+                    </div>
+                </div>
+            </article>
+        }
+    </div>
+
+    @if (ShowEmptyState)
+    {
+        <section class="collections-empty-state" aria-labelledby="collections-empty-title">
+            <h2 id="collections-empty-title">Nenhuma coleção criada ainda.</h2>
+            <p>Crie a primeira linha do atelier para começar a organizar modelos, arquivos e referências.</p>
+            <AppButton Variant="primary">Criar primeira coleção</AppButton>
+        </section>
+    }
+</section>
+
+@code {
+    private static readonly bool ShowEmptyState = false;
+
+    private static readonly FilterPill[] Filters =
+    [
+        new("Todas", true),
+        new("Em andamento", false),
+        new("Prontas", false),
+        new("Pausadas", false),
+        new("Arquivadas", false)
+    ];
+
+    private static readonly CollectionCard[] Collections =
+    [
+        new(
+            "Eldritch Horrors",
+            "Miniaturas sombrias, ídolos antigos e criaturas de culto.",
+            "8 modelos",
+            "Em andamento",
+            "progress",
+            "Atualizada hoje",
+            "cover-eldritch",
+            ["dark fantasy", "resina"]
+        ),
+        new(
+            "Sci-Fi Marines",
+            "Soldados blindados, armas pesadas e variações de tropa.",
+            "15 modelos",
+            "Pronta",
+            "ready",
+            "Atualizada ontem",
+            "cover-marines",
+            ["sci-fi", "stl"]
+        ),
+        new(
+            "Fantasy Adventurers",
+            "Grupo de aventureiros para pintura e estudos de personagem.",
+            "5 modelos",
+            "Pausada",
+            "muted",
+            "Atualizada há 3 dias",
+            "cover-adventurers",
+            ["fantasia", "pintura"]
+        ),
+        new(
+            "Dragon Busts",
+            "Bustos de dragões para escala maior e acabamento detalhado.",
+            "2 modelos",
+            "Em andamento",
+            "progress",
+            "Atualizada há 5 dias",
+            "cover-dragons",
+            ["busto", "criaturas"]
+        ),
+        new(
+            "Tavern Dioramas",
+            "Cenas internas, fachadas e peças para dioramas de taverna.",
+            "1 modelo",
+            "Pausada",
+            "muted",
+            "Atualizada há 1 semana",
+            "cover-tavern",
+            ["cenário", "diorama"]
+        ),
+        new(
+            "Ancient Ruins",
+            "Pilares, arcos e bases para composições de ruínas antigas.",
+            "10 modelos",
+            "Pronta",
+            "ready",
+            "Atualizada há 1 semana",
+            "cover-ruins",
+            ["cenário", "bases"]
+        ),
+        new(
+            "Painting Studies",
+            "Peças separadas para testes de pedra, pele, metal e verniz.",
+            "6 modelos",
+            "Em andamento",
+            "progress",
+            "Atualizada há 2 semanas",
+            "cover-painting",
+            ["estudo", "cores"]
+        ),
+        new(
+            "Miniature Bases",
+            "Bases temáticas para miniaturas pequenas e médias.",
+            "18 modelos",
+            "Arquivada",
+            "archived",
+            "Atualizada há 1 mês",
+            "cover-bases",
+            ["bases", "textura"]
+        )
+    ];
+
+    private sealed record FilterPill(string Label, bool IsActive);
+
+    private sealed record CollectionCard(
+        string Name,
+        string Description,
+        string ModelCount,
+        string Status,
+        string StatusTone,
+        string UpdatedAt,
+        string CoverClass,
+        string[] Tags
+    );
+}
