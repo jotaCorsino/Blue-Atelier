@@ -148,6 +148,24 @@ Arquivo: `docs/28-ajustes-arquivos-vinculados-layout.md`
 
 Objetivo: registrar os ajustes aprovados da tela Arquivos Vinculados, incluindo correcao dos paineis laterais, acoes por icones, `title` e `aria-label`, icone de remover e refinamento da capa/imagem principal.
 
+### 25. fila de Impressao
+
+Arquivo: `docs/29-fila-impressao.md`
+
+Objetivo: registrar a implementacao da tela Fila de Impressao, incluindo rota `/fila-impressao`, referencia visual usada, tabela/lista de itens, filtros, estados visuais, dados mockados, acoes provisorias e aprovacao visual manual.
+
+### 26. ajustes de paleta visual
+
+Arquivo: `docs/30-ajustes-paleta-visual.md`
+
+Objetivo: registrar a recalibracao aprovada da paleta visual, com reducao de cores excessivas, azul como destaque principal e cores de sistema restritas a estados reais.
+
+### 27. modelos e navegacao da Home
+
+Arquivo: `docs/31-modelos-e-navegacao-home.md`
+
+Objetivo: registrar a correcao da navegacao das colecoes na Home, a ativacao da rota `/modelos`, a tela Modelos mockada e a sidebar marcando Models nas rotas relacionadas.
+
 ## base documental inicial concluida
 
 A base documental inicial do Blue Atelier esta concluida.
@@ -181,6 +199,9 @@ Documentos criados nesta base:
 - `docs/26-ajustes-responsividade-layout.md`
 - `docs/27-arquivos-vinculados.md`
 - `docs/28-ajustes-arquivos-vinculados-layout.md`
+- `docs/29-fila-impressao.md`
+- `docs/30-ajustes-paleta-visual.md`
+- `docs/31-modelos-e-navegacao-home.md`
 
 O documento `docs/15-referencias-visuais-stitch.md` registra que a direcao visual do Stitch foi aprovada e que os arquivos em `referencias-visuais/stitch/` devem ser tratados como referencia visual protegida.
 
@@ -210,12 +231,18 @@ O documento `docs/27-arquivos-vinculados.md` registra que a tela Arquivos Vincul
 
 O documento `docs/28-ajustes-arquivos-vinculados-layout.md` registra que houve ajustes aprovados no layout da tela Arquivos Vinculados, incluindo paineis laterais, acoes como icones, acessibilidade dos botoes e capa principal.
 
+O documento `docs/29-fila-impressao.md` registra que a tela Fila de Impressao foi implementada e aprovada visualmente pelo usuario.
+
+O documento `docs/30-ajustes-paleta-visual.md` registra que a paleta visual foi recalibrada para uma direcao mais clean, moderna, azulada e menos colorida.
+
+O documento `docs/31-modelos-e-navegacao-home.md` registra que a navegacao da Home foi corrigida e que a tela Modelos foi ativada.
+
 ## proxima etapa sugerida
 
-Implementar a tela de Fila de Impressao com base em:
+Implementar a tela Arquivos Recentes com base em:
 
 ```txt
-referencias-visuais/stitch/html/08-fila-impressao.html
+referencias-visuais/stitch/html/09-arquivos-recentes.html
 ```
 
 Essa proxima etapa deve usar como base:
@@ -238,5 +265,8 @@ Essa proxima etapa deve usar como base:
 - `docs/26-ajustes-responsividade-layout.md`
 - `docs/27-arquivos-vinculados.md`
 - `docs/28-ajustes-arquivos-vinculados-layout.md`
+- `docs/29-fila-impressao.md`
+- `docs/30-ajustes-paleta-visual.md`
+- `docs/31-modelos-e-navegacao-home.md`
 
-Nas proximas telas, o Codex deve preservar a Home, a tela de Colecoes, o Detalhe da Colecao, o Detalhe do Modelo, a Galeria do Modelo, a Visualizacao de Imagem, a tela Arquivos Vinculados e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.
+Nas proximas telas, o Codex deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.

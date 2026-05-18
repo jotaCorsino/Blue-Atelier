@@ -1,4 +1,6 @@
 @using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Routing
+@implements IDisposable
 @inject NavigationManager Navigation
 
 <aside class="app-sidebar @(IsHomePage ? "app-sidebar-home" : null)" aria-label="Navegacao principal">
@@ -34,10 +36,20 @@
                 <span class="sidebar-home-divider" aria-hidden="true"></span>
             }
 
-            <a class="sidebar-link sidebar-link-disabled @(IsFutureItemActive(item) ? "active" : null)" href="#" aria-disabled="true" @onclick:preventDefault>
-                <span class="sidebar-icon" aria-hidden="true"><AppIcon Name="@item.Icon" /></span>
-                <span>@(IsHomePage ? item.HomeLabel : item.Label)</span>
-            </a>
+            if (item.Href is not null)
+            {
+                <a class="sidebar-link @(IsFutureItemActive(item) ? "active" : null)" href="@item.Href">
+                    <span class="sidebar-icon" aria-hidden="true"><AppIcon Name="@item.Icon" /></span>
+                    <span>@(IsHomePage ? item.HomeLabel : item.Label)</span>
+                </a>
+            }
+            else
+            {
+                <a class="sidebar-link sidebar-link-disabled @(IsFutureItemActive(item) ? "active" : null)" href="#" aria-disabled="true" @onclick:preventDefault>
+                    <span class="sidebar-icon" aria-hidden="true"><AppIcon Name="@item.Icon" /></span>
+                    <span>@(IsHomePage ? item.HomeLabel : item.Label)</span>
+                </a>
+            }
         }
     </nav>
 
@@ -52,8 +64,8 @@
 @code {
     private static readonly SidebarItem[] FutureItems =
     [
-        new("Modelos", "Models", "models"),
-        new("Fila de Impressao", "Print Queue", "print"),
+        new("Modelos", "Models", "models", Href: "/modelos"),
+        new("Fila de Impressao", "Print Queue", "print", Href: "/fila-impressao"),
         new("Arquivos Recentes", "Recent Files", "recent"),
         new("Materiais", "Materials", "materials", true),
         new("Favoritos", "Favorites", "favorites"),
@@ -70,12 +82,30 @@
         }
     }
 
+    protected override void OnInitialized()
+    {
+        Navigation.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
     private bool IsFutureItemActive(SidebarItem item)
     {
         var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
-        return item.Icon == "models"
-            && (string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos", StringComparison.OrdinalIgnoreCase));
+        if (item.Icon == "models")
+        {
+            return string.Equals(relativePath, "modelos", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos", StringComparison.OrdinalIgnoreCase);
+        }
+
+        return item.Href is not null
+            && string.Equals(relativePath, item.Href.TrimStart('/'), StringComparison.OrdinalIgnoreCase);
     }
 
     private bool IsCollectionsNavActive
@@ -84,11 +114,14 @@
         {
             var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
             return string.Equals(relativePath, "colecoes", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(relativePath, "colecoes/eldritch-horrors", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference", StringComparison.OrdinalIgnoreCase);
+                || string.Equals(relativePath, "colecoes/eldritch-horrors", StringComparison.OrdinalIgnoreCase);
         }
     }
 
-    private sealed record SidebarItem(string Label, string HomeLabel, string Icon, bool HasDividerBefore = false);
+    private sealed record SidebarItem(string Label, string HomeLabel, string Icon, bool HasDividerBefore = false, string? Href = null);
+
+    public void Dispose()
+    {
+        Navigation.LocationChanged -= OnLocationChanged;
+    }
 }

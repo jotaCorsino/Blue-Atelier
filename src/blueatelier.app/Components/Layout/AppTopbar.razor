@@ -32,6 +32,20 @@
             </a>
         </div>
     }
+    else if (IsPrintQueuePage)
+    {
+        <div class="topbar-status" role="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Fila visual provisoria</span>
+        </div>
+    }
+    else if (IsModelsPage)
+    {
+        <div class="topbar-status" role="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Modelos mockados</span>
+        </div>
+    }
     else if (IsModelGalleryPage)
     {
         <div class="topbar-actions" aria-label="Acoes da galeria do modelo">
@@ -134,6 +148,24 @@
         }
     }
 
+    private bool IsPrintQueuePage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.Equals(relativePath, "fila-impressao", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    private bool IsModelsPage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.Equals(relativePath, "modelos", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
     private string SearchPlaceholder
     {
         get
@@ -141,6 +173,16 @@
             if (IsCollectionsPage)
             {
                 return "Buscar colecoes...";
+            }
+
+            if (IsPrintQueuePage)
+            {
+                return "Buscar na fila...";
+            }
+
+            if (IsModelsPage)
+            {
+                return "Buscar modelos...";
             }
 
             if (IsHomePage || IsCollectionDetailPage || IsModelDetailPage || IsModelGalleryPage || IsImageViewerPage || IsLinkedFilesPage)

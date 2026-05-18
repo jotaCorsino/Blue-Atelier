@@ -2,7 +2,7 @@
 
 ## status geral
 
-Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e sete telas reais criadas com dados mockados:
+Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e nove telas reais criadas com dados mockados:
 
 - Home;
 - Colecoes;
@@ -10,9 +10,11 @@ Projeto com base documental inicial concluida, referencias visuais do Stitch cat
 - Detalhe do Modelo;
 - Galeria do Modelo;
 - Visualizacao de Imagem;
-- Arquivos Vinculados.
+- Arquivos Vinculados;
+- Fila de Impressao;
+- Modelos.
 
-A Home, a tela de Colecoes, a tela de Detalhe da Colecao, a tela de Detalhe do Modelo, a tela Galeria do Modelo, a tela Visualizacao de Imagem, a tela Arquivos Vinculados, a fundacao visual atual, os ajustes globais de UX e os ajustes de responsividade foram validados visualmente pelo usuario e estao aprovados.
+A Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -26,18 +28,25 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 A ultima tarefa concluida consolidou:
 
-- implementacao da tela Arquivos Vinculados com base em `referencias-visuais/stitch/html/07-arquivos-vinculados.html`;
-- rota `/colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos`;
-- navegacao visual a partir do Detalhe do Modelo;
+- implementacao da tela Fila de Impressao com base em `referencias-visuais/stitch/html/08-fila-impressao.html`;
+- rota `/fila-impressao`;
 - uso de dados mockados;
-- tela com lista/grid de arquivos vinculados;
-- acoes visuais de abrir, editar vinculo e remover vinculo;
-- paineis laterais de resumo, pasta vinculada e status;
-- correcao de sobreposicao dos paineis laterais;
-- substituicao das acoes textuais por icones;
-- adicao de `title` e `aria-label` nos botoes de acao;
-- refinamento da capa/imagem principal no layout;
-- preservacao da Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo e Visualizacao de Imagem;
+- lista/tabela de itens na fila;
+- filtros visuais;
+- acoes visuais provisorias;
+- cards laterais de resumo;
+- ajustes de alinhamento da tabela Itens na Fila;
+- compactacao dos cards laterais;
+- recalibracao da paleta visual do app;
+- azul como destaque principal;
+- reducao de cores excessivas;
+- verde, amarelo e vermelho restritos a estados reais de sistema;
+- correcao da navegacao da Home para abrir a colecao;
+- ativacao da pagina Modelos;
+- rota `/modelos`;
+- navegacao visual do card Cthulhu Idol para o Detalhe do Modelo;
+- sidebar marcando Models corretamente em rotas de modelos;
+- preservacao das telas ja aprovadas;
 - aprovacao visual manual pelo usuario.
 
 ## decisoes ja tomadas
@@ -88,16 +97,23 @@ Implementado:
 - componentes base `AppCard`, `AppBadge` e `AppButton`;
 - componente `AppIcon` com icones SVG inline;
 - tokens e temas CSS em `wwwroot/css/`;
-- Home corrigida e aprovada;
+- Home aprovada e com cards de colecao navegaveis;
 - tela de Colecoes aprovada;
 - tela de Detalhe da Colecao aprovada;
 - tela de Detalhe do Modelo aprovada;
 - tela Galeria do Modelo aprovada;
 - tela Visualizacao de Imagem aprovada;
 - tela Arquivos Vinculados aprovada;
+- tela Fila de Impressao aprovada;
+- tela Modelos em `/modelos` aprovada;
+- navegacao do card Cthulhu Idol para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
+- sidebar com Models ativo nas rotas de modelos;
 - hover global de cards clicaveis;
 - affordances visuais de edicao futura;
 - tipografia moderna com stack de sistema;
+- paleta visual mais clean, moderna, azulada e menos colorida;
+- azul como cor principal de destaque;
+- estados reais de sistema com uso discreto de verde, amarelo e vermelho;
 - refinamento visual da barra anterior/proxima da Visualizacao de Imagem;
 - correcao global de proporcao para capas, thumbnails, previews e imagens mockadas;
 - ajuste de layout do Detalhe do Modelo para acompanhar melhor telas largas;
@@ -107,8 +123,7 @@ Implementado:
 
 Ainda nao implementado:
 
-- tela de Modelos;
-- tela Fila de Impressao;
+- tela Arquivos Recentes;
 - SQLite;
 - EF Core;
 - migrations;
@@ -119,7 +134,8 @@ Ainda nao implementado:
 - filtros reais persistidos;
 - fila de impressao real;
 - configuracoes reais;
-- edicao real de colecoes, modelos ou cards.
+- edicao real de colecoes, modelos ou cards;
+- persistencia real.
 
 ## arquivos alterados ou criados na ultima tarefa
 
@@ -127,33 +143,41 @@ Implementacao:
 
 - `src/blueatelier.app/Components/Layout/AppSidebar.razor`
 - `src/blueatelier.app/Components/Layout/AppTopbar.razor`
-- `src/blueatelier.app/Components/Pages/DetalheModelo.razor`
-- `src/blueatelier.app/Components/Pages/ArquivosVinculados.razor`
+- `src/blueatelier.app/Components/Pages/Home.razor`
+- `src/blueatelier.app/Components/Pages/FilaImpressao.razor`
+- `src/blueatelier.app/Components/Pages/Modelos.razor`
 - `src/blueatelier.app/Components/Shared/AppIcon.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
+- `src/blueatelier.app/wwwroot/css/themes.css`
+- `src/blueatelier.app/wwwroot/css/tokens.css`
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/27-arquivos-vinculados.md`
-- `docs/28-ajustes-arquivos-vinculados-layout.md`
+- `docs/29-fila-impressao.md`
+- `docs/30-ajustes-paleta-visual.md`
+- `docs/31-modelos-e-navegacao-home.md`
 
 ## validacoes executadas na ultima tarefa
 
 - `referencias-visuais/stitch/design.md` foi respeitado.
-- `referencias-visuais/stitch/html/07-arquivos-vinculados.html` foi usado para a tela Arquivos Vinculados.
-- Home permaneceu preservada.
+- `referencias-visuais/stitch/html/08-fila-impressao.html` foi usado para a tela Fila de Impressao.
+- Home permaneceu preservada e agora abre a colecao ao clicar.
 - Colecoes permaneceu preservada.
 - Detalhe da Colecao permaneceu preservado.
 - Detalhe do Modelo permaneceu preservado.
 - Galeria do Modelo permaneceu preservada.
 - Visualizacao de Imagem permaneceu preservada.
-- Arquivos Vinculados foi aprovada.
-- Paineis laterais nao se sobrepoem ao conteudo principal.
-- A capa/imagem principal esta bem encaixada e sem espaco vazio desnecessario.
-- Acoes da lista usam icones.
-- Botoes de acao possuem `title` e `aria-label`.
+- Arquivos Vinculados permaneceu preservado.
+- `/fila-impressao` abre corretamente.
+- `/modelos` abre corretamente.
+- O card Cthulhu Idol em `/modelos` navega para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`.
+- A sidebar marca Models corretamente nas rotas de modelos.
+- A tabela da Fila de Impressao esta alinhada.
+- Os cards laterais da Fila de Impressao estao compactos.
+- A paleta esta mais clean, menos colorida e com azul como destaque principal.
+- Verde, amarelo e vermelho ficaram restritos a estados reais.
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
@@ -170,10 +194,10 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Implementar a tela de Fila de Impressao com base em:
+Implementar a tela Arquivos Recentes com base em:
 
 ```txt
-referencias-visuais/stitch/html/08-fila-impressao.html
+referencias-visuais/stitch/html/09-arquivos-recentes.html
 ```
 
-A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.
+A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.

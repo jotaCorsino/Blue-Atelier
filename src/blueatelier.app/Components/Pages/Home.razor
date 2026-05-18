@@ -10,7 +10,7 @@
             <div class="home-stitch-grid">
                 @foreach (var collection in RecentCollections)
                 {
-                    <article class="home-visual-card">
+                    <a class="home-visual-card" href="@collection.Href">
                         <div class="home-card-cover home-cover-@collection.Cover" aria-hidden="true">
                             <span class="home-cover-shape"></span>
                         </div>
@@ -38,7 +38,7 @@
 
                             <p>@collection.Detail</p>
                         </div>
-                    </article>
+                    </a>
                 }
             </div>
         </section>
@@ -126,9 +126,9 @@
 @code {
     private static readonly HomeCollection[] RecentCollections =
     [
-        new("Eldritch Horrors", "8 Models, 4 Painted", "IN PROGRESS", "blue", "eldritch"),
-        new("Sci-Fi Marines", "15 Models, 12 STL Files", "READY TO PRINT", "green", "marines"),
-        new("Fantasy Adventurers", "5 Models, 2 Primed", "", "neutral", "adventurers", 40)
+        new("Eldritch Horrors", "8 Models, 4 Painted", "IN PROGRESS", "blue", "eldritch", "/colecoes/eldritch-horrors"),
+        new("Sci-Fi Marines", "15 Models, 12 STL Files", "READY TO PRINT", "green", "marines", "/colecoes/eldritch-horrors"),
+        new("Fantasy Adventurers", "5 Models, 2 Primed", "", "neutral", "adventurers", "/colecoes/eldritch-horrors", 40)
     ];
 
     private static readonly HomeModel[] ModelsInProgress =
@@ -164,6 +164,7 @@
         string Status,
         string StatusTone,
         string Cover,
+        string Href,
         int? Progress = null);
 
     private sealed record HomeModel(string Name, string Detail, string Cover, int Progress);

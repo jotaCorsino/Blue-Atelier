@@ -1,0 +1,126 @@
+@page "/modelos"
+
+<section class="models-page" aria-labelledby="models-title">
+    <header class="models-header">
+        <div class="models-heading">
+            <p>Biblioteca visual</p>
+            <h1 id="models-title">Modelos</h1>
+            <span>Modelos cadastrados e organizados por colecao, status e etapa de producao.</span>
+        </div>
+
+        <div class="models-actions" aria-label="Acoes visuais de modelos">
+            <button class="models-action models-action-primary" type="button">Novo modelo</button>
+            <button class="models-action" type="button">Importar modelo</button>
+            <button class="models-action" type="button">Organizar modelos</button>
+        </div>
+    </header>
+
+    <nav class="models-filters" aria-label="Filtros visuais de modelos">
+        @foreach (var filter in Filters)
+        {
+            <button class="models-filter @(filter.IsActive ? "models-filter-active" : null)" type="button">
+                @filter.Label
+            </button>
+        }
+    </nav>
+
+    <div class="models-grid">
+        @foreach (var model in Models)
+        {
+            @if (model.Href is not null)
+            {
+                <a class="models-card models-card-link" href="@model.Href">
+                    <div class="models-card-cover models-cover-@model.Cover" aria-hidden="true">
+                        <span class="models-card-shape"></span>
+                    </div>
+
+                    <div class="models-card-body">
+                        <div class="models-card-title-row">
+                            <div>
+                                <h2>@model.Name</h2>
+                                <p>@model.Collection</p>
+                            </div>
+
+                            <span class="models-status models-status-@model.Tone">@model.Status</span>
+                        </div>
+
+                        <div class="models-card-meta">
+                            <span>@model.Progress</span>
+                            <span>@model.Material</span>
+                        </div>
+
+                        <div class="models-card-footer">
+                            <span>Abrir modelo</span>
+                            <AppIcon Name="arrow" />
+                        </div>
+                    </div>
+                </a>
+            }
+            else
+            {
+                <article class="models-card">
+                    <div class="models-card-cover models-cover-@model.Cover" aria-hidden="true">
+                        <span class="models-card-shape"></span>
+                    </div>
+
+                    <div class="models-card-body">
+                        <div class="models-card-title-row">
+                            <div>
+                                <h2>@model.Name</h2>
+                                <p>@model.Collection</p>
+                            </div>
+
+                            <span class="models-status models-status-@model.Tone">@model.Status</span>
+                        </div>
+
+                        <div class="models-card-meta">
+                            <span>@model.Progress</span>
+                            <span>@model.Material</span>
+                        </div>
+
+                        <div class="models-card-footer">
+                            <span>Abrir modelo</span>
+                            <AppIcon Name="arrow" />
+                        </div>
+                    </div>
+                </article>
+            }
+        }
+    </div>
+</section>
+
+@code {
+    private static readonly ModelsFilter[] Filters =
+    [
+        new("Todos", true),
+        new("Em pintura", false),
+        new("Prontos para impressao", false),
+        new("Impressos", false),
+        new("Favoritos", false),
+        new("Arquivos ausentes", false)
+    ];
+
+    private static readonly ModelIndexItem[] Models =
+    [
+        new("Cthulhu Idol", "Eldritch Horrors", "Em pintura", "60%", "Resin grey / base escura", "accent", "idol", "/colecoes/eldritch-horrors/modelos/cthulhu-idol"),
+        new("Deep One Bust", "Eldritch Horrors", "Preparando suportes", "25%", "Resin grey / busto", "neutral", "bust"),
+        new("Tentacle Beast", "Eldritch Horrors", "Fatiamento", "50%", "ABS-like / tentaculos", "neutral", "beast"),
+        new("Ancient Cultist", "Eldritch Horrors", "Impresso", "100%", "Primer aplicado", "success", "cultist"),
+        new("Abyssal Statue", "Eldritch Horrors", "Pronto para impressao", "30%", "Resin grey / pedra", "accent", "statue"),
+        new("Dragon Bust", "Dragon Busts", "Pintura", "65%", "Deep green resin", "neutral", "dragon"),
+        new("Dungeon Tiles", "Tavern Dioramas", "Arquivo ausente", "Revisar", "CTB pendente", "danger", "tiles"),
+        new("Tavern Props", "Tavern Dioramas", "Importado", "10%", "Madeira e props", "neutral", "props")
+    ];
+
+    private sealed record ModelsFilter(string Label, bool IsActive);
+
+    private sealed record ModelIndexItem(
+        string Name,
+        string Collection,
+        string Status,
+        string Progress,
+        string Material,
+        string Tone,
+        string Cover,
+        string? Href = null);
+}
