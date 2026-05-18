@@ -2,15 +2,16 @@
 
 ## status geral
 
-Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e cinco telas reais criadas com dados mockados:
+Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e seis telas reais criadas com dados mockados:
 
 - Home;
 - Colecoes;
 - Detalhe da Colecao;
 - Detalhe do Modelo;
-- Galeria do Modelo.
+- Galeria do Modelo;
+- Visualizacao de Imagem.
 
-A Home, a tela de Colecoes, a tela de Detalhe da Colecao, a tela de Detalhe do Modelo, a tela Galeria do Modelo, a fundacao visual atual e os ajustes globais de UX foram validados visualmente pelo usuario e estao aprovados.
+A Home, a tela de Colecoes, a tela de Detalhe da Colecao, a tela de Detalhe do Modelo, a tela Galeria do Modelo, a tela Visualizacao de Imagem, a fundacao visual atual, os ajustes globais de UX e os ajustes de responsividade foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -24,14 +25,14 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 A ultima tarefa concluida consolidou:
 
-- implementacao da tela Galeria do Modelo com base em `referencias-visuais/stitch/html/05-galeria-modelo.html`;
-- rota `/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria`;
-- navegacao visual a partir do Detalhe do Modelo;
+- implementacao da tela Visualizacao de Imagem com base em `referencias-visuais/stitch/html/06-visualizacao-imagem.html`;
+- rota `/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference`;
+- navegacao visual a partir da Galeria do Modelo;
 - uso de dados mockados;
-- preservacao da Home aprovada;
-- preservacao da tela de Colecoes aprovada;
-- preservacao do Detalhe da Colecao aprovado;
-- preservacao do Detalhe do Modelo aprovado;
+- refinamento visual da barra anterior/proxima;
+- correcao global de distorcao de capas, thumbnails e imagens mockadas;
+- correcao de layout do Detalhe do Modelo em telas largas;
+- preservacao da Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo e Galeria do Modelo;
 - aprovacao visual manual pelo usuario.
 
 ## decisoes ja tomadas
@@ -87,14 +88,18 @@ Implementado:
 - tela de Detalhe da Colecao aprovada;
 - tela de Detalhe do Modelo aprovada;
 - tela Galeria do Modelo aprovada;
+- tela Visualizacao de Imagem aprovada;
 - hover global de cards clicaveis;
 - affordances visuais de edicao futura;
-- tipografia moderna com stack de sistema.
+- tipografia moderna com stack de sistema;
+- refinamento visual da barra anterior/proxima da Visualizacao de Imagem;
+- correcao global de proporcao para capas, thumbnails, previews e imagens mockadas;
+- ajuste de layout do Detalhe do Modelo para acompanhar melhor telas largas.
 
 Ainda nao implementado:
 
 - tela de Modelos;
-- visualizacao de imagem;
+- tela de Arquivos Vinculados;
 - SQLite;
 - EF Core;
 - migrations;
@@ -113,24 +118,29 @@ Implementacao:
 
 - `src/blueatelier.app/Components/Layout/AppSidebar.razor`
 - `src/blueatelier.app/Components/Layout/AppTopbar.razor`
-- `src/blueatelier.app/Components/Pages/DetalheModelo.razor`
 - `src/blueatelier.app/Components/Pages/GaleriaModelo.razor`
+- `src/blueatelier.app/Components/Pages/VisualizacaoImagem.razor`
+- `src/blueatelier.app/Components/Shared/AppIcon.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/24-galeria-modelo.md`
+- `docs/25-visualizacao-imagem.md`
+- `docs/26-ajustes-responsividade-layout.md`
 
 ## validacoes executadas na ultima tarefa
 
 - `referencias-visuais/stitch/design.md` foi respeitado.
-- `referencias-visuais/stitch/html/05-galeria-modelo.html` foi usado para a tela Galeria do Modelo.
+- `referencias-visuais/stitch/html/06-visualizacao-imagem.html` foi usado para a tela Visualizacao de Imagem.
 - Home permaneceu preservada.
 - Colecoes permaneceu preservada.
 - Detalhe da Colecao permaneceu preservado.
-- Detalhe do Modelo permaneceu preservado.
+- Detalhe do Modelo permaneceu preservado e agora acompanha melhor telas largas.
+- Galeria do Modelo permaneceu preservada.
+- Visualizacao de Imagem foi aprovada.
+- Capas, thumbnails, previews e imagens mockadas nao distorcem ao redimensionar.
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
@@ -147,10 +157,10 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Implementar a tela de Visualizacao de Imagem com base em:
+Implementar a tela de Arquivos Vinculados com base em:
 
 ```txt
-referencias-visuais/stitch/html/06-visualizacao-imagem.html
+referencias-visuais/stitch/html/07-arquivos-vinculados.html
 ```
 
-A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.
+A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.

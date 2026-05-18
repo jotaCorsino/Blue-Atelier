@@ -49,28 +49,56 @@
     <section class="model-gallery-masonry" aria-label="Mosaico visual da galeria">
         @foreach (var item in GalleryItems)
         {
-            <article class="model-gallery-card gallery-card-@item.Size">
-                <div class="model-gallery-art gallery-art-@item.Art" aria-hidden="true">
-                    @if (item.IsCover)
-                    {
-                        <span class="gallery-cover-badge">Capa</span>
-                    }
+            @if (!string.IsNullOrWhiteSpace(item.Route))
+            {
+                <a class="model-gallery-card gallery-card-@item.Size" href="@item.Route" aria-label="Abrir imagem @item.Title">
+                    <div class="model-gallery-art gallery-art-@item.Art" aria-hidden="true">
+                        @if (item.IsCover)
+                        {
+                            <span class="gallery-cover-badge">Capa</span>
+                        }
 
-                    <span class="gallery-edit-affordance">
-                        <AppIcon Name="edit" />
-                        <span>Editar</span>
-                    </span>
-                    <span class="gallery-art-shape"></span>
-                </div>
-
-                <div class="model-gallery-card-body">
-                    <div>
-                        <h2>@item.Title</h2>
-                        <span>@item.Category</span>
+                        <span class="gallery-edit-affordance">
+                            <AppIcon Name="edit" />
+                            <span>Editar</span>
+                        </span>
+                        <span class="gallery-art-shape"></span>
                     </div>
-                    <p>@item.Description</p>
-                </div>
-            </article>
+
+                    <div class="model-gallery-card-body">
+                        <div>
+                            <h2>@item.Title</h2>
+                            <span>@item.Category</span>
+                        </div>
+                        <p>@item.Description</p>
+                    </div>
+                </a>
+            }
+            else
+            {
+                <article class="model-gallery-card gallery-card-@item.Size">
+                    <div class="model-gallery-art gallery-art-@item.Art" aria-hidden="true">
+                        @if (item.IsCover)
+                        {
+                            <span class="gallery-cover-badge">Capa</span>
+                        }
+
+                        <span class="gallery-edit-affordance">
+                            <AppIcon Name="edit" />
+                            <span>Editar</span>
+                        </span>
+                        <span class="gallery-art-shape"></span>
+                    </div>
+
+                    <div class="model-gallery-card-body">
+                        <div>
+                            <h2>@item.Title</h2>
+                            <span>@item.Category</span>
+                        </div>
+                        <p>@item.Description</p>
+                    </div>
+                </article>
+            }
         }
     </section>
 </section>
@@ -88,7 +116,7 @@
 
     private static readonly GalleryItem[] GalleryItems =
     [
-        new("Main reference", "Referencias", "Mood principal do modelo / atualizado hoje", "main", "tall", true),
+        new("Main reference", "Referencias", "Mood principal do modelo / atualizado hoje", "main", "tall", true, "/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference"),
         new("Printed front view", "Impressao", "Registro frontal depois da cura", "front", "wide", false),
         new("Primer test", "Pintura", "Teste de primer preto fosco", "primer", "square", false),
         new("Green base coat", "Pintura", "Base verde aplicada em duas camadas", "green", "tall", false),
@@ -106,5 +134,6 @@
         string Description,
         string Art,
         string Size,
-        bool IsCover);
+        bool IsCover,
+        string? Route = null);
 }

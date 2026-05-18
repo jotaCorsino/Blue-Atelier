@@ -124,6 +124,18 @@ Arquivo: `docs/24-galeria-modelo.md`
 
 Objetivo: registrar a implementacao da tela Galeria do Modelo, incluindo rota, referencia visual usada, secoes implementadas, dados mockados, filtros visuais, navegacao a partir do Detalhe do Modelo e aprovacao visual manual.
 
+### 21. visualizacao de Imagem
+
+Arquivo: `docs/25-visualizacao-imagem.md`
+
+Objetivo: registrar a implementacao da tela Visualizacao de Imagem, incluindo rota, referencia visual usada, secoes implementadas, dados mockados, acoes visuais provisorias, navegacao a partir da Galeria do Modelo e aprovacao visual manual.
+
+### 22. ajustes de responsividade e layout
+
+Arquivo: `docs/26-ajustes-responsividade-layout.md`
+
+Objetivo: registrar os ajustes aprovados de responsividade e layout, incluindo refinamento da barra anterior/proxima, correcao de distorcao de capas/thumbnails/imagens mockadas e ajuste do Detalhe do Modelo em telas largas.
+
 ## base documental inicial concluida
 
 A base documental inicial do Blue Atelier esta concluida.
@@ -153,6 +165,8 @@ Documentos criados nesta base:
 - `docs/22-ajustes-ux-identidade-visual.md`
 - `docs/23-detalhe-modelo.md`
 - `docs/24-galeria-modelo.md`
+- `docs/25-visualizacao-imagem.md`
+- `docs/26-ajustes-responsividade-layout.md`
 
 O documento `docs/15-referencias-visuais-stitch.md` registra que a direcao visual do Stitch foi aprovada e que os arquivos em `referencias-visuais/stitch/` devem ser tratados como referencia visual protegida.
 
@@ -174,12 +188,16 @@ O documento `docs/23-detalhe-modelo.md` registra que a tela de Detalhe do Modelo
 
 O documento `docs/24-galeria-modelo.md` registra que a tela Galeria do Modelo foi implementada e aprovada visualmente pelo usuario.
 
+O documento `docs/25-visualizacao-imagem.md` registra que a tela Visualizacao de Imagem foi implementada e aprovada visualmente pelo usuario.
+
+O documento `docs/26-ajustes-responsividade-layout.md` registra que houve ajustes aprovados de responsividade e layout, incluindo barra anterior/proxima, proporcao de capas/thumbnails/imagens mockadas e layout do Detalhe do Modelo em telas largas.
+
 ## proxima etapa sugerida
 
-Implementar a tela de Visualizacao de Imagem com base em:
+Implementar a tela de Arquivos Vinculados com base em:
 
 ```txt
-referencias-visuais/stitch/html/06-visualizacao-imagem.html
+referencias-visuais/stitch/html/07-arquivos-vinculados.html
 ```
 
 Essa proxima etapa deve usar como base:
@@ -198,5 +216,7 @@ Essa proxima etapa deve usar como base:
 - `docs/22-ajustes-ux-identidade-visual.md`
 - `docs/23-detalhe-modelo.md`
 - `docs/24-galeria-modelo.md`
+- `docs/25-visualizacao-imagem.md`
+- `docs/26-ajustes-responsividade-layout.md`
 
-Nas proximas telas, o Codex deve preservar a Home, a tela de Colecoes, o Detalhe da Colecao, o Detalhe do Modelo, a Galeria do Modelo e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.
+Nas proximas telas, o Codex deve preservar a Home, a tela de Colecoes, o Detalhe da Colecao, o Detalhe do Modelo, a Galeria do Modelo, a Visualizacao de Imagem e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.
