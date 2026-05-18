@@ -39,6 +39,13 @@
             <span>Fila visual provisoria</span>
         </div>
     }
+    else if (IsRecentFilesPage)
+    {
+        <div class="topbar-status" role="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Historico visual mockado</span>
+        </div>
+    }
     else if (IsModelsPage)
     {
         <div class="topbar-status" role="status">
@@ -166,6 +173,15 @@
         }
     }
 
+    private bool IsRecentFilesPage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.Equals(relativePath, "arquivos-recentes", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
     private string SearchPlaceholder
     {
         get
@@ -178,6 +194,11 @@
             if (IsPrintQueuePage)
             {
                 return "Buscar na fila...";
+            }
+
+            if (IsRecentFilesPage)
+            {
+                return "Pesquisar arquivos...";
             }
 
             if (IsModelsPage)

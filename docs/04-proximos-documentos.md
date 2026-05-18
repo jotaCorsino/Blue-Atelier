@@ -166,6 +166,12 @@ Arquivo: `docs/31-modelos-e-navegacao-home.md`
 
 Objetivo: registrar a correcao da navegacao das colecoes na Home, a ativacao da rota `/modelos`, a tela Modelos mockada e a sidebar marcando Models nas rotas relacionadas.
 
+### 28. arquivos recentes
+
+Arquivo: `docs/32-arquivos-recentes.md`
+
+Objetivo: registrar a implementacao da tela Arquivos Recentes, incluindo rota `/arquivos-recentes`, referencia visual usada, lista/grid de arquivos mockados, filtros visuais, acoes provisorias, sidebar e aprovacao visual manual.
+
 ## base documental inicial concluida
 
 A base documental inicial do Blue Atelier esta concluida.
@@ -202,6 +208,7 @@ Documentos criados nesta base:
 - `docs/29-fila-impressao.md`
 - `docs/30-ajustes-paleta-visual.md`
 - `docs/31-modelos-e-navegacao-home.md`
+- `docs/32-arquivos-recentes.md`
 
 O documento `docs/15-referencias-visuais-stitch.md` registra que a direcao visual do Stitch foi aprovada e que os arquivos em `referencias-visuais/stitch/` devem ser tratados como referencia visual protegida.
 
@@ -237,12 +244,14 @@ O documento `docs/30-ajustes-paleta-visual.md` registra que a paleta visual foi 
 
 O documento `docs/31-modelos-e-navegacao-home.md` registra que a navegacao da Home foi corrigida e que a tela Modelos foi ativada.
 
+O documento `docs/32-arquivos-recentes.md` registra que a tela Arquivos Recentes foi implementada e aprovada visualmente pelo usuario.
+
 ## proxima etapa sugerida
 
-Implementar a tela Arquivos Recentes com base em:
+Implementar a tela Materiais com base em:
 
 ```txt
-referencias-visuais/stitch/html/09-arquivos-recentes.html
+referencias-visuais/stitch/html/10-materiais.html
 ```
 
 Essa proxima etapa deve usar como base:
@@ -268,5 +277,6 @@ Essa proxima etapa deve usar como base:
 - `docs/29-fila-impressao.md`
 - `docs/30-ajustes-paleta-visual.md`
 - `docs/31-modelos-e-navegacao-home.md`
+- `docs/32-arquivos-recentes.md`
 
-Nas proximas telas, o Codex deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.
+Nas proximas telas, o Codex deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, Arquivos Recentes e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.

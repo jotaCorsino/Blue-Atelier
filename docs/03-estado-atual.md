@@ -2,7 +2,7 @@
 
 ## status geral
 
-Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e nove telas reais criadas com dados mockados:
+Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e dez telas reais criadas com dados mockados:
 
 - Home;
 - Colecoes;
@@ -12,9 +12,10 @@ Projeto com base documental inicial concluida, referencias visuais do Stitch cat
 - Visualizacao de Imagem;
 - Arquivos Vinculados;
 - Fila de Impressao;
-- Modelos.
+- Modelos;
+- Arquivos Recentes.
 
-A Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
+A Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, Arquivos Recentes, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -28,25 +29,17 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 A ultima tarefa concluida consolidou:
 
-- implementacao da tela Fila de Impressao com base em `referencias-visuais/stitch/html/08-fila-impressao.html`;
-- rota `/fila-impressao`;
+- implementacao da tela Arquivos Recentes com base em `referencias-visuais/stitch/html/09-arquivos-recentes.html`;
+- rota `/arquivos-recentes`;
 - uso de dados mockados;
-- lista/tabela de itens na fila;
+- lista/grid de arquivos recentes;
 - filtros visuais;
 - acoes visuais provisorias;
-- cards laterais de resumo;
-- ajustes de alinhamento da tabela Itens na Fila;
-- compactacao dos cards laterais;
-- recalibracao da paleta visual do app;
-- azul como destaque principal;
-- reducao de cores excessivas;
-- verde, amarelo e vermelho restritos a estados reais de sistema;
-- correcao da navegacao da Home para abrir a colecao;
-- ativacao da pagina Modelos;
-- rota `/modelos`;
-- navegacao visual do card Cthulhu Idol para o Detalhe do Modelo;
-- sidebar marcando Models corretamente em rotas de modelos;
+- painel/resumo visual de arquivos recentes;
+- navegacao visual a partir da sidebar;
+- affordances visuais para Arquivos Vinculados e Visualizacao de Imagem quando aplicavel;
 - preservacao das telas ja aprovadas;
+- preservacao da paleta visual clean, moderna, azulada e menos colorida;
 - aprovacao visual manual pelo usuario.
 
 ## decisoes ja tomadas
@@ -106,8 +99,10 @@ Implementado:
 - tela Arquivos Vinculados aprovada;
 - tela Fila de Impressao aprovada;
 - tela Modelos em `/modelos` aprovada;
+- tela Arquivos Recentes em `/arquivos-recentes` aprovada;
 - navegacao do card Cthulhu Idol para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
 - sidebar com Models ativo nas rotas de modelos;
+- sidebar com Arquivos Recentes ativo em `/arquivos-recentes`;
 - hover global de cards clicaveis;
 - affordances visuais de edicao futura;
 - tipografia moderna com stack de sistema;
@@ -123,7 +118,7 @@ Implementado:
 
 Ainda nao implementado:
 
-- tela Arquivos Recentes;
+- tela Materiais;
 - SQLite;
 - EF Core;
 - migrations;
@@ -134,6 +129,9 @@ Ainda nao implementado:
 - filtros reais persistidos;
 - fila de impressao real;
 - configuracoes reais;
+- leitura real de arquivos recentes;
+- fixacao real de arquivos;
+- remocao real do historico;
 - edicao real de colecoes, modelos ou cards;
 - persistencia real.
 
@@ -143,41 +141,31 @@ Implementacao:
 
 - `src/blueatelier.app/Components/Layout/AppSidebar.razor`
 - `src/blueatelier.app/Components/Layout/AppTopbar.razor`
-- `src/blueatelier.app/Components/Pages/Home.razor`
-- `src/blueatelier.app/Components/Pages/FilaImpressao.razor`
-- `src/blueatelier.app/Components/Pages/Modelos.razor`
-- `src/blueatelier.app/Components/Shared/AppIcon.razor`
+- `src/blueatelier.app/Components/Pages/ArquivosRecentes.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
-- `src/blueatelier.app/wwwroot/css/themes.css`
-- `src/blueatelier.app/wwwroot/css/tokens.css`
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/29-fila-impressao.md`
-- `docs/30-ajustes-paleta-visual.md`
-- `docs/31-modelos-e-navegacao-home.md`
+- `docs/32-arquivos-recentes.md`
 
 ## validacoes executadas na ultima tarefa
 
 - `referencias-visuais/stitch/design.md` foi respeitado.
-- `referencias-visuais/stitch/html/08-fila-impressao.html` foi usado para a tela Fila de Impressao.
-- Home permaneceu preservada e agora abre a colecao ao clicar.
+- `referencias-visuais/stitch/html/09-arquivos-recentes.html` foi usado para a tela Arquivos Recentes.
+- Home permaneceu preservada.
 - Colecoes permaneceu preservada.
 - Detalhe da Colecao permaneceu preservado.
 - Detalhe do Modelo permaneceu preservado.
 - Galeria do Modelo permaneceu preservada.
 - Visualizacao de Imagem permaneceu preservada.
 - Arquivos Vinculados permaneceu preservado.
-- `/fila-impressao` abre corretamente.
-- `/modelos` abre corretamente.
-- O card Cthulhu Idol em `/modelos` navega para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`.
-- A sidebar marca Models corretamente nas rotas de modelos.
-- A tabela da Fila de Impressao esta alinhada.
-- Os cards laterais da Fila de Impressao estao compactos.
-- A paleta esta mais clean, menos colorida e com azul como destaque principal.
-- Verde, amarelo e vermelho ficaram restritos a estados reais.
+- Fila de Impressao permaneceu preservada.
+- Modelos permaneceu preservado.
+- `/arquivos-recentes` abre corretamente.
+- O item Arquivos Recentes/Recent Files da sidebar navega para `/arquivos-recentes`.
+- A paleta clean/azulada foi preservada.
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
@@ -194,10 +182,10 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Implementar a tela Arquivos Recentes com base em:
+Implementar a tela Materiais com base em:
 
 ```txt
-referencias-visuais/stitch/html/09-arquivos-recentes.html
+referencias-visuais/stitch/html/10-materiais.html
 ```
 
-A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.
+A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, Arquivos Recentes e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.
