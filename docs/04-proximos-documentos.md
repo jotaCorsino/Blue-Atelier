@@ -136,6 +136,18 @@ Arquivo: `docs/26-ajustes-responsividade-layout.md`
 
 Objetivo: registrar os ajustes aprovados de responsividade e layout, incluindo refinamento da barra anterior/proxima, correcao de distorcao de capas/thumbnails/imagens mockadas e ajuste do Detalhe do Modelo em telas largas.
 
+### 23. arquivos vinculados
+
+Arquivo: `docs/27-arquivos-vinculados.md`
+
+Objetivo: registrar a implementacao da tela Arquivos Vinculados, incluindo rota, referencia visual usada, secoes implementadas, dados mockados, filtros visuais, acoes provisorias, navegacao a partir do Detalhe do Modelo e aprovacao visual manual.
+
+### 24. ajustes da tela Arquivos Vinculados
+
+Arquivo: `docs/28-ajustes-arquivos-vinculados-layout.md`
+
+Objetivo: registrar os ajustes aprovados da tela Arquivos Vinculados, incluindo correcao dos paineis laterais, acoes por icones, `title` e `aria-label`, icone de remover e refinamento da capa/imagem principal.
+
 ## base documental inicial concluida
 
 A base documental inicial do Blue Atelier esta concluida.
@@ -167,6 +179,8 @@ Documentos criados nesta base:
 - `docs/24-galeria-modelo.md`
 - `docs/25-visualizacao-imagem.md`
 - `docs/26-ajustes-responsividade-layout.md`
+- `docs/27-arquivos-vinculados.md`
+- `docs/28-ajustes-arquivos-vinculados-layout.md`
 
 O documento `docs/15-referencias-visuais-stitch.md` registra que a direcao visual do Stitch foi aprovada e que os arquivos em `referencias-visuais/stitch/` devem ser tratados como referencia visual protegida.
 
@@ -192,12 +206,16 @@ O documento `docs/25-visualizacao-imagem.md` registra que a tela Visualizacao de
 
 O documento `docs/26-ajustes-responsividade-layout.md` registra que houve ajustes aprovados de responsividade e layout, incluindo barra anterior/proxima, proporcao de capas/thumbnails/imagens mockadas e layout do Detalhe do Modelo em telas largas.
 
+O documento `docs/27-arquivos-vinculados.md` registra que a tela Arquivos Vinculados foi implementada e aprovada visualmente pelo usuario.
+
+O documento `docs/28-ajustes-arquivos-vinculados-layout.md` registra que houve ajustes aprovados no layout da tela Arquivos Vinculados, incluindo paineis laterais, acoes como icones, acessibilidade dos botoes e capa principal.
+
 ## proxima etapa sugerida
 
-Implementar a tela de Arquivos Vinculados com base em:
+Implementar a tela de Fila de Impressao com base em:
 
 ```txt
-referencias-visuais/stitch/html/07-arquivos-vinculados.html
+referencias-visuais/stitch/html/08-fila-impressao.html
 ```
 
 Essa proxima etapa deve usar como base:
@@ -218,5 +236,7 @@ Essa proxima etapa deve usar como base:
 - `docs/24-galeria-modelo.md`
 - `docs/25-visualizacao-imagem.md`
 - `docs/26-ajustes-responsividade-layout.md`
+- `docs/27-arquivos-vinculados.md`
+- `docs/28-ajustes-arquivos-vinculados-layout.md`
 
-Nas proximas telas, o Codex deve preservar a Home, a tela de Colecoes, o Detalhe da Colecao, o Detalhe do Modelo, a Galeria do Modelo, a Visualizacao de Imagem e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.
+Nas proximas telas, o Codex deve preservar a Home, a tela de Colecoes, o Detalhe da Colecao, o Detalhe do Modelo, a Galeria do Modelo, a Visualizacao de Imagem, a tela Arquivos Vinculados e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.

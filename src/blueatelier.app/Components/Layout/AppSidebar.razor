@@ -74,7 +74,8 @@
     {
         var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
         return item.Icon == "models"
-            && string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol", StringComparison.OrdinalIgnoreCase);
+            && (string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos", StringComparison.OrdinalIgnoreCase));
     }
 
     private bool IsCollectionsNavActive

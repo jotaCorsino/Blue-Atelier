@@ -23,6 +23,15 @@
             </a>
         </div>
     }
+    else if (IsLinkedFilesPage)
+    {
+        <div class="topbar-actions" aria-label="Acoes de arquivos vinculados">
+            <a class="topbar-link-button" href="/colecoes/eldritch-horrors/modelos/cthulhu-idol">
+                <span aria-hidden="true">&lt;</span>
+                <span>Back to Model Detail</span>
+            </a>
+        </div>
+    }
     else if (IsModelGalleryPage)
     {
         <div class="topbar-actions" aria-label="Acoes da galeria do modelo">
@@ -116,6 +125,15 @@
         }
     }
 
+    private bool IsLinkedFilesPage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
     private string SearchPlaceholder
     {
         get
@@ -125,7 +143,7 @@
                 return "Buscar colecoes...";
             }
 
-            if (IsHomePage || IsCollectionDetailPage || IsModelDetailPage || IsModelGalleryPage || IsImageViewerPage)
+            if (IsHomePage || IsCollectionDetailPage || IsModelDetailPage || IsModelGalleryPage || IsImageViewerPage || IsLinkedFilesPage)
             {
                 return "Search models, prints, paints...";
             }

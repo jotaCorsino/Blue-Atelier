@@ -2,16 +2,17 @@
 
 ## status geral
 
-Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e seis telas reais criadas com dados mockados:
+Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e sete telas reais criadas com dados mockados:
 
 - Home;
 - Colecoes;
 - Detalhe da Colecao;
 - Detalhe do Modelo;
 - Galeria do Modelo;
-- Visualizacao de Imagem.
+- Visualizacao de Imagem;
+- Arquivos Vinculados.
 
-A Home, a tela de Colecoes, a tela de Detalhe da Colecao, a tela de Detalhe do Modelo, a tela Galeria do Modelo, a tela Visualizacao de Imagem, a fundacao visual atual, os ajustes globais de UX e os ajustes de responsividade foram validados visualmente pelo usuario e estao aprovados.
+A Home, a tela de Colecoes, a tela de Detalhe da Colecao, a tela de Detalhe do Modelo, a tela Galeria do Modelo, a tela Visualizacao de Imagem, a tela Arquivos Vinculados, a fundacao visual atual, os ajustes globais de UX e os ajustes de responsividade foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -25,14 +26,18 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 A ultima tarefa concluida consolidou:
 
-- implementacao da tela Visualizacao de Imagem com base em `referencias-visuais/stitch/html/06-visualizacao-imagem.html`;
-- rota `/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference`;
-- navegacao visual a partir da Galeria do Modelo;
+- implementacao da tela Arquivos Vinculados com base em `referencias-visuais/stitch/html/07-arquivos-vinculados.html`;
+- rota `/colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos`;
+- navegacao visual a partir do Detalhe do Modelo;
 - uso de dados mockados;
-- refinamento visual da barra anterior/proxima;
-- correcao global de distorcao de capas, thumbnails e imagens mockadas;
-- correcao de layout do Detalhe do Modelo em telas largas;
-- preservacao da Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo e Galeria do Modelo;
+- tela com lista/grid de arquivos vinculados;
+- acoes visuais de abrir, editar vinculo e remover vinculo;
+- paineis laterais de resumo, pasta vinculada e status;
+- correcao de sobreposicao dos paineis laterais;
+- substituicao das acoes textuais por icones;
+- adicao de `title` e `aria-label` nos botoes de acao;
+- refinamento da capa/imagem principal no layout;
+- preservacao da Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo e Visualizacao de Imagem;
 - aprovacao visual manual pelo usuario.
 
 ## decisoes ja tomadas
@@ -89,17 +94,21 @@ Implementado:
 - tela de Detalhe do Modelo aprovada;
 - tela Galeria do Modelo aprovada;
 - tela Visualizacao de Imagem aprovada;
+- tela Arquivos Vinculados aprovada;
 - hover global de cards clicaveis;
 - affordances visuais de edicao futura;
 - tipografia moderna com stack de sistema;
 - refinamento visual da barra anterior/proxima da Visualizacao de Imagem;
 - correcao global de proporcao para capas, thumbnails, previews e imagens mockadas;
-- ajuste de layout do Detalhe do Modelo para acompanhar melhor telas largas.
+- ajuste de layout do Detalhe do Modelo para acompanhar melhor telas largas;
+- paineis laterais responsivos da tela Arquivos Vinculados;
+- acoes da lista de arquivos como icones com `title` e `aria-label`;
+- capa/imagem principal da tela Arquivos Vinculados bem encaixada no header.
 
 Ainda nao implementado:
 
 - tela de Modelos;
-- tela de Arquivos Vinculados;
+- tela Fila de Impressao;
 - SQLite;
 - EF Core;
 - migrations;
@@ -118,8 +127,8 @@ Implementacao:
 
 - `src/blueatelier.app/Components/Layout/AppSidebar.razor`
 - `src/blueatelier.app/Components/Layout/AppTopbar.razor`
-- `src/blueatelier.app/Components/Pages/GaleriaModelo.razor`
-- `src/blueatelier.app/Components/Pages/VisualizacaoImagem.razor`
+- `src/blueatelier.app/Components/Pages/DetalheModelo.razor`
+- `src/blueatelier.app/Components/Pages/ArquivosVinculados.razor`
 - `src/blueatelier.app/Components/Shared/AppIcon.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
 
@@ -127,20 +136,24 @@ Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/25-visualizacao-imagem.md`
-- `docs/26-ajustes-responsividade-layout.md`
+- `docs/27-arquivos-vinculados.md`
+- `docs/28-ajustes-arquivos-vinculados-layout.md`
 
 ## validacoes executadas na ultima tarefa
 
 - `referencias-visuais/stitch/design.md` foi respeitado.
-- `referencias-visuais/stitch/html/06-visualizacao-imagem.html` foi usado para a tela Visualizacao de Imagem.
+- `referencias-visuais/stitch/html/07-arquivos-vinculados.html` foi usado para a tela Arquivos Vinculados.
 - Home permaneceu preservada.
 - Colecoes permaneceu preservada.
 - Detalhe da Colecao permaneceu preservado.
-- Detalhe do Modelo permaneceu preservado e agora acompanha melhor telas largas.
+- Detalhe do Modelo permaneceu preservado.
 - Galeria do Modelo permaneceu preservada.
-- Visualizacao de Imagem foi aprovada.
-- Capas, thumbnails, previews e imagens mockadas nao distorcem ao redimensionar.
+- Visualizacao de Imagem permaneceu preservada.
+- Arquivos Vinculados foi aprovada.
+- Paineis laterais nao se sobrepoem ao conteudo principal.
+- A capa/imagem principal esta bem encaixada e sem espaco vazio desnecessario.
+- Acoes da lista usam icones.
+- Botoes de acao possuem `title` e `aria-label`.
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
@@ -157,10 +170,10 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Implementar a tela de Arquivos Vinculados com base em:
+Implementar a tela de Fila de Impressao com base em:
 
 ```txt
-referencias-visuais/stitch/html/07-arquivos-vinculados.html
+referencias-visuais/stitch/html/08-fila-impressao.html
 ```
 
-A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.
+A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.

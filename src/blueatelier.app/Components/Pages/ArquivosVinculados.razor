@@ -1,0 +1,210 @@
+@page "/colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos"
+
+<section class="linked-files-page" aria-labelledby="linked-files-title">
+    <a class="collection-detail-back" href="/colecoes/eldritch-horrors/modelos/cthulhu-idol">
+        <span aria-hidden="true">&lt;</span>
+        <span>Voltar para Cthulhu Idol</span>
+    </a>
+
+    <header class="linked-files-header">
+        <div class="linked-files-cover" aria-hidden="true">
+            <span class="linked-files-cover-glow"></span>
+            <span class="linked-files-cover-idol"></span>
+            <span class="linked-files-cover-base"></span>
+            <span class="linked-files-cover-tentacle tentacle-left"></span>
+            <span class="linked-files-cover-tentacle tentacle-right"></span>
+        </div>
+
+        <div class="linked-files-heading-copy">
+            <p>Arquivos Vinculados</p>
+            <h1 id="linked-files-title">Cthulhu Idol</h1>
+            <span>Cthulhu Idol / Eldritch Horrors</span>
+            <small>Arquivos 3D, fatiamento, referencias e notas associados ao modelo.</small>
+
+            <div class="linked-files-summary" aria-label="Resumo de arquivos vinculados">
+                @foreach (var item in SummaryItems)
+                {
+                    <div class="linked-files-summary-card">
+                        <span class="linked-files-summary-icon summary-@item.Tone" aria-hidden="true">
+                            <AppIcon Name="@item.Icon" />
+                        </span>
+                        <strong>@item.Value</strong>
+                        <span>@item.Label</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </header>
+
+    <section class="linked-files-actions" aria-label="Acoes visuais de arquivos vinculados">
+        <button class="linked-files-action linked-files-action-primary" type="button">
+            <span aria-hidden="true">+</span>
+            Vincular arquivo
+        </button>
+        <button class="linked-files-action" type="button">
+            <AppIcon Name="folder" />
+            Vincular pasta
+        </button>
+        <button class="linked-files-action" type="button">
+            <AppIcon Name="folder" />
+            Abrir pasta do modelo
+        </button>
+        <button class="linked-files-action" type="button">
+            <AppIcon Name="settings" />
+            Organizar arquivos
+        </button>
+    </section>
+
+    <nav class="linked-files-filters" aria-label="Filtros visuais de arquivos vinculados">
+        @foreach (var filter in Filters)
+        {
+            <button class="linked-files-filter @(filter.IsActive ? "linked-files-filter-active" : null)" type="button">
+                @filter.Label
+            </button>
+        }
+    </nav>
+
+    <div class="linked-files-layout">
+        <main class="linked-files-list-area" aria-label="Lista de arquivos vinculados">
+            @foreach (var group in FileGroups)
+            {
+                <section class="linked-files-section" aria-labelledby="@group.Id">
+                    <h2 id="@group.Id">@group.Title</h2>
+
+                    <div class="linked-files-table">
+                        @foreach (var file in group.Files)
+                        {
+                            <article class="linked-file-row linked-file-status-@file.StatusTone">
+                                <div class="linked-file-main">
+                                    <span class="linked-file-type-icon type-@file.TypeTone" aria-hidden="true">
+                                        @file.Extension
+                                    </span>
+                                    <div>
+                                        <h3>@file.Name</h3>
+                                        <p>@file.Description</p>
+                                    </div>
+                                </div>
+
+                                <span class="linked-file-category">@file.Category</span>
+                                <span class="linked-file-size">@file.Size</span>
+                                <span class="linked-file-date">@file.Date</span>
+
+                                <span class="linked-file-status">
+                                    <span aria-hidden="true"></span>
+                                    @file.Status
+                                </span>
+
+                                <div class="linked-file-actions" aria-label="Acoes visuais para @file.Name">
+                                    <button type="button" title="Abrir arquivo" aria-label="Abrir arquivo @file.Name">
+                                        <AppIcon Name="folder" />
+                                    </button>
+                                    <button type="button" title="Editar vinculo" aria-label="Editar vinculo de @file.Name">
+                                        <AppIcon Name="edit" />
+                                    </button>
+                                    <button class="linked-file-action-danger" type="button" title="Remover vinculo" aria-label="Remover vinculo de @file.Name">
+                                        <AppIcon Name="trash" />
+                                    </button>
+                                </div>
+                            </article>
+                        }
+                    </div>
+                </section>
+            }
+        </main>
+
+        <aside class="linked-files-side-panel" aria-label="Resumo e caminho vinculado">
+            <section class="linked-files-info-card">
+                <h2>Pasta vinculada</h2>
+                <p class="linked-files-path">D:\atelier-3d\eldritch-horrors\cthulhu-idol\</p>
+                <small>Mock visual. Nenhuma pasta real foi aberta ou lida.</small>
+            </section>
+
+            <section class="linked-files-info-card linked-files-network-card">
+                <span class="linked-files-warning-dot" aria-hidden="true"></span>
+                <h2>Caminho de rede offline</h2>
+                <p>\\atelier-notebook\fila-impressao\</p>
+                <small>Tratado como condicao normal para revisao futura.</small>
+            </section>
+
+            <section class="linked-files-info-card">
+                <h2>Resumo</h2>
+                <dl class="linked-files-stats">
+                    <div>
+                        <dt>Total</dt>
+                        <dd>8 arquivos</dd>
+                    </div>
+                    <div>
+                        <dt>Encontrados</dt>
+                        <dd>5</dd>
+                    </div>
+                    <div>
+                        <dt>Ausentes</dt>
+                        <dd>1</dd>
+                    </div>
+                    <div>
+                        <dt>Rede offline</dt>
+                        <dd>1</dd>
+                    </div>
+                </dl>
+            </section>
+        </aside>
+    </div>
+</section>
+
+@code {
+    private static readonly SummaryItem[] SummaryItems =
+    [
+        new("8", "Total", "models", "blue"),
+        new("5", "Encontrados", "collections", "green"),
+        new("1", "Ausente", "recent", "amber"),
+        new("1", "Rede offline", "folder", "slate")
+    ];
+
+    private static readonly FilterItem[] Filters =
+    [
+        new("Todos", true),
+        new("Modelos 3D", false),
+        new("Fatiamento", false),
+        new("Referencias", false),
+        new("Notas", false),
+        new("Outros", false)
+    ];
+
+    private static readonly FileGroup[] FileGroups =
+    [
+        new("linked-files-3d", "Arquivos 3D",
+        [
+            new("cthulhu-idol.stl", ".stl", "Modelo 3D", "34.8 MB", "Hoje", "Encontrado", "found", "blue", "Malha principal para impressao"),
+            new("stone-texture-reference.jpg", ".jpg", "Referencias", "4.2 MB", "Ontem", "Encontrado", "found", "image", "Textura de pedra para pintura"),
+            new("final-photo-reference.png", ".png", "Referencias", "8.7 MB", "15 Out", "Rede offline", "offline", "image", "Foto final vinculada em caminho de rede")
+        ]),
+        new("linked-files-slicing", "Fatiamento",
+        [
+            new("cthulhu-idol-supported.lys", ".lys", "Fatiamento", "18.1 MB", "Hoje", "Encontrado", "found", "teal", "Projeto com suportes adicionados"),
+            new("cthulhu-idol-ready.ctb", ".ctb", "Fatiamento", "92.4 MB", "Hoje", "Pronto", "ready", "purple", "Arquivo pronto para fila de impressao"),
+            new("resin-profile.txt", ".txt", "Outros", "12 KB", "12 Out", "Encontrado", "found", "slate", "Perfil de resina usado no fatiamento")
+        ]),
+        new("linked-files-notes", "Documentos e Notas",
+        [
+            new("painting-notes.md", ".md", "Notas", "9 KB", "Hoje", "Encontrado", "found", "slate", "Notas de pintura e acabamento"),
+            new("print-settings.pdf", ".pdf", "Notas", "216 KB", "---", "Ausente", "missing", "amber", "Documento registrado, mas arquivo nao encontrado")
+        ])
+    ];
+
+    private sealed record SummaryItem(string Value, string Label, string Icon, string Tone);
+
+    private sealed record FilterItem(string Label, bool IsActive);
+
+    private sealed record FileGroup(string Id, string Title, FileItem[] Files);
+
+    private sealed record FileItem(
+        string Name,
+        string Extension,
+        string Category,
+        string Size,
+        string Date,
+        string Status,
+        string StatusTone,
+        string TypeTone,
+        string Description);
+}
