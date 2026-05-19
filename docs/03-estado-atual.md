@@ -2,7 +2,7 @@
 
 ## status geral
 
-Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e dez telas reais criadas com dados mockados:
+Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e onze telas reais criadas com dados mockados:
 
 - Home;
 - Colecoes;
@@ -13,9 +13,10 @@ Projeto com base documental inicial concluida, referencias visuais do Stitch cat
 - Arquivos Vinculados;
 - Fila de Impressao;
 - Modelos;
-- Arquivos Recentes.
+- Arquivos Recentes;
+- Materiais.
 
-A Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, Arquivos Recentes, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
+A Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, Arquivos Recentes, Materiais, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -29,15 +30,24 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 A ultima tarefa concluida consolidou:
 
-- implementacao da tela Arquivos Recentes com base em `referencias-visuais/stitch/html/09-arquivos-recentes.html`;
-- rota `/arquivos-recentes`;
+- implementacao da tela Materiais com base em `referencias-visuais/stitch/html/10-materiais.html`;
+- rota `/materiais`;
 - uso de dados mockados;
-- lista/grid de arquivos recentes;
+- cards/lista de materiais;
 - filtros visuais;
 - acoes visuais provisorias;
-- painel/resumo visual de arquivos recentes;
+- resumo visual de materiais;
 - navegacao visual a partir da sidebar;
-- affordances visuais para Arquivos Vinculados e Visualizacao de Imagem quando aplicavel;
+- correcao de contraste das tags de categoria dos materiais;
+- correcao de sobreposicao das tags;
+- correcoes de layout e responsividade em:
+  - `/materiais`;
+  - `/modelos`;
+  - `/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference`;
+  - `/fila-impressao`;
+  - `/arquivos-recentes`;
+- tabelas com conteudo acessivel;
+- cards sem corte de conteudo importante;
 - preservacao das telas ja aprovadas;
 - preservacao da paleta visual clean, moderna, azulada e menos colorida;
 - aprovacao visual manual pelo usuario.
@@ -100,9 +110,11 @@ Implementado:
 - tela Fila de Impressao aprovada;
 - tela Modelos em `/modelos` aprovada;
 - tela Arquivos Recentes em `/arquivos-recentes` aprovada;
+- tela Materiais em `/materiais` aprovada;
 - navegacao do card Cthulhu Idol para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
 - sidebar com Models ativo nas rotas de modelos;
 - sidebar com Arquivos Recentes ativo em `/arquivos-recentes`;
+- sidebar com Materiais ativo em `/materiais`;
 - hover global de cards clicaveis;
 - affordances visuais de edicao futura;
 - tipografia moderna com stack de sistema;
@@ -114,11 +126,13 @@ Implementado:
 - ajuste de layout do Detalhe do Modelo para acompanhar melhor telas largas;
 - paineis laterais responsivos da tela Arquivos Vinculados;
 - acoes da lista de arquivos como icones com `title` e `aria-label`;
-- capa/imagem principal da tela Arquivos Vinculados bem encaixada no header.
+- capa/imagem principal da tela Arquivos Vinculados bem encaixada no header;
+- contraste das tags de categoria em Materiais corrigido;
+- correcoes de layout e responsividade em Materiais, Modelos, Visualizacao de Imagem, Fila de Impressao e Arquivos Recentes.
 
 Ainda nao implementado:
 
-- tela Materiais;
+- tela Detalhe do Material;
 - SQLite;
 - EF Core;
 - migrations;
@@ -132,6 +146,9 @@ Ainda nao implementado:
 - leitura real de arquivos recentes;
 - fixacao real de arquivos;
 - remocao real do historico;
+- estoque real;
+- cadastro real de materiais;
+- baixa real de material;
 - edicao real de colecoes, modelos ou cards;
 - persistencia real.
 
@@ -141,30 +158,35 @@ Implementacao:
 
 - `src/blueatelier.app/Components/Layout/AppSidebar.razor`
 - `src/blueatelier.app/Components/Layout/AppTopbar.razor`
-- `src/blueatelier.app/Components/Pages/ArquivosRecentes.razor`
+- `src/blueatelier.app/Components/Pages/Materiais.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/32-arquivos-recentes.md`
+- `docs/33-materiais.md`
+- `docs/34-ajustes-layout-responsividade.md`
 
 ## validacoes executadas na ultima tarefa
 
 - `referencias-visuais/stitch/design.md` foi respeitado.
-- `referencias-visuais/stitch/html/09-arquivos-recentes.html` foi usado para a tela Arquivos Recentes.
+- `referencias-visuais/stitch/html/10-materiais.html` foi usado para a tela Materiais.
 - Home permaneceu preservada.
 - Colecoes permaneceu preservada.
 - Detalhe da Colecao permaneceu preservado.
 - Detalhe do Modelo permaneceu preservado.
 - Galeria do Modelo permaneceu preservada.
-- Visualizacao de Imagem permaneceu preservada.
+- Visualizacao de Imagem permaneceu preservada e nao quebra mais em larguras medias.
 - Arquivos Vinculados permaneceu preservado.
-- Fila de Impressao permaneceu preservada.
-- Modelos permaneceu preservado.
-- `/arquivos-recentes` abre corretamente.
-- O item Arquivos Recentes/Recent Files da sidebar navega para `/arquivos-recentes`.
+- Fila de Impressao permaneceu preservada e a tabela esta acessivel.
+- Modelos permaneceu preservado e responsivo.
+- Arquivos Recentes permaneceu preservado e a tabela/lista esta acessivel.
+- `/materiais` abre corretamente.
+- O item Materiais/Materials da sidebar navega para `/materiais`.
+- As tags dos materiais tem contraste legivel.
+- As tags dos materiais nao ficam atras do icone/elemento central.
+- Os cards de materiais nao cortam conteudo importante.
 - A paleta clean/azulada foi preservada.
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
@@ -182,10 +204,10 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Implementar a tela Materiais com base em:
+Implementar a tela Detalhe do Material com base em:
 
 ```txt
-referencias-visuais/stitch/html/10-materiais.html
+referencias-visuais/stitch/html/11-detalhe-material.html
 ```
 
-A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, Arquivos Recentes e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.
+A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, Arquivos Recentes, Materiais e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.

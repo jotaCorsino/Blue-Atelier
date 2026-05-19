@@ -172,6 +172,18 @@ Arquivo: `docs/32-arquivos-recentes.md`
 
 Objetivo: registrar a implementacao da tela Arquivos Recentes, incluindo rota `/arquivos-recentes`, referencia visual usada, lista/grid de arquivos mockados, filtros visuais, acoes provisorias, sidebar e aprovacao visual manual.
 
+### 29. materiais
+
+Arquivo: `docs/33-materiais.md`
+
+Objetivo: registrar a implementacao da tela Materiais, incluindo rota `/materiais`, referencia visual usada, cards de materiais mockados, filtros, acoes provisorias, sidebar e aprovacao visual manual.
+
+### 30. ajustes de layout e responsividade
+
+Arquivo: `docs/34-ajustes-layout-responsividade.md`
+
+Objetivo: registrar os ajustes aprovados de layout e responsividade em Materiais, Modelos, Visualizacao de Imagem, Fila de Impressao e Arquivos Recentes.
+
 ## base documental inicial concluida
 
 A base documental inicial do Blue Atelier esta concluida.
@@ -209,6 +221,8 @@ Documentos criados nesta base:
 - `docs/30-ajustes-paleta-visual.md`
 - `docs/31-modelos-e-navegacao-home.md`
 - `docs/32-arquivos-recentes.md`
+- `docs/33-materiais.md`
+- `docs/34-ajustes-layout-responsividade.md`
 
 O documento `docs/15-referencias-visuais-stitch.md` registra que a direcao visual do Stitch foi aprovada e que os arquivos em `referencias-visuais/stitch/` devem ser tratados como referencia visual protegida.
 
@@ -246,12 +260,16 @@ O documento `docs/31-modelos-e-navegacao-home.md` registra que a navegacao da Ho
 
 O documento `docs/32-arquivos-recentes.md` registra que a tela Arquivos Recentes foi implementada e aprovada visualmente pelo usuario.
 
+O documento `docs/33-materiais.md` registra que a tela Materiais foi implementada e aprovada visualmente pelo usuario.
+
+O documento `docs/34-ajustes-layout-responsividade.md` registra que houve ajustes aprovados de layout e responsividade, incluindo cards de Materiais sem corte de conteudo, Modelos mais responsivo, Visualizacao de Imagem sem quebra e tabelas acessiveis em Fila de Impressao e Arquivos Recentes.
+
 ## proxima etapa sugerida
 
-Implementar a tela Materiais com base em:
+Implementar a tela Detalhe do Material com base em:
 
 ```txt
-referencias-visuais/stitch/html/10-materiais.html
+referencias-visuais/stitch/html/11-detalhe-material.html
 ```
 
 Essa proxima etapa deve usar como base:
@@ -278,5 +296,7 @@ Essa proxima etapa deve usar como base:
 - `docs/30-ajustes-paleta-visual.md`
 - `docs/31-modelos-e-navegacao-home.md`
 - `docs/32-arquivos-recentes.md`
+- `docs/33-materiais.md`
+- `docs/34-ajustes-layout-responsividade.md`
 
-Nas proximas telas, o Codex deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, Arquivos Recentes e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.
+Nas proximas telas, o Codex deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, Arquivos Recentes, Materiais e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.

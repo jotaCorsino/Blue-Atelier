@@ -46,6 +46,13 @@
             <span>Historico visual mockado</span>
         </div>
     }
+    else if (IsMaterialsPage)
+    {
+        <div class="topbar-status" role="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Materiais mockados</span>
+        </div>
+    }
     else if (IsModelsPage)
     {
         <div class="topbar-status" role="status">
@@ -182,6 +189,15 @@
         }
     }
 
+    private bool IsMaterialsPage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.Equals(relativePath, "materiais", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
     private string SearchPlaceholder
     {
         get
@@ -199,6 +215,11 @@
             if (IsRecentFilesPage)
             {
                 return "Pesquisar arquivos...";
+            }
+
+            if (IsMaterialsPage)
+            {
+                return "Buscar materiais...";
             }
 
             if (IsModelsPage)

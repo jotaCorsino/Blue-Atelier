@@ -1,0 +1,184 @@
+@page "/materiais"
+
+<section class="materials-page" aria-labelledby="materials-title">
+    <header class="materials-header">
+        <div class="materials-heading">
+            <p>Inventario visual do atelier</p>
+            <h1 id="materials-title">Materiais</h1>
+            <span>Controle visual de resinas, tintas, primers, ferramentas e consumiveis do atelier.</span>
+        </div>
+
+        <div class="materials-overview" role="status">
+            <span class="materials-overview-dot" aria-hidden="true"></span>
+            <div>
+                <strong>10 materiais mockados</strong>
+                <small>Controle local ainda visual e sem estoque real</small>
+            </div>
+        </div>
+    </header>
+
+    <section class="materials-actions" aria-label="Acoes visuais de materiais">
+        <button class="materials-action materials-action-primary" type="button">
+            <span aria-hidden="true">+</span>
+            Novo material
+        </button>
+        <button class="materials-action" type="button">
+            <AppIcon Name="upload" />
+            Importar lista
+        </button>
+        <button class="materials-action" type="button">
+            <AppIcon Name="reorder" />
+            Organizar categorias
+        </button>
+        <button class="materials-action" type="button">
+            <AppIcon Name="edit" />
+            Registrar uso
+        </button>
+    </section>
+
+    <nav class="materials-filters" aria-label="Filtros visuais de materiais">
+        @foreach (var filter in Filters)
+        {
+            <button class="materials-filter @(filter.IsActive ? "materials-filter-active" : null)" type="button">
+                @filter.Label
+            </button>
+        }
+    </nav>
+
+    <section class="materials-summary" aria-label="Resumo visual de materiais">
+        @foreach (var item in SummaryItems)
+        {
+            <article class="materials-summary-card">
+                <span class="materials-summary-icon summary-@item.Tone" aria-hidden="true">
+                    <AppIcon Name="@item.Icon" />
+                </span>
+                <div>
+                    <strong>@item.Value</strong>
+                    <span>@item.Label</span>
+                </div>
+            </article>
+        }
+
+        <article class="materials-notice-card">
+            <span>Controle mockado</span>
+            <strong>Resin Grey e Deep Green Paint sao os materiais mais usados</strong>
+            <small>Nenhum estoque real foi consultado, baixado ou persistido nesta tela.</small>
+        </article>
+    </section>
+
+    <section class="materials-board" aria-label="Catalogo visual de materiais">
+        <div class="materials-board-header">
+            <div>
+                <h2>Materiais do atelier</h2>
+                <p>Itens organizados por categoria, estoque visual e uso relacionado.</p>
+            </div>
+
+            <span>Atualizado visualmente hoje</span>
+        </div>
+
+        <div class="materials-grid">
+            @foreach (var material in Materials)
+            {
+                <article class="materials-card materials-status-@material.StatusTone" style="@($"--materials-stock: {material.StockPercent}%; --materials-swatch: {material.Swatch};")">
+                    <div class="materials-card-visual materials-visual-@material.Visual" aria-hidden="true">
+                        <span class="materials-card-category">@material.Category</span>
+                        <span class="materials-visual-object">
+                            <AppIcon Name="@material.Icon" />
+                        </span>
+                    </div>
+
+                    <div class="materials-card-body">
+                        <div class="materials-card-title-row">
+                            <div>
+                                <h2>@material.Name</h2>
+                                <p>@material.CategoryDetail</p>
+                            </div>
+
+                            <span class="materials-stock-status">
+                                <span aria-hidden="true"></span>
+                                @material.Status
+                            </span>
+                        </div>
+
+                        <dl class="materials-card-meta">
+                            <div>
+                                <dt>Estoque</dt>
+                                <dd>@material.Quantity @material.Unit</dd>
+                            </div>
+                            <div>
+                                <dt>Uso</dt>
+                                <dd>@material.RelatedUse</dd>
+                            </div>
+                        </dl>
+
+                        <div class="materials-stock-meter" aria-label="Estoque visual de @material.Name">
+                            <span></span>
+                        </div>
+
+                        <div class="materials-card-footer">
+                            <span>@material.UpdatedAt</span>
+                            <span>
+                                Abrir detalhes
+                                <AppIcon Name="arrow" />
+                            </span>
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    </section>
+</section>
+
+@code {
+    private static readonly MaterialsFilter[] Filters =
+    [
+        new("Todos", true),
+        new("Resinas", false),
+        new("Tintas", false),
+        new("Primers", false),
+        new("Ferramentas", false),
+        new("Consumiveis", false),
+        new("Baixo estoque", false)
+    ];
+
+    private static readonly SummaryItem[] SummaryItems =
+    [
+        new("10", "Total de materiais", "materials", "blue"),
+        new("3", "Baixo estoque", "alert", "amber"),
+        new("1", "Esgotado", "trash", "slate"),
+        new("5", "Categorias", "collections", "slate")
+    ];
+
+    private static readonly MaterialItem[] Materials =
+    [
+        new("Resin Grey", "Resinas", "Water washable resin", "1.6", "kg", "Em estoque", "Bases e miniaturas principais", "Atualizado hoje", 82, "stock", "resin", "materials", "#6f7488"),
+        new("ABS-Like Clear", "Resinas", "Resina transparente", "420", "ml", "Baixo estoque", "Peças translucidas e testes", "Ontem", 26, "low", "resin", "materials", "#9eb8d8"),
+        new("Primer Black", "Primers", "Primer fosco", "2", "frascos", "Em estoque", "Preparacao para pintura", "12 Out", 68, "stock", "primer", "materials", "#2f303b"),
+        new("Deep Green Paint", "Tintas", "Model color 70.979", "80", "%", "Em estoque", "Rochas, musgo e bases", "10 Out", 80, "stock", "paint", "image", "#254d35"),
+        new("Purple Wash", "Tintas", "Wash para sombras", "45", "%", "Baixo estoque", "Sombras de tentaculos", "8 Out", 45, "low", "paint", "image", "#61588d"),
+        new("Isopropyl Alcohol", "Consumiveis", "Limpeza de pecas", "1.2", "L", "Acabando", "Lavagem pos-impressao", "6 Out", 18, "ending", "bottle", "materials", "#d6dce8"),
+        new("Nitrile Gloves", "Consumiveis", "Luvas descartaveis", "38", "un", "Em estoque", "Manuseio de resina", "5 Out", 54, "stock", "box", "check", "#7e86a2"),
+        new("Sanding Sticks", "Ferramentas", "Acabamento fino", "6", "un", "Em estoque", "Lixamento de suportes", "3 Out", 72, "stock", "tool", "settings", "#8b8fa3"),
+        new("Hobby Knife", "Ferramentas", "Corte e acabamento", "1", "un", "Em estoque", "Remocao de rebarbas", "1 Out", 90, "stock", "tool", "edit", "#5f667a"),
+        new("UV Resin", "Resinas", "Reparos e preenchimento", "0", "ml", "Esgotado", "Correcoes pequenas", "29 Set", 0, "empty", "resin", "alert", "#8e9abd")
+    ];
+
+    private sealed record MaterialsFilter(string Label, bool IsActive);
+
+    private sealed record SummaryItem(string Value, string Label, string Icon, string Tone);
+
+    private sealed record MaterialItem(
+        string Name,
+        string Category,
+        string CategoryDetail,
+        string Quantity,
+        string Unit,
+        string Status,
+        string RelatedUse,
+        string UpdatedAt,
+        int StockPercent,
+        string StatusTone,
+        string Visual,
+        string Icon,
+        string Swatch);
+}
