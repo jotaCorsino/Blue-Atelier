@@ -1,6 +1,6 @@
 # blue atelier - proximos documentos
 
-Este arquivo lista os documentos criados, registra o fechamento da base documental inicial do Blue Atelier e acompanha documentos criados depois dessa base.
+Este arquivo lista os documentos ativos criados, registra o fechamento da base documental inicial do Blue Atelier e acompanha documentos criados depois dessa base.
 
 ## documentos ja criados
 
@@ -20,7 +20,7 @@ Objetivo: definir stack, camadas, banco de dados, servicos, estrutura de pastas 
 
 Arquivo: `docs/07-mapa-de-telas.md`
 
-Objetivo: descrever todas as telas do app, navegacao, componentes e comportamento esperado.
+Objetivo: descrever telas, navegacao, componentes e comportamento esperado. Deve ser revisado futuramente para refletir a mudanca de escopo consolidada em `docs/35-mudanca-escopo-remocao-areas.md`.
 
 ### 4. design system
 
@@ -50,13 +50,13 @@ Objetivo: registrar comandos e prompts operacionais para orientar o Codex em tar
 
 Arquivo: `docs/12-modelagem-do-banco.md`
 
-Objetivo: definir entidades, relacoes, campos, indices e regras de persistencia.
+Objetivo: definir entidades, relacoes, campos, indices e regras de persistencia. Deve ser revisado futuramente antes de qualquer implementacao real de persistencia.
 
 ### 9. sistema de arquivos
 
 Arquivo: `docs/13-sistema-de-arquivos.md`
 
-Objetivo: definir estrutura de pastas, caminhos, slugs, arquivos aceitos e integracao com rede.
+Objetivo: definir estrutura de pastas, caminhos, arquivos aceitos e integracao futura com arquivos locais e de rede.
 
 ### 10. checklist de validacao
 
@@ -148,41 +148,34 @@ Arquivo: `docs/28-ajustes-arquivos-vinculados-layout.md`
 
 Objetivo: registrar os ajustes aprovados da tela Arquivos Vinculados, incluindo correcao dos paineis laterais, acoes por icones, `title` e `aria-label`, icone de remover e refinamento da capa/imagem principal.
 
-### 25. fila de Impressao
-
-Arquivo: `docs/29-fila-impressao.md`
-
-Objetivo: registrar a implementacao da tela Fila de Impressao, incluindo rota `/fila-impressao`, referencia visual usada, tabela/lista de itens, filtros, estados visuais, dados mockados, acoes provisorias e aprovacao visual manual.
-
-### 26. ajustes de paleta visual
+### 25. ajustes de paleta visual
 
 Arquivo: `docs/30-ajustes-paleta-visual.md`
 
 Objetivo: registrar a recalibracao aprovada da paleta visual, com reducao de cores excessivas, azul como destaque principal e cores de sistema restritas a estados reais.
 
-### 27. modelos e navegacao da Home
+### 26. modelos e navegacao da Home
 
 Arquivo: `docs/31-modelos-e-navegacao-home.md`
 
 Objetivo: registrar a correcao da navegacao das colecoes na Home, a ativacao da rota `/modelos`, a tela Modelos mockada e a sidebar marcando Models nas rotas relacionadas.
 
-### 28. arquivos recentes
+### 27. mudanca de escopo e remocao de areas
 
-Arquivo: `docs/32-arquivos-recentes.md`
+Arquivo: `docs/35-mudanca-escopo-remocao-areas.md`
 
-Objetivo: registrar a implementacao da tela Arquivos Recentes, incluindo rota `/arquivos-recentes`, referencia visual usada, lista/grid de arquivos mockados, filtros visuais, acoes provisorias, sidebar e aprovacao visual manual.
+Objetivo: registrar a mudanca de direcao do projeto, a remocao de Fila de Impressao, Arquivos Recentes, Materiais e Detalhe do Material, as rotas removidas, a limpeza de sidebar/topbar/CSS e o novo estado visual mantido.
 
-### 29. materiais
+## documentos substituidos ou removidos
 
-Arquivo: `docs/33-materiais.md`
+Os documentos abaixo foram removidos porque descreviam areas que sairam do escopo atual:
 
-Objetivo: registrar a implementacao da tela Materiais, incluindo rota `/materiais`, referencia visual usada, cards de materiais mockados, filtros, acoes provisorias, sidebar e aprovacao visual manual.
+- `docs/29-fila-impressao.md`
+- `docs/32-arquivos-recentes.md`
+- `docs/33-materiais.md`
+- `docs/34-ajustes-layout-responsividade.md`
 
-### 30. ajustes de layout e responsividade
-
-Arquivo: `docs/34-ajustes-layout-responsividade.md`
-
-Objetivo: registrar os ajustes aprovados de layout e responsividade em Materiais, Modelos, Visualizacao de Imagem, Fila de Impressao e Arquivos Recentes.
+As correcoes de responsividade uteis para telas mantidas permanecem no CSS e foram registradas no documento `docs/35-mudanca-escopo-remocao-areas.md`.
 
 ## base documental inicial concluida
 
@@ -217,63 +210,23 @@ Documentos criados nesta base:
 - `docs/26-ajustes-responsividade-layout.md`
 - `docs/27-arquivos-vinculados.md`
 - `docs/28-ajustes-arquivos-vinculados-layout.md`
-- `docs/29-fila-impressao.md`
 - `docs/30-ajustes-paleta-visual.md`
 - `docs/31-modelos-e-navegacao-home.md`
-- `docs/32-arquivos-recentes.md`
-- `docs/33-materiais.md`
-- `docs/34-ajustes-layout-responsividade.md`
+- `docs/35-mudanca-escopo-remocao-areas.md`
 
-O documento `docs/15-referencias-visuais-stitch.md` registra que a direcao visual do Stitch foi aprovada e que os arquivos em `referencias-visuais/stitch/` devem ser tratados como referencia visual protegida.
-
-O documento `docs/16-estrutura-da-solucao.md` registra que a fase de implementacao base foi iniciada apos a catalogacao das referencias visuais.
-
-O documento `docs/17-fundacao-visual.md` registra que a fundacao visual foi iniciada apos a criacao da solucao base.
-
-O documento `docs/18-tela-inicial.md` registra que a primeira tela real foi implementada apos a fundacao visual, ainda usando dados mockados e sem implementar banco, servicos reais ou outras telas.
-
-O documento `docs/19-tela-colecoes.md` registra que a tela de Colecoes foi implementada apos a tela inicial e aprovada visualmente pelo usuario.
-
-O documento `docs/20-correcao-visual-home-e-fundacao.md` registra que houve uma correcao visual aprovada da Home e da fundacao visual, mantendo a tela de Colecoes preservada.
-
-O documento `docs/21-detalhe-colecao.md` registra que a tela de Detalhe da Colecao foi implementada e aprovada visualmente pelo usuario.
-
-O documento `docs/22-ajustes-ux-identidade-visual.md` registra que houve ajustes globais aprovados de UX e identidade visual, incluindo hover, cards clicaveis, icones da sidebar, affordances de edicao e tipografia.
-
-O documento `docs/23-detalhe-modelo.md` registra que a tela de Detalhe do Modelo foi implementada e aprovada visualmente pelo usuario.
-
-O documento `docs/24-galeria-modelo.md` registra que a tela Galeria do Modelo foi implementada e aprovada visualmente pelo usuario.
-
-O documento `docs/25-visualizacao-imagem.md` registra que a tela Visualizacao de Imagem foi implementada e aprovada visualmente pelo usuario.
-
-O documento `docs/26-ajustes-responsividade-layout.md` registra que houve ajustes aprovados de responsividade e layout, incluindo barra anterior/proxima, proporcao de capas/thumbnails/imagens mockadas e layout do Detalhe do Modelo em telas largas.
-
-O documento `docs/27-arquivos-vinculados.md` registra que a tela Arquivos Vinculados foi implementada e aprovada visualmente pelo usuario.
-
-O documento `docs/28-ajustes-arquivos-vinculados-layout.md` registra que houve ajustes aprovados no layout da tela Arquivos Vinculados, incluindo paineis laterais, acoes como icones, acessibilidade dos botoes e capa principal.
-
-O documento `docs/29-fila-impressao.md` registra que a tela Fila de Impressao foi implementada e aprovada visualmente pelo usuario.
-
-O documento `docs/30-ajustes-paleta-visual.md` registra que a paleta visual foi recalibrada para uma direcao mais clean, moderna, azulada e menos colorida.
-
-O documento `docs/31-modelos-e-navegacao-home.md` registra que a navegacao da Home foi corrigida e que a tela Modelos foi ativada.
-
-O documento `docs/32-arquivos-recentes.md` registra que a tela Arquivos Recentes foi implementada e aprovada visualmente pelo usuario.
-
-O documento `docs/33-materiais.md` registra que a tela Materiais foi implementada e aprovada visualmente pelo usuario.
-
-O documento `docs/34-ajustes-layout-responsividade.md` registra que houve ajustes aprovados de layout e responsividade, incluindo cards de Materiais sem corte de conteudo, Modelos mais responsivo, Visualizacao de Imagem sem quebra e tabelas acessiveis em Fila de Impressao e Arquivos Recentes.
+O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas.
 
 ## proxima etapa sugerida
 
-Implementar a tela Detalhe do Material com base em:
+Implementar a tela Favoritos com base em:
 
 ```txt
-referencias-visuais/stitch/html/11-detalhe-material.html
+referencias-visuais/stitch/html/12-favoritos.html
 ```
 
 Essa proxima etapa deve usar como base:
 
+- `docs/03-estado-atual.md`
 - `docs/06-arquitetura-tecnica.md`
 - `docs/07-mapa-de-telas.md`
 - `docs/08-design-system.md`
@@ -292,11 +245,8 @@ Essa proxima etapa deve usar como base:
 - `docs/26-ajustes-responsividade-layout.md`
 - `docs/27-arquivos-vinculados.md`
 - `docs/28-ajustes-arquivos-vinculados-layout.md`
-- `docs/29-fila-impressao.md`
 - `docs/30-ajustes-paleta-visual.md`
 - `docs/31-modelos-e-navegacao-home.md`
-- `docs/32-arquivos-recentes.md`
-- `docs/33-materiais.md`
-- `docs/34-ajustes-layout-responsividade.md`
+- `docs/35-mudanca-escopo-remocao-areas.md`
 
-Nas proximas telas, o Codex deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, Arquivos Recentes, Materiais e a fundacao visual ja aprovadas. O Codex nao pode redesenhar, reinterpretar ou simplificar a proposta visual sem autorizacao explicita.
+Nas proximas telas, o Codex deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados e a fundacao visual ja aprovadas. O Codex nao pode reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

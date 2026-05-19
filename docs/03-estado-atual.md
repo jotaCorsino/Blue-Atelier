@@ -2,21 +2,22 @@
 
 ## status geral
 
-Projeto com base documental inicial concluida, referencias visuais do Stitch catalogadas, solucao base .NET MAUI Blazor Hybrid criada, fundacao visual compartilhada implementada e onze telas reais criadas com dados mockados:
+O projeto Blue Atelier mudou de direcao e teve o escopo visual atual simplificado.
+
+O app mantem a base .NET MAUI Blazor Hybrid, a fundacao visual aprovada, a paleta clean/azulada e as telas principais de organizacao de colecoes e modelos. As areas de Fila de Impressao, Arquivos Recentes, Materiais e Detalhe do Material foram removidas do escopo atual.
+
+Telas mantidas no estado atual:
 
 - Home;
 - Colecoes;
 - Detalhe da Colecao;
+- Modelos;
 - Detalhe do Modelo;
 - Galeria do Modelo;
 - Visualizacao de Imagem;
-- Arquivos Vinculados;
-- Fila de Impressao;
-- Modelos;
-- Arquivos Recentes;
-- Materiais.
+- Arquivos Vinculados.
 
-A Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, Arquivos Recentes, Materiais, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
+A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -28,29 +29,22 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou:
+A ultima tarefa concluida consolidou a mudanca de escopo do app:
 
-- implementacao da tela Materiais com base em `referencias-visuais/stitch/html/10-materiais.html`;
-- rota `/materiais`;
-- uso de dados mockados;
-- cards/lista de materiais;
-- filtros visuais;
-- acoes visuais provisorias;
-- resumo visual de materiais;
-- navegacao visual a partir da sidebar;
-- correcao de contraste das tags de categoria dos materiais;
-- correcao de sobreposicao das tags;
-- correcoes de layout e responsividade em:
-  - `/materiais`;
-  - `/modelos`;
-  - `/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference`;
-  - `/fila-impressao`;
-  - `/arquivos-recentes`;
-- tabelas com conteudo acessivel;
-- cards sem corte de conteudo importante;
-- preservacao das telas ja aprovadas;
+- remocao completa da tela Fila de Impressao;
+- remocao completa da tela Arquivos Recentes;
+- remocao completa da tela Materiais;
+- remocao do Detalhe do Material criado localmente;
+- remocao das rotas `/fila-impressao`, `/arquivos-recentes`, `/materiais` e `/materiais/resin-grey`;
+- remocao desses itens da sidebar;
+- simplificacao da sidebar para manter Inicio, Colecoes, Modelos, Favoritos, Busca e Configuracoes;
+- remocao da logica especifica dessas areas na topbar;
+- limpeza de CSS morto relacionado a `print-queue-*`, `recent-files-*`, `materials-*` e `material-detail-*`;
+- preservacao das paginas mantidas;
+- preservacao da area `Model Info` no Detalhe do Modelo;
+- preservacao de uma lista simples de materiais usados dentro do Detalhe do Modelo;
 - preservacao da paleta visual clean, moderna, azulada e menos colorida;
-- aprovacao visual manual pelo usuario.
+- aprovacao visual manual da mudanca de escopo pelo usuario.
 
 ## decisoes ja tomadas
 
@@ -58,14 +52,35 @@ A ultima tarefa concluida consolidou:
 - O app sera Windows local, de uso pessoal e completo.
 - A stack oficial e .NET MAUI Blazor Hybrid, C#, SQLite, Entity Framework Core, Razor Components e CSS proprio.
 - A arquitetura separa interface, dominio, aplicacao, infraestrutura e persistencia.
-- O banco SQLite guardara metadados, relacoes, caminhos, status, tags, links, favoritos, materiais, configuracoes e historico.
 - Arquivos pesados devem permanecer no sistema de arquivos.
-- Caminhos locais e de rede fazem parte do escopo do app.
+- Caminhos locais e de rede fazem parte do escopo futuro do app.
 - Caminho de rede offline deve ser tratado como condicao normal.
 - Remover vinculo no app nao deve apagar arquivo real.
 - Stitch e fonte de referencia visual aprovada, mas nao e fonte final de codigo.
 - Antigravity e apoio estrategico; Codex e o engenheiro principal do projeto.
 - GitHub e a fonte de verdade apos cada commit e push.
+
+## mudanca de escopo
+
+Nao fazem mais parte do escopo visual atual:
+
+- Fila de Impressao;
+- Arquivos Recentes;
+- Materiais;
+- Detalhe do Material.
+
+Tambem nao existem no estado atual:
+
+- fila real;
+- historico real de arquivos recentes;
+- cadastro real de materiais;
+- estoque real;
+- baixa real de material;
+- detalhe de material;
+- navegacao para `/materiais`;
+- persistencia real.
+
+Materiais agora aparecem apenas como uma lista local/mockada dentro do Detalhe do Modelo, indicando materiais usados naquele modelo. Essa lista nao representa estoque, nao abre pagina propria e nao navega para uma area de Materiais.
 
 ## referencias visuais protegidas
 
@@ -103,36 +118,37 @@ Implementado:
 - Home aprovada e com cards de colecao navegaveis;
 - tela de Colecoes aprovada;
 - tela de Detalhe da Colecao aprovada;
+- tela Modelos em `/modelos` aprovada;
 - tela de Detalhe do Modelo aprovada;
 - tela Galeria do Modelo aprovada;
 - tela Visualizacao de Imagem aprovada;
 - tela Arquivos Vinculados aprovada;
-- tela Fila de Impressao aprovada;
-- tela Modelos em `/modelos` aprovada;
-- tela Arquivos Recentes em `/arquivos-recentes` aprovada;
-- tela Materiais em `/materiais` aprovada;
 - navegacao do card Cthulhu Idol para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
 - sidebar com Models ativo nas rotas de modelos;
-- sidebar com Arquivos Recentes ativo em `/arquivos-recentes`;
-- sidebar com Materiais ativo em `/materiais`;
 - hover global de cards clicaveis;
 - affordances visuais de edicao futura;
 - tipografia moderna com stack de sistema;
 - paleta visual mais clean, moderna, azulada e menos colorida;
 - azul como cor principal de destaque;
-- estados reais de sistema com uso discreto de verde, amarelo e vermelho;
 - refinamento visual da barra anterior/proxima da Visualizacao de Imagem;
 - correcao global de proporcao para capas, thumbnails, previews e imagens mockadas;
 - ajuste de layout do Detalhe do Modelo para acompanhar melhor telas largas;
 - paineis laterais responsivos da tela Arquivos Vinculados;
 - acoes da lista de arquivos como icones com `title` e `aria-label`;
-- capa/imagem principal da tela Arquivos Vinculados bem encaixada no header;
-- contraste das tags de categoria em Materiais corrigido;
-- correcoes de layout e responsividade em Materiais, Modelos, Visualizacao de Imagem, Fila de Impressao e Arquivos Recentes.
+- capa/imagem principal da tela Arquivos Vinculados bem encaixada no header.
+
+Removido do estado atual:
+
+- tela Fila de Impressao;
+- tela Arquivos Recentes;
+- tela Materiais;
+- Detalhe do Material;
+- navegacao da sidebar para as areas removidas;
+- logicas especificas da topbar para as areas removidas;
+- CSS especifico das paginas removidas.
 
 Ainda nao implementado:
 
-- tela Detalhe do Material;
 - SQLite;
 - EF Core;
 - migrations;
@@ -141,62 +157,59 @@ Ainda nao implementado:
 - sistema de arquivos real;
 - busca real;
 - filtros reais persistidos;
-- fila de impressao real;
 - configuracoes reais;
-- leitura real de arquivos recentes;
-- fixacao real de arquivos;
-- remocao real do historico;
-- estoque real;
-- cadastro real de materiais;
-- baixa real de material;
 - edicao real de colecoes, modelos ou cards;
 - persistencia real.
 
-## arquivos alterados ou criados na ultima tarefa
+## arquivos alterados ou removidos na ultima tarefa
 
 Implementacao:
 
 - `src/blueatelier.app/Components/Layout/AppSidebar.razor`
 - `src/blueatelier.app/Components/Layout/AppTopbar.razor`
-- `src/blueatelier.app/Components/Pages/Materiais.razor`
+- `src/blueatelier.app/Components/Pages/Home.razor`
+- `src/blueatelier.app/Components/Pages/DetalheModelo.razor`
+- `src/blueatelier.app/Components/Pages/ArquivosVinculados.razor`
+- `src/blueatelier.app/Components/Shared/AppIcon.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
+- `src/blueatelier.app/Components/Pages/FilaImpressao.razor` removido
+- `src/blueatelier.app/Components/Pages/ArquivosRecentes.razor` removido
+- `src/blueatelier.app/Components/Pages/Materiais.razor` removido
+- `src/blueatelier.app/Components/Pages/DetalheMaterial.razor` removido, caso existisse localmente
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/33-materiais.md`
-- `docs/34-ajustes-layout-responsividade.md`
+- `docs/35-mudanca-escopo-remocao-areas.md`
+- `docs/29-fila-impressao.md` removido
+- `docs/32-arquivos-recentes.md` removido
+- `docs/33-materiais.md` removido
+- `docs/34-ajustes-layout-responsividade.md` removido
 
 ## validacoes executadas na ultima tarefa
 
-- `referencias-visuais/stitch/design.md` foi respeitado.
-- `referencias-visuais/stitch/html/10-materiais.html` foi usado para a tela Materiais.
-- Home permaneceu preservada.
-- Colecoes permaneceu preservada.
-- Detalhe da Colecao permaneceu preservado.
-- Detalhe do Modelo permaneceu preservado.
-- Galeria do Modelo permaneceu preservada.
-- Visualizacao de Imagem permaneceu preservada e nao quebra mais em larguras medias.
-- Arquivos Vinculados permaneceu preservado.
-- Fila de Impressao permaneceu preservada e a tabela esta acessivel.
-- Modelos permaneceu preservado e responsivo.
-- Arquivos Recentes permaneceu preservado e a tabela/lista esta acessivel.
-- `/materiais` abre corretamente.
-- O item Materiais/Materials da sidebar navega para `/materiais`.
-- As tags dos materiais tem contraste legivel.
-- As tags dos materiais nao ficam atras do icone/elemento central.
-- Os cards de materiais nao cortam conteudo importante.
-- A paleta clean/azulada foi preservada.
+- `referencias-visuais/stitch/design.md` permanece protegido.
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
+- `/fila-impressao` nao existe mais como rota.
+- `/arquivos-recentes` nao existe mais como rota.
+- `/materiais` nao existe mais como rota.
+- `/materiais/resin-grey` nao existe mais como rota.
+- A sidebar nao mostra mais Fila de Impressao.
+- A sidebar nao mostra mais Arquivos Recentes.
+- A sidebar nao mostra mais Materiais.
+- A topbar nao possui mais logica especifica dessas areas.
+- O CSS nao mantem blocos grandes mortos dessas paginas.
+- O Detalhe do Modelo ainda possui `Model Info`.
+- O Detalhe do Modelo ainda possui lista simples de materiais usados.
 - Nenhuma funcionalidade real foi implementada.
 - Nenhum banco SQLite foi criado.
 - Nenhum EF Core foi implementado.
 - Nenhuma migration foi criada.
 - Nenhum servico real foi implementado.
-- Nenhum sistema de arquivos real foi implementado.
+- Nenhuma persistencia real foi implementada.
 - Nenhum CDN, Tailwind, Bootstrap ou biblioteca externa foi usado.
 - `dotnet restore BlueAtelier.sln` executado com sucesso.
 - `dotnet build BlueAtelier.sln` executado com sucesso.
@@ -204,10 +217,10 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Implementar a tela Detalhe do Material com base em:
+Implementar a tela Favoritos com base em:
 
 ```txt
-referencias-visuais/stitch/html/11-detalhe-material.html
+referencias-visuais/stitch/html/12-favoritos.html
 ```
 
-A proxima tarefa deve preservar a Home, Colecoes, Detalhe da Colecao, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Fila de Impressao, Modelos, Arquivos Recentes, Materiais e a fundacao visual ja aprovadas. Qualquer diferenca visual inevitavel deve ser registrada antes da revisao manual.
+A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

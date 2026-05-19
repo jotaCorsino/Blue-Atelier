@@ -93,10 +93,10 @@
 
         <section class="home-support-grid" aria-label="Quick atelier references">
             <div class="home-support-panel">
-                <h2 class="home-support-title">Recent Files</h2>
+                <h2 class="home-support-title">Linked Files</h2>
 
                 <div class="home-file-list">
-                    @foreach (var file in RecentFiles)
+                    @foreach (var file in LinkedFiles)
                     {
                         <article class="home-file-item">
                             <span>@file.Type</span>
@@ -144,7 +144,7 @@
         new("Ancient Ruins Scatter", "6 Files, Est. 4h 20m", "ruins")
     ];
 
-    private static readonly HomeRecentFile[] RecentFiles =
+    private static readonly HomeLinkedFile[] LinkedFiles =
     [
         new("cthulhu-idol-ready.ctb", "CTB", "ready-to-print"),
         new("stone-texture-reference.jpg", "JPG", "references"),
@@ -171,5 +171,5 @@
 
     private sealed record HomeReadyItem(string Name, string Detail, string Cover);
 
-    private sealed record HomeRecentFile(string Name, string Type, string Location);
+    private sealed record HomeLinkedFile(string Name, string Type, string Location);
 }
