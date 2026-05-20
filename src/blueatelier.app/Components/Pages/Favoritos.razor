@@ -1,0 +1,317 @@
+@page "/favoritos"
+
+<section class="favorites-page" aria-labelledby="favorites-title">
+    <header class="favorites-header">
+        <div class="favorites-heading">
+            <p>Atalhos do atelier</p>
+            <h1 id="favorites-title">Favoritos</h1>
+            <span>Modelos, colecoes, imagens, links e arquivos marcados para acesso rapido.</span>
+        </div>
+
+        <div class="favorites-header-meta" aria-label="Resumo visual de favoritos">
+            <span>8 favoritos mockados</span>
+            <span>Tudo local e visual</span>
+        </div>
+    </header>
+
+    <section class="favorites-actions" aria-label="Acoes visuais de favoritos">
+        <button class="favorites-action" type="button">Organizar favoritos</button>
+        <button class="favorites-action" type="button">Exportar lista</button>
+        <button class="favorites-action" type="button">Limpar selecao</button>
+        <button class="favorites-action favorites-action-primary" type="button">Adicionar favorito</button>
+    </section>
+
+    <section class="favorites-linkbar-section"
+             aria-label="Barra de links favoritos"
+             @onclick="CloseLinkbarMenu"
+             @oncontextmenu="OpenLinkbarMenu"
+             @oncontextmenu:preventDefault>
+        <div class="favorites-linkbar" aria-label="Barra visual de links favoritos">
+            @foreach (var item in LinkBarItems)
+            {
+                @if (item.IsFolder)
+                {
+                    <button class="favorites-linkbar-item favorites-linkbar-folder favorite-linkbar-@item.Tone"
+                            type="button"
+                            title="@item.Name"
+                            aria-label="Pasta de favoritos: @item.Name"
+                            @oncontextmenu="OpenLinkbarMenu"
+                            @oncontextmenu:preventDefault
+                            @oncontextmenu:stopPropagation>
+                        <span class="favorites-linkbar-icon" aria-hidden="true">
+                            <AppIcon Name="folder" />
+                        </span>
+                        <span class="favorites-linkbar-folder-label">@item.Name</span>
+                        @if (item.Count is not null)
+                        {
+                            <span class="favorites-linkbar-count" aria-hidden="true">@item.Count</span>
+                        }
+                    </button>
+                }
+                else
+                {
+                    <a class="favorites-linkbar-item favorites-linkbar-link favorite-linkbar-@item.Tone"
+                       href="@item.Url"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       title="@item.Name"
+                       aria-label="Abrir link favorito: @item.Name"
+                       @oncontextmenu="OpenLinkbarMenu"
+                       @oncontextmenu:preventDefault
+                       @oncontextmenu:stopPropagation>
+                        <span class="favorites-linkbar-favicon" aria-hidden="true">@item.Initials</span>
+                    </a>
+                }
+            }
+        </div>
+
+        @if (IsLinkbarMenuOpen)
+        {
+            <div class="favorites-linkbar-context-menu"
+                 role="menu"
+                 aria-label="Menu visual da barra de links favoritos"
+                 style="@($"left: {LinkbarMenuLeft}px; top: {LinkbarMenuTop}px;")"
+                 @onclick:stopPropagation>
+                @foreach (var action in LinkbarMenuActions)
+                {
+                    <button type="button" role="menuitem" @onclick="CloseLinkbarMenu">@action</button>
+                }
+            </div>
+        }
+    </section>
+
+    <nav class="favorites-filters" aria-label="Filtros visuais de favoritos">
+        @foreach (var filter in Filters)
+        {
+            <button class="favorites-filter @(filter.IsActive ? "favorites-filter-active" : null)" type="button">
+                @filter.Label
+            </button>
+        }
+    </nav>
+
+    <section class="favorites-pinned-section" aria-labelledby="favorites-pinned-title">
+        <div class="favorites-section-heading">
+            <AppIcon Name="favorites" />
+            <h2 id="favorites-pinned-title">Fixados</h2>
+        </div>
+
+        <div class="favorites-pinned-grid">
+            @foreach (var item in PinnedFavorites)
+            {
+                <article class="favorites-pinned-card">
+                    <span class="favorites-pin-marker" aria-hidden="true">
+                        <AppIcon Name="favorites" />
+                    </span>
+
+                    <div class="favorites-pinned-icon favorite-tone-@item.Tone" aria-hidden="true">
+                        <AppIcon Name="@item.Icon" />
+                    </div>
+
+                    <div>
+                        <span class="favorites-type-label">@item.Type</span>
+                        <h3>@item.Name</h3>
+                        <p>@item.Description</p>
+                    </div>
+
+                    <div class="favorites-pinned-footer">
+                        @if (item.Href is null)
+                        {
+                            <button type="button">Abrir item <AppIcon Name="arrow" /></button>
+                        }
+                        else
+                        {
+                            <a href="@item.Href">Abrir item <AppIcon Name="arrow" /></a>
+                        }
+                    </div>
+                </article>
+            }
+        </div>
+    </section>
+
+    <section class="favorites-board" aria-labelledby="favorites-board-title">
+        <div class="favorites-board-header">
+            <div>
+                <h2 id="favorites-board-title">Todos os Favoritos</h2>
+                <p>Itens marcados manualmente para voltar depois.</p>
+            </div>
+
+            <div class="favorites-view-toggle" aria-label="Modo de visualizacao visual">
+                <button class="favorites-view-toggle-active" type="button" aria-label="Visualizar em grid">
+                    <AppIcon Name="grid" />
+                </button>
+                <button type="button" aria-label="Visualizar em lista">
+                    <AppIcon Name="list" />
+                </button>
+            </div>
+        </div>
+
+        <div class="favorites-grid">
+            @foreach (var item in Favorites)
+            {
+                <article class="favorites-card">
+                    <div class="favorites-card-visual favorite-visual-@item.Visual" aria-hidden="true">
+                        <AppIcon Name="@item.Icon" />
+                        <span class="favorites-star-badge">
+                            <AppIcon Name="favorites" />
+                        </span>
+                    </div>
+
+                    <div class="favorites-card-body">
+                        <span class="favorites-type-label">@item.Type</span>
+                        <h3>@item.Name</h3>
+                        <p>@item.Description</p>
+
+                        <dl class="favorites-card-meta">
+                            <div>
+                                <dt>Origem</dt>
+                                <dd>@item.Context</dd>
+                            </div>
+                            <div>
+                                <dt>Favoritado</dt>
+                                <dd>@item.Date</dd>
+                            </div>
+                        </dl>
+
+                        <div class="favorites-card-footer">
+                            <span>@item.Tag</span>
+                            <div class="favorites-card-actions">
+                                @if (item.Href is null)
+                                {
+                                    <button type="button" title="Abrir favorito" aria-label="Abrir favorito">
+                                        <AppIcon Name="arrow" />
+                                    </button>
+                                }
+                                else
+                                {
+                                    <a href="@item.Href" title="Abrir favorito" aria-label="Abrir favorito">
+                                        <AppIcon Name="arrow" />
+                                    </a>
+                                }
+
+                                <button type="button" title="Remover dos favoritos" aria-label="Remover dos favoritos">
+                                    <AppIcon Name="trash" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    </section>
+
+    <aside class="favorites-summary" aria-label="Resumo visual de favoritos">
+        @foreach (var item in Summary)
+        {
+            <div class="favorites-summary-card">
+                <strong>@item.Value</strong>
+                <span>@item.Label</span>
+            </div>
+        }
+
+        <p>Favoritos ainda sao dados mockados. Nenhum item foi salvo ou removido de verdade.</p>
+    </aside>
+</section>
+
+@code {
+    private static readonly FavoritesFilter[] Filters =
+    [
+        new("Todos", true),
+        new("Modelos", false),
+        new("Colecoes", false),
+        new("Imagens", false),
+        new("Links", false),
+        new("Arquivos", false)
+    ];
+
+    private static readonly FavoritePinnedItem[] PinnedFavorites =
+    [
+        new("Dark Paint Guide", "Link", "Guia de pintura escura usado como referencia recorrente.", "Pintura", "link", "blue"),
+        new("Inspiration Board", "Link", "Painel visual para composicao, textura de pedra e atmosfera.", "Referencias", "image", "slate")
+    ];
+
+    private static readonly FavoriteBarItem[] LinkBarItems =
+    [
+        new("Pintura", "PT", "#", "folder", true, 3, "slate"),
+        new("Referencias", "RF", "#", "folder", true, 5, "blue"),
+        new("Impressao 3D", "3D", "#", "folder", true, 4, "slate"),
+        new("Lojas", "LJ", "#", "folder", true, 6, "blue"),
+        new("YouTube", "YT", "https://www.youtube.com", "link", false, null, "red"),
+        new("Pinterest", "PI", "https://www.pinterest.com", "link", false, null, "rose"),
+        new("ArtStation", "AS", "https://www.artstation.com", "link", false, null, "blue"),
+        new("Thingiverse", "TV", "https://www.thingiverse.com", "link", false, null, "slate"),
+        new("MyMiniFactory", "MM", "https://www.myminifactory.com", "link", false, null, "blue"),
+        new("Cults3D", "C3", "https://cults3d.com", "link", false, null, "slate"),
+        new("Google Drive", "GD", "https://drive.google.com", "link", false, null, "green"),
+        new("ChatGPT", "CG", "https://chat.openai.com", "link", false, null, "ink"),
+        new("Vallejo", "VA", "https://acrylicosvallejo.com", "link", false, null, "blue"),
+        new("Elegoo", "EG", "https://www.elegoo.com", "link", false, null, "slate")
+    ];
+
+    private static readonly string[] LinkbarMenuActions =
+    [
+        "Novo link",
+        "Deletar link",
+        "Editar link",
+        "Nova pasta",
+        "Renomear",
+        "Alterar favicon",
+        "Abrir"
+    ];
+
+    private static readonly FavoriteItem[] Favorites =
+    [
+        new("Cthulhu Idol", "Modelo", "Miniatura principal da colecao, em pintura.", "Eldritch Horrors", "Hoje", "cosmic horror", "models", "model", "/colecoes/eldritch-horrors/modelos/cthulhu-idol"),
+        new("Eldritch Horrors", "Colecao", "Colecao de criaturas e artefatos sombrios.", "Colecoes", "Ontem", "linha ativa", "collections", "collection", "/colecoes/eldritch-horrors"),
+        new("Main reference", "Imagem", "Referencia principal para luz, pedra e pose.", "Galeria do Cthulhu Idol", "Hoje", "referencia", "image", "image", "/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference"),
+        new("Dark Paint Guide", "Link", "Sequencia de camadas para verdes profundos.", "Pintura", "2 dias", "guia", "arrow", "guide"),
+        new("cthulhu-idol.stl", "Arquivo", "Arquivo base vinculado ao modelo Cthulhu Idol.", "Arquivos vinculados", "Hoje", "stl", "folder", "file", "/colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos"),
+        new("Abyssal Statue", "Modelo", "Estatua pronta para revisao visual e fatiamento futuro.", "Eldritch Horrors", "3 dias", "stone", "models", "statue"),
+        new("Stone texture", "Imagem", "Referencia de superficie para base e pedestal.", "Referencias", "4 dias", "textura", "image", "stone"),
+        new("Inspiration Board", "Link", "Colecao de ideias para atmosfera e acabamento.", "Pesquisa visual", "Semana passada", "moodboard", "arrow", "board")
+    ];
+
+    private static readonly SummaryItem[] Summary =
+    [
+        new("8", "Total"),
+        new("2", "Modelos"),
+        new("1", "Colecao"),
+        new("2", "Imagens")
+    ];
+
+    private bool IsLinkbarMenuOpen { get; set; }
+
+    private double LinkbarMenuLeft { get; set; }
+
+    private double LinkbarMenuTop { get; set; }
+
+    private void OpenLinkbarMenu(MouseEventArgs args)
+    {
+        LinkbarMenuLeft = args.ClientX;
+        LinkbarMenuTop = args.ClientY;
+        IsLinkbarMenuOpen = true;
+    }
+
+    private void CloseLinkbarMenu()
+    {
+        IsLinkbarMenuOpen = false;
+    }
+
+    private sealed record FavoritesFilter(string Label, bool IsActive);
+
+    private sealed record FavoritePinnedItem(string Name, string Type, string Description, string Tag, string Icon, string Tone, string? Href = null);
+
+    private sealed record FavoriteBarItem(string Name, string Initials, string Url, string Type, bool IsFolder, int? Count, string Tone);
+
+    private sealed record FavoriteItem(
+        string Name,
+        string Type,
+        string Description,
+        string Context,
+        string Date,
+        string Tag,
+        string Icon,
+        string Visual,
+        string? Href = null);
+
+    private sealed record SummaryItem(string Value, string Label);
+}

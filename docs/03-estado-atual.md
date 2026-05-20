@@ -15,9 +15,10 @@ Telas mantidas no estado atual:
 - Detalhe do Modelo;
 - Galeria do Modelo;
 - Visualizacao de Imagem;
-- Arquivos Vinculados.
+- Arquivos Vinculados;
+- Favoritos.
 
-A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
+A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -29,22 +30,24 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou a mudanca de escopo do app:
+A ultima tarefa concluida consolidou a implementacao da tela Favoritos:
 
-- remocao completa da tela Fila de Impressao;
-- remocao completa da tela Arquivos Recentes;
-- remocao completa da tela Materiais;
-- remocao do Detalhe do Material criado localmente;
-- remocao das rotas `/fila-impressao`, `/arquivos-recentes`, `/materiais` e `/materiais/resin-grey`;
-- remocao desses itens da sidebar;
-- simplificacao da sidebar para manter Inicio, Colecoes, Modelos, Favoritos, Busca e Configuracoes;
-- remocao da logica especifica dessas areas na topbar;
-- limpeza de CSS morto relacionado a `print-queue-*`, `recent-files-*`, `materials-*` e `material-detail-*`;
+- implementacao da tela Favoritos;
+- criacao da rota `/favoritos`;
+- sidebar com Favoritos navegando para `/favoritos`;
+- favoritos visuais/mockados;
+- barra de links favoritos estilo Chrome;
+- links favoritos em quadrados grandes, sem nome fixo visivel;
+- pastas favoritas com nome visivel seguindo a linha do icone;
+- quadrados da barra sem borda visivel;
+- hover monocromatico/colorido;
+- menu de contexto visual com segundo botao do mouse;
+- acoes mockadas para novo link, deletar link, editar link, nova pasta, renomear, alterar favicon e abrir;
+- nenhuma persistencia real;
+- nenhuma acao real;
+- nenhuma reintroducao das areas removidas;
 - preservacao das paginas mantidas;
-- preservacao da area `Model Info` no Detalhe do Modelo;
-- preservacao de uma lista simples de materiais usados dentro do Detalhe do Modelo;
-- preservacao da paleta visual clean, moderna, azulada e menos colorida;
-- aprovacao visual manual da mudanca de escopo pelo usuario.
+- aprovacao visual manual pelo usuario.
 
 ## decisoes ja tomadas
 
@@ -123,6 +126,13 @@ Implementado:
 - tela Galeria do Modelo aprovada;
 - tela Visualizacao de Imagem aprovada;
 - tela Arquivos Vinculados aprovada;
+- tela Favoritos aprovada;
+- rota `/favoritos`;
+- sidebar com Favoritos navegando para `/favoritos`;
+- favoritos gerais mockados com navegacoes visuais para telas existentes;
+- barra de links favoritos estilo Chrome;
+- pastas e links favoritos mockados;
+- menu de contexto visual/provisorio para a barra de links favoritos;
 - navegacao do card Cthulhu Idol para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
 - sidebar com Models ativo nas rotas de modelos;
 - hover global de cards clicaveis;
@@ -161,31 +171,21 @@ Ainda nao implementado:
 - edicao real de colecoes, modelos ou cards;
 - persistencia real.
 
-## arquivos alterados ou removidos na ultima tarefa
+## arquivos alterados ou criados na ultima tarefa
 
 Implementacao:
 
 - `src/blueatelier.app/Components/Layout/AppSidebar.razor`
 - `src/blueatelier.app/Components/Layout/AppTopbar.razor`
-- `src/blueatelier.app/Components/Pages/Home.razor`
-- `src/blueatelier.app/Components/Pages/DetalheModelo.razor`
-- `src/blueatelier.app/Components/Pages/ArquivosVinculados.razor`
 - `src/blueatelier.app/Components/Shared/AppIcon.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
-- `src/blueatelier.app/Components/Pages/FilaImpressao.razor` removido
-- `src/blueatelier.app/Components/Pages/ArquivosRecentes.razor` removido
-- `src/blueatelier.app/Components/Pages/Materiais.razor` removido
-- `src/blueatelier.app/Components/Pages/DetalheMaterial.razor` removido, caso existisse localmente
+- `src/blueatelier.app/Components/Pages/Favoritos.razor`
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/35-mudanca-escopo-remocao-areas.md`
-- `docs/29-fila-impressao.md` removido
-- `docs/32-arquivos-recentes.md` removido
-- `docs/33-materiais.md` removido
-- `docs/34-ajustes-layout-responsividade.md` removido
+- `docs/36-favoritos.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -193,6 +193,16 @@ Documentacao:
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
+- `/favoritos` existe como rota.
+- A sidebar navega para `/favoritos`.
+- A tela Favoritos abre corretamente.
+- A barra de links favoritos aparece na tela Favoritos.
+- Os links da barra aparecem como quadrados grandes, sem nome fixo visivel.
+- As pastas da barra exibem nome visivel seguindo a linha do icone.
+- Os quadrados da barra nao possuem borda visivel.
+- O hover monocromatico/colorido foi preservado.
+- O menu de contexto com segundo botao do mouse aparece visualmente.
+- As acoes do menu de contexto permanecem mockadas.
 - `/fila-impressao` nao existe mais como rota.
 - `/arquivos-recentes` nao existe mais como rota.
 - `/materiais` nao existe mais como rota.
@@ -205,6 +215,7 @@ Documentacao:
 - O Detalhe do Modelo ainda possui `Model Info`.
 - O Detalhe do Modelo ainda possui lista simples de materiais usados.
 - Nenhuma funcionalidade real foi implementada.
+- Nenhuma persistencia real de favoritos foi implementada.
 - Nenhum banco SQLite foi criado.
 - Nenhum EF Core foi implementado.
 - Nenhuma migration foi criada.
@@ -217,10 +228,10 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Implementar a tela Favoritos com base em:
+Implementar a tela Busca com base em:
 
 ```txt
-referencias-visuais/stitch/html/12-favoritos.html
+referencias-visuais/stitch/html/13-busca.html
 ```
 
-A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

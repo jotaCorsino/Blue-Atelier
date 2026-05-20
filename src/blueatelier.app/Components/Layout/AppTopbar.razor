@@ -39,6 +39,13 @@
             <span>Modelos mockados</span>
         </div>
     }
+    else if (IsFavoritesPage)
+    {
+        <div class="topbar-status" role="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Favoritos mockados</span>
+        </div>
+    }
     else if (IsModelGalleryPage)
     {
         <div class="topbar-actions" aria-label="Acoes da galeria do modelo">
@@ -150,6 +157,15 @@
         }
     }
 
+    private bool IsFavoritesPage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.Equals(relativePath, "favoritos", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
     private string SearchPlaceholder
     {
         get
@@ -162,6 +178,11 @@
             if (IsModelsPage)
             {
                 return "Buscar modelos...";
+            }
+
+            if (IsFavoritesPage)
+            {
+                return "Buscar favoritos...";
             }
 
             if (IsHomePage || IsCollectionDetailPage || IsModelDetailPage || IsModelGalleryPage || IsImageViewerPage || IsLinkedFilesPage)
