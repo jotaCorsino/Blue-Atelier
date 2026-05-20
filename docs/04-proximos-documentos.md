@@ -172,6 +172,12 @@ Arquivo: `docs/36-favoritos.md`
 
 Objetivo: registrar a implementacao da tela Favoritos, incluindo rota `/favoritos`, sidebar, favoritos mockados, barra de links favoritos estilo Chrome, menu de contexto visual e aprovacao visual manual.
 
+### 29. busca
+
+Arquivo: `docs/37-busca.md`
+
+Objetivo: registrar a implementacao da tela Busca, incluindo rota `/busca`, sidebar, campo de busca visual, filtros, sugestoes rapidas, resultados mockados, navegacoes visuais e aprovacao visual manual.
+
 ## documentos substituidos ou removidos
 
 Os documentos abaixo foram removidos porque descreviam areas que sairam do escopo atual:
@@ -220,16 +226,15 @@ Documentos criados nesta base:
 - `docs/31-modelos-e-navegacao-home.md`
 - `docs/35-mudanca-escopo-remocao-areas.md`
 - `docs/36-favoritos.md`
+- `docs/37-busca.md`
 
-O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo.
+O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada.
 
 ## proxima etapa sugerida
 
-Implementar a tela Busca com base em:
+Definir a proxima etapa apos conferencia das referencias visuais disponiveis.
 
-```txt
-referencias-visuais/stitch/html/13-busca.html
-```
+O arquivo `referencias-visuais/stitch/html/14-configuracoes.html` nao existe no workspace no estado atual.
 
 Essa proxima etapa deve usar como base:
 
@@ -256,5 +261,6 @@ Essa proxima etapa deve usar como base:
 - `docs/31-modelos-e-navegacao-home.md`
 - `docs/35-mudanca-escopo-remocao-areas.md`
 - `docs/36-favoritos.md`
+- `docs/37-busca.md`
 
-Nas proximas telas, o Codex deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos e a fundacao visual ja aprovadas. O Codex nao pode reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+Nas proximas telas, o Codex deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca e a fundacao visual ja aprovadas. O Codex nao pode reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

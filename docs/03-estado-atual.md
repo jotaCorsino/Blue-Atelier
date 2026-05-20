@@ -16,9 +16,10 @@ Telas mantidas no estado atual:
 - Galeria do Modelo;
 - Visualizacao de Imagem;
 - Arquivos Vinculados;
-- Favoritos.
+- Favoritos;
+- Busca.
 
-A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
+A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -30,21 +31,19 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou a implementacao da tela Favoritos:
+A ultima tarefa concluida consolidou a implementacao da tela Busca:
 
-- implementacao da tela Favoritos;
-- criacao da rota `/favoritos`;
-- sidebar com Favoritos navegando para `/favoritos`;
-- favoritos visuais/mockados;
-- barra de links favoritos estilo Chrome;
-- links favoritos em quadrados grandes, sem nome fixo visivel;
-- pastas favoritas com nome visivel seguindo a linha do icone;
-- quadrados da barra sem borda visivel;
-- hover monocromatico/colorido;
-- menu de contexto visual com segundo botao do mouse;
-- acoes mockadas para novo link, deletar link, editar link, nova pasta, renomear, alterar favicon e abrir;
-- nenhuma persistencia real;
-- nenhuma acao real;
+- implementacao da tela Busca;
+- criacao da rota `/busca`;
+- sidebar com Busca navegando para `/busca`;
+- campo principal de busca visual/mockado;
+- filtros visuais/provisorios;
+- sugestoes rapidas;
+- resultados mockados;
+- navegacoes visuais para telas existentes;
+- nenhuma busca real;
+- nenhuma indexacao;
+- nenhuma persistencia;
 - nenhuma reintroducao das areas removidas;
 - preservacao das paginas mantidas;
 - aprovacao visual manual pelo usuario.
@@ -127,12 +126,16 @@ Implementado:
 - tela Visualizacao de Imagem aprovada;
 - tela Arquivos Vinculados aprovada;
 - tela Favoritos aprovada;
+- tela Busca aprovada;
 - rota `/favoritos`;
+- rota `/busca`;
 - sidebar com Favoritos navegando para `/favoritos`;
+- sidebar com Busca navegando para `/busca`;
 - favoritos gerais mockados com navegacoes visuais para telas existentes;
 - barra de links favoritos estilo Chrome;
 - pastas e links favoritos mockados;
 - menu de contexto visual/provisorio para a barra de links favoritos;
+- busca visual/mockada com campo principal, filtros, sugestoes rapidas, resultados e resumo visual;
 - navegacao do card Cthulhu Idol para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
 - sidebar com Models ativo nas rotas de modelos;
 - hover global de cards clicaveis;
@@ -177,15 +180,14 @@ Implementacao:
 
 - `src/blueatelier.app/Components/Layout/AppSidebar.razor`
 - `src/blueatelier.app/Components/Layout/AppTopbar.razor`
-- `src/blueatelier.app/Components/Shared/AppIcon.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
-- `src/blueatelier.app/Components/Pages/Favoritos.razor`
+- `src/blueatelier.app/Components/Pages/Busca.razor`
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/36-favoritos.md`
+- `docs/37-busca.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -193,16 +195,16 @@ Documentacao:
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- `/favoritos` existe como rota.
-- A sidebar navega para `/favoritos`.
-- A tela Favoritos abre corretamente.
-- A barra de links favoritos aparece na tela Favoritos.
-- Os links da barra aparecem como quadrados grandes, sem nome fixo visivel.
-- As pastas da barra exibem nome visivel seguindo a linha do icone.
-- Os quadrados da barra nao possuem borda visivel.
-- O hover monocromatico/colorido foi preservado.
-- O menu de contexto com segundo botao do mouse aparece visualmente.
-- As acoes do menu de contexto permanecem mockadas.
+- `/busca` existe como rota.
+- A sidebar navega para `/busca`.
+- A tela Busca abre corretamente.
+- A busca principal e visual/mockada.
+- Os filtros visuais/provisorios aparecem na tela Busca.
+- As sugestoes rapidas aparecem na tela Busca.
+- Os resultados mockados aparecem na tela Busca.
+- As navegacoes visuais apontam para telas existentes quando aplicavel.
+- `/favoritos` permanece preservada.
+- A barra de links favoritos permanece preservada.
 - `/fila-impressao` nao existe mais como rota.
 - `/arquivos-recentes` nao existe mais como rota.
 - `/materiais` nao existe mais como rota.
@@ -215,7 +217,9 @@ Documentacao:
 - O Detalhe do Modelo ainda possui `Model Info`.
 - O Detalhe do Modelo ainda possui lista simples de materiais usados.
 - Nenhuma funcionalidade real foi implementada.
-- Nenhuma persistencia real de favoritos foi implementada.
+- Nenhuma busca real foi implementada.
+- Nenhuma indexacao real foi implementada.
+- Nenhuma persistencia real de busca foi implementada.
 - Nenhum banco SQLite foi criado.
 - Nenhum EF Core foi implementado.
 - Nenhuma migration foi criada.
@@ -228,10 +232,8 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Implementar a tela Busca com base em:
+Definir a proxima etapa apos conferencia das referencias visuais disponiveis.
 
-```txt
-referencias-visuais/stitch/html/13-busca.html
-```
+O arquivo `referencias-visuais/stitch/html/14-configuracoes.html` nao existe no workspace no estado atual.
 
-A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

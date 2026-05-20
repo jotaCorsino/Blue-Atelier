@@ -46,6 +46,13 @@
             <span>Favoritos mockados</span>
         </div>
     }
+    else if (IsSearchPage)
+    {
+        <div class="topbar-status" role="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Busca visual</span>
+        </div>
+    }
     else if (IsModelGalleryPage)
     {
         <div class="topbar-actions" aria-label="Acoes da galeria do modelo">
@@ -166,6 +173,15 @@
         }
     }
 
+    private bool IsSearchPage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.Equals(relativePath, "busca", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
     private string SearchPlaceholder
     {
         get
@@ -183,6 +199,11 @@
             if (IsFavoritesPage)
             {
                 return "Buscar favoritos...";
+            }
+
+            if (IsSearchPage)
+            {
+                return "Buscar no atelier...";
             }
 
             if (IsHomePage || IsCollectionDetailPage || IsModelDetailPage || IsModelGalleryPage || IsImageViewerPage || IsLinkedFilesPage)

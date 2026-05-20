@@ -1,0 +1,257 @@
+@page "/busca"
+
+<section class="search-page" aria-labelledby="search-title">
+    <header class="search-header">
+        <div class="search-heading">
+            <p>Busca global</p>
+            <h1 id="search-title">Busca</h1>
+            <span>Encontre modelos, colecoes, imagens, arquivos vinculados e links favoritos do atelier.</span>
+        </div>
+
+        <div class="search-header-meta" aria-label="Resumo visual da busca">
+            <span>9 resultados mockados</span>
+            <span>Indice visual local</span>
+        </div>
+    </header>
+
+    <section class="search-panel" aria-label="Busca visual provisoria">
+        <label class="search-input-shell">
+            <AppIcon Name="search" />
+            <input type="search" placeholder="Buscar no atelier..." readonly />
+            <button type="button">Buscar</button>
+        </label>
+
+        <div class="search-suggestions" aria-label="Sugestoes rapidas">
+            <span>Sugestoes rapidas</span>
+            @foreach (var suggestion in Suggestions)
+            {
+                <button type="button">@suggestion</button>
+            }
+        </div>
+    </section>
+
+    <nav class="search-filters" aria-label="Filtros visuais de busca">
+        @foreach (var filter in Filters)
+        {
+            <button class="search-filter @(filter.IsActive ? "search-filter-active" : null)" type="button">
+                @filter.Label
+            </button>
+        }
+    </nav>
+
+    <section class="search-model-results" aria-labelledby="search-models-title">
+        <div class="search-section-heading">
+            <div>
+                <h2 id="search-models-title">Modelos</h2>
+                <p>Resultados mais proximos encontrados no atelier.</p>
+            </div>
+
+            <a href="/modelos">Ver todos</a>
+        </div>
+
+        <div class="search-model-grid">
+            @foreach (var model in ModelResults)
+            {
+                @if (model.Href is not null)
+                {
+                    <a class="search-model-card" href="@model.Href">
+                        <div class="search-model-cover search-model-cover-@model.Cover" aria-hidden="true">
+                            <span class="search-model-shape"></span>
+                            <span class="search-bookmark"><AppIcon Name="favorites" /></span>
+                        </div>
+
+                        <div class="search-model-body">
+                            <div class="search-result-title-row">
+                                <h3>@model.Name</h3>
+                                <span>@model.Tag</span>
+                            </div>
+                            <p>@model.Description</p>
+                            <div class="search-score">
+                                <span style="width: @model.Score"></span>
+                            </div>
+                            <div class="search-result-foot">
+                                <small>@model.Context</small>
+                                <small>@model.Date</small>
+                            </div>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <article class="search-model-card">
+                        <div class="search-model-cover search-model-cover-@model.Cover" aria-hidden="true">
+                            <span class="search-model-shape"></span>
+                            <span class="search-bookmark"><AppIcon Name="favorites" /></span>
+                        </div>
+
+                        <div class="search-model-body">
+                            <div class="search-result-title-row">
+                                <h3>@model.Name</h3>
+                                <span>@model.Tag</span>
+                            </div>
+                            <p>@model.Description</p>
+                            <div class="search-score">
+                                <span style="width: @model.Score"></span>
+                            </div>
+                            <div class="search-result-foot">
+                                <small>@model.Context</small>
+                                <small>@model.Date</small>
+                            </div>
+                        </div>
+                    </article>
+                }
+            }
+        </div>
+    </section>
+
+    <section class="search-results-board" aria-labelledby="search-results-title">
+        <div class="search-section-heading">
+            <div>
+                <h2 id="search-results-title">Resultados</h2>
+                <p>Itens relacionados a modelos, colecoes, imagens, links e arquivos vinculados.</p>
+            </div>
+
+            <span>Mockado</span>
+        </div>
+
+        <div class="search-result-list">
+            @foreach (var result in Results)
+            {
+                @if (result.Href is not null)
+                {
+                    <a class="search-result-row" href="@result.Href">
+                        <span class="search-result-icon search-result-icon-@result.Tone" aria-hidden="true">
+                            <AppIcon Name="@result.Icon" />
+                        </span>
+
+                        <span class="search-result-copy">
+                            <span class="search-result-type">@result.Type</span>
+                            <strong>@result.Name</strong>
+                            <small>@result.Description</small>
+                        </span>
+
+                        <span class="search-result-context">
+                            <span>@result.Context</span>
+                            <small>@result.Date</small>
+                        </span>
+
+                        <span class="search-result-tag">@result.Tag</span>
+                        <span class="search-result-action" aria-label="Abrir resultado"><AppIcon Name="arrow" /></span>
+                    </a>
+                }
+                else
+                {
+                    <article class="search-result-row">
+                        <span class="search-result-icon search-result-icon-@result.Tone" aria-hidden="true">
+                            <AppIcon Name="@result.Icon" />
+                        </span>
+
+                        <span class="search-result-copy">
+                            <span class="search-result-type">@result.Type</span>
+                            <strong>@result.Name</strong>
+                            <small>@result.Description</small>
+                        </span>
+
+                        <span class="search-result-context">
+                            <span>@result.Context</span>
+                            <small>@result.Date</small>
+                        </span>
+
+                        <span class="search-result-tag">@result.Tag</span>
+                        <span class="search-result-action" aria-label="Abrir resultado"><AppIcon Name="arrow" /></span>
+                    </article>
+                }
+            }
+        </div>
+    </section>
+
+    <aside class="search-summary" aria-label="Resumo visual de busca">
+        @foreach (var item in Summary)
+        {
+            <div class="search-summary-card">
+                <strong>@item.Value</strong>
+                <span>@item.Label</span>
+            </div>
+        }
+
+        <div class="search-summary-note">
+            <h2>Busca ainda visual</h2>
+            <p>Nenhum indice foi criado e nenhum arquivo real foi lido. Os resultados sao mockados para validar a tela.</p>
+        </div>
+    </aside>
+</section>
+
+@code {
+    private static readonly string[] Suggestions =
+    [
+        "Cthulhu",
+        "Eldritch",
+        "pintura",
+        "referencia",
+        "STL",
+        "pedra",
+        "wash"
+    ];
+
+    private static readonly SearchFilter[] Filters =
+    [
+        new("Todos", true),
+        new("Modelos", false),
+        new("Colecoes", false),
+        new("Imagens", false),
+        new("Arquivos vinculados", false),
+        new("Links favoritos", false)
+    ];
+
+    private static readonly SearchModelResult[] ModelResults =
+    [
+        new("Cthulhu Idol", "Miniatura principal da colecao, em pintura.", "Eldritch Horrors", "Hoje", "Modelo", "100%", "idol", "/colecoes/eldritch-horrors/modelos/cthulhu-idol"),
+        new("Abyssal Statue", "Estatua pronta para revisao visual e fatiamento futuro.", "Eldritch Horrors", "3 dias", "Modelo", "78%", "statue")
+    ];
+
+    private static readonly SearchResult[] Results =
+    [
+        new("Cthulhu Idol", "Modelo", "Miniatura principal em pintura, com arquivos e galeria vinculados.", "Eldritch Horrors", "Hoje", "modelo", "models", "blue", "/colecoes/eldritch-horrors/modelos/cthulhu-idol"),
+        new("Eldritch Horrors", "Colecao", "Colecao de criaturas e artefatos sombrios.", "Colecoes", "Ontem", "colecao", "collections", "blue", "/colecoes/eldritch-horrors"),
+        new("Main reference", "Imagem", "Referencia principal para luz, pedra e pose.", "Galeria do Cthulhu Idol", "Hoje", "imagem", "image", "slate", "/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference"),
+        new("cthulhu-idol.stl", "Arquivo vinculado", "Arquivo base vinculado ao modelo Cthulhu Idol.", "Arquivos vinculados", "Hoje", "stl", "folder", "slate", "/colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos"),
+        new("painting-notes.md", "Arquivo vinculado", "Notas mockadas de pintura e acabamento.", "Arquivos vinculados", "2 dias", "notas", "list", "slate"),
+        new("Dark Paint Guide", "Link favorito", "Sequencia de camadas para verdes profundos.", "Favoritos", "2 dias", "link", "favorites", "blue"),
+        new("Inspiration Board", "Link favorito", "Painel visual para textura, atmosfera e acabamento.", "Favoritos", "Semana passada", "moodboard", "favorites", "slate"),
+        new("Stone texture", "Imagem", "Referencia de superficie para base e pedestal.", "Referencias", "4 dias", "textura", "image", "slate"),
+        new("Abyssal Statue", "Modelo", "Modelo relacionado a pedra, pedestal e pintura escura.", "Eldritch Horrors", "3 dias", "modelo", "models", "blue")
+    ];
+
+    private static readonly SearchSummaryItem[] Summary =
+    [
+        new("9", "Resultados"),
+        new("3", "Modelos"),
+        new("2", "Imagens"),
+        new("2", "Links")
+    ];
+
+    private sealed record SearchFilter(string Label, bool IsActive);
+
+    private sealed record SearchModelResult(
+        string Name,
+        string Description,
+        string Context,
+        string Date,
+        string Tag,
+        string Score,
+        string Cover,
+        string? Href = null);
+
+    private sealed record SearchResult(
+        string Name,
+        string Type,
+        string Description,
+        string Context,
+        string Date,
+        string Tag,
+        string Icon,
+        string Tone,
+        string? Href = null);
+
+    private sealed record SearchSummaryItem(string Value, string Label);
+}
