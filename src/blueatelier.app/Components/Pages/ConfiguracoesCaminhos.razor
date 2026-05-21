@@ -1,0 +1,133 @@
+@page "/configuracoes/caminhos"
+
+<section class="settings-page settings-stitch-page settings-paths-page" aria-labelledby="settings-paths-title">
+    <header class="settings-paths-header">
+        <a class="settings-paths-back" href="/configuracoes" aria-label="Voltar para configuracoes gerais">
+            <AppIcon Name="chevron-left" />
+        </a>
+        <div>
+            <h1 id="settings-paths-title">Caminhos Locais e Rede</h1>
+            <p>Gerencie os diretorios de armazenamento e conexoes de rede.</p>
+        </div>
+    </header>
+
+    <div class="settings-stitch-layout">
+        <nav class="settings-stitch-nav" aria-label="Categorias de configuracoes">
+            @foreach (var item in Categories)
+            {
+                @if (item.Href is null)
+                {
+                    <button class="settings-stitch-nav-item @(item.IsActive ? "settings-stitch-nav-item-active" : null)"
+                            type="button"
+                            aria-pressed="@item.IsActive">
+                        @item.Label
+                    </button>
+                }
+                else
+                {
+                    <a class="settings-stitch-nav-item @(item.IsActive ? "settings-stitch-nav-item-active" : null)"
+                       href="@item.Href"
+                       aria-current="@(item.IsActive ? "page" : null)">
+                        @item.Label
+                    </a>
+                }
+            }
+        </nav>
+
+        <main class="settings-paths-content" aria-label="Configuracoes de caminhos mockadas">
+            <section class="settings-paths-card" aria-labelledby="main-directories-title">
+                <h2 id="main-directories-title">Diretorios Principais</h2>
+
+                <div class="settings-directory-list">
+                    @foreach (var directory in Directories)
+                    {
+                        <article class="settings-directory-item">
+                            <div class="settings-directory-top">
+                                <div class="settings-directory-title">
+                                    <span class="settings-directory-icon" aria-hidden="true">
+                                        <AppIcon Name="@directory.Icon" />
+                                    </span>
+                                    <div>
+                                        <h3>@directory.Name</h3>
+                                        <span class="settings-directory-status settings-directory-status-@directory.StatusTone">
+                                            <span aria-hidden="true"></span>
+                                            @directory.Status
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <button type="button">@directory.Action</button>
+                            </div>
+
+                            <div class="settings-directory-path settings-directory-path-@directory.StatusTone">
+                                <code>@directory.Path</code>
+                                @if (directory.StatusTone == "offline")
+                                {
+                                    <button type="button" title="Reconectar caminho" aria-label="Reconectar caminho @directory.Name">
+                                        <AppIcon Name="refresh" />
+                                    </button>
+                                }
+                                else if (directory.StatusTone == "connected")
+                                {
+                                    <button type="button" title="Copiar caminho" aria-label="Copiar caminho @directory.Name">
+                                        <AppIcon Name="copy" />
+                                    </button>
+                                }
+                            </div>
+
+                            @if (!string.IsNullOrWhiteSpace(directory.Note))
+                            {
+                                <p class="settings-directory-note settings-directory-note-@directory.StatusTone">@directory.Note</p>
+                            }
+                        </article>
+                    }
+                </div>
+            </section>
+
+            <section class="settings-paths-card settings-network-discovery" aria-labelledby="network-discovery-title">
+                <h2 id="network-discovery-title">Descoberta de Rede</h2>
+
+                <div class="settings-network-toggle-row">
+                    <div>
+                        <strong>Buscar caminhos na rede local</strong>
+                        <span>Permite que o Blue Atelier detecte pastas compartilhadas compativeis no futuro.</span>
+                    </div>
+
+                    <button class="settings-network-toggle" type="button" aria-pressed="true" aria-label="Buscar caminhos na rede local">
+                        <span></span>
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+</section>
+
+@code {
+    private static readonly SettingsCategory[] Categories =
+    [
+        new("Geral", false, "/configuracoes"),
+        new("Caminhos", true, "/configuracoes/caminhos"),
+        new("Aparencia", false, null),
+        new("Backup", false, null),
+        new("Modelo de Pastas", false, null),
+        new("Dados do App", false, null)
+    ];
+
+    private static readonly DirectoryItem[] Directories =
+    [
+        new("Diretorio Principal (Main)", "C:\\BlueAtelier\\MainLibrary", "Conectado", "connected", "Alterar", "folder", null),
+        new("Colecoes (Collections)", "Z:\\NetworkDrive\\BlueAtelier\\Collections", "Offline", "offline", "Alterar", "collections", "Caminho de rede inacessivel no momento."),
+        new("Arquivos Preparados (Prepared Files)", "Diretorio nao configurado", "Ausente", "missing", "Criar", "upload", null)
+    ];
+
+    private sealed record DirectoryItem(
+        string Name,
+        string Path,
+        string Status,
+        string StatusTone,
+        string Action,
+        string Icon,
+        string? Note);
+
+    private sealed record SettingsCategory(string Label, bool IsActive, string? Href);
+}

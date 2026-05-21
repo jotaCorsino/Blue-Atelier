@@ -10,11 +10,22 @@
         <nav class="settings-stitch-nav" aria-label="Categorias de configuracoes">
             @foreach (var item in Categories)
             {
-                <button class="settings-stitch-nav-item @(item.IsActive ? "settings-stitch-nav-item-active" : null)"
-                        type="button"
-                        aria-pressed="@item.IsActive">
-                    @item.Label
-                </button>
+                @if (item.Href is null)
+                {
+                    <button class="settings-stitch-nav-item @(item.IsActive ? "settings-stitch-nav-item-active" : null)"
+                            type="button"
+                            aria-pressed="@item.IsActive">
+                        @item.Label
+                    </button>
+                }
+                else
+                {
+                    <a class="settings-stitch-nav-item @(item.IsActive ? "settings-stitch-nav-item-active" : null)"
+                       href="@item.Href"
+                       aria-current="@(item.IsActive ? "page" : null)">
+                        @item.Label
+                    </a>
+                }
             }
         </nav>
 
@@ -126,14 +137,12 @@
 @code {
     private static readonly SettingsCategory[] Categories =
     [
-        new("Geral", false),
-        new("Caminhos Locais", true),
-        new("Caminhos de Rede", false),
-        new("Aparencia", false),
-        new("Programas Padrao", false),
-        new("Backup", false),
-        new("Modelo de Pastas", false),
-        new("Dados do App", false)
+        new("Geral", true, "/configuracoes"),
+        new("Caminhos", false, "/configuracoes/caminhos"),
+        new("Aparencia", false, null),
+        new("Backup", false, null),
+        new("Modelo de Pastas", false, null),
+        new("Dados do App", false, null)
     ];
 
     private static readonly SettingsPath[] MainPaths =
@@ -168,7 +177,7 @@
         new("Modelagem", "Blender", "BL", "blender")
     ];
 
-    private sealed record SettingsCategory(string Label, bool IsActive);
+    private sealed record SettingsCategory(string Label, bool IsActive, string? Href);
 
     private sealed record SettingsPath(string Label, string Value);
 

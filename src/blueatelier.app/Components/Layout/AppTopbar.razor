@@ -194,7 +194,8 @@
         get
         {
             var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
-            return string.Equals(relativePath, "configuracoes", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(relativePath, "configuracoes", StringComparison.OrdinalIgnoreCase)
+                || relativePath.StartsWith("configuracoes/", StringComparison.OrdinalIgnoreCase);
         }
     }
 

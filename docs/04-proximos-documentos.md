@@ -184,6 +184,12 @@ Arquivo: `docs/38-configuracoes-gerais.md`
 
 Objetivo: registrar a implementacao da tela Configuracoes Gerais, incluindo rota `/configuracoes`, sidebar, referencia Stitch `14-configuracoes-gerais.html`, composicao visual fiel ao PNG, controles mockados e aprovacao visual manual.
 
+### 31. configuracoes de caminhos
+
+Arquivo: `docs/39-configuracoes-caminhos.md`
+
+Objetivo: registrar a implementacao da tela Configuracoes de Caminhos, incluindo rota `/configuracoes/caminhos`, referencia Stitch `15-configuracoes-caminhos.html`, correcao da navegacao secundaria, remocao da duplicidade entre Caminhos Locais e Caminhos de Rede, campos e botoes mockados e aprovacao visual manual.
+
 ## documentos substituidos ou removidos
 
 Os documentos abaixo foram removidos porque descreviam areas que sairam do escopo atual:
@@ -234,15 +240,16 @@ Documentos criados nesta base:
 - `docs/36-favoritos.md`
 - `docs/37-busca.md`
 - `docs/38-configuracoes-gerais.md`
+- `docs/39-configuracoes-caminhos.md`
 
-O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada. O documento `docs/38-configuracoes-gerais.md` registra a tela Configuracoes Gerais visual/mockada.
+O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada. O documento `docs/38-configuracoes-gerais.md` registra a tela Configuracoes Gerais visual/mockada. O documento `docs/39-configuracoes-caminhos.md` registra a tela Configuracoes de Caminhos visual/mockada.
 
 ## proxima etapa sugerida
 
-Implementar Configuracoes de Caminhos com base em:
+Implementar Configuracoes de Aparencia com base em:
 
 ```txt
-referencias-visuais/stitch/html/15-configuracoes-caminhos.html
+referencias-visuais/stitch/html/16-configuracoes-aparencia.html
 ```
 
 Essa proxima etapa deve usar como base:
@@ -272,5 +279,6 @@ Essa proxima etapa deve usar como base:
 - `docs/36-favoritos.md`
 - `docs/37-busca.md`
 - `docs/38-configuracoes-gerais.md`
+- `docs/39-configuracoes-caminhos.md`
 
-Nas proximas telas, o Codex deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais e a fundacao visual ja aprovadas. O Codex nao pode reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+Nas proximas telas, o Codex deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos e a fundacao visual ja aprovadas. O Codex nao pode reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

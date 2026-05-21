@@ -101,6 +101,12 @@
                 || string.Equals(relativePath, "colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos", StringComparison.OrdinalIgnoreCase);
         }
 
+        if (item.Icon == "settings")
+        {
+            return string.Equals(relativePath, "configuracoes", StringComparison.OrdinalIgnoreCase)
+                || relativePath.StartsWith("configuracoes/", StringComparison.OrdinalIgnoreCase);
+        }
+
         return item.Href is not null
             && string.Equals(relativePath, item.Href.TrimStart('/'), StringComparison.OrdinalIgnoreCase);
     }
