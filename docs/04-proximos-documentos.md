@@ -178,6 +178,12 @@ Arquivo: `docs/37-busca.md`
 
 Objetivo: registrar a implementacao da tela Busca, incluindo rota `/busca`, sidebar, campo de busca visual, filtros, sugestoes rapidas, resultados mockados, navegacoes visuais e aprovacao visual manual.
 
+### 30. configuracoes gerais
+
+Arquivo: `docs/38-configuracoes-gerais.md`
+
+Objetivo: registrar a implementacao da tela Configuracoes Gerais, incluindo rota `/configuracoes`, sidebar, referencia Stitch `14-configuracoes-gerais.html`, composicao visual fiel ao PNG, controles mockados e aprovacao visual manual.
+
 ## documentos substituidos ou removidos
 
 Os documentos abaixo foram removidos porque descreviam areas que sairam do escopo atual:
@@ -227,14 +233,17 @@ Documentos criados nesta base:
 - `docs/35-mudanca-escopo-remocao-areas.md`
 - `docs/36-favoritos.md`
 - `docs/37-busca.md`
+- `docs/38-configuracoes-gerais.md`
 
-O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada.
+O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada. O documento `docs/38-configuracoes-gerais.md` registra a tela Configuracoes Gerais visual/mockada.
 
 ## proxima etapa sugerida
 
-Definir a proxima etapa apos conferencia das referencias visuais disponiveis.
+Implementar Configuracoes de Caminhos com base em:
 
-O arquivo `referencias-visuais/stitch/html/14-configuracoes.html` nao existe no workspace no estado atual.
+```txt
+referencias-visuais/stitch/html/15-configuracoes-caminhos.html
+```
 
 Essa proxima etapa deve usar como base:
 
@@ -262,5 +271,6 @@ Essa proxima etapa deve usar como base:
 - `docs/35-mudanca-escopo-remocao-areas.md`
 - `docs/36-favoritos.md`
 - `docs/37-busca.md`
+- `docs/38-configuracoes-gerais.md`
 
-Nas proximas telas, o Codex deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca e a fundacao visual ja aprovadas. O Codex nao pode reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+Nas proximas telas, o Codex deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais e a fundacao visual ja aprovadas. O Codex nao pode reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

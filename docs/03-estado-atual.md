@@ -17,9 +17,10 @@ Telas mantidas no estado atual:
 - Visualizacao de Imagem;
 - Arquivos Vinculados;
 - Favoritos;
-- Busca.
+- Busca;
+- Configuracoes Gerais.
 
-A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
+A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -31,18 +32,16 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou a implementacao da tela Busca:
+A ultima tarefa concluida consolidou a implementacao da tela Configuracoes Gerais:
 
-- implementacao da tela Busca;
-- criacao da rota `/busca`;
-- sidebar com Busca navegando para `/busca`;
-- campo principal de busca visual/mockado;
-- filtros visuais/provisorios;
-- sugestoes rapidas;
-- resultados mockados;
-- navegacoes visuais para telas existentes;
-- nenhuma busca real;
-- nenhuma indexacao;
+- implementacao da tela Configuracoes Gerais;
+- criacao da rota `/configuracoes`;
+- sidebar com Configuracoes navegando para `/configuracoes`;
+- tela baseada em `referencias-visuais/stitch/html/14-configuracoes-gerais.html`;
+- referencia visual `referencias-visuais/stitch/imagens/14-configuracoes-gerais.png`;
+- controles visuais/mockados;
+- nenhuma configuracao real;
+- nenhum salvamento real;
 - nenhuma persistencia;
 - nenhuma reintroducao das areas removidas;
 - preservacao das paginas mantidas;
@@ -127,15 +126,19 @@ Implementado:
 - tela Arquivos Vinculados aprovada;
 - tela Favoritos aprovada;
 - tela Busca aprovada;
+- tela Configuracoes Gerais aprovada;
 - rota `/favoritos`;
 - rota `/busca`;
+- rota `/configuracoes`;
 - sidebar com Favoritos navegando para `/favoritos`;
 - sidebar com Busca navegando para `/busca`;
+- sidebar com Configuracoes navegando para `/configuracoes`;
 - favoritos gerais mockados com navegacoes visuais para telas existentes;
 - barra de links favoritos estilo Chrome;
 - pastas e links favoritos mockados;
 - menu de contexto visual/provisorio para a barra de links favoritos;
 - busca visual/mockada com campo principal, filtros, sugestoes rapidas, resultados e resumo visual;
+- Configuracoes Gerais visual/mockada com composicao fiel ao Stitch, navegacao secundaria, paineis de caminhos, rede, aparencia e programas padrao;
 - navegacao do card Cthulhu Idol para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
 - sidebar com Models ativo nas rotas de modelos;
 - hover global de cards clicaveis;
@@ -180,14 +183,15 @@ Implementacao:
 
 - `src/blueatelier.app/Components/Layout/AppSidebar.razor`
 - `src/blueatelier.app/Components/Layout/AppTopbar.razor`
+- `src/blueatelier.app/Components/Shared/AppIcon.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
-- `src/blueatelier.app/Components/Pages/Busca.razor`
+- `src/blueatelier.app/Components/Pages/Configuracoes.razor`
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/37-busca.md`
+- `docs/38-configuracoes-gerais.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -195,15 +199,18 @@ Documentacao:
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- `/busca` existe como rota.
-- A sidebar navega para `/busca`.
-- A tela Busca abre corretamente.
-- A busca principal e visual/mockada.
-- Os filtros visuais/provisorios aparecem na tela Busca.
-- As sugestoes rapidas aparecem na tela Busca.
-- Os resultados mockados aparecem na tela Busca.
-- As navegacoes visuais apontam para telas existentes quando aplicavel.
+- `referencias-visuais/stitch/html/14-configuracoes-gerais.html` foi usado como referencia.
+- `referencias-visuais/stitch/imagens/14-configuracoes-gerais.png` foi usado como referencia visual.
+- `/configuracoes` existe como rota.
+- A sidebar navega para `/configuracoes`.
+- A topbar reconhece `/configuracoes` sem reintroduzir logicas antigas.
+- A tela Configuracoes Gerais abre corretamente.
+- A tela Configuracoes Gerais e visual/mockada.
+- Os controles de caminhos, rede, aparencia e programas padrao sao apenas visuais/mockados.
+- Nenhuma configuracao real foi implementada.
+- Nenhum salvamento real foi implementado.
 - `/favoritos` permanece preservada.
+- `/busca` permanece preservada.
 - A barra de links favoritos permanece preservada.
 - `/fila-impressao` nao existe mais como rota.
 - `/arquivos-recentes` nao existe mais como rota.
@@ -217,14 +224,11 @@ Documentacao:
 - O Detalhe do Modelo ainda possui `Model Info`.
 - O Detalhe do Modelo ainda possui lista simples de materiais usados.
 - Nenhuma funcionalidade real foi implementada.
-- Nenhuma busca real foi implementada.
-- Nenhuma indexacao real foi implementada.
-- Nenhuma persistencia real de busca foi implementada.
+- Nenhuma persistencia real foi implementada.
 - Nenhum banco SQLite foi criado.
 - Nenhum EF Core foi implementado.
 - Nenhuma migration foi criada.
 - Nenhum servico real foi implementado.
-- Nenhuma persistencia real foi implementada.
 - Nenhum CDN, Tailwind, Bootstrap ou biblioteca externa foi usado.
 - `dotnet restore BlueAtelier.sln` executado com sucesso.
 - `dotnet build BlueAtelier.sln` executado com sucesso.
@@ -232,8 +236,10 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Definir a proxima etapa apos conferencia das referencias visuais disponiveis.
+Implementar Configuracoes de Caminhos com base em:
 
-O arquivo `referencias-visuais/stitch/html/14-configuracoes.html` nao existe no workspace no estado atual.
+```txt
+referencias-visuais/stitch/html/15-configuracoes-caminhos.html
+```
 
-A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

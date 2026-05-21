@@ -53,6 +53,13 @@
             <span>Busca visual</span>
         </div>
     }
+    else if (IsSettingsPage)
+    {
+        <div class="topbar-status" role="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Configuracoes mockadas</span>
+        </div>
+    }
     else if (IsModelGalleryPage)
     {
         <div class="topbar-actions" aria-label="Acoes da galeria do modelo">
@@ -182,6 +189,15 @@
         }
     }
 
+    private bool IsSettingsPage
+    {
+        get
+        {
+            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
+            return string.Equals(relativePath, "configuracoes", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
     private string SearchPlaceholder
     {
         get
@@ -204,6 +220,11 @@
             if (IsSearchPage)
             {
                 return "Buscar no atelier...";
+            }
+
+            if (IsSettingsPage)
+            {
+                return "Buscar configuracoes...";
             }
 
             if (IsHomePage || IsCollectionDetailPage || IsModelDetailPage || IsModelGalleryPage || IsImageViewerPage || IsLinkedFilesPage)

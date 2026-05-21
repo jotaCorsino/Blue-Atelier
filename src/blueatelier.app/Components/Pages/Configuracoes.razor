@@ -1,0 +1,180 @@
+@page "/configuracoes"
+
+<section class="settings-page settings-stitch-page" aria-labelledby="settings-title">
+    <header class="settings-stitch-header">
+        <h1 id="settings-title">Configuracoes</h1>
+        <p>Gerencie caminhos, aparencia, backup e preferencias do seu atelier</p>
+    </header>
+
+    <div class="settings-stitch-layout">
+        <nav class="settings-stitch-nav" aria-label="Categorias de configuracoes">
+            @foreach (var item in Categories)
+            {
+                <button class="settings-stitch-nav-item @(item.IsActive ? "settings-stitch-nav-item-active" : null)"
+                        type="button"
+                        aria-pressed="@item.IsActive">
+                    @item.Label
+                </button>
+            }
+        </nav>
+
+        <main class="settings-stitch-panels" aria-label="Paineis de configuracoes mockadas">
+            <section class="settings-stitch-card settings-stitch-card-wide" aria-labelledby="settings-paths-title">
+                <h2 id="settings-paths-title">Caminhos Principais</h2>
+
+                <div class="settings-path-grid">
+                    @foreach (var path in MainPaths)
+                    {
+                        <div class="settings-path-item">
+                            <div class="settings-path-label-row">
+                                <label>@path.Label</label>
+                                <span class="settings-path-status settings-path-status-ok">
+                                    <AppIcon Name="check" />
+                                    Status: OK
+                                </span>
+                            </div>
+
+                            <input type="text" value="@path.Value" readonly aria-label="@path.Label" />
+
+                            <div class="settings-path-actions">
+                                <button type="button">
+                                    <AppIcon Name="plus" />
+                                    Alterar
+                                </button>
+                                <button type="button">
+                                    <AppIcon Name="external" />
+                                    Testar
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+
+            <div class="settings-stitch-middle">
+                <section class="settings-stitch-card settings-network-card" aria-labelledby="settings-network-title">
+                    <h2 id="settings-network-title">Rede</h2>
+
+                    <div class="settings-network-field">
+                        <div class="settings-path-label-row">
+                            <label>Destino de arquivos preparados</label>
+                            <span class="settings-path-status settings-path-status-offline">
+                                <AppIcon Name="alert" />
+                                Offline
+                            </span>
+                        </div>
+
+                        <input type="text" value="Z:\Network\Prepared" readonly aria-label="Destino de arquivos preparados" />
+                    </div>
+                </section>
+
+                <section class="settings-stitch-card settings-appearance-card" aria-labelledby="settings-appearance-title">
+                    <h2 id="settings-appearance-title">Aparencia</h2>
+
+                    <div class="settings-theme-grid" aria-label="Tema visual mockado">
+                        @foreach (var theme in Themes)
+                        {
+                            <button class="settings-theme-option @(theme.IsActive ? "settings-theme-option-active" : null) @(theme.IsDark ? "settings-theme-option-dark" : null)"
+                                    type="button"
+                                    aria-pressed="@theme.IsActive">
+                                <AppIcon Name="@theme.Icon" />
+                                <span>@theme.Label</span>
+                            </button>
+                        }
+                    </div>
+
+                    <div class="settings-accent-picker" aria-label="Cor de destaque mockada">
+                        <span>Cor de destaque</span>
+                        <div>
+                            @foreach (var color in AccentColors)
+                            {
+                                <button class="settings-accent-swatch @(color.IsActive ? "settings-accent-swatch-active" : null)"
+                                        type="button"
+                                        title="@color.Label"
+                                        aria-label="@color.Label"
+                                        style="@($"--settings-swatch: {color.Value};")">
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <section class="settings-stitch-card settings-stitch-card-wide" aria-labelledby="settings-programs-title">
+                <h2 id="settings-programs-title">Programas Padrao</h2>
+
+                <div class="settings-program-grid">
+                    @foreach (var program in Programs)
+                    {
+                        <label class="settings-program-field">
+                            <span>@program.Label</span>
+                            <span class="settings-program-select">
+                                <span class="settings-program-logo settings-program-logo-@program.Tone" aria-hidden="true">@program.Initials</span>
+                                <select aria-label="@program.Label">
+                                    <option>@program.Value</option>
+                                </select>
+                                <AppIcon Name="chevron-down" />
+                            </span>
+                        </label>
+                    }
+                </div>
+            </section>
+        </main>
+    </div>
+</section>
+
+@code {
+    private static readonly SettingsCategory[] Categories =
+    [
+        new("Geral", false),
+        new("Caminhos Locais", true),
+        new("Caminhos de Rede", false),
+        new("Aparencia", false),
+        new("Programas Padrao", false),
+        new("Backup", false),
+        new("Modelo de Pastas", false),
+        new("Dados do App", false)
+    ];
+
+    private static readonly SettingsPath[] MainPaths =
+    [
+        new("Pasta principal do atelier", @"C:\Users\Admin\Documents\BlueAtelier"),
+        new("Pasta de colecoes", @"C:\Users\Admin\Documents\BlueAtelier\Collections")
+    ];
+
+    private static readonly SettingsTheme[] Themes =
+    [
+        new("Tema Claro", "sun", true, false),
+        new("Tema Escuro", "moon", false, true),
+        new("Automatico", "monitor", false, false)
+    ];
+
+    private static readonly SettingsAccent[] AccentColors =
+    [
+        new("Azul", "#625bd8", true),
+        new("Preto azulado", "#21222d", false),
+        new("Argila", "#a7551d", false),
+        new("Ambar", "#d99b12", false),
+        new("Verde", "#3f6b5f", false),
+        new("Teal", "#2f8f8c", false),
+        new("Azul claro", "#74aef8", false),
+        new("Violeta", "#8d65db", false),
+        new("Rosa", "#d84b8a", false)
+    ];
+
+    private static readonly SettingsProgram[] Programs =
+    [
+        new("Slicer", "Lychee Slicer", "LY", "lychee"),
+        new("Modelagem", "Blender", "BL", "blender")
+    ];
+
+    private sealed record SettingsCategory(string Label, bool IsActive);
+
+    private sealed record SettingsPath(string Label, string Value);
+
+    private sealed record SettingsTheme(string Label, string Icon, bool IsActive, bool IsDark);
+
+    private sealed record SettingsAccent(string Label, string Value, bool IsActive);
+
+    private sealed record SettingsProgram(string Label, string Value, string Initials, string Tone);
+}
