@@ -51,6 +51,15 @@ A tela Configuracoes Gerais contem:
 
 A estrutura foi reorganizada para acompanhar a referencia `14-configuracoes-gerais.png`, com navegacao secundaria a esquerda e paineis principais a direita.
 
+Posteriormente, o modulo de Configuracoes foi padronizado para usar o mesmo esqueleto visual em todas as telas:
+
+- header comum;
+- navegacao secundaria consistente;
+- conteudo principal alinhado;
+- item ativo definido por rota.
+
+Em `/configuracoes`, o item ativo permanece `Geral`. O item `Caminhos` aponta para `/configuracoes/caminhos` e o item `Aparencia` aponta para `/configuracoes/aparencia`.
+
 ## secoes implementadas
 
 Foram implementadas visualmente:
@@ -146,6 +155,8 @@ As rotas abaixo continuam inexistentes:
 - Confirmado que `/configuracoes` abre corretamente.
 - Confirmado que a sidebar navega para `/configuracoes`.
 - Confirmado que a topbar reconhece `/configuracoes`.
+- Confirmado que o layout de Configuracoes Gerais foi preservado dentro do padrao comum do modulo de Configuracoes.
+- Confirmado que o item `Geral` permanece ativo em `/configuracoes`.
 - Confirmado que Configuracoes Gerais aparece como tela visual/mockada.
 - Confirmado que nenhuma configuracao real foi implementada.
 - Confirmado que nenhum salvamento real foi implementado.

@@ -1,18 +1,13 @@
 @page "/configuracoes/caminhos"
 
-<section class="settings-page settings-stitch-page settings-paths-page" aria-labelledby="settings-paths-title">
-    <header class="settings-paths-header">
-        <a class="settings-paths-back" href="/configuracoes" aria-label="Voltar para configuracoes gerais">
-            <AppIcon Name="chevron-left" />
-        </a>
-        <div>
-            <h1 id="settings-paths-title">Caminhos Locais e Rede</h1>
-            <p>Gerencie os diretorios de armazenamento e conexoes de rede.</p>
-        </div>
+<section class="settings-page settings-module-page settings-stitch-page settings-paths-page" aria-labelledby="settings-paths-title">
+    <header class="settings-header settings-module-header settings-stitch-header">
+        <h1 id="settings-paths-title">Caminhos Locais e Rede</h1>
+        <p>Gerencie os diretorios de armazenamento e conexoes de rede.</p>
     </header>
 
-    <div class="settings-stitch-layout">
-        <nav class="settings-stitch-nav" aria-label="Categorias de configuracoes">
+    <div class="settings-layout settings-module-layout settings-stitch-layout">
+        <nav class="settings-secondary-nav settings-stitch-nav" aria-label="Categorias de configuracoes">
             @foreach (var item in Categories)
             {
                 @if (item.Href is null)
@@ -34,7 +29,7 @@
             }
         </nav>
 
-        <main class="settings-paths-content" aria-label="Configuracoes de caminhos mockadas">
+        <main class="settings-content settings-module-content settings-paths-content" aria-label="Configuracoes de caminhos mockadas">
             <section class="settings-paths-card" aria-labelledby="main-directories-title">
                 <h2 id="main-directories-title">Diretorios Principais</h2>
 
@@ -107,7 +102,7 @@
     [
         new("Geral", false, "/configuracoes"),
         new("Caminhos", true, "/configuracoes/caminhos"),
-        new("Aparencia", false, null),
+        new("Aparencia", false, "/configuracoes/aparencia"),
         new("Backup", false, null),
         new("Modelo de Pastas", false, null),
         new("Dados do App", false, null)

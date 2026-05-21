@@ -19,9 +19,10 @@ Telas mantidas no estado atual:
 - Favoritos;
 - Busca;
 - Configuracoes Gerais;
-- Configuracoes de Caminhos.
+- Configuracoes de Caminhos;
+- Configuracoes de Aparencia.
 
-A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
+A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -33,19 +34,20 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou a implementacao da tela Configuracoes de Caminhos:
+A ultima tarefa concluida consolidou a implementacao da tela Configuracoes de Aparencia:
 
-- implementacao da tela Configuracoes de Caminhos;
-- criacao da rota `/configuracoes/caminhos`;
-- uso da referencia `referencias-visuais/stitch/html/15-configuracoes-caminhos.html`;
-- uso da imagem `referencias-visuais/stitch/imagens/15-configuracoes-caminhos.png`;
-- correcao da navegacao secundaria de Configuracoes;
-- `/configuracoes` mantida como Configuracoes Gerais;
-- `/configuracoes/caminhos` dedicada a Configuracoes de Caminhos;
-- remocao da duplicidade entre Caminhos Locais e Caminhos de Rede;
-- caminhos locais e caminhos de rede tratados como secoes internas;
+- implementacao da tela Configuracoes de Aparencia;
+- criacao da rota `/configuracoes/aparencia`;
+- uso da referencia `referencias-visuais/stitch/html/16-configuracoes-aparencia.html`;
+- uso da imagem `referencias-visuais/stitch/imagens/16-configuracoes-aparencia.png`;
+- padronizacao do layout entre `/configuracoes`, `/configuracoes/caminhos` e `/configuracoes/aparencia`;
+- navegacao secundaria consistente nas telas de Configuracoes;
+- item `Geral` ativo em `/configuracoes`;
+- item `Caminhos` ativo em `/configuracoes/caminhos`;
+- item `Aparencia` ativo em `/configuracoes/aparencia`;
+- titulo, descricao, navegacao e conteudo alinhados entre as paginas de Configuracoes;
 - tudo visual/mockado;
-- nenhuma configuracao real;
+- nenhuma preferencia real;
 - nenhuma persistencia;
 - nenhuma reintroducao das areas removidas;
 - preservacao das paginas mantidas;
@@ -132,10 +134,12 @@ Implementado:
 - tela Busca aprovada;
 - tela Configuracoes Gerais aprovada;
 - tela Configuracoes de Caminhos aprovada;
+- tela Configuracoes de Aparencia aprovada;
 - rota `/favoritos`;
 - rota `/busca`;
 - rota `/configuracoes`;
 - rota `/configuracoes/caminhos`;
+- rota `/configuracoes/aparencia`;
 - sidebar com Favoritos navegando para `/favoritos`;
 - sidebar com Busca navegando para `/busca`;
 - sidebar com Configuracoes navegando para `/configuracoes`;
@@ -146,6 +150,8 @@ Implementado:
 - busca visual/mockada com campo principal, filtros, sugestoes rapidas, resultados e resumo visual;
 - Configuracoes Gerais visual/mockada com composicao fiel ao Stitch, navegacao secundaria, paineis de caminhos, rede, aparencia e programas padrao;
 - Configuracoes de Caminhos visual/mockada com navegacao secundaria corrigida, diretorios principais e descoberta de rede;
+- Configuracoes de Aparencia visual/mockada com selecao de tema, densidade da interface, cor de destaque e acoes visuais;
+- layout padronizado entre Configuracoes Gerais, Configuracoes de Caminhos e Configuracoes de Aparencia;
 - navegacao do card Cthulhu Idol para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
 - sidebar com Models ativo nas rotas de modelos;
 - hover global de cards clicaveis;
@@ -188,18 +194,18 @@ Ainda nao implementado:
 
 Implementacao:
 
-- `src/blueatelier.app/Components/Layout/AppSidebar.razor`
-- `src/blueatelier.app/Components/Layout/AppTopbar.razor`
-- `src/blueatelier.app/Components/Shared/AppIcon.razor`
-- `src/blueatelier.app/wwwroot/css/app.css`
 - `src/blueatelier.app/Components/Pages/Configuracoes.razor`
 - `src/blueatelier.app/Components/Pages/ConfiguracoesCaminhos.razor`
+- `src/blueatelier.app/Components/Pages/ConfiguracoesAparencia.razor`
+- `src/blueatelier.app/wwwroot/css/app.css`
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
+- `docs/38-configuracoes-gerais.md`
 - `docs/39-configuracoes-caminhos.md`
+- `docs/40-configuracoes-aparencia.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -207,20 +213,25 @@ Documentacao:
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- `referencias-visuais/stitch/html/15-configuracoes-caminhos.html` foi usado como referencia.
-- `referencias-visuais/stitch/imagens/15-configuracoes-caminhos.png` foi usado como referencia visual.
+- `referencias-visuais/stitch/html/16-configuracoes-aparencia.html` foi usado como referencia.
+- `referencias-visuais/stitch/imagens/16-configuracoes-aparencia.png` foi usado como referencia visual.
 - `/configuracoes` existe como rota.
 - `/configuracoes/caminhos` existe como rota.
+- `/configuracoes/aparencia` existe como rota.
 - A sidebar navega para `/configuracoes`.
 - A topbar reconhece rotas iniciadas por `configuracoes` sem reintroduzir logicas antigas.
 - A tela Configuracoes Gerais abre corretamente.
 - A tela Configuracoes de Caminhos abre corretamente.
+- A tela Configuracoes de Aparencia abre corretamente.
 - A navegacao secundaria marca `Geral` em `/configuracoes`.
 - A navegacao secundaria marca `Caminhos` em `/configuracoes/caminhos`.
-- Nao existem dois links diferentes apontando para `/configuracoes/caminhos`.
-- Os campos, botoes e status da tela de caminhos sao apenas visuais/mockados.
+- A navegacao secundaria marca `Aparencia` em `/configuracoes/aparencia`.
+- A navegacao secundaria esta padronizada nas telas de Configuracoes.
+- Titulo, descricao, navegacao e conteudo principal estao alinhados entre as paginas de Configuracoes.
+- Os temas, swatches, controles de densidade e acoes da tela Aparencia sao apenas visuais/mockados.
 - Nenhuma configuracao real foi implementada.
 - Nenhum salvamento real foi implementado.
+- Nenhuma aplicacao real de tema foi implementada.
 - `/favoritos` permanece preservada.
 - `/busca` permanece preservada.
 - A barra de links favoritos permanece preservada.
@@ -248,10 +259,10 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Implementar Configuracoes de Aparencia com base em:
+Implementar Modelo de Pastas com base em:
 
 ```txt
-referencias-visuais/stitch/html/16-configuracoes-aparencia.html
+referencias-visuais/stitch/html/17-modelo-pastas.html
 ```
 
-A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

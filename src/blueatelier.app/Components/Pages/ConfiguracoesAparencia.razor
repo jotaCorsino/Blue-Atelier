@@ -1,0 +1,173 @@
+@page "/configuracoes/aparencia"
+
+<section class="settings-page settings-module-page settings-stitch-page settings-appearance-page" aria-labelledby="settings-appearance-title">
+    <header class="settings-header settings-module-header settings-stitch-header settings-appearance-header">
+        <h1 id="settings-appearance-title">Aparencia</h1>
+        <p>Personalize o tema, as cores e a densidade da interface do Blue Atelier.</p>
+    </header>
+
+    <div class="settings-layout settings-module-layout settings-stitch-layout">
+        <nav class="settings-secondary-nav settings-stitch-nav" aria-label="Categorias de configuracoes">
+            @foreach (var item in Categories)
+            {
+                @if (item.Href is null)
+                {
+                    <button class="settings-stitch-nav-item @(item.IsActive ? "settings-stitch-nav-item-active" : null)"
+                            type="button"
+                            aria-pressed="@item.IsActive">
+                        @item.Label
+                    </button>
+                }
+                else
+                {
+                    <a class="settings-stitch-nav-item @(item.IsActive ? "settings-stitch-nav-item-active" : null)"
+                       href="@item.Href"
+                       aria-current="@(item.IsActive ? "page" : null)">
+                        @item.Label
+                    </a>
+                }
+            }
+        </nav>
+
+        <main class="settings-content settings-module-content settings-appearance-content" aria-label="Configuracoes de aparencia mockadas">
+            <div class="settings-appearance-grid">
+                <section class="settings-appearance-panel settings-appearance-theme-panel" aria-labelledby="appearance-theme-title">
+                    <h2 id="appearance-theme-title">Tema</h2>
+
+                    <div class="appearance-theme-options" aria-label="Tema visual mockado">
+                        @foreach (var theme in Themes)
+                        {
+                            <button class="appearance-theme-card @(theme.IsActive ? "appearance-theme-card-active" : null)"
+                                    type="button"
+                                    aria-pressed="@theme.IsActive">
+                                <span class="appearance-theme-preview appearance-theme-preview-@theme.Tone" aria-hidden="true">
+                                    <span class="appearance-preview-top">
+                                        <span></span>
+                                        <span></span>
+                                    </span>
+                                    <span class="appearance-preview-body">
+                                        <span class="appearance-preview-side"></span>
+                                        <span class="appearance-preview-lines">
+                                            <span></span>
+                                            <span></span>
+                                        </span>
+                                    </span>
+                                </span>
+
+                                <span class="appearance-theme-label">
+                                    <span class="appearance-radio" aria-hidden="true">
+                                        @if (theme.IsActive)
+                                        {
+                                            <span></span>
+                                        }
+                                    </span>
+                                    <span>@theme.Label</span>
+                                </span>
+                            </button>
+                        }
+                    </div>
+                </section>
+
+                <section class="settings-appearance-panel settings-appearance-density-panel" aria-labelledby="appearance-density-title">
+                    <h2 id="appearance-density-title">Densidade da Interface</h2>
+
+                    <div class="appearance-density-options" aria-label="Densidade visual mockada">
+                        @foreach (var density in Densities)
+                        {
+                            <button class="appearance-density-option @(density.IsActive ? "appearance-density-option-active" : null)"
+                                    type="button"
+                                    aria-pressed="@density.IsActive">
+                                <span class="appearance-radio" aria-hidden="true">
+                                    @if (density.IsActive)
+                                    {
+                                        <span></span>
+                                    }
+                                </span>
+                                <span>
+                                    <strong>@density.Label</strong>
+                                    <small>@density.Description</small>
+                                </span>
+                            </button>
+                        }
+                    </div>
+                </section>
+
+                <section class="settings-appearance-panel settings-appearance-accent-panel" aria-labelledby="appearance-accent-title">
+                    <div class="appearance-accent-header">
+                        <div>
+                            <h2 id="appearance-accent-title">Cor de Destaque</h2>
+                            <p>A cor principal usada em botoes, links e elementos ativos.</p>
+                        </div>
+
+                        <button type="button">Restaurar Padrao</button>
+                    </div>
+
+                    <div class="appearance-accent-swatches" aria-label="Cores de destaque mockadas">
+                        @foreach (var swatch in AccentSwatches)
+                        {
+                            <button class="appearance-accent-swatch @(swatch.IsActive ? "appearance-accent-swatch-active" : null)"
+                                    type="button"
+                                    title="@swatch.Label"
+                                    aria-label="@swatch.Label"
+                                    aria-pressed="@swatch.IsActive"
+                                    style="@($"--appearance-swatch: {swatch.Color};")">
+                                @if (swatch.IsActive)
+                                {
+                                    <AppIcon Name="check" />
+                                }
+                            </button>
+                        }
+                    </div>
+                </section>
+            </div>
+
+            <footer class="settings-appearance-actions" aria-label="Acoes de aparencia mockadas">
+                <button type="button">Cancelar</button>
+                <button class="settings-appearance-save" type="button">Salvar Alteracoes</button>
+            </footer>
+        </main>
+    </div>
+</section>
+
+@code {
+    private static readonly SettingsCategory[] Categories =
+    [
+        new("Geral", false, "/configuracoes"),
+        new("Caminhos", false, "/configuracoes/caminhos"),
+        new("Aparencia", true, "/configuracoes/aparencia"),
+        new("Backup", false, null),
+        new("Modelo de Pastas", false, null),
+        new("Dados do App", false, null)
+    ];
+
+    private static readonly ThemeOption[] Themes =
+    [
+        new("Claro", "light", true),
+        new("Escuro", "dark", false),
+        new("Automatico", "auto", false)
+    ];
+
+    private static readonly DensityOption[] Densities =
+    [
+        new("Padrao", "Espacamento confortavel e legivel.", true),
+        new("Compacto", "Mais informacoes visiveis na tela.", false)
+    ];
+
+    private static readonly AccentSwatch[] AccentSwatches =
+    [
+        new("Azul padrao", "#0058be", true),
+        new("Verde secundario", "#466558", false),
+        new("Dourado terciario", "#755800", false),
+        new("Vermelho sistema", "#ba1a1a", false),
+        new("Violeta", "#6750a4", false),
+        new("Teal", "#006a6a", false)
+    ];
+
+    private sealed record SettingsCategory(string Label, bool IsActive, string? Href);
+
+    private sealed record ThemeOption(string Label, string Tone, bool IsActive);
+
+    private sealed record DensityOption(string Label, string Description, bool IsActive);
+
+    private sealed record AccentSwatch(string Label, string Color, bool IsActive);
+}

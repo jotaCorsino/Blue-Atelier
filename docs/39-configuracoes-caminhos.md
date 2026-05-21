@@ -45,7 +45,7 @@ Documentacao:
 
 A tela Configuracoes de Caminhos contem:
 
-- cabecalho com retorno para Configuracoes Gerais;
+- cabecalho comum alinhado com as demais telas de Configuracoes;
 - navegacao secundaria de configuracoes;
 - card `Diretorios Principais`;
 - lista visual de caminhos mockados;
@@ -58,11 +58,21 @@ A navegacao secundaria foi padronizada para evitar ambiguidade:
 
 - `Geral` aponta para `/configuracoes`;
 - `Caminhos` aponta para `/configuracoes/caminhos`;
-- `Aparencia`, `Backup`, `Modelo de Pastas` e `Dados do App` permanecem como itens visuais/mockados ou futuros, sem rota criada nesta etapa.
+- `Aparencia` aponta para `/configuracoes/aparencia`;
+- `Backup`, `Modelo de Pastas` e `Dados do App` permanecem como itens visuais/mockados ou futuros, sem rota criada nesta etapa.
 
 Em `/configuracoes`, o item ativo e `Geral`.
 
 Em `/configuracoes/caminhos`, o item ativo e `Caminhos`.
+
+Posteriormente, o modulo de Configuracoes foi padronizado para usar o mesmo esqueleto visual em todas as telas:
+
+- header comum;
+- navegacao secundaria consistente;
+- conteudo principal alinhado;
+- item ativo definido por rota.
+
+Com essa padronizacao, o botao de retorno foi removido da tela de caminhos para manter o eixo do titulo, da descricao, da navegacao secundaria e do conteudo principal alinhado com `/configuracoes` e `/configuracoes/aparencia`.
 
 ## correcao da duplicidade
 
@@ -123,7 +133,7 @@ Esses estados sao mockados e servem apenas para validar a leitura visual da tela
 
 A tela segue a composicao principal do Stitch:
 
-- cabecalho com retorno;
+- cabecalho alinhado ao modulo de Configuracoes;
 - titulo `Caminhos Locais e Rede`;
 - descricao curta;
 - card de diretorios principais;
@@ -184,7 +194,9 @@ As rotas abaixo continuam inexistentes:
 - Confirmado que a sidebar principal continua apontando Configuracoes para `/configuracoes`.
 - Confirmado que a navegacao secundaria usa `Geral -> /configuracoes`.
 - Confirmado que a navegacao secundaria usa `Caminhos -> /configuracoes/caminhos`.
+- Confirmado que a navegacao secundaria usa `Aparencia -> /configuracoes/aparencia`.
 - Confirmado que nao existem dois links diferentes apontando para `/configuracoes/caminhos`.
+- Confirmado que o layout de Configuracoes de Caminhos foi preservado dentro do padrao comum do modulo de Configuracoes.
 - Confirmado que a topbar reconhece rotas iniciadas por `configuracoes`.
 - Confirmado que nenhuma area removida foi reintroduzida.
 - Confirmado que nenhum HTML, imagem ou `design.md` do Stitch foi alterado.
@@ -199,8 +211,8 @@ A tela Configuracoes de Caminhos e a correcao da navegacao secundaria foram vali
 
 ## proxima etapa sugerida
 
-Implementar Configuracoes de Aparencia com base em:
+Implementar Modelo de Pastas com base em:
 
 ```txt
-referencias-visuais/stitch/html/16-configuracoes-aparencia.html
+referencias-visuais/stitch/html/17-modelo-pastas.html
 ```
