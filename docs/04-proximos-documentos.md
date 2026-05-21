@@ -202,6 +202,12 @@ Arquivo: `docs/41-modelo-pastas.md`
 
 Objetivo: registrar a implementacao da tela Modelo de Pastas, incluindo rota `/configuracoes/modelo-pastas`, referencia Stitch `17-modelo-pastas.html`, cards `Colecao` e `Modelo`, pre-visualizacao do caminho, acao visual `Salvar Alteracoes`, ajustes de espacamento e revisao de responsividade das paginas de Configuracoes.
 
+### 34. backup dados
+
+Arquivo: `docs/42-backup-dados.md`
+
+Objetivo: registrar a implementacao da tela Backup/Dados, incluindo rota `/configuracoes/backup`, referencia Stitch `18-backup-dados.html`, paineis visuais de backup e dados, acoes mockadas de backup/exportacao/importacao/restauracao e aprovacao visual manual.
+
 ## documentos substituidos ou removidos
 
 Os documentos abaixo foram removidos porque descreviam areas que sairam do escopo atual:
@@ -255,15 +261,16 @@ Documentos criados nesta base:
 - `docs/39-configuracoes-caminhos.md`
 - `docs/40-configuracoes-aparencia.md`
 - `docs/41-modelo-pastas.md`
+- `docs/42-backup-dados.md`
 
-O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada. O documento `docs/38-configuracoes-gerais.md` registra a tela Configuracoes Gerais visual/mockada. O documento `docs/39-configuracoes-caminhos.md` registra a tela Configuracoes de Caminhos visual/mockada. O documento `docs/40-configuracoes-aparencia.md` registra a tela Configuracoes de Aparencia e a padronizacao visual do modulo de Configuracoes. O documento `docs/41-modelo-pastas.md` registra a tela Modelo de Pastas e os ajustes de responsividade do modulo de Configuracoes.
+O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada. O documento `docs/38-configuracoes-gerais.md` registra a tela Configuracoes Gerais visual/mockada. O documento `docs/39-configuracoes-caminhos.md` registra a tela Configuracoes de Caminhos visual/mockada. O documento `docs/40-configuracoes-aparencia.md` registra a tela Configuracoes de Aparencia e a padronizacao visual do modulo de Configuracoes. O documento `docs/41-modelo-pastas.md` registra a tela Modelo de Pastas e os ajustes de responsividade do modulo de Configuracoes. O documento `docs/42-backup-dados.md` registra a tela Backup/Dados visual/mockada.
 
 ## proxima etapa sugerida
 
-Implementar Backup/Dados com base em:
+Implementar Estados Vazios, Erros e Offline com base em:
 
 ```txt
-referencias-visuais/stitch/html/18-backup-dados.html
+referencias-visuais/stitch/html/19-estados-vazios-erros-offline.html
 ```
 
 Essa proxima etapa deve usar como base:
@@ -296,5 +303,6 @@ Essa proxima etapa deve usar como base:
 - `docs/39-configuracoes-caminhos.md`
 - `docs/40-configuracoes-aparencia.md`
 - `docs/41-modelo-pastas.md`
+- `docs/42-backup-dados.md`
 
-Nas proximas telas, o Codex deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas e a fundacao visual ja aprovadas. O Codex nao pode reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+Nas proximas telas, o Codex deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. O Codex nao pode reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

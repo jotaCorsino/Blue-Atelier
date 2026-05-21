@@ -28,6 +28,7 @@ As rotas abaixo continuam preservadas:
 /configuracoes
 /configuracoes/caminhos
 /configuracoes/aparencia
+/configuracoes/backup
 ```
 
 ## arquivos alterados ou criados
@@ -67,7 +68,7 @@ A navegacao secundaria do modulo de Configuracoes esta padronizada:
 - `Geral` aponta para `/configuracoes`;
 - `Caminhos` aponta para `/configuracoes/caminhos`;
 - `Aparencia` aponta para `/configuracoes/aparencia`;
-- `Backup` permanece visual/mockado ou futuro;
+- `Backup` aponta para `/configuracoes/backup`;
 - `Modelo de Pastas` aponta para `/configuracoes/modelo-pastas`;
 - `Dados do App` permanece visual/mockado ou futuro.
 

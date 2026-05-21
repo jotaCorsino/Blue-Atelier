@@ -67,7 +67,7 @@ A navegacao secundaria do modulo de Configuracoes foi padronizada:
 - `Geral` aponta para `/configuracoes`;
 - `Caminhos` aponta para `/configuracoes/caminhos`;
 - `Aparencia` aponta para `/configuracoes/aparencia`;
-- `Backup` permanece visual/mockado ou futuro;
+- `Backup` aponta para `/configuracoes/backup`;
 - `Modelo de Pastas` aponta para `/configuracoes/modelo-pastas`;
 - `Dados do App` permanece visual/mockado ou futuro.
 
@@ -98,6 +98,7 @@ Essa padronizacao foi aplicada em:
 /configuracoes/caminhos
 /configuracoes/aparencia
 /configuracoes/modelo-pastas
+/configuracoes/backup
 ```
 
 ## secoes implementadas

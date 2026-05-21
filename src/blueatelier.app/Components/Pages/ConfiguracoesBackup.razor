@@ -1,0 +1,192 @@
+@page "/configuracoes/backup"
+
+<section class="settings-page settings-module-page settings-stitch-page settings-backup-page" aria-labelledby="settings-backup-title">
+    <header class="settings-header settings-module-header settings-stitch-header">
+        <h1 id="settings-backup-title">Backup e Dados</h1>
+        <p>Gerencie a seguranca do seu banco de dados, configuracoes e preferencias.</p>
+    </header>
+
+    <div class="settings-layout settings-module-layout settings-stitch-layout">
+        <nav class="settings-secondary-nav settings-stitch-nav" aria-label="Categorias de configuracoes">
+            @foreach (var item in Categories)
+            {
+                @if (item.Href is null)
+                {
+                    <button class="settings-stitch-nav-item @(item.IsActive ? "settings-stitch-nav-item-active" : null)"
+                            type="button"
+                            aria-pressed="@item.IsActive">
+                        @item.Label
+                    </button>
+                }
+                else
+                {
+                    <a class="settings-stitch-nav-item @(item.IsActive ? "settings-stitch-nav-item-active" : null)"
+                       href="@item.Href"
+                       aria-current="@(item.IsActive ? "page" : null)">
+                        @item.Label
+                    </a>
+                }
+            }
+        </nav>
+
+        <main class="settings-content settings-module-content settings-backup-content" aria-label="Backup e dados mockados">
+            <div class="settings-backup-grid">
+                <div class="settings-backup-column">
+                    <section class="settings-backup-card" aria-labelledby="manual-backup-title">
+                        <h2 id="manual-backup-title">Backup Manual</h2>
+
+                        <button class="settings-backup-primary" type="button">Fazer backup agora</button>
+
+                        <div class="settings-backup-meta-row">
+                            <span>
+                                <AppIcon Name="info" />
+                                Ultimo backup: hoje, 14:32
+                            </span>
+                            <strong>
+                                <AppIcon Name="check" />
+                                Concluido
+                            </strong>
+                        </div>
+
+                        <div class="settings-backup-divider"></div>
+
+                        <div class="settings-backup-destination">
+                            <span>
+                                <AppIcon Name="folder" />
+                                <span>Destino: D:\atelier-3d\backups\</span>
+                            </span>
+
+                            <div class="settings-backup-actions">
+                                <button type="button">
+                                    <AppIcon Name="folder" />
+                                    Alterar
+                                </button>
+                                <button type="button">
+                                    <AppIcon Name="external" />
+                                    Abrir
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="settings-backup-card" aria-labelledby="export-import-title">
+                        <h2 id="export-import-title">Exportar e Importar</h2>
+
+                        <div class="settings-backup-export-grid">
+                            <button type="button">
+                                <AppIcon Name="download" />
+                                Exportar Banco (.sqlite)
+                            </button>
+                            <button type="button">
+                                <AppIcon Name="download" />
+                                Exportar Configuracoes
+                            </button>
+                            <button class="settings-backup-export-wide" type="button">
+                                <AppIcon Name="upload" />
+                                Importar Dados
+                            </button>
+                        </div>
+
+                        <div class="settings-backup-note">
+                            <AppIcon Name="info" />
+                            <p>Arquivos 3D e fotos nao sao incluidos no backup automatico para manter a leveza.</p>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="settings-backup-column">
+                    <section class="settings-backup-card" aria-labelledby="auto-backup-title">
+                        <div class="settings-backup-card-header">
+                            <h2 id="auto-backup-title">Backup Automatico</h2>
+
+                            <div class="settings-backup-toggle-row">
+                                <span>ON</span>
+                                <button class="settings-backup-toggle" type="button" aria-pressed="true" aria-label="Backup automatico ativado">
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="settings-backup-frequency" aria-label="Frequencia de backup mockada">
+                            <button type="button">Diario</button>
+                            <button class="settings-backup-frequency-active" type="button">Semanal</button>
+                            <button type="button">Mensal</button>
+                        </div>
+
+                        <button class="settings-backup-select" type="button" aria-label="Retencao de backups mockada">
+                            <span>Manter ultimos 10 backups</span>
+                            <AppIcon Name="chevron-down" />
+                        </button>
+                    </section>
+
+                    <section class="settings-backup-card settings-backup-restore-card" aria-labelledby="restore-backup-title">
+                        <h2 id="restore-backup-title">Restaurar</h2>
+
+                        <div class="settings-backup-table-scroll">
+                            <table class="settings-backup-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            Data
+                                            <AppIcon Name="chevron-down" />
+                                        </th>
+                                        <th scope="col">Tamanho</th>
+                                        <th scope="col">Acao</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var backup in Backups)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <span>
+                                                    <AppIcon Name="clock" />
+                                                    @backup.Date
+                                                </span>
+                                            </td>
+                                            <td>@backup.Size</td>
+                                            <td>
+                                                <button type="button">
+                                                    <AppIcon Name="refresh" />
+                                                    Restaurar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="settings-backup-warning">
+                            <AppIcon Name="alert" />
+                            <p>A restauracao substituira os dados atuais. Recomendamos um backup antes de prosseguir.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+</section>
+
+@code {
+    private static readonly SettingsCategory[] Categories =
+    [
+        new("Geral", false, "/configuracoes"),
+        new("Caminhos", false, "/configuracoes/caminhos"),
+        new("Aparencia", false, "/configuracoes/aparencia"),
+        new("Backup", true, "/configuracoes/backup"),
+        new("Modelo de Pastas", false, "/configuracoes/modelo-pastas"),
+        new("Dados do App", false, null)
+    ];
+
+    private static readonly BackupEntry[] Backups =
+    [
+        new("hoje, 14:32", "12MB"),
+        new("ontem, 09:15", "11MB"),
+        new("05/11/2024, 18:00", "14MB")
+    ];
+
+    private sealed record SettingsCategory(string Label, bool IsActive, string? Href);
+
+    private sealed record BackupEntry(string Date, string Size);
+}

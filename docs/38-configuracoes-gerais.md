@@ -58,7 +58,7 @@ Posteriormente, o modulo de Configuracoes foi padronizado para usar o mesmo esqu
 - conteudo principal alinhado;
 - item ativo definido por rota.
 
-Em `/configuracoes`, o item ativo permanece `Geral`. O item `Caminhos` aponta para `/configuracoes/caminhos`, o item `Aparencia` aponta para `/configuracoes/aparencia` e o item `Modelo de Pastas` aponta para `/configuracoes/modelo-pastas`.
+Em `/configuracoes`, o item ativo permanece `Geral`. O item `Caminhos` aponta para `/configuracoes/caminhos`, o item `Aparencia` aponta para `/configuracoes/aparencia`, o item `Backup` aponta para `/configuracoes/backup` e o item `Modelo de Pastas` aponta para `/configuracoes/modelo-pastas`.
 
 A responsividade do modulo de Configuracoes foi revisada depois da implementacao de Modelo de Pastas, preservando o header comum, a navegacao secundaria consistente e o conteudo principal alinhado em telas largas e menores.
 

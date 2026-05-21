@@ -59,8 +59,9 @@ A navegacao secundaria foi padronizada para evitar ambiguidade:
 - `Geral` aponta para `/configuracoes`;
 - `Caminhos` aponta para `/configuracoes/caminhos`;
 - `Aparencia` aponta para `/configuracoes/aparencia`;
-- `Backup` e `Dados do App` permanecem como itens visuais/mockados ou futuros;
+- `Backup` aponta para `/configuracoes/backup`;
 - `Modelo de Pastas` aponta para `/configuracoes/modelo-pastas`.
+- `Dados do App` permanece como item visual/mockado ou futuro.
 
 Em `/configuracoes`, o item ativo e `Geral`.
 
