@@ -68,7 +68,7 @@ A navegacao secundaria do modulo de Configuracoes foi padronizada:
 - `Caminhos` aponta para `/configuracoes/caminhos`;
 - `Aparencia` aponta para `/configuracoes/aparencia`;
 - `Backup` permanece visual/mockado ou futuro;
-- `Modelo de Pastas` permanece visual/mockado ou futuro;
+- `Modelo de Pastas` aponta para `/configuracoes/modelo-pastas`;
 - `Dados do App` permanece visual/mockado ou futuro.
 
 Em `/configuracoes`, o item ativo e `Geral`.
@@ -76,6 +76,8 @@ Em `/configuracoes`, o item ativo e `Geral`.
 Em `/configuracoes/caminhos`, o item ativo e `Caminhos`.
 
 Em `/configuracoes/aparencia`, o item ativo e `Aparencia`.
+
+Depois da implementacao de Modelo de Pastas, a responsividade do modulo de Configuracoes foi revisada para preservar o mesmo header comum, navegacao secundaria consistente e conteudo principal alinhado entre `/configuracoes`, `/configuracoes/caminhos`, `/configuracoes/aparencia` e `/configuracoes/modelo-pastas`.
 
 ## padronizacao de layout
 
@@ -95,6 +97,7 @@ Essa padronizacao foi aplicada em:
 /configuracoes
 /configuracoes/caminhos
 /configuracoes/aparencia
+/configuracoes/modelo-pastas
 ```
 
 ## secoes implementadas

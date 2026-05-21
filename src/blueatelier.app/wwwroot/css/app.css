@@ -5491,8 +5491,10 @@ a.search-result-row:focus-visible .search-result-action {
     cursor: default;
     font-size: var(--ba-font-size-md);
     font-weight: 650;
+    line-height: 1.2;
     text-align: left;
     text-decoration: none;
+    overflow-wrap: anywhere;
 }
 
 a.settings-stitch-nav-item {
@@ -6512,6 +6514,253 @@ a.settings-stitch-nav-item:focus-visible {
     background: var(--ba-accent-strong);
 }
 
+.settings-folder-template-page {
+    width: min(78rem, 100%);
+    min-width: 0;
+    margin: 0 auto;
+}
+
+.settings-folder-template-content {
+    min-width: 0;
+    display: grid;
+    gap: 0;
+}
+
+.settings-folder-template-canvas {
+    min-width: 0;
+    display: grid;
+    gap: var(--ba-space-8);
+}
+
+.settings-folder-template-grid {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(18.5rem, 1fr));
+    align-items: stretch;
+    column-gap: clamp(1.75rem, 3vw, 2.5rem);
+    row-gap: var(--ba-space-8);
+}
+
+.settings-folder-template-card {
+    min-width: 0;
+    display: grid;
+    align-content: start;
+    gap: var(--ba-space-6);
+    height: 100%;
+    min-height: 15.25rem;
+    padding: var(--ba-space-5);
+    border: 1px solid var(--ba-border);
+    border-radius: var(--ba-radius-lg);
+    background: var(--ba-surface-raised);
+    box-shadow: var(--ba-shadow-soft);
+}
+
+.settings-folder-template-card-header {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ba-space-4);
+}
+
+.settings-folder-template-card-header h2 {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--ba-space-2);
+    color: var(--ba-text);
+    font-size: 1.25rem;
+    font-weight: 850;
+    letter-spacing: 0;
+}
+
+.settings-folder-template-title-icon {
+    width: 1.45rem;
+    height: 1.45rem;
+    flex: 0 0 auto;
+    color: var(--ba-accent);
+}
+
+.settings-folder-template-title-icon .app-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.settings-folder-template-card-header button {
+    width: 2.45rem;
+    height: 2.45rem;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: var(--ba-radius-pill);
+    color: var(--ba-accent);
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.settings-folder-template-card-header button:hover,
+.settings-folder-template-card-header button:focus-visible {
+    color: var(--ba-accent-strong);
+    background: var(--ba-surface-soft);
+    outline: none;
+    transform: translateY(-1px);
+}
+
+.settings-folder-template-card-header button .app-icon {
+    width: 1.22rem;
+    height: 1.22rem;
+}
+
+.settings-folder-tree {
+    min-width: 0;
+    display: grid;
+    gap: var(--ba-space-3);
+    color: var(--ba-text-muted);
+    font-family: var(--ba-font-family);
+    font-size: var(--ba-font-size-sm);
+    line-height: 1.35;
+}
+
+.settings-folder-tree-root,
+.settings-folder-tree-child {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--ba-space-3);
+    min-height: 1.75rem;
+}
+
+.settings-folder-tree-root {
+    color: var(--ba-text);
+    font-weight: 650;
+}
+
+.settings-folder-tree-root .app-icon,
+.settings-folder-tree-child .app-icon {
+    width: 1.35rem;
+    height: 1.35rem;
+    flex: 0 0 auto;
+    color: var(--ba-text-muted);
+}
+
+.settings-folder-tree-children {
+    position: relative;
+    min-width: 0;
+    display: grid;
+    gap: var(--ba-space-3);
+    margin-left: 0.66rem;
+    padding-left: var(--ba-space-6);
+}
+
+.settings-folder-tree-children::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+    bottom: 0.82rem;
+    width: 1px;
+    background: var(--ba-border);
+}
+
+.settings-folder-tree-child {
+    position: relative;
+    color: var(--ba-text-muted);
+    font-weight: 600;
+}
+
+.settings-folder-tree-child::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--ba-space-6));
+    top: 50%;
+    width: 1.25rem;
+    height: 1px;
+    background: var(--ba-border);
+}
+
+.settings-folder-tree-root span,
+.settings-folder-tree-child span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.settings-folder-template-preview {
+    min-width: 0;
+    width: 100%;
+    display: grid;
+    gap: var(--ba-space-5);
+    padding: var(--ba-space-6);
+    border: 1px solid var(--ba-border);
+    border-radius: var(--ba-radius-lg);
+    background: var(--ba-surface-soft);
+}
+
+.settings-folder-template-preview h2 {
+    color: var(--ba-text);
+    font-size: 1.2rem;
+    font-weight: 760;
+    letter-spacing: 0;
+}
+
+.settings-folder-template-path {
+    min-width: 0;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.42rem;
+    overflow-x: auto;
+    min-height: 3.65rem;
+    padding: var(--ba-space-4) var(--ba-space-5);
+    border: 1px solid var(--ba-border);
+    border-radius: var(--ba-radius-md);
+    color: var(--ba-text-muted);
+    background: var(--ba-surface-raised);
+    font-size: var(--ba-font-size-sm);
+    font-weight: 600;
+    scrollbar-width: thin;
+    white-space: nowrap;
+}
+
+.settings-folder-template-path strong {
+    padding: 0.1rem 0.35rem;
+    border-radius: var(--ba-radius-sm);
+    color: var(--ba-accent);
+    background: rgb(var(--ba-accent-rgb) / 12%);
+    font-weight: 760;
+}
+
+.settings-folder-template-actions {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 0;
+}
+
+.settings-folder-template-save {
+    min-height: 2.75rem;
+    padding: 0 var(--ba-space-6);
+    border: 1px solid transparent;
+    border-radius: var(--ba-radius-pill);
+    color: #ffffff;
+    background: var(--ba-accent);
+    box-shadow: var(--ba-shadow-soft);
+    cursor: pointer;
+    font-size: var(--ba-font-size-md);
+    font-weight: 780;
+    transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.settings-folder-template-save:hover,
+.settings-folder-template-save:focus-visible {
+    background: var(--ba-accent-strong);
+    box-shadow: var(--ba-shadow-raised);
+    outline: none;
+    transform: translateY(-1px);
+}
+
 .image-viewer-page {
     min-height: calc(100vh - 8rem);
     display: grid;
@@ -7158,6 +7407,11 @@ a.settings-stitch-nav-item:focus-visible {
         grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr);
         gap: var(--ba-space-6);
     }
+
+    .settings-folder-template-grid {
+        column-gap: var(--ba-space-8);
+        row-gap: var(--ba-space-8);
+    }
 }
 
 @media (max-width: 1080px) {
@@ -7222,6 +7476,10 @@ a.settings-stitch-nav-item:focus-visible {
 
     .settings-stitch-nav-item {
         flex: 1 1 11rem;
+    }
+
+    .settings-folder-template-grid {
+        grid-template-columns: repeat(2, minmax(17rem, 1fr));
     }
 }
 
@@ -7503,6 +7761,15 @@ a.settings-stitch-nav-item:focus-visible {
         grid-column: auto;
     }
 
+    .settings-folder-template-grid {
+        grid-template-columns: 1fr;
+        row-gap: var(--ba-space-6);
+    }
+
+    .settings-folder-template-canvas {
+        gap: var(--ba-space-6);
+    }
+
     .print-item {
         grid-template-columns: auto minmax(0, 1fr);
     }
@@ -7749,6 +8016,38 @@ a.settings-stitch-nav-item:focus-visible {
     .appearance-accent-header button,
     .settings-appearance-actions button {
         width: 100%;
+    }
+
+    .settings-folder-template-card,
+    .settings-folder-template-preview {
+        padding: var(--ba-space-5);
+    }
+
+    .settings-folder-template-card {
+        min-height: auto;
+    }
+
+    .settings-folder-template-card-header {
+        align-items: flex-start;
+    }
+
+    .settings-folder-template-card-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .settings-folder-template-actions,
+    .settings-folder-template-save {
+        width: 100%;
+    }
+
+    .settings-stitch-card,
+    .settings-appearance-panel {
+        padding: var(--ba-space-5);
+    }
+
+    .settings-folder-template-path {
+        min-height: 3.35rem;
+        padding: var(--ba-space-3);
     }
 
     .settings-path-label-row {

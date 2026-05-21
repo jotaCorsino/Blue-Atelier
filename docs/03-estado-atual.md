@@ -20,9 +20,10 @@ Telas mantidas no estado atual:
 - Busca;
 - Configuracoes Gerais;
 - Configuracoes de Caminhos;
-- Configuracoes de Aparencia.
+- Configuracoes de Aparencia;
+- Modelo de Pastas.
 
-A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
+A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
@@ -34,20 +35,23 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou a implementacao da tela Configuracoes de Aparencia:
+A ultima tarefa concluida consolidou a implementacao da tela Modelo de Pastas:
 
-- implementacao da tela Configuracoes de Aparencia;
-- criacao da rota `/configuracoes/aparencia`;
-- uso da referencia `referencias-visuais/stitch/html/16-configuracoes-aparencia.html`;
-- uso da imagem `referencias-visuais/stitch/imagens/16-configuracoes-aparencia.png`;
-- padronizacao do layout entre `/configuracoes`, `/configuracoes/caminhos` e `/configuracoes/aparencia`;
+- implementacao da tela Modelo de Pastas;
+- criacao da rota `/configuracoes/modelo-pastas`;
+- uso da referencia `referencias-visuais/stitch/html/17-modelo-pastas.html`;
+- uso da imagem `referencias-visuais/stitch/imagens/17-modelo-pastas.png`;
+- ajuste de espacamento entre cards/boxes;
+- ajuste do botao `Salvar Alteracoes`;
+- ajuste do bloco `Pre-visualizacao do Caminho`;
+- revisao de responsividade das paginas de Configuracoes;
 - navegacao secundaria consistente nas telas de Configuracoes;
 - item `Geral` ativo em `/configuracoes`;
 - item `Caminhos` ativo em `/configuracoes/caminhos`;
 - item `Aparencia` ativo em `/configuracoes/aparencia`;
-- titulo, descricao, navegacao e conteudo alinhados entre as paginas de Configuracoes;
+- item `Modelo de Pastas` ativo em `/configuracoes/modelo-pastas`;
 - tudo visual/mockado;
-- nenhuma preferencia real;
+- nenhuma criacao real de pastas;
 - nenhuma persistencia;
 - nenhuma reintroducao das areas removidas;
 - preservacao das paginas mantidas;
@@ -135,11 +139,13 @@ Implementado:
 - tela Configuracoes Gerais aprovada;
 - tela Configuracoes de Caminhos aprovada;
 - tela Configuracoes de Aparencia aprovada;
+- tela Modelo de Pastas aprovada;
 - rota `/favoritos`;
 - rota `/busca`;
 - rota `/configuracoes`;
 - rota `/configuracoes/caminhos`;
 - rota `/configuracoes/aparencia`;
+- rota `/configuracoes/modelo-pastas`;
 - sidebar com Favoritos navegando para `/favoritos`;
 - sidebar com Busca navegando para `/busca`;
 - sidebar com Configuracoes navegando para `/configuracoes`;
@@ -151,7 +157,10 @@ Implementado:
 - Configuracoes Gerais visual/mockada com composicao fiel ao Stitch, navegacao secundaria, paineis de caminhos, rede, aparencia e programas padrao;
 - Configuracoes de Caminhos visual/mockada com navegacao secundaria corrigida, diretorios principais e descoberta de rede;
 - Configuracoes de Aparencia visual/mockada com selecao de tema, densidade da interface, cor de destaque e acoes visuais;
-- layout padronizado entre Configuracoes Gerais, Configuracoes de Caminhos e Configuracoes de Aparencia;
+- layout padronizado entre Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia e Modelo de Pastas;
+- navegacao secundaria de Configuracoes com `Modelo de Pastas` apontando para `/configuracoes/modelo-pastas`;
+- tela Modelo de Pastas visual/mockada com cards `Colecao` e `Modelo`, pre-visualizacao do caminho e acao `Salvar Alteracoes`;
+- responsividade revisada nas paginas de Configuracoes;
 - navegacao do card Cthulhu Idol para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
 - sidebar com Models ativo nas rotas de modelos;
 - hover global de cards clicaveis;
@@ -197,6 +206,7 @@ Implementacao:
 - `src/blueatelier.app/Components/Pages/Configuracoes.razor`
 - `src/blueatelier.app/Components/Pages/ConfiguracoesCaminhos.razor`
 - `src/blueatelier.app/Components/Pages/ConfiguracoesAparencia.razor`
+- `src/blueatelier.app/Components/Pages/ConfiguracoesModeloPastas.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
 
 Documentacao:
@@ -206,6 +216,7 @@ Documentacao:
 - `docs/38-configuracoes-gerais.md`
 - `docs/39-configuracoes-caminhos.md`
 - `docs/40-configuracoes-aparencia.md`
+- `docs/41-modelo-pastas.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -213,25 +224,31 @@ Documentacao:
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- `referencias-visuais/stitch/html/16-configuracoes-aparencia.html` foi usado como referencia.
-- `referencias-visuais/stitch/imagens/16-configuracoes-aparencia.png` foi usado como referencia visual.
+- `referencias-visuais/stitch/html/17-modelo-pastas.html` foi usado como referencia.
+- `referencias-visuais/stitch/imagens/17-modelo-pastas.png` foi usado como referencia visual.
 - `/configuracoes` existe como rota.
 - `/configuracoes/caminhos` existe como rota.
 - `/configuracoes/aparencia` existe como rota.
+- `/configuracoes/modelo-pastas` existe como rota.
 - A sidebar navega para `/configuracoes`.
 - A topbar reconhece rotas iniciadas por `configuracoes` sem reintroduzir logicas antigas.
 - A tela Configuracoes Gerais abre corretamente.
 - A tela Configuracoes de Caminhos abre corretamente.
 - A tela Configuracoes de Aparencia abre corretamente.
+- A tela Modelo de Pastas abre corretamente.
 - A navegacao secundaria marca `Geral` em `/configuracoes`.
 - A navegacao secundaria marca `Caminhos` em `/configuracoes/caminhos`.
 - A navegacao secundaria marca `Aparencia` em `/configuracoes/aparencia`.
+- A navegacao secundaria marca `Modelo de Pastas` em `/configuracoes/modelo-pastas`.
 - A navegacao secundaria esta padronizada nas telas de Configuracoes.
-- Titulo, descricao, navegacao e conteudo principal estao alinhados entre as paginas de Configuracoes.
-- Os temas, swatches, controles de densidade e acoes da tela Aparencia sao apenas visuais/mockados.
-- Nenhuma configuracao real foi implementada.
-- Nenhum salvamento real foi implementado.
-- Nenhuma aplicacao real de tema foi implementada.
+- Os cards `Colecao` e `Modelo` da tela Modelo de Pastas tem espacamento adequado.
+- O bloco `Pre-visualizacao do Caminho` esta alinhado e com espacamento correto.
+- O botao `Salvar Alteracoes` esta integrado ao layout.
+- A responsividade de `/configuracoes`, `/configuracoes/caminhos`, `/configuracoes/aparencia` e `/configuracoes/modelo-pastas` foi revisada.
+- Textos longos e caminhos se comportam corretamente nas paginas de Configuracoes.
+- Nenhuma criacao real de pastas foi implementada.
+- Nenhuma leitura real de diretorios foi implementada.
+- Nenhuma gravacao real de configuracao foi implementada.
 - `/favoritos` permanece preservada.
 - `/busca` permanece preservada.
 - A barra de links favoritos permanece preservada.
@@ -259,10 +276,10 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Implementar Modelo de Pastas com base em:
+Implementar Backup/Dados com base em:
 
 ```txt
-referencias-visuais/stitch/html/17-modelo-pastas.html
+referencias-visuais/stitch/html/18-backup-dados.html
 ```
 
-A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

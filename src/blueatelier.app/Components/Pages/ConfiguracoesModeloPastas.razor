@@ -1,0 +1,115 @@
+@page "/configuracoes/modelo-pastas"
+
+<section class="settings-page settings-module-page settings-stitch-page settings-folder-template-page" aria-labelledby="folder-template-title">
+    <header class="settings-header settings-module-header settings-stitch-header">
+        <h1 id="folder-template-title">Modelo de Pastas</h1>
+        <p>Configure a estrutura de diretorios padrao para organizar seus arquivos de impressao 3D.</p>
+    </header>
+
+    <div class="settings-layout settings-module-layout settings-stitch-layout">
+        <nav class="settings-secondary-nav settings-stitch-nav" aria-label="Categorias de configuracoes">
+            @foreach (var item in Categories)
+            {
+                @if (item.Href is null)
+                {
+                    <button class="settings-stitch-nav-item @(item.IsActive ? "settings-stitch-nav-item-active" : null)"
+                            type="button"
+                            aria-pressed="@item.IsActive">
+                        @item.Label
+                    </button>
+                }
+                else
+                {
+                    <a class="settings-stitch-nav-item @(item.IsActive ? "settings-stitch-nav-item-active" : null)"
+                       href="@item.Href"
+                       aria-current="@(item.IsActive ? "page" : null)">
+                        @item.Label
+                    </a>
+                }
+            }
+        </nav>
+
+        <main class="settings-content settings-module-content settings-folder-template-content" aria-label="Modelo de pastas mockado">
+            <div class="settings-folder-template-canvas">
+                <div class="settings-folder-template-grid">
+                    @foreach (var template in Templates)
+                    {
+                        <section class="settings-folder-template-card" aria-labelledby="@template.TitleId">
+                            <div class="settings-folder-template-card-header">
+                                <h2 id="@template.TitleId">
+                                    <span class="settings-folder-template-title-icon" aria-hidden="true">
+                                        <AppIcon Name="@template.Icon" />
+                                    </span>
+                                    @template.Title
+                                </h2>
+
+                                <button type="button" title="Editar modelo de @template.Title" aria-label="Editar modelo de @template.Title">
+                                    <AppIcon Name="edit" />
+                                </button>
+                            </div>
+
+                            <div class="settings-folder-tree" aria-label="Estrutura de pastas para @template.Title">
+                                <div class="settings-folder-tree-root">
+                                    <AppIcon Name="folder" />
+                                    <span>@template.Root</span>
+                                </div>
+
+                                <div class="settings-folder-tree-children">
+                                    @foreach (var child in template.Children)
+                                    {
+                                        <div class="settings-folder-tree-child">
+                                            <AppIcon Name="folder" />
+                                            <span>@child</span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </section>
+                    }
+                </div>
+
+                <section class="settings-folder-template-preview" aria-labelledby="folder-template-preview-title">
+                    <h2 id="folder-template-preview-title">Pre-visualizacao do Caminho</h2>
+
+                    <div class="settings-folder-template-path" aria-label="Pre-visualizacao do caminho final">
+                        <span>/</span>
+                        <span>3D_Prints</span>
+                        <span>/</span>
+                        <span>Fantasy_Miniatures</span>
+                        <span>/</span>
+                        <strong>Guerreiro_Elfo</strong>
+                        <span>/</span>
+                        <span>Arquivos_STL</span>
+                        <span>/</span>
+                    </div>
+                </section>
+
+                <footer class="settings-folder-template-actions" aria-label="Acoes mockadas do modelo de pastas">
+                    <button class="settings-folder-template-save" type="button">Salvar Alteracoes</button>
+                </footer>
+            </div>
+        </main>
+    </div>
+</section>
+
+@code {
+    private static readonly SettingsCategory[] Categories =
+    [
+        new("Geral", false, "/configuracoes"),
+        new("Caminhos", false, "/configuracoes/caminhos"),
+        new("Aparencia", false, "/configuracoes/aparencia"),
+        new("Backup", false, null),
+        new("Modelo de Pastas", true, "/configuracoes/modelo-pastas"),
+        new("Dados do App", false, null)
+    ];
+
+    private static readonly FolderTemplate[] Templates =
+    [
+        new("Colecao", "folder-template-collection-title", "collections", "{Nome da Colecao}", ["Imagens", "Manuais", "Modelos Base"]),
+        new("Modelo", "folder-template-model-title", "models", "{Nome do Modelo}", ["Arquivos STL", "Arquivos Suportados", "Fotos"])
+    ];
+
+    private sealed record SettingsCategory(string Label, bool IsActive, string? Href);
+
+    private sealed record FolderTemplate(string Title, string TitleId, string Icon, string Root, string[] Children);
+}

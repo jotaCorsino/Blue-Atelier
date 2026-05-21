@@ -59,7 +59,8 @@ A navegacao secundaria foi padronizada para evitar ambiguidade:
 - `Geral` aponta para `/configuracoes`;
 - `Caminhos` aponta para `/configuracoes/caminhos`;
 - `Aparencia` aponta para `/configuracoes/aparencia`;
-- `Backup`, `Modelo de Pastas` e `Dados do App` permanecem como itens visuais/mockados ou futuros, sem rota criada nesta etapa.
+- `Backup` e `Dados do App` permanecem como itens visuais/mockados ou futuros;
+- `Modelo de Pastas` aponta para `/configuracoes/modelo-pastas`.
 
 Em `/configuracoes`, o item ativo e `Geral`.
 
@@ -73,6 +74,8 @@ Posteriormente, o modulo de Configuracoes foi padronizado para usar o mesmo esqu
 - item ativo definido por rota.
 
 Com essa padronizacao, o botao de retorno foi removido da tela de caminhos para manter o eixo do titulo, da descricao, da navegacao secundaria e do conteudo principal alinhado com `/configuracoes` e `/configuracoes/aparencia`.
+
+A responsividade do modulo de Configuracoes foi revisada depois da implementacao de Modelo de Pastas, mantendo a navegacao secundaria legivel e os cards/caminhos adaptaveis em telas menores.
 
 ## correcao da duplicidade
 
