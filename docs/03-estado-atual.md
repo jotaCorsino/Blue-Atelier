@@ -30,7 +30,7 @@ Tambem existe um padrao visual reutilizavel para estados do sistema, baseado na 
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
-A fase funcional foi iniciada e o Bloco 1 foi consolidado com foco em arquitetura funcional minima. Essa etapa criou base de dominio e contratos sem alterar o visual aprovado e sem implementar persistencia.
+A fase funcional avancou e o Bloco 2 foi consolidado com a base inicial de banco local em infraestrutura. Essa etapa adicionou EF Core, SQLite, `DbContext`, migration inicial, seed minimo e testes de persistencia, sem alterar o visual aprovado e sem integrar as telas ao banco.
 
 ## repositorio remoto
 
@@ -40,18 +40,20 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou o Bloco 1 da fase funcional em modo arquitetural:
+A ultima tarefa concluida consolidou o Bloco 2 da fase funcional com banco local:
 
-- criacao de entidades simples de dominio;
-- criacao de enums basicos;
-- criacao de contratos/interfaces de repositorio;
-- criacao de testes unitarios simples para entidades do dominio;
-- criacao do documento `docs/46-bloco-1-arquitetura-funcional.md`;
-- aprovacao do Bloco 1 pelo usuario;
+- adicao de EF Core e SQLite ao projeto `BlueAtelier.Infrastructure`;
+- criacao do `BlueAtelierDbContext`;
+- mapeamento das entidades do dominio com Fluent API;
+- criacao da migration inicial `InitialCreate`;
+- criacao de seed inicial minimo e idempotente;
+- criacao de testes basicos de persistencia SQLite;
+- criacao do documento `docs/47-bloco-2-banco-local.md`;
+- aprovacao do Bloco 2 pelo usuario;
 - nenhuma tela alterada;
 - nenhum CSS visual alterado;
-- nenhuma funcionalidade implementada;
-- nenhum banco, EF Core, SQLite, `DbContext` ou migration criado;
+- nenhuma integracao visual implementada;
+- nenhuma substituicao dos mocks nas telas;
 - nenhuma reintroducao das areas removidas.
 
 ## decisoes ja tomadas
@@ -126,6 +128,12 @@ Implementado:
 - entidades base de dominio em `src/blueatelier.domain/Entidades`;
 - enums base de dominio em `src/blueatelier.domain/enums`;
 - contratos de repositorio em `src/blueatelier.domain/Contratos`;
+- base inicial de banco local em `src/blueatelier.infrastructure/Persistencia`;
+- EF Core e SQLite no projeto `BlueAtelier.Infrastructure`;
+- `BlueAtelierDbContext`;
+- migration inicial `InitialCreate`;
+- seed inicial minimo em `BlueAtelierSeed`;
+- testes de persistencia SQLite;
 - tokens e temas CSS em `wwwroot/css/`;
 - Home aprovada e com cards de colecao navegaveis;
 - tela de Colecoes aprovada;
@@ -194,31 +202,28 @@ Removido do estado atual:
 
 Ainda nao implementado:
 
-- SQLite;
-- EF Core;
-- migrations;
+- migrations futuras alem da inicial;
 - servicos reais;
 - sistema de arquivos real;
 - busca real;
 - filtros reais persistidos;
 - configuracoes reais;
 - edicao real de colecoes, modelos ou cards;
-- persistencia real.
+- integracao das telas com persistencia real.
 
 ## arquivos alterados ou criados na ultima tarefa
 
 Implementacao:
 
-- entidades de dominio em `src/blueatelier.domain/Entidades`;
-- enums de dominio em `src/blueatelier.domain/enums`;
-- contratos de repositorio em `src/blueatelier.domain/Contratos`;
-- testes de dominio em `tests/blueatelier.tests/domain`.
+- pacotes EF Core/SQLite em `src/blueatelier.infrastructure/BlueAtelier.Infrastructure.csproj`;
+- persistencia em `src/blueatelier.infrastructure/Persistencia`;
+- testes de persistencia em `tests/blueatelier.tests/infrastructure`.
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/46-bloco-1-arquitetura-funcional.md`
+- `docs/47-bloco-2-banco-local.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -226,12 +231,13 @@ Documentacao:
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- O Bloco 1 foi implementado sem integracao visual.
-- As entidades base de dominio foram criadas no projeto `BlueAtelier.Domain`.
-- Os enums base foram criados sem dependencia de banco.
-- Os contratos de repositorio foram criados sem implementacao concreta.
-- Testes simples de dominio foram adicionados em `tests/blueatelier.tests/domain/EntidadesDominioTests.cs`.
-- Nenhum pacote novo foi instalado.
+- O Bloco 2 foi implementado sem integracao visual.
+- Os pacotes EF Core/SQLite foram adicionados somente ao projeto `BlueAtelier.Infrastructure`.
+- O `BlueAtelierDbContext` foi criado em infraestrutura.
+- As entidades do dominio foram mapeadas por Fluent API, sem atributos EF nas entidades.
+- A migration inicial `InitialCreate` foi criada.
+- O seed inicial minimo foi criado e testado como idempotente.
+- Testes de persistencia SQLite foram adicionados em `tests/blueatelier.tests/infrastructure/BlueAtelierDbContextTests.cs`.
 - A sidebar permanece preservada.
 - A topbar permanece preservada.
 - `/configuracoes` existe como rota.
@@ -255,6 +261,8 @@ Documentacao:
 - O item `Dados do App` nao aponta para `/configuracoes/backup`.
 - A responsividade de `/configuracoes`, `/configuracoes/caminhos`, `/configuracoes/aparencia`, `/configuracoes/modelo-pastas` e `/configuracoes/backup` permanece preservada.
 - Nenhuma tela aprovada foi redesenhada.
+- Nenhuma tela foi integrada ao banco.
+- Os mocks das telas permanecem intactos.
 - Nenhuma criacao real de pastas foi implementada.
 - Nenhuma leitura real de diretorios foi implementada.
 - Nenhuma gravacao real de configuracao foi implementada.
@@ -279,12 +287,9 @@ Documentacao:
 - O CSS nao mantem blocos grandes mortos dessas paginas.
 - O Detalhe do Modelo ainda possui `Model Info`.
 - O Detalhe do Modelo ainda possui lista simples de materiais usados.
-- Nenhuma funcionalidade real foi implementada.
-- Nenhuma persistencia real foi implementada.
-- Nenhum banco SQLite foi criado.
-- Nenhum EF Core foi implementado.
-- Nenhum `DbContext` foi criado.
-- Nenhuma migration foi criada.
+- Nenhuma funcionalidade real de UI foi implementada.
+- Nenhum CRUD visual foi implementado.
+- Nenhum repositorio concreto foi implementado.
 - Nenhum servico real foi implementado.
 - Nenhum CDN, Tailwind, Bootstrap ou biblioteca externa foi usado.
 - Nenhuma tela aprovada foi alterada.
@@ -295,6 +300,6 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Iniciar o Bloco 2 - Banco local, somente apos autorizacao explicita do usuario.
+Iniciar o Bloco 3 - Colecoes, somente apos autorizacao explicita do usuario.
 
-O Bloco 2 deve planejar SQLite, EF Core, `DbContext`, migrations e seed inicial de forma progressiva, sem alterar o visual aprovado. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+O Bloco 3 deve conectar a tela de Colecoes aos dados reais de forma progressiva, sem redesenhar a interface. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

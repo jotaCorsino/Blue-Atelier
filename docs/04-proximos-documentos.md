@@ -232,6 +232,12 @@ Arquivo: `docs/46-bloco-1-arquitetura-funcional.md`
 
 Objetivo: registrar a consolidacao inicial da fase funcional com entidades simples de dominio, enums, contratos de repositorio e testes basicos, sem banco, EF Core, SQLite, migrations, persistencia ou integracao visual.
 
+### 39. bloco 2 - banco local
+
+Arquivo: `docs/47-bloco-2-banco-local.md`
+
+Objetivo: registrar a consolidacao da base inicial de banco local com EF Core, SQLite, `DbContext`, migration inicial, seed minimo e testes de persistencia, sem integracao visual e sem substituir mocks nas telas.
+
 ## documentos substituidos ou removidos
 
 Os documentos abaixo foram removidos porque descreviam areas que sairam do escopo atual:
@@ -290,14 +296,15 @@ Documentos criados nesta base:
 - `docs/44-fechamento-fase-visual.md`
 - `docs/45-plano-fase-funcional.md`
 - `docs/46-bloco-1-arquitetura-funcional.md`
+- `docs/47-bloco-2-banco-local.md`
 
-O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada. O documento `docs/38-configuracoes-gerais.md` registra a tela Configuracoes Gerais visual/mockada. O documento `docs/39-configuracoes-caminhos.md` registra a tela Configuracoes de Caminhos visual/mockada. O documento `docs/40-configuracoes-aparencia.md` registra a tela Configuracoes de Aparencia e a padronizacao visual do modulo de Configuracoes. O documento `docs/41-modelo-pastas.md` registra a tela Modelo de Pastas e os ajustes de responsividade do modulo de Configuracoes. O documento `docs/42-backup-dados.md` registra a tela Backup/Dados visual/mockada. O documento `docs/43-estados-sistema.md` registra a referencia 19 como padrao reutilizavel de estados do sistema, nao como pagina. O documento `docs/44-fechamento-fase-visual.md` registra o encerramento da fase visual e as correcoes comportamentais aprovadas, incluindo o menu de contexto de Favoritos. O documento `docs/45-plano-fase-funcional.md` registra o plano inicial da fase funcional. O documento `docs/46-bloco-1-arquitetura-funcional.md` registra a consolidacao arquitetural inicial da fase funcional sem integracao visual e sem persistencia.
+O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada. O documento `docs/38-configuracoes-gerais.md` registra a tela Configuracoes Gerais visual/mockada. O documento `docs/39-configuracoes-caminhos.md` registra a tela Configuracoes de Caminhos visual/mockada. O documento `docs/40-configuracoes-aparencia.md` registra a tela Configuracoes de Aparencia e a padronizacao visual do modulo de Configuracoes. O documento `docs/41-modelo-pastas.md` registra a tela Modelo de Pastas e os ajustes de responsividade do modulo de Configuracoes. O documento `docs/42-backup-dados.md` registra a tela Backup/Dados visual/mockada. O documento `docs/43-estados-sistema.md` registra a referencia 19 como padrao reutilizavel de estados do sistema, nao como pagina. O documento `docs/44-fechamento-fase-visual.md` registra o encerramento da fase visual e as correcoes comportamentais aprovadas, incluindo o menu de contexto de Favoritos. O documento `docs/45-plano-fase-funcional.md` registra o plano inicial da fase funcional. O documento `docs/46-bloco-1-arquitetura-funcional.md` registra a consolidacao arquitetural inicial da fase funcional sem integracao visual e sem persistencia. O documento `docs/47-bloco-2-banco-local.md` registra a consolidacao da base inicial de banco local sem integracao visual.
 
 ## proxima etapa sugerida
 
-Iniciar o Bloco 2 - Banco local, somente apos aprovacao do usuario.
+Iniciar o Bloco 3 - Colecoes, somente apos aprovacao do usuario.
 
-O Bloco 2 deve tratar de SQLite, EF Core, `DbContext`, migrations, seed inicial e estrategia de armazenamento local de forma progressiva, sem alterar o visual aprovado.
+O Bloco 3 deve conectar Colecoes aos dados reais de forma progressiva, sem alterar o visual aprovado.
 
 Essa proxima etapa deve usar como base:
 
@@ -334,5 +341,6 @@ Essa proxima etapa deve usar como base:
 - `docs/44-fechamento-fase-visual.md`
 - `docs/45-plano-fase-funcional.md`
 - `docs/46-bloco-1-arquitetura-funcional.md`
+- `docs/47-bloco-2-banco-local.md`
 
 Nas proximas fases, o Codex deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. O Codex nao pode reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
