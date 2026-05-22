@@ -165,6 +165,121 @@ Ainda nao foi implementado:
 - leitura real de arquivos;
 - escrita real de arquivos.
 
+## recorte 2 - detalhe da colecao por slug
+
+O Recorte 2 foi revisado e aprovado pelo usuario.
+
+### objetivo
+
+O Recorte 2 conecta a tela de Detalhe da Colecao aos dados reais da colecao pelo `slug`, preservando o visual aprovado.
+
+Este recorte implementa apenas:
+
+- busca real de colecao por slug;
+- modelo de aplicacao para detalhe;
+- metodo de detalhe no servico de Colecoes;
+- conexao da rota `/colecoes/{slug}` ao servico;
+- estado simples para colecao nao encontrada;
+- testes de servico para detalhe existente e slug inexistente.
+
+### arquivos criados
+
+Foi criado:
+
+- `src/blueatelier.application/Modelos/ColecaoDetalhe.cs`.
+
+### arquivos alterados
+
+Foram alterados:
+
+- `src/blueatelier.application/Contratos/IColecaoServico.cs`;
+- `src/blueatelier.application/Servicos/ColecaoServico.cs`;
+- `src/blueatelier.app/Components/Pages/DetalheColecao.razor`;
+- `tests/blueatelier.tests/infrastructure/ColecaoPersistenciaTests.cs`;
+- `docs/03-estado-atual.md`;
+- `docs/04-proximos-documentos.md`;
+- `docs/48-bloco-3-colecoes.md`.
+
+Nenhum arquivo em `src/blueatelier.app/wwwroot/css` foi alterado.
+
+### metodo de detalhe por slug
+
+O contrato `IColecaoServico` passou a expor:
+
+```txt
+ObterDetalhePorSlugAsync
+```
+
+O metodo usa `IColecaoRepositorio.ObterPorSlugAsync`, retorna `ColecaoDetalhe` e nao expoe entidade de dominio diretamente para Razor Components.
+
+### tela de detalhe conectada ao banco
+
+A tela `DetalheColecao.razor` passou a usar:
+
+```txt
+@page "/colecoes/{Slug}"
+```
+
+A tela carrega a colecao real pelo `IColecaoServico` e substitui dados basicos por dados persistidos:
+
+- nome;
+- slug;
+- descricao;
+- status arquivado quando aplicavel;
+- data de atualizacao como parte do meta visual.
+
+Foram preservados:
+
+- markup principal;
+- classes CSS existentes;
+- cabecalho visual;
+- hero;
+- grid de modelos;
+- cards;
+- aside de links/referencias/notas;
+- botoes visuais;
+- navegacao de retorno para `/colecoes`.
+
+### estado de colecao nao encontrada
+
+Quando o slug nao existe no banco local, a tela exibe um `AppStateBlock` simples com mensagem curta e caminho de retorno visual para Colecoes.
+
+Nenhuma rota nova foi criada.
+
+### o que continua mockado no detalhe
+
+Continuam mockados:
+
+- modelos internos da colecao;
+- contagem real de modelos;
+- links laterais;
+- galeria/referencias laterais;
+- notas;
+- botoes de editar colecao, abrir pasta e novo modelo;
+- tags visuais;
+- arquivos ou caminhos reais.
+
+### confirmacoes do recorte 2
+
+Confirmado:
+
+- modelos da colecao ainda nao foram integrados ao banco;
+- nao houve CRUD visual;
+- nao houve formulario;
+- nao houve modal;
+- nao houve edicao real pela UI;
+- nao houve exclusao real pela UI;
+- nao houve alteracao de CSS visual;
+- nenhuma area removida foi reintroduzida.
+
+### testes adicionados
+
+Foram adicionados testes para:
+
+- `ColecaoServico.ObterDetalhePorSlugAsync` retornar `ColecaoDetalhe`;
+- `ColecaoServico.ObterDetalhePorSlugAsync` retornar `null` para slug inexistente;
+- busca por slug usando dados persistidos.
+
 ## preservacao visual
 
 Confirmado neste recorte:
@@ -216,4 +331,4 @@ Resultado observado:
 
 ## proxima etapa sugerida
 
-Apos revisao deste recorte, a proxima etapa sugerida e continuar o Bloco 3 com um recorte pequeno para detalhe de colecao ou criacao/edicao de colecoes, sempre preservando o visual aprovado e sem implementar CRUD visual amplo de uma vez.
+Apos revisao do Recorte 2, a proxima etapa sugerida e continuar o Bloco 3 com um recorte pequeno para integrar modelos da colecao ou planejar criacao/edicao de colecoes, sempre preservando o visual aprovado e sem implementar CRUD visual amplo de uma vez.

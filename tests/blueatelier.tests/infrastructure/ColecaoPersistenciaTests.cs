@@ -95,6 +95,74 @@ public sealed class ColecaoPersistenciaTests
     }
 
     [Fact]
+    public async Task Servico_DeveRetornarDetalhePorSlug()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                contexto.Colecoes.Add(new Colecao
+                {
+                    Nome = "Eldritch Horrors",
+                    Slug = "eldritch-horrors",
+                    Descricao = "Detalhe persistido para a colecao",
+                    ImagemCapa = "cover-eldritch"
+                });
+
+                await contexto.SaveChangesAsync();
+            }
+
+            var repositorio = new ColecaoRepositorio(new TestDbContextFactory(opcoes));
+            var servico = new ColecaoServico(repositorio);
+
+            var detalhe = await servico.ObterDetalhePorSlugAsync("eldritch-horrors");
+
+            Assert.NotNull(detalhe);
+            Assert.Equal("Eldritch Horrors", detalhe.Nome);
+            Assert.Equal("eldritch-horrors", detalhe.Slug);
+            Assert.Equal("Detalhe persistido para a colecao", detalhe.Descricao);
+            Assert.Equal("cover-eldritch", detalhe.ImagemCapa);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarNullQuandoSlugNaoExiste()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                await BlueAtelierSeed.AplicarAsync(contexto);
+            }
+
+            var repositorio = new ColecaoRepositorio(new TestDbContextFactory(opcoes));
+            var servico = new ColecaoServico(repositorio);
+
+            var detalhe = await servico.ObterDetalhePorSlugAsync("colecao-inexistente");
+
+            Assert.Null(detalhe);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
     public async Task Inicializador_DeveAplicarMigrationESeedSemDuplicarColecoes()
     {
         var caminhoBanco = CriarCaminhoBancoTemporario();

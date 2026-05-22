@@ -1,162 +1,226 @@
-@page "/colecoes/eldritch-horrors"
+@page "/colecoes/{Slug}"
+@using BlueAtelier.Application.Contratos
+@using BlueAtelier.Application.Modelos
+@inject IColecaoServico ColecaoServico
 
-<section class="collection-detail-page" aria-labelledby="collection-detail-title">
-    <a class="collection-detail-back" href="/colecoes">
-        <span aria-hidden="true">←</span>
-        <span>Back to Collections</span>
-    </a>
+@if (IsLoading)
+{
+    <section class="collection-detail-page" aria-labelledby="collection-detail-loading-title">
+        <AppStateBlock
+            Variant="loading"
+            Title="Carregando coleção"
+            Description="Buscando os dados locais da coleção."
+            IsCompact="true" />
+    </section>
+}
+else if (Collection is null)
+{
+    <section class="collection-detail-page" aria-labelledby="collection-detail-not-found-title">
+        <a class="collection-detail-back" href="/colecoes">
+            <span aria-hidden="true">←</span>
+            <span>Back to Collections</span>
+        </a>
 
-    <section class="collection-detail-hero" aria-label="Resumo da coleção Eldritch Horrors">
-        <div class="collection-detail-banner" aria-hidden="true">
-            <div class="collection-preview-window">
-                <span class="collection-preview-dot"></span>
-                <span class="collection-preview-dot"></span>
-                <span class="collection-preview-dot"></span>
-            </div>
+        <AppStateBlock
+            Variant="unavailable"
+            Title="Coleção não encontrada"
+            Description="Esta coleção não existe no banco local atual."
+            ActionLabel="Voltar para Coleções" />
+    </section>
+}
+else
+{
+    <section class="collection-detail-page" aria-labelledby="collection-detail-title">
+        <a class="collection-detail-back" href="/colecoes">
+            <span aria-hidden="true">←</span>
+            <span>Back to Collections</span>
+        </a>
 
-            <div class="collection-preview-layout">
-                <div class="collection-preview-sidebar">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+        <section class="collection-detail-hero" aria-label="@($"Resumo da coleção {Collection.Nome}")">
+            <div class="collection-detail-banner" aria-hidden="true">
+                <div class="collection-preview-window">
+                    <span class="collection-preview-dot"></span>
+                    <span class="collection-preview-dot"></span>
+                    <span class="collection-preview-dot"></span>
                 </div>
 
-                <div class="collection-preview-main">
-                    <div class="collection-preview-title"></div>
-                    <div class="collection-preview-grid">
-                        @foreach (var preview in PreviewBlocks)
-                        {
-                            <span class="collection-preview-card preview-@preview"></span>
-                        }
+                <div class="collection-preview-layout">
+                    <div class="collection-preview-sidebar">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <div class="collection-preview-main">
+                        <div class="collection-preview-title"></div>
+                        <div class="collection-preview-grid">
+                            @foreach (var preview in PreviewBlocks)
+                            {
+                                <span class="collection-preview-card preview-@preview"></span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="collection-preview-panel">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
                 </div>
+            </div>
 
-                <div class="collection-preview-panel">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+            <div class="collection-detail-info">
+                <div class="collection-detail-title-row">
+                    <h1 id="collection-detail-title">@Collection.Nome</h1>
+                    <span class="collection-detail-status">@CollectionStatus</span>
                 </div>
-            </div>
-        </div>
 
-        <div class="collection-detail-info">
-            <div class="collection-detail-title-row">
-                <h1 id="collection-detail-title">Eldritch Horrors</h1>
-                <span class="collection-detail-status">In Production</span>
-            </div>
+                <div class="collection-detail-tags" aria-label="Tags da coleção">
+                    @foreach (var tag in CollectionTags)
+                    {
+                        <span>@tag</span>
+                    }
+                </div>
 
-            <div class="collection-detail-tags" aria-label="Tags da coleção">
-                @foreach (var tag in Tags)
-                {
-                    <span>@tag</span>
-                }
-            </div>
+                <p class="collection-detail-description">
+                    @CollectionDescription
+                </p>
 
-            <p class="collection-detail-description">
-                Sombrous creatures, monstrous busts, and miniatures inspired by cosmic horror.
-            </p>
+                <p class="collection-detail-meta">
+                    @CollectionMeta
+                </p>
 
-            <p class="collection-detail-meta">
-                8 models · Updated today · Local folder linked
-            </p>
-
-            <div class="collection-detail-actions" aria-label="Ferramentas visuais da coleção">
-                <AppButton Variant="ghost" Class="collection-detail-action">
-                    <AppIcon Name="edit" />
-                    Editar coleção
-                </AppButton>
-                <AppButton Variant="ghost" Class="collection-detail-action">
-                    <AppIcon Name="folder" />
-                    Open Folder
-                </AppButton>
-                <AppButton Variant="primary" Class="collection-detail-action">
-                    <span aria-hidden="true">+</span>
-                    New Model
-                </AppButton>
-            </div>
-        </div>
-    </section>
-
-    <div class="collection-detail-content">
-        <section class="collection-detail-models" aria-labelledby="collection-models-title">
-            <h2 class="visually-hidden" id="collection-models-title">Models in this collection</h2>
-
-            <div class="collection-detail-model-grid">
-                @foreach (var model in Models)
-                {
-                    <a class="collection-model-card collection-model-card-link"
-                       href="@(model.DetailPath ?? "#")"
-                       @onclick:preventDefault="@(model.DetailPath is null)"
-                       aria-label="@($"Open model {model.Name}")">
-                        <div class="collection-model-cover model-cover-@model.Cover">
-                            <span class="collection-model-shape"></span>
-                            <span class="card-edit-affordance model-edit-affordance">
-                                <AppIcon Name="edit" />
-                                <span>Editar</span>
-                            </span>
-                        </div>
-
-                        <div class="collection-model-body">
-                            <div class="collection-model-title-row">
-                                <h3>@model.Name</h3>
-                                <span class="collection-model-status collection-model-status-@model.StatusTone">@model.Status</span>
-                            </div>
-
-                            <p>@model.Stage</p>
-
-                            <div class="collection-model-progress" aria-label="@($"{model.Name}: {model.Progress}%")">
-                                <span style="@($"width: {model.Progress}%")"></span>
-                            </div>
-                        </div>
-                    </a>
-                }
+                <div class="collection-detail-actions" aria-label="Ferramentas visuais da coleção">
+                    <AppButton Variant="ghost" Class="collection-detail-action">
+                        <AppIcon Name="edit" />
+                        Editar coleção
+                    </AppButton>
+                    <AppButton Variant="ghost" Class="collection-detail-action">
+                        <AppIcon Name="folder" />
+                        Open Folder
+                    </AppButton>
+                    <AppButton Variant="primary" Class="collection-detail-action">
+                        <span aria-hidden="true">+</span>
+                        New Model
+                    </AppButton>
+                </div>
             </div>
         </section>
 
-        <aside class="collection-detail-side" aria-label="Referências da coleção">
-            <section class="collection-side-card" aria-labelledby="collection-links-title">
-                <h2 id="collection-links-title">Links</h2>
-                <ul class="collection-link-list">
-                    @foreach (var link in Links)
-                    {
-                        <li>
-                            <a href="#" @onclick:preventDefault>@link</a>
-                        </li>
-                    }
-                </ul>
-            </section>
+        <div class="collection-detail-content">
+            <section class="collection-detail-models" aria-labelledby="collection-models-title">
+                <h2 class="visually-hidden" id="collection-models-title">Models in this collection</h2>
 
-            <section class="collection-side-card" aria-labelledby="collection-gallery-title">
-                <h2 id="collection-gallery-title">Gallery / References</h2>
-                <div class="collection-reference-grid">
-                    @foreach (var reference in References)
+                <div class="collection-detail-model-grid">
+                    @foreach (var model in Models)
                     {
-                        <span class="collection-reference-thumb reference-@reference" aria-hidden="true"></span>
+                        <a class="collection-model-card collection-model-card-link"
+                           href="@(model.DetailPath ?? "#")"
+                           @onclick:preventDefault="@(model.DetailPath is null)"
+                           aria-label="@($"Open model {model.Name}")">
+                            <div class="collection-model-cover model-cover-@model.Cover">
+                                <span class="collection-model-shape"></span>
+                                <span class="card-edit-affordance model-edit-affordance">
+                                    <AppIcon Name="edit" />
+                                    <span>Editar</span>
+                                </span>
+                            </div>
+
+                            <div class="collection-model-body">
+                                <div class="collection-model-title-row">
+                                    <h3>@model.Name</h3>
+                                    <span class="collection-model-status collection-model-status-@model.StatusTone">@model.Status</span>
+                                </div>
+
+                                <p>@model.Stage</p>
+
+                                <div class="collection-model-progress" aria-label="@($"{model.Name}: {model.Progress}%")">
+                                    <span style="@($"width: {model.Progress}%")"></span>
+                                </div>
+                            </div>
+                        </a>
                     }
-                    <button class="collection-reference-add" type="button" aria-label="Adicionar referência visual">+</button>
                 </div>
             </section>
 
-            <section class="collection-side-card" aria-labelledby="collection-notes-title">
-                <h2 id="collection-notes-title">Notes</h2>
-                <p>
-                    Focus on deep greens and purples for the main Cthulhu piece.
-                    Experiment with oil washes for the cultists.
-                </p>
-            </section>
-        </aside>
-    </div>
-</section>
+            <aside class="collection-detail-side" aria-label="Referências da coleção">
+                <section class="collection-side-card" aria-labelledby="collection-links-title">
+                    <h2 id="collection-links-title">Links</h2>
+                    <ul class="collection-link-list">
+                        @foreach (var link in Links)
+                        {
+                            <li>
+                                <a href="#" @onclick:preventDefault>@link</a>
+                            </li>
+                        }
+                    </ul>
+                </section>
+
+                <section class="collection-side-card" aria-labelledby="collection-gallery-title">
+                    <h2 id="collection-gallery-title">Gallery / References</h2>
+                    <div class="collection-reference-grid">
+                        @foreach (var reference in References)
+                        {
+                            <span class="collection-reference-thumb reference-@reference" aria-hidden="true"></span>
+                        }
+                        <button class="collection-reference-add" type="button" aria-label="Adicionar referência visual">+</button>
+                    </div>
+                </section>
+
+                <section class="collection-side-card" aria-labelledby="collection-notes-title">
+                    <h2 id="collection-notes-title">Notes</h2>
+                    <p>
+                        Focus on deep greens and purples for the main Cthulhu piece.
+                        Experiment with oil washes for the cultists.
+                    </p>
+                </section>
+            </aside>
+        </div>
+    </section>
+}
 
 @code {
-    private static readonly string[] Tags =
-    [
-        "horror",
-        "creatures",
-        "busts",
-        "dark painting"
-    ];
+    [Parameter]
+    public string? Slug { get; set; }
+
+    private bool IsLoading { get; set; } = true;
+
+    private ColecaoDetalhe? Collection { get; set; }
+
+    private string CollectionStatus => Collection?.EstaArquivada == true
+        ? "Archived"
+        : "In Production";
+
+    private string CollectionDescription => string.IsNullOrWhiteSpace(Collection?.Descricao)
+        ? "Sombrous creatures, monstrous busts, and miniatures inspired by cosmic horror."
+        : Collection.Descricao;
+
+    private string CollectionMeta => Collection is null
+        ? string.Empty
+        : $"{CollectionVisual.ModelCount} · {FormatUpdatedAt(Collection.AtualizadoEm)} · Local folder linked";
+
+    private string[] CollectionTags => CollectionVisual.Tags;
+
+    private CollectionVisualMetadata CollectionVisual => Collection is not null
+        && VisualMetadata.TryGetValue(Collection.Slug, out var metadata)
+            ? metadata
+            : DefaultVisualMetadata;
+
+    private static readonly Dictionary<string, CollectionVisualMetadata> VisualMetadata = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["eldritch-horrors"] = new("8 models", ["horror", "creatures", "busts", "dark painting"]),
+        ["sci-fi-marines"] = new("15 models", ["sci-fi", "stl", "marines", "armor"]),
+        ["fantasy-adventurers"] = new("5 models", ["fantasy", "painting", "party", "characters"]),
+        ["dragon-busts"] = new("2 models", ["busts", "creatures", "scale", "detail"]),
+        ["tavern-dioramas"] = new("1 model", ["scenario", "diorama", "props", "wood"]),
+        ["ancient-ruins"] = new("10 models", ["scenario", "bases", "stone", "ruins"]),
+        ["painting-studies"] = new("6 models", ["study", "colors", "textures", "paint"]),
+        ["miniature-bases"] = new("18 models", ["bases", "texture", "archive", "terrain"])
+    };
+
+    private static readonly CollectionVisualMetadata DefaultVisualMetadata =
+        new("0 models", ["collection", "atelier", "mock", "local"]);
 
     private static readonly string[] PreviewBlocks =
     [
@@ -193,6 +257,47 @@
         "glow",
         "stone"
     ];
+
+    protected override async Task OnParametersSetAsync()
+    {
+        IsLoading = true;
+        Collection = await ColecaoServico.ObterDetalhePorSlugAsync(Slug ?? string.Empty);
+        IsLoading = false;
+    }
+
+    private static string FormatUpdatedAt(DateTimeOffset updatedAt)
+    {
+        var elapsed = DateTimeOffset.UtcNow - updatedAt.ToUniversalTime();
+
+        if (elapsed < TimeSpan.FromDays(1))
+        {
+            return "Updated today";
+        }
+
+        if (elapsed < TimeSpan.FromDays(2))
+        {
+            return "Updated yesterday";
+        }
+
+        if (elapsed < TimeSpan.FromDays(7))
+        {
+            return $"Updated {Math.Max(1, (int)elapsed.TotalDays)} days ago";
+        }
+
+        if (elapsed < TimeSpan.FromDays(14))
+        {
+            return "Updated 1 week ago";
+        }
+
+        if (elapsed < TimeSpan.FromDays(31))
+        {
+            return $"Updated {Math.Max(2, (int)(elapsed.TotalDays / 7))} weeks ago";
+        }
+
+        return "Updated 1 month ago";
+    }
+
+    private sealed record CollectionVisualMetadata(string ModelCount, string[] Tags);
 
     private sealed record CollectionModel(
         string Name,

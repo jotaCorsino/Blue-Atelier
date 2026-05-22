@@ -34,6 +34,8 @@ A fase funcional avancou e o Bloco 2 foi consolidado com a base inicial de banco
 
 O Bloco 3 foi consolidado no primeiro recorte de Colecoes. A tela `/colecoes` passou a listar dados reais do banco local por meio de repositorio e servico de aplicacao, preservando o visual aprovado e mantendo CRUD visual, filtros reais e detalhe completo fora deste recorte.
 
+O Recorte 2 do Bloco 3 foi consolidado para conectar o Detalhe da Colecao aos dados reais da colecao por slug. A rota `/colecoes/{slug}` carrega dados basicos da colecao pelo servico de aplicacao, enquanto modelos internos, links, referencias e acoes visuais continuam mockados.
+
 ## repositorio remoto
 
 ```txt
@@ -42,18 +44,17 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou o Bloco 3 - Colecoes, recorte 1:
+A ultima tarefa concluida consolidou o Bloco 3 - Colecoes, recorte 2:
 
-- criacao do repositorio concreto `ColecaoRepositorio`;
-- criacao do servico de aplicacao `ColecaoServico`;
-- criacao do modelo de aplicacao `ColecaoResumo`;
-- criacao do inicializador `BlueAtelierBancoInicializador`;
-- registro de infraestrutura e servico no app;
-- ampliacao idempotente do seed de colecoes;
-- conexao da tela `/colecoes` com dados reais do banco local;
-- criacao de testes para repositorio, servico e inicializador;
-- criacao do documento `docs/48-bloco-3-colecoes.md`;
-- preservacao do visual aprovado da tela Colecoes;
+- criacao do modelo de aplicacao `ColecaoDetalhe`;
+- criacao do metodo `ObterDetalhePorSlugAsync` em `IColecaoServico` e `ColecaoServico`;
+- conexao da rota `/colecoes/{slug}` com dados reais basicos da colecao;
+- uso de `AppStateBlock` para colecao nao encontrada;
+- preservacao do visual aprovado da tela Detalhe da Colecao;
+- modelos internos da colecao mantidos mockados;
+- links, referencias, notas e acoes visuais mantidos mockados;
+- criacao de testes para detalhe por slug existente e inexistente;
+- atualizacao do documento `docs/48-bloco-3-colecoes.md`;
 - nenhum CSS visual alterado;
 - nenhum CRUD visual implementado;
 - nenhuma reintroducao das areas removidas.
@@ -139,12 +140,13 @@ Implementado:
 - repositorio concreto `ColecaoRepositorio`;
 - servico de aplicacao `ColecaoServico`;
 - modelo de aplicacao `ColecaoResumo`;
+- modelo de aplicacao `ColecaoDetalhe`;
 - inicializador `BlueAtelierBancoInicializador` para migration e seed;
 - seed de colecoes suficiente para manter a tela `/colecoes` visualmente proxima do estado aprovado;
 - tokens e temas CSS em `wwwroot/css/`;
 - Home aprovada e com cards de colecao navegaveis;
 - tela de Colecoes aprovada e conectada a listagem real do banco local;
-- tela de Detalhe da Colecao aprovada;
+- tela de Detalhe da Colecao aprovada e conectada a dados basicos reais da colecao por slug;
 - tela Modelos em `/modelos` aprovada;
 - tela de Detalhe do Modelo aprovada;
 - tela Galeria do Modelo aprovada;
@@ -217,6 +219,7 @@ Ainda nao implementado:
 - configuracoes reais;
 - edicao real de colecoes, modelos ou cards;
 - CRUD visual de colecoes;
+- integracao real dos modelos no Detalhe da Colecao;
 - integracao das demais telas com persistencia real.
 
 ## arquivos alterados ou criados na ultima tarefa
@@ -243,13 +246,16 @@ Documentacao:
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- O Bloco 3 - Colecoes, recorte 1, foi consolidado.
+- O Bloco 3 - Colecoes, recorte 2, foi consolidado.
 - O repositorio `ColecaoRepositorio` implementa `IColecaoRepositorio`.
 - O servico `ColecaoServico` retorna `ColecaoResumo`, sem expor entidade de dominio para Razor.
+- O servico `ColecaoServico` retorna `ColecaoDetalhe` para detalhe por slug, sem expor entidade de dominio para Razor.
 - O inicializador `BlueAtelierBancoInicializador` executa migration e seed.
 - O seed de colecoes foi ampliado de forma idempotente para manter a tela visualmente preenchida.
 - `/colecoes` lista dados reais do banco local via servico de aplicacao.
+- `/colecoes/{slug}` carrega dados basicos reais da colecao via servico de aplicacao.
 - A navegacao por slug para `Eldritch Horrors` foi preservada.
+- Os modelos internos do Detalhe da Colecao continuam mockados.
 - Nenhum formulario, modal ou CRUD visual foi implementado.
 - Nenhum CSS visual foi alterado.
 - A sidebar permanece preservada.
