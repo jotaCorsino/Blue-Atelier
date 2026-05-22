@@ -4,7 +4,7 @@
 
 O projeto Blue Atelier mudou de direcao e teve o escopo visual atual simplificado.
 
-O app mantem a base .NET MAUI Blazor Hybrid, a fundacao visual aprovada, a paleta clean/azulada e as telas principais de organizacao de colecoes e modelos. As areas de Fila de Impressao, Arquivos Recentes, Materiais e Detalhe do Material foram removidas do escopo atual.
+O app mantem a base .NET MAUI Blazor Hybrid, a fundacao visual aprovada, a paleta clean/azulada e as telas principais de organizacao de colecoes e modelos. A fase visual baseada nas referencias Stitch foi concluida. As areas de Fila de Impressao, Arquivos Recentes, Materiais e Detalhe do Material foram removidas do escopo atual.
 
 Telas mantidas no estado atual:
 
@@ -24,11 +24,13 @@ Telas mantidas no estado atual:
 - Modelo de Pastas;
 - Backup/Dados.
 
-A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
+A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, menu de contexto de Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
 
 Tambem existe um padrao visual reutilizavel para estados do sistema, baseado na referencia Stitch 19. Esse padrao nao e uma tela navegavel e nao cria rota propria.
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
+
+A proxima fase sugerida e funcional, com foco inicial em arquitetura funcional minima e persistencia local, sem alterar o visual aprovado.
 
 ## repositorio remoto
 
@@ -38,23 +40,19 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou o padrao visual reutilizavel de estados do sistema:
+A ultima tarefa concluida consolidou o fechamento documental da fase visual e o plano inicial da fase funcional:
 
-- criacao do componente reutilizavel `AppStateBlock`;
-- uso da referencia `referencias-visuais/stitch/html/19-estados-vazios-erros-offline.html`;
-- uso da imagem `referencias-visuais/stitch/imagens/19-estados-vazios-erros-offline.png`;
-- variantes visuais para vazio, erro, offline, sem resultados, caminho indisponivel, loading, sincronizacao pendente, sucesso, alerta e informacao;
-- estilos CSS reutilizaveis em `app.css`;
-- icones genericos reutilizaveis em `AppIcon`;
-- nenhuma rota nova;
-- nenhuma tela navegavel;
-- nenhuma alteracao na sidebar ou topbar;
-- tudo visual/mockado;
-- nenhuma logica real de erro, offline, retry, loading ou sincronizacao;
-- nenhuma persistencia;
-- nenhuma reintroducao das areas removidas;
-- preservacao das paginas mantidas;
-- aprovacao visual manual pelo usuario.
+- auditoria final da cobertura visual implementada;
+- registro de que a fase visual baseada nas referencias Stitch foi concluida;
+- confirmacao de que a referencia 19 foi tratada como componente reutilizavel, nao como pagina;
+- registro de que a correcao do menu de contexto de Favoritos ja foi consolidada;
+- criacao do documento `docs/44-fechamento-fase-visual.md`;
+- criacao do documento `docs/45-plano-fase-funcional.md`;
+- planejamento da proxima fase funcional com foco inicial em persistencia local;
+- regra explicita de preservacao visual para a proxima fase;
+- nenhuma tela alterada;
+- nenhuma funcionalidade implementada;
+- nenhuma reintroducao das areas removidas.
 
 ## decisoes ja tomadas
 
@@ -155,6 +153,7 @@ Implementado:
 - barra de links favoritos estilo Chrome;
 - pastas e links favoritos mockados;
 - menu de contexto visual/provisorio para a barra de links favoritos;
+- menu de contexto de Favoritos fechando ao clicar fora, preservando cliques internos, troca por outro favorito no botao direito e fechamento ao selecionar uma opcao;
 - busca visual/mockada com campo principal, filtros, sugestoes rapidas, resultados e resumo visual;
 - Configuracoes Gerais visual/mockada com composicao fiel ao Stitch, navegacao secundaria, paineis de caminhos, rede, aparencia e programas padrao;
 - Configuracoes de Caminhos visual/mockada com navegacao secundaria corrigida, diretorios principais e descoberta de rede;
@@ -208,20 +207,14 @@ Ainda nao implementado:
 
 Implementacao:
 
-- `src/blueatelier.app/Components/Shared/AppStateBlock.razor`
-- `src/blueatelier.app/Components/Shared/AppIcon.razor`
-- `src/blueatelier.app/wwwroot/css/app.css`
+- nenhuma alteracao de codigo.
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/38-configuracoes-gerais.md`
-- `docs/39-configuracoes-caminhos.md`
-- `docs/40-configuracoes-aparencia.md`
-- `docs/41-modelo-pastas.md`
-- `docs/42-backup-dados.md`
-- `docs/43-estados-sistema.md`
+- `docs/44-fechamento-fase-visual.md`
+- `docs/45-plano-fase-funcional.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -229,8 +222,10 @@ Documentacao:
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- `referencias-visuais/stitch/html/19-estados-vazios-erros-offline.html` foi usado como referencia.
-- `referencias-visuais/stitch/imagens/19-estados-vazios-erros-offline.png` foi usado como referencia visual.
+- A fase visual baseada nas referencias Stitch foi auditada.
+- A cobertura visual implementada foi registrada em `docs/44-fechamento-fase-visual.md`.
+- A proxima fase funcional foi planejada em `docs/45-plano-fase-funcional.md`.
+- A referencia 19 permanece registrada como padrao reutilizavel, nao como tela.
 - O componente `AppStateBlock` existe em `src/blueatelier.app/Components/Shared/AppStateBlock.razor`.
 - O componente compila.
 - O componente possui parametros reutilizaveis como `Variant`, `Title`, `Description`, `Icon`, `ActionLabel`, `SecondaryActionLabel` e `IsCompact`.
@@ -272,6 +267,7 @@ Documentacao:
 - Nenhuma exclusao real de dados foi implementada.
 - Nenhuma logica real de erro, offline, retry, loading ou sincronizacao foi implementada.
 - `/favoritos` permanece preservada.
+- O menu de contexto de Favoritos permanece com fechamento ao clicar fora e sem alteracao visual.
 - `/busca` permanece preservada.
 - A barra de links favoritos permanece preservada.
 - `/fila-impressao` nao existe mais como rota.
@@ -292,12 +288,16 @@ Documentacao:
 - Nenhuma migration foi criada.
 - Nenhum servico real foi implementado.
 - Nenhum CDN, Tailwind, Bootstrap ou biblioteca externa foi usado.
+- Nenhuma tela aprovada foi alterada.
+- Nenhuma funcionalidade real foi implementada nesta auditoria.
 - `dotnet restore BlueAtelier.sln` executado com sucesso.
 - `dotnet build BlueAtelier.sln` executado com sucesso.
 - `dotnet test BlueAtelier.sln --no-build` executado com sucesso.
 
 ## proxima tarefa sugerida
 
-Revisar a documentacao geral, validar a cobertura visual implementada e planejar a proxima fase funcional do Blue Atelier.
+Iniciar o Bloco 1 da fase funcional, somente apos aprovacao do usuario.
+
+O Bloco 1 deve planejar e implementar a arquitetura funcional minima de forma progressiva, sem alterar o visual aprovado.
 
 A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

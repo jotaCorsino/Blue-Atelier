@@ -214,6 +214,18 @@ Arquivo: `docs/43-estados-sistema.md`
 
 Objetivo: registrar o padrao visual reutilizavel de estados do sistema baseado na referencia Stitch `19-estados-vazios-erros-offline.html`, sem criar rota ou tela navegavel.
 
+### 36. fechamento da fase visual
+
+Arquivo: `docs/44-fechamento-fase-visual.md`
+
+Objetivo: registrar a auditoria final da fase visual, as telas implementadas, areas removidas, rotas existentes, padroes consolidados, correcoes comportamentais aprovadas, limitacoes atuais e regra de preservacao visual para a proxima fase.
+
+### 37. plano da fase funcional
+
+Arquivo: `docs/45-plano-fase-funcional.md`
+
+Objetivo: planejar a fase funcional do Blue Atelier em blocos pequenos e progressivos, priorizando arquitetura funcional minima, persistencia local e preservacao do visual aprovado.
+
 ## documentos substituidos ou removidos
 
 Os documentos abaixo foram removidos porque descreviam areas que sairam do escopo atual:
@@ -269,12 +281,16 @@ Documentos criados nesta base:
 - `docs/41-modelo-pastas.md`
 - `docs/42-backup-dados.md`
 - `docs/43-estados-sistema.md`
+- `docs/44-fechamento-fase-visual.md`
+- `docs/45-plano-fase-funcional.md`
 
-O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada. O documento `docs/38-configuracoes-gerais.md` registra a tela Configuracoes Gerais visual/mockada. O documento `docs/39-configuracoes-caminhos.md` registra a tela Configuracoes de Caminhos visual/mockada. O documento `docs/40-configuracoes-aparencia.md` registra a tela Configuracoes de Aparencia e a padronizacao visual do modulo de Configuracoes. O documento `docs/41-modelo-pastas.md` registra a tela Modelo de Pastas e os ajustes de responsividade do modulo de Configuracoes. O documento `docs/42-backup-dados.md` registra a tela Backup/Dados visual/mockada. O documento `docs/43-estados-sistema.md` registra a referencia 19 como padrao reutilizavel de estados do sistema, nao como pagina.
+O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada. O documento `docs/38-configuracoes-gerais.md` registra a tela Configuracoes Gerais visual/mockada. O documento `docs/39-configuracoes-caminhos.md` registra a tela Configuracoes de Caminhos visual/mockada. O documento `docs/40-configuracoes-aparencia.md` registra a tela Configuracoes de Aparencia e a padronizacao visual do modulo de Configuracoes. O documento `docs/41-modelo-pastas.md` registra a tela Modelo de Pastas e os ajustes de responsividade do modulo de Configuracoes. O documento `docs/42-backup-dados.md` registra a tela Backup/Dados visual/mockada. O documento `docs/43-estados-sistema.md` registra a referencia 19 como padrao reutilizavel de estados do sistema, nao como pagina. O documento `docs/44-fechamento-fase-visual.md` registra o encerramento da fase visual e as correcoes comportamentais aprovadas, incluindo o menu de contexto de Favoritos. O documento `docs/45-plano-fase-funcional.md` registra o plano inicial da fase funcional.
 
 ## proxima etapa sugerida
 
-Revisar a documentacao geral, validar a cobertura visual implementada e planejar a proxima fase funcional do Blue Atelier.
+Iniciar o Bloco 1 da fase funcional, somente apos aprovacao do usuario.
+
+O Bloco 1 deve tratar de arquitetura funcional minima, entidades, contratos, servicos, repositorios e estrategia de persistencia local, sem alterar o visual aprovado.
 
 Essa proxima etapa deve usar como base:
 
@@ -308,5 +324,7 @@ Essa proxima etapa deve usar como base:
 - `docs/41-modelo-pastas.md`
 - `docs/42-backup-dados.md`
 - `docs/43-estados-sistema.md`
+- `docs/44-fechamento-fase-visual.md`
+- `docs/45-plano-fase-funcional.md`
 
 Nas proximas fases, o Codex deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. O Codex nao pode reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
