@@ -116,6 +116,9 @@ O menu:
 - usa `@oncontextmenu:preventDefault`;
 - aparece no ponto do clique;
 - tem fundo elevado, sombra sutil, cantos arredondados e hover discreto;
+- fecha automaticamente ao clicar fora dele;
+- permanece aberto ao clicar dentro do proprio menu ate uma opcao ser selecionada;
+- troca para o novo item ao acionar o botao direito em outro favorito;
 - nao executa acoes reais;
 - nao persiste nenhuma alteracao.
 
@@ -213,6 +216,8 @@ As rotas abaixo continuam inexistentes:
 - Confirmado que quadrados nao possuem borda visivel.
 - Confirmado que o hover monocromatico/colorido foi preservado.
 - Confirmado que o menu de contexto aparece com segundo botao do mouse.
+- Confirmado que o menu de contexto fecha ao clicar fora dele.
+- Confirmado que o clique dentro do menu nao fecha o menu indevidamente.
 - Confirmado que as acoes do menu sao mockadas.
 - Confirmado que nenhuma area removida foi reintroduzida.
 - Confirmado que nenhum HTML, imagem ou `design.md` do Stitch foi alterado.
