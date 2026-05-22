@@ -30,7 +30,7 @@ Tambem existe um padrao visual reutilizavel para estados do sistema, baseado na 
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
-A proxima fase sugerida e funcional, com foco inicial em arquitetura funcional minima e persistencia local, sem alterar o visual aprovado.
+A fase funcional foi iniciada e o Bloco 1 foi consolidado com foco em arquitetura funcional minima. Essa etapa criou base de dominio e contratos sem alterar o visual aprovado e sem implementar persistencia.
 
 ## repositorio remoto
 
@@ -40,18 +40,18 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou o fechamento documental da fase visual e o plano inicial da fase funcional:
+A ultima tarefa concluida consolidou o Bloco 1 da fase funcional em modo arquitetural:
 
-- auditoria final da cobertura visual implementada;
-- registro de que a fase visual baseada nas referencias Stitch foi concluida;
-- confirmacao de que a referencia 19 foi tratada como componente reutilizavel, nao como pagina;
-- registro de que a correcao do menu de contexto de Favoritos ja foi consolidada;
-- criacao do documento `docs/44-fechamento-fase-visual.md`;
-- criacao do documento `docs/45-plano-fase-funcional.md`;
-- planejamento da proxima fase funcional com foco inicial em persistencia local;
-- regra explicita de preservacao visual para a proxima fase;
+- criacao de entidades simples de dominio;
+- criacao de enums basicos;
+- criacao de contratos/interfaces de repositorio;
+- criacao de testes unitarios simples para entidades do dominio;
+- criacao do documento `docs/46-bloco-1-arquitetura-funcional.md`;
+- aprovacao do Bloco 1 pelo usuario;
 - nenhuma tela alterada;
+- nenhum CSS visual alterado;
 - nenhuma funcionalidade implementada;
+- nenhum banco, EF Core, SQLite, `DbContext` ou migration criado;
 - nenhuma reintroducao das areas removidas.
 
 ## decisoes ja tomadas
@@ -123,6 +123,9 @@ Implementado:
 - componentes base `AppCard`, `AppBadge` e `AppButton`;
 - componente `AppIcon` com icones SVG inline;
 - componente `AppStateBlock` para estados visuais reutilizaveis;
+- entidades base de dominio em `src/blueatelier.domain/Entidades`;
+- enums base de dominio em `src/blueatelier.domain/enums`;
+- contratos de repositorio em `src/blueatelier.domain/Contratos`;
 - tokens e temas CSS em `wwwroot/css/`;
 - Home aprovada e com cards de colecao navegaveis;
 - tela de Colecoes aprovada;
@@ -194,7 +197,6 @@ Ainda nao implementado:
 - SQLite;
 - EF Core;
 - migrations;
-- entidades completas;
 - servicos reais;
 - sistema de arquivos real;
 - busca real;
@@ -207,14 +209,16 @@ Ainda nao implementado:
 
 Implementacao:
 
-- nenhuma alteracao de codigo.
+- entidades de dominio em `src/blueatelier.domain/Entidades`;
+- enums de dominio em `src/blueatelier.domain/enums`;
+- contratos de repositorio em `src/blueatelier.domain/Contratos`;
+- testes de dominio em `tests/blueatelier.tests/domain`.
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/44-fechamento-fase-visual.md`
-- `docs/45-plano-fase-funcional.md`
+- `docs/46-bloco-1-arquitetura-funcional.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -222,18 +226,12 @@ Documentacao:
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- A fase visual baseada nas referencias Stitch foi auditada.
-- A cobertura visual implementada foi registrada em `docs/44-fechamento-fase-visual.md`.
-- A proxima fase funcional foi planejada em `docs/45-plano-fase-funcional.md`.
-- A referencia 19 permanece registrada como padrao reutilizavel, nao como tela.
-- O componente `AppStateBlock` existe em `src/blueatelier.app/Components/Shared/AppStateBlock.razor`.
-- O componente compila.
-- O componente possui parametros reutilizaveis como `Variant`, `Title`, `Description`, `Icon`, `ActionLabel`, `SecondaryActionLabel` e `IsCompact`.
-- O componente representa variantes visuais para vazio, erro, offline, sem resultados, caminho indisponivel, loading e sincronizacao pendente.
-- Os estilos foram adicionados em `app.css` com classes genericas `app-state-block`, `app-state-block-error`, `app-state-block-offline`, `app-state-block-loading`, `app-state-block-compact` e `app-state-actions`.
-- Os icones adicionados em `AppIcon` sao genericos e reutilizaveis.
-- Nenhuma rota `/estados-vazios-erros-offline` foi criada.
-- Nenhuma pagina `EstadosVaziosErrosOffline.razor` foi criada.
+- O Bloco 1 foi implementado sem integracao visual.
+- As entidades base de dominio foram criadas no projeto `BlueAtelier.Domain`.
+- Os enums base foram criados sem dependencia de banco.
+- Os contratos de repositorio foram criados sem implementacao concreta.
+- Testes simples de dominio foram adicionados em `tests/blueatelier.tests/domain/EntidadesDominioTests.cs`.
+- Nenhum pacote novo foi instalado.
 - A sidebar permanece preservada.
 - A topbar permanece preservada.
 - `/configuracoes` existe como rota.
@@ -285,19 +283,18 @@ Documentacao:
 - Nenhuma persistencia real foi implementada.
 - Nenhum banco SQLite foi criado.
 - Nenhum EF Core foi implementado.
+- Nenhum `DbContext` foi criado.
 - Nenhuma migration foi criada.
 - Nenhum servico real foi implementado.
 - Nenhum CDN, Tailwind, Bootstrap ou biblioteca externa foi usado.
 - Nenhuma tela aprovada foi alterada.
-- Nenhuma funcionalidade real foi implementada nesta auditoria.
+- Nenhuma funcionalidade real foi implementada nesta etapa.
 - `dotnet restore BlueAtelier.sln` executado com sucesso.
 - `dotnet build BlueAtelier.sln` executado com sucesso.
 - `dotnet test BlueAtelier.sln --no-build` executado com sucesso.
 
 ## proxima tarefa sugerida
 
-Iniciar o Bloco 1 da fase funcional, somente apos aprovacao do usuario.
+Iniciar o Bloco 2 - Banco local, somente apos autorizacao explicita do usuario.
 
-O Bloco 1 deve planejar e implementar a arquitetura funcional minima de forma progressiva, sem alterar o visual aprovado.
-
-A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+O Bloco 2 deve planejar SQLite, EF Core, `DbContext`, migrations e seed inicial de forma progressiva, sem alterar o visual aprovado. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
