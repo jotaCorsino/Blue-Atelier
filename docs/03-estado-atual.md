@@ -30,7 +30,9 @@ Tambem existe um padrao visual reutilizavel para estados do sistema, baseado na 
 
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
-A fase funcional avancou e o Bloco 2 foi consolidado com a base inicial de banco local em infraestrutura. Essa etapa adicionou EF Core, SQLite, `DbContext`, migration inicial, seed minimo e testes de persistencia, sem alterar o visual aprovado e sem integrar as telas ao banco.
+A fase funcional avancou e o Bloco 2 foi consolidado com a base inicial de banco local em infraestrutura. Essa etapa adicionou EF Core, SQLite, `DbContext`, migration inicial, seed minimo e testes de persistencia, sem alterar o visual aprovado.
+
+O Bloco 3 foi consolidado no primeiro recorte de Colecoes. A tela `/colecoes` passou a listar dados reais do banco local por meio de repositorio e servico de aplicacao, preservando o visual aprovado e mantendo CRUD visual, filtros reais e detalhe completo fora deste recorte.
 
 ## repositorio remoto
 
@@ -40,20 +42,20 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou o Bloco 2 da fase funcional com banco local:
+A ultima tarefa concluida consolidou o Bloco 3 - Colecoes, recorte 1:
 
-- adicao de EF Core e SQLite ao projeto `BlueAtelier.Infrastructure`;
-- criacao do `BlueAtelierDbContext`;
-- mapeamento das entidades do dominio com Fluent API;
-- criacao da migration inicial `InitialCreate`;
-- criacao de seed inicial minimo e idempotente;
-- criacao de testes basicos de persistencia SQLite;
-- criacao do documento `docs/47-bloco-2-banco-local.md`;
-- aprovacao do Bloco 2 pelo usuario;
-- nenhuma tela alterada;
+- criacao do repositorio concreto `ColecaoRepositorio`;
+- criacao do servico de aplicacao `ColecaoServico`;
+- criacao do modelo de aplicacao `ColecaoResumo`;
+- criacao do inicializador `BlueAtelierBancoInicializador`;
+- registro de infraestrutura e servico no app;
+- ampliacao idempotente do seed de colecoes;
+- conexao da tela `/colecoes` com dados reais do banco local;
+- criacao de testes para repositorio, servico e inicializador;
+- criacao do documento `docs/48-bloco-3-colecoes.md`;
+- preservacao do visual aprovado da tela Colecoes;
 - nenhum CSS visual alterado;
-- nenhuma integracao visual implementada;
-- nenhuma substituicao dos mocks nas telas;
+- nenhum CRUD visual implementado;
 - nenhuma reintroducao das areas removidas.
 
 ## decisoes ja tomadas
@@ -134,9 +136,14 @@ Implementado:
 - migration inicial `InitialCreate`;
 - seed inicial minimo em `BlueAtelierSeed`;
 - testes de persistencia SQLite;
+- repositorio concreto `ColecaoRepositorio`;
+- servico de aplicacao `ColecaoServico`;
+- modelo de aplicacao `ColecaoResumo`;
+- inicializador `BlueAtelierBancoInicializador` para migration e seed;
+- seed de colecoes suficiente para manter a tela `/colecoes` visualmente proxima do estado aprovado;
 - tokens e temas CSS em `wwwroot/css/`;
 - Home aprovada e com cards de colecao navegaveis;
-- tela de Colecoes aprovada;
+- tela de Colecoes aprovada e conectada a listagem real do banco local;
 - tela de Detalhe da Colecao aprovada;
 - tela Modelos em `/modelos` aprovada;
 - tela de Detalhe do Modelo aprovada;
@@ -203,27 +210,32 @@ Removido do estado atual:
 Ainda nao implementado:
 
 - migrations futuras alem da inicial;
-- servicos reais;
+- servicos reais das demais areas;
 - sistema de arquivos real;
 - busca real;
 - filtros reais persistidos;
 - configuracoes reais;
 - edicao real de colecoes, modelos ou cards;
-- integracao das telas com persistencia real.
+- CRUD visual de colecoes;
+- integracao das demais telas com persistencia real.
 
 ## arquivos alterados ou criados na ultima tarefa
 
 Implementacao:
 
-- pacotes EF Core/SQLite em `src/blueatelier.infrastructure/BlueAtelier.Infrastructure.csproj`;
-- persistencia em `src/blueatelier.infrastructure/Persistencia`;
-- testes de persistencia em `tests/blueatelier.tests/infrastructure`.
+- repositorio de colecoes em `src/blueatelier.infrastructure/Repositorios`;
+- servico de aplicacao de colecoes em `src/blueatelier.application`;
+- inicializador de banco em `src/blueatelier.infrastructure/Persistencia`;
+- registro de dependencias em `src/blueatelier.infrastructure/DependencyInjection.cs`;
+- conexao da tela `/colecoes` ao servico em `src/blueatelier.app/Components/Pages/Colecoes.razor`;
+- inicializacao do banco no app em `src/blueatelier.app/MauiProgram.cs`;
+- testes de colecoes em `tests/blueatelier.tests/infrastructure`.
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/47-bloco-2-banco-local.md`
+- `docs/48-bloco-3-colecoes.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -231,13 +243,15 @@ Documentacao:
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- O Bloco 2 foi implementado sem integracao visual.
-- Os pacotes EF Core/SQLite foram adicionados somente ao projeto `BlueAtelier.Infrastructure`.
-- O `BlueAtelierDbContext` foi criado em infraestrutura.
-- As entidades do dominio foram mapeadas por Fluent API, sem atributos EF nas entidades.
-- A migration inicial `InitialCreate` foi criada.
-- O seed inicial minimo foi criado e testado como idempotente.
-- Testes de persistencia SQLite foram adicionados em `tests/blueatelier.tests/infrastructure/BlueAtelierDbContextTests.cs`.
+- O Bloco 3 - Colecoes, recorte 1, foi consolidado.
+- O repositorio `ColecaoRepositorio` implementa `IColecaoRepositorio`.
+- O servico `ColecaoServico` retorna `ColecaoResumo`, sem expor entidade de dominio para Razor.
+- O inicializador `BlueAtelierBancoInicializador` executa migration e seed.
+- O seed de colecoes foi ampliado de forma idempotente para manter a tela visualmente preenchida.
+- `/colecoes` lista dados reais do banco local via servico de aplicacao.
+- A navegacao por slug para `Eldritch Horrors` foi preservada.
+- Nenhum formulario, modal ou CRUD visual foi implementado.
+- Nenhum CSS visual foi alterado.
 - A sidebar permanece preservada.
 - A topbar permanece preservada.
 - `/configuracoes` existe como rota.
@@ -261,8 +275,8 @@ Documentacao:
 - O item `Dados do App` nao aponta para `/configuracoes/backup`.
 - A responsividade de `/configuracoes`, `/configuracoes/caminhos`, `/configuracoes/aparencia`, `/configuracoes/modelo-pastas` e `/configuracoes/backup` permanece preservada.
 - Nenhuma tela aprovada foi redesenhada.
-- Nenhuma tela foi integrada ao banco.
-- Os mocks das telas permanecem intactos.
+- Somente a listagem de `/colecoes` foi integrada ao banco local.
+- Os mocks das demais telas permanecem intactos.
 - Nenhuma criacao real de pastas foi implementada.
 - Nenhuma leitura real de diretorios foi implementada.
 - Nenhuma gravacao real de configuracao foi implementada.
@@ -289,17 +303,17 @@ Documentacao:
 - O Detalhe do Modelo ainda possui lista simples de materiais usados.
 - Nenhuma funcionalidade real de UI foi implementada.
 - Nenhum CRUD visual foi implementado.
-- Nenhum repositorio concreto foi implementado.
-- Nenhum servico real foi implementado.
+- Apenas `ColecaoRepositorio` foi implementado como repositorio concreto.
+- Apenas `ColecaoServico` foi implementado como servico de aplicacao para listagem de colecoes.
 - Nenhum CDN, Tailwind, Bootstrap ou biblioteca externa foi usado.
 - Nenhuma tela aprovada foi alterada.
-- Nenhuma funcionalidade real foi implementada nesta etapa.
+- Nenhuma funcionalidade real de UI foi implementada nesta etapa.
 - `dotnet restore BlueAtelier.sln` executado com sucesso.
 - `dotnet build BlueAtelier.sln` executado com sucesso.
 - `dotnet test BlueAtelier.sln --no-build` executado com sucesso.
 
 ## proxima tarefa sugerida
 
-Iniciar o Bloco 3 - Colecoes, somente apos autorizacao explicita do usuario.
+Continuar o Bloco 3 - Colecoes, somente apos revisao e aprovacao do usuario.
 
-O Bloco 3 deve conectar a tela de Colecoes aos dados reais de forma progressiva, sem redesenhar a interface. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+O proximo recorte de Colecoes deve evoluir a funcionalidade de forma progressiva, sem redesenhar a interface. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

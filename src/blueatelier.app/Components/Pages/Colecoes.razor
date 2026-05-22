@@ -1,4 +1,7 @@
 @page "/colecoes"
+@using BlueAtelier.Application.Contratos
+@using BlueAtelier.Application.Modelos
+@inject IColecaoServico ColecaoServico
 
 <section class="collections-page" aria-labelledby="collections-title">
     <header class="collections-heading">
@@ -73,16 +76,21 @@
 
     @if (ShowEmptyState)
     {
-        <section class="collections-empty-state" aria-labelledby="collections-empty-title">
-            <h2 id="collections-empty-title">Nenhuma coleção criada ainda.</h2>
-            <p>Crie a primeira linha do atelier para começar a organizar modelos, arquivos e referências.</p>
-            <AppButton Variant="primary">Criar primeira coleção</AppButton>
-        </section>
+        <AppStateBlock
+            Class="collections-empty-state"
+            Variant="empty"
+            Title="Nenhuma coleção criada ainda."
+            Description="Crie a primeira linha do atelier para começar a organizar modelos, arquivos e referências."
+            ActionLabel="Criar primeira coleção" />
     }
 </section>
 
 @code {
-    private static readonly bool ShowEmptyState = false;
+    private bool IsLoading { get; set; } = true;
+
+    private IReadOnlyList<CollectionCard> Collections { get; set; } = [];
+
+    private bool ShowEmptyState => !IsLoading && Collections.Count == 0;
 
     private static readonly FilterPill[] Filters =
     [
@@ -93,99 +101,70 @@
         new("Arquivadas", false)
     ];
 
-    private static readonly CollectionCard[] Collections =
-    [
-        new(
-            "Eldritch Horrors",
-            "Miniaturas sombrias, ídolos antigos e criaturas de culto.",
-            "8 modelos",
-            "Em andamento",
-            "progress",
-            "Atualizada hoje",
-            "cover-eldritch",
-            ["dark fantasy", "resina"],
-            "/colecoes/eldritch-horrors"
-        ),
-        new(
-            "Sci-Fi Marines",
-            "Soldados blindados, armas pesadas e variações de tropa.",
-            "15 modelos",
-            "Pronta",
-            "ready",
-            "Atualizada ontem",
-            "cover-marines",
-            ["sci-fi", "stl"],
-            null
-        ),
-        new(
-            "Fantasy Adventurers",
-            "Grupo de aventureiros para pintura e estudos de personagem.",
-            "5 modelos",
-            "Pausada",
-            "muted",
-            "Atualizada há 3 dias",
-            "cover-adventurers",
-            ["fantasia", "pintura"],
-            null
-        ),
-        new(
-            "Dragon Busts",
-            "Bustos de dragões para escala maior e acabamento detalhado.",
-            "2 modelos",
-            "Em andamento",
-            "progress",
-            "Atualizada há 5 dias",
-            "cover-dragons",
-            ["busto", "criaturas"],
-            null
-        ),
-        new(
-            "Tavern Dioramas",
-            "Cenas internas, fachadas e peças para dioramas de taverna.",
-            "1 modelo",
-            "Pausada",
-            "muted",
-            "Atualizada há 1 semana",
-            "cover-tavern",
-            ["cenário", "diorama"],
-            null
-        ),
-        new(
-            "Ancient Ruins",
-            "Pilares, arcos e bases para composições de ruínas antigas.",
-            "10 modelos",
-            "Pronta",
-            "ready",
-            "Atualizada há 1 semana",
-            "cover-ruins",
-            ["cenário", "bases"],
-            null
-        ),
-        new(
-            "Painting Studies",
-            "Peças separadas para testes de pedra, pele, metal e verniz.",
-            "6 modelos",
-            "Em andamento",
-            "progress",
-            "Atualizada há 2 semanas",
-            "cover-painting",
-            ["estudo", "cores"],
-            null
-        ),
-        new(
-            "Miniature Bases",
-            "Bases temáticas para miniaturas pequenas e médias.",
-            "18 modelos",
-            "Arquivada",
-            "archived",
-            "Atualizada há 1 mês",
-            "cover-bases",
-            ["bases", "textura"],
-            null
-        )
-    ];
+    private static readonly Dictionary<string, CollectionVisualMetadata> VisualMetadata = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["eldritch-horrors"] = new("8 modelos", "Em andamento", "progress", "Atualizada hoje", "cover-eldritch", ["dark fantasy", "resina"]),
+        ["sci-fi-marines"] = new("15 modelos", "Pronta", "ready", "Atualizada ontem", "cover-marines", ["sci-fi", "stl"]),
+        ["fantasy-adventurers"] = new("5 modelos", "Pausada", "muted", "Atualizada há 3 dias", "cover-adventurers", ["fantasia", "pintura"]),
+        ["dragon-busts"] = new("2 modelos", "Em andamento", "progress", "Atualizada há 5 dias", "cover-dragons", ["busto", "criaturas"]),
+        ["tavern-dioramas"] = new("1 modelo", "Pausada", "muted", "Atualizada há 1 semana", "cover-tavern", ["cenário", "diorama"]),
+        ["ancient-ruins"] = new("10 modelos", "Pronta", "ready", "Atualizada há 1 semana", "cover-ruins", ["cenário", "bases"]),
+        ["painting-studies"] = new("6 modelos", "Em andamento", "progress", "Atualizada há 2 semanas", "cover-painting", ["estudo", "cores"]),
+        ["miniature-bases"] = new("18 modelos", "Arquivada", "archived", "Atualizada há 1 mês", "cover-bases", ["bases", "textura"])
+    };
+
+    private static readonly CollectionVisualMetadata DefaultVisualMetadata =
+        new("0 modelos", "Em andamento", "progress", "Atualizada recentemente", "cover-eldritch", ["atelier"]);
+
+    protected override async Task OnInitializedAsync()
+    {
+        var resumos = await ColecaoServico.ListarResumoAsync();
+
+        Collections = resumos
+            .Select(CriarCard)
+            .ToList();
+
+        IsLoading = false;
+    }
+
+    private static CollectionCard CriarCard(ColecaoResumo resumo)
+    {
+        var metadata = VisualMetadata.GetValueOrDefault(resumo.Slug, DefaultVisualMetadata);
+        var status = resumo.EstaArquivada ? "Arquivada" : metadata.Status;
+        var statusTone = resumo.EstaArquivada ? "archived" : metadata.StatusTone;
+        var coverClass = !string.IsNullOrWhiteSpace(resumo.ImagemCapa)
+                         && resumo.ImagemCapa.StartsWith("cover-", StringComparison.OrdinalIgnoreCase)
+            ? resumo.ImagemCapa
+            : metadata.CoverClass;
+
+        return new CollectionCard(
+            resumo.Nome,
+            resumo.Descricao ?? string.Empty,
+            metadata.ModelCount,
+            status,
+            statusTone,
+            metadata.UpdatedAt,
+            coverClass,
+            metadata.Tags,
+            CriarCaminhoDetalhe(resumo));
+    }
+
+    private static string? CriarCaminhoDetalhe(ColecaoResumo resumo)
+    {
+        return resumo.Slug.Equals("eldritch-horrors", StringComparison.OrdinalIgnoreCase)
+            ? $"/colecoes/{resumo.Slug}"
+            : null;
+    }
 
     private sealed record FilterPill(string Label, bool IsActive);
+
+    private sealed record CollectionVisualMetadata(
+        string ModelCount,
+        string Status,
+        string StatusTone,
+        string UpdatedAt,
+        string CoverClass,
+        string[] Tags);
 
     private sealed record CollectionCard(
         string Name,
