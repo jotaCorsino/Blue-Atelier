@@ -26,6 +26,8 @@ Telas mantidas no estado atual:
 
 A Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados, sidebar, topbar, tipografia, responsividade e paleta visual atual foram validados visualmente pelo usuario e estao aprovados.
 
+Tambem existe um padrao visual reutilizavel para estados do sistema, baseado na referencia Stitch 19. Esse padrao nao e uma tela navegavel e nao cria rota propria.
+
 O visual aprovado esta protegido. O Codex nao deve redesenhar, reinterpretar, simplificar ou alterar a identidade visual aprovada sem autorizacao explicita do usuario.
 
 ## repositorio remoto
@@ -36,23 +38,19 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou a implementacao da tela Backup/Dados:
+A ultima tarefa concluida consolidou o padrao visual reutilizavel de estados do sistema:
 
-- implementacao da tela Backup/Dados;
-- criacao da rota `/configuracoes/backup`;
-- uso da referencia `referencias-visuais/stitch/html/18-backup-dados.html`;
-- uso da imagem `referencias-visuais/stitch/imagens/18-backup-dados.png`;
-- cards e paineis visuais de backup e dados;
-- acoes mockadas de backup, exportacao, importacao e restauracao, conforme implementado;
-- navegacao secundaria consistente nas telas de Configuracoes;
-- item `Geral` ativo em `/configuracoes`;
-- item `Caminhos` ativo em `/configuracoes/caminhos`;
-- item `Aparencia` ativo em `/configuracoes/aparencia`;
-- item `Backup` ativo em `/configuracoes/backup`;
-- item `Modelo de Pastas` ativo em `/configuracoes/modelo-pastas`;
-- item `Dados do App` mantido como visual/mockado futuro, sem apontar para a rota de Backup;
+- criacao do componente reutilizavel `AppStateBlock`;
+- uso da referencia `referencias-visuais/stitch/html/19-estados-vazios-erros-offline.html`;
+- uso da imagem `referencias-visuais/stitch/imagens/19-estados-vazios-erros-offline.png`;
+- variantes visuais para vazio, erro, offline, sem resultados, caminho indisponivel, loading, sincronizacao pendente, sucesso, alerta e informacao;
+- estilos CSS reutilizaveis em `app.css`;
+- icones genericos reutilizaveis em `AppIcon`;
+- nenhuma rota nova;
+- nenhuma tela navegavel;
+- nenhuma alteracao na sidebar ou topbar;
 - tudo visual/mockado;
-- nenhuma operacao real de backup, exportacao, importacao, restauracao ou exclusao de dados;
+- nenhuma logica real de erro, offline, retry, loading ou sincronizacao;
 - nenhuma persistencia;
 - nenhuma reintroducao das areas removidas;
 - preservacao das paginas mantidas;
@@ -126,6 +124,7 @@ Implementado:
 - topbar em `AppTopbar.razor`;
 - componentes base `AppCard`, `AppBadge` e `AppButton`;
 - componente `AppIcon` com icones SVG inline;
+- componente `AppStateBlock` para estados visuais reutilizaveis;
 - tokens e temas CSS em `wwwroot/css/`;
 - Home aprovada e com cards de colecao navegaveis;
 - tela de Colecoes aprovada;
@@ -165,6 +164,7 @@ Implementado:
 - navegacao secundaria de Configuracoes com `Backup` apontando para `/configuracoes/backup`;
 - navegacao secundaria de Configuracoes com `Modelo de Pastas` apontando para `/configuracoes/modelo-pastas`;
 - tela Modelo de Pastas visual/mockada com cards `Colecao` e `Modelo`, pre-visualizacao do caminho e acao `Salvar Alteracoes`;
+- padrao reutilizavel de estados do sistema com variantes visuais de vazio, erro, offline, sem resultados, caminho indisponivel, loading e sincronizacao pendente;
 - responsividade revisada nas paginas de Configuracoes;
 - navegacao do card Cthulhu Idol para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
 - sidebar com Models ativo nas rotas de modelos;
@@ -208,11 +208,7 @@ Ainda nao implementado:
 
 Implementacao:
 
-- `src/blueatelier.app/Components/Pages/Configuracoes.razor`
-- `src/blueatelier.app/Components/Pages/ConfiguracoesCaminhos.razor`
-- `src/blueatelier.app/Components/Pages/ConfiguracoesAparencia.razor`
-- `src/blueatelier.app/Components/Pages/ConfiguracoesModeloPastas.razor`
-- `src/blueatelier.app/Components/Pages/ConfiguracoesBackup.razor`
+- `src/blueatelier.app/Components/Shared/AppStateBlock.razor`
 - `src/blueatelier.app/Components/Shared/AppIcon.razor`
 - `src/blueatelier.app/wwwroot/css/app.css`
 
@@ -225,6 +221,7 @@ Documentacao:
 - `docs/40-configuracoes-aparencia.md`
 - `docs/41-modelo-pastas.md`
 - `docs/42-backup-dados.md`
+- `docs/43-estados-sistema.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -232,8 +229,18 @@ Documentacao:
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- `referencias-visuais/stitch/html/18-backup-dados.html` foi usado como referencia.
-- `referencias-visuais/stitch/imagens/18-backup-dados.png` foi usado como referencia visual.
+- `referencias-visuais/stitch/html/19-estados-vazios-erros-offline.html` foi usado como referencia.
+- `referencias-visuais/stitch/imagens/19-estados-vazios-erros-offline.png` foi usado como referencia visual.
+- O componente `AppStateBlock` existe em `src/blueatelier.app/Components/Shared/AppStateBlock.razor`.
+- O componente compila.
+- O componente possui parametros reutilizaveis como `Variant`, `Title`, `Description`, `Icon`, `ActionLabel`, `SecondaryActionLabel` e `IsCompact`.
+- O componente representa variantes visuais para vazio, erro, offline, sem resultados, caminho indisponivel, loading e sincronizacao pendente.
+- Os estilos foram adicionados em `app.css` com classes genericas `app-state-block`, `app-state-block-error`, `app-state-block-offline`, `app-state-block-loading`, `app-state-block-compact` e `app-state-actions`.
+- Os icones adicionados em `AppIcon` sao genericos e reutilizaveis.
+- Nenhuma rota `/estados-vazios-erros-offline` foi criada.
+- Nenhuma pagina `EstadosVaziosErrosOffline.razor` foi criada.
+- A sidebar permanece preservada.
+- A topbar permanece preservada.
 - `/configuracoes` existe como rota.
 - `/configuracoes/caminhos` existe como rota.
 - `/configuracoes/aparencia` existe como rota.
@@ -253,9 +260,8 @@ Documentacao:
 - A navegacao secundaria marca `Backup` em `/configuracoes/backup`.
 - A navegacao secundaria esta padronizada nas telas de Configuracoes.
 - O item `Dados do App` nao aponta para `/configuracoes/backup`.
-- A tela Backup/Dados contem paineis visuais de backup manual, backup automatico, exportacao/importacao e restauracao.
-- As acoes de backup, exportacao, importacao, restauracao e abertura de destino sao mockadas.
 - A responsividade de `/configuracoes`, `/configuracoes/caminhos`, `/configuracoes/aparencia`, `/configuracoes/modelo-pastas` e `/configuracoes/backup` permanece preservada.
+- Nenhuma tela aprovada foi redesenhada.
 - Nenhuma criacao real de pastas foi implementada.
 - Nenhuma leitura real de diretorios foi implementada.
 - Nenhuma gravacao real de configuracao foi implementada.
@@ -264,6 +270,7 @@ Documentacao:
 - Nenhuma importacao real foi implementada.
 - Nenhuma restauracao real foi implementada.
 - Nenhuma exclusao real de dados foi implementada.
+- Nenhuma logica real de erro, offline, retry, loading ou sincronizacao foi implementada.
 - `/favoritos` permanece preservada.
 - `/busca` permanece preservada.
 - A barra de links favoritos permanece preservada.
@@ -291,10 +298,6 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Implementar Estados Vazios, Erros e Offline com base em:
-
-```txt
-referencias-visuais/stitch/html/19-estados-vazios-erros-offline.html
-```
+Revisar a documentacao geral, validar a cobertura visual implementada e planejar a proxima fase funcional do Blue Atelier.
 
 A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

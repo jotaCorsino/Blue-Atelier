@@ -219,7 +219,7 @@ A tela Backup/Dados foi validada visualmente pelo usuario e esta aprovada.
 
 ## proxima etapa sugerida
 
-Implementar Estados Vazios, Erros e Offline com base em:
+Usar a referencia 19 para criar um padrao visual reutilizavel de estados do sistema, sem criar rota ou tela navegavel:
 
 ```txt
 referencias-visuais/stitch/html/19-estados-vazios-erros-offline.html

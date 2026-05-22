@@ -7562,6 +7562,194 @@ a.settings-stitch-nav-item:focus-visible {
     color: var(--ba-error);
 }
 
+.app-state-block {
+    width: 100%;
+    min-height: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ba-space-5);
+    padding: var(--ba-space-8);
+    border: 1px solid var(--ba-border-soft);
+    border-radius: var(--ba-radius-xl);
+    color: var(--ba-text);
+    background: var(--ba-surface-raised);
+    box-shadow: var(--ba-shadow-soft);
+    text-align: center;
+}
+
+.app-state-icon-shell {
+    width: 5rem;
+    height: 5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--ba-radius-pill);
+    color: var(--ba-text-muted);
+    background: var(--ba-surface-soft);
+}
+
+.app-state-icon-shell .app-icon {
+    width: 2.45rem;
+    height: 2.45rem;
+}
+
+.app-state-copy {
+    display: grid;
+    gap: var(--ba-space-2);
+    max-width: 28rem;
+}
+
+.app-state-copy h2 {
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    line-height: 1.25;
+}
+
+.app-state-copy p {
+    color: var(--ba-text-muted);
+    font-size: var(--ba-font-size-md);
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+}
+
+.app-state-extra {
+    width: min(100%, 32rem);
+    color: var(--ba-text-muted);
+}
+
+.app-state-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--ba-space-3);
+}
+
+.app-state-action {
+    min-height: 2.65rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--ba-space-5);
+    border: 1px solid transparent;
+    border-radius: var(--ba-radius-pill);
+    color: var(--ba-text);
+    background: var(--ba-surface);
+    font-size: var(--ba-font-size-sm);
+    font-weight: 750;
+    cursor: pointer;
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.app-state-action:hover,
+.app-state-action:focus-visible {
+    color: var(--ba-accent);
+    border-color: rgb(var(--ba-accent-rgb) / 28%);
+    background: var(--ba-surface-soft);
+    box-shadow: var(--ba-shadow-soft);
+}
+
+.app-state-action:focus-visible {
+    outline: 2px solid rgb(var(--ba-accent-rgb) / 42%);
+    outline-offset: 3px;
+}
+
+.app-state-action-primary {
+    color: #ffffff;
+    background: var(--ba-accent);
+}
+
+.app-state-action-primary:hover,
+.app-state-action-primary:focus-visible {
+    color: #ffffff;
+    background: var(--ba-accent-strong);
+}
+
+.app-state-action-secondary {
+    border-color: var(--ba-border);
+}
+
+.app-state-block-compact {
+    min-height: 12rem;
+    gap: var(--ba-space-3);
+    padding: var(--ba-space-5);
+}
+
+.app-state-block-compact .app-state-icon-shell {
+    width: 3.25rem;
+    height: 3.25rem;
+}
+
+.app-state-block-compact .app-state-icon-shell .app-icon {
+    width: 1.65rem;
+    height: 1.65rem;
+}
+
+.app-state-block-compact .app-state-copy {
+    max-width: 24rem;
+}
+
+.app-state-block-compact .app-state-copy h2 {
+    font-size: 1rem;
+}
+
+.app-state-block-error {
+    border-color: rgb(var(--ba-status-error-rgb) / 30%);
+}
+
+.app-state-block-error .app-state-icon-shell {
+    color: var(--ba-error);
+    background: var(--ba-error-soft);
+}
+
+.app-state-block-offline,
+.app-state-block-unavailable,
+.app-state-block-sync-pending {
+    border-color: rgb(var(--ba-accent-rgb) / 24%);
+}
+
+.app-state-block-offline .app-state-icon-shell,
+.app-state-block-unavailable .app-state-icon-shell,
+.app-state-block-sync-pending .app-state-icon-shell,
+.app-state-block-no-results .app-state-icon-shell {
+    color: var(--ba-accent);
+    background: var(--ba-accent-soft);
+}
+
+.app-state-block-loading .app-state-icon-shell {
+    color: var(--ba-accent);
+    background: var(--ba-accent-soft);
+}
+
+.app-state-block-loading .app-state-icon-shell .app-icon {
+    animation: app-state-spin 1.3s linear infinite;
+}
+
+.app-state-block-success .app-state-icon-shell {
+    color: var(--ba-success);
+    background: var(--ba-success-soft);
+}
+
+.app-state-block-warning {
+    border-color: rgb(var(--ba-status-paused-rgb) / 28%);
+}
+
+.app-state-block-warning .app-state-icon-shell {
+    color: var(--ba-warning);
+    background: var(--ba-warning-soft);
+}
+
+.app-state-block-info .app-state-icon-shell {
+    color: var(--ba-accent);
+    background: var(--ba-accent-soft);
+}
+
+@keyframes app-state-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .home-card-cover,
 .home-ready-cover,
 .collection-art,

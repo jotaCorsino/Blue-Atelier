@@ -1,0 +1,153 @@
+<section class="@StateClass" role="@ResolvedRole" aria-live="@ResolvedAriaLive">
+    <div class="app-state-icon-shell" aria-hidden="true">
+        <AppIcon Name="@ResolvedIcon" />
+    </div>
+
+    <div class="app-state-copy">
+        <h2>@Title</h2>
+
+        @if (!string.IsNullOrWhiteSpace(Description))
+        {
+            <p>@Description</p>
+        }
+    </div>
+
+    @if (ChildContent is not null)
+    {
+        <div class="app-state-extra">
+            @ChildContent
+        </div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(ActionLabel) || !string.IsNullOrWhiteSpace(SecondaryActionLabel))
+    {
+        <div class="app-state-actions">
+            @if (!string.IsNullOrWhiteSpace(SecondaryActionLabel))
+            {
+                <button class="app-state-action app-state-action-secondary" type="button">
+                    @SecondaryActionLabel
+                </button>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(ActionLabel))
+            {
+                <button class="app-state-action app-state-action-primary" type="button">
+                    @ActionLabel
+                </button>
+            }
+        </div>
+    }
+</section>
+
+@code {
+    [Parameter]
+    public string Variant { get; set; } = "empty";
+
+    [Parameter]
+    public string Title { get; set; } = "Nenhum item encontrado";
+
+    [Parameter]
+    public string? Description { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public string? ActionLabel { get; set; }
+
+    [Parameter]
+    public string? SecondaryActionLabel { get; set; }
+
+    [Parameter]
+    public bool IsCompact { get; set; }
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public string? Role { get; set; }
+
+    [Parameter]
+    public string? AriaLive { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string VariantName => NormalizeVariant(Variant);
+
+    private string StateClass
+    {
+        get
+        {
+            var classes = $"app-state-block app-state-block-{VariantName}";
+
+            if (IsCompact)
+            {
+                classes += " app-state-block-compact";
+            }
+
+            if (!string.IsNullOrWhiteSpace(Class))
+            {
+                classes += $" {Class}";
+            }
+
+            return classes;
+        }
+    }
+
+    private string ResolvedIcon => string.IsNullOrWhiteSpace(Icon)
+        ? VariantName switch
+        {
+            "error" => "broken-image",
+            "offline" => "wifi-off",
+            "no-results" => "search",
+            "unavailable" => "unlink",
+            "loading" => "loader",
+            "sync-pending" => "sync-pending",
+            "success" => "check",
+            "warning" => "alert",
+            "info" => "info",
+            _ => "folder-off"
+        }
+        : Icon.Trim();
+
+    private string ResolvedRole => !string.IsNullOrWhiteSpace(Role)
+        ? Role
+        : VariantName is "error" or "warning" or "offline" or "unavailable"
+            ? "alert"
+            : "status";
+
+    private string ResolvedAriaLive => !string.IsNullOrWhiteSpace(AriaLive)
+        ? AriaLive
+        : VariantName is "error" or "warning" or "offline" or "unavailable"
+            ? "assertive"
+            : "polite";
+
+    private static string NormalizeVariant(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return "empty";
+        }
+
+        return value.Trim().ToLowerInvariant() switch
+        {
+            "noresults" => "no-results",
+            "no-results" => "no-results",
+            "empty" => "empty",
+            "error" => "error",
+            "offline" => "offline",
+            "unavailable" => "unavailable",
+            "unavailable-path" => "unavailable",
+            "path-unavailable" => "unavailable",
+            "loading" => "loading",
+            "sync" => "sync-pending",
+            "sync-pending" => "sync-pending",
+            "pending" => "sync-pending",
+            "success" => "success",
+            "warning" => "warning",
+            "info" => "info",
+            _ => "empty"
+        };
+    }
+}
