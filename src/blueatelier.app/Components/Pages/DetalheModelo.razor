@@ -3,6 +3,7 @@
 @using BlueAtelier.Application.Modelos
 @using BlueAtelier.Domain.Enums
 @inject IModeloServico ModeloServico
+@inject IArquivoVinculadoServico ArquivoVinculadoServico
 
 @if (IsLoading)
 {
@@ -159,12 +160,23 @@ else
                         </a>
                     </div>
                     <div class="model-file-list">
-                        @foreach (var file in LinkedFiles)
+                        @if (LinkedFiles.Count == 0)
                         {
-                            <div class="model-file-item">
-                                <span>@file.Extension</span>
-                                <p>@file.Name</p>
-                            </div>
+                            <AppStateBlock
+                                Variant="empty"
+                                Title="Nenhum arquivo vinculado"
+                                Description="Este modelo ainda nao possui metadados de arquivos vinculados."
+                                IsCompact="true" />
+                        }
+                        else
+                        {
+                            @foreach (var file in LinkedFiles)
+                            {
+                                <div class="model-file-item">
+                                    <span>@file.Extension</span>
+                                    <p>@file.Name</p>
+                                </div>
+                            }
                         }
                     </div>
                 </section>
@@ -216,6 +228,8 @@ else
     private bool IsLoading { get; set; } = true;
 
     private ModeloDetalhe? Model { get; set; }
+
+    private IReadOnlyList<LinkedFile> LinkedFiles { get; set; } = [];
 
     private string CollectionPath => Model is null
         ? "/colecoes"
@@ -296,14 +310,6 @@ else
         new("Adicionar referencia", "image", false)
     ];
 
-    private static readonly LinkedFile[] LinkedFiles =
-    [
-        new(".stl", "cthulhu-idol.stl"),
-        new(".lys", "cthulhu-idol-supported.lys"),
-        new(".ctb", "cthulhu-idol-ready.ctb"),
-        new(".md", "painting-notes.md")
-    ];
-
     private static readonly string[] Links =
     [
         "Dark Paint Guide",
@@ -322,9 +328,19 @@ else
     protected override async Task OnParametersSetAsync()
     {
         IsLoading = true;
+        LinkedFiles = [];
         Model = await ModeloServico.ObterDetalhePorSlugAsync(
             ColecaoSlug ?? string.Empty,
             ModeloSlug ?? string.Empty);
+
+        if (Model is not null)
+        {
+            var arquivos = await ArquivoVinculadoServico.ListarPorModeloAsync(Model.Id);
+            LinkedFiles = arquivos
+                .Select(CriarLinkedFile)
+                .ToList();
+        }
+
         IsLoading = false;
     }
 
@@ -347,6 +363,25 @@ else
         return string.IsNullOrWhiteSpace(value)
             ? "Not defined"
             : value;
+    }
+
+    private static LinkedFile CriarLinkedFile(ArquivoVinculadoResumo arquivo)
+    {
+        return new LinkedFile(FormatFileExtension(arquivo.Extensao), arquivo.Nome);
+    }
+
+    private static string FormatFileExtension(string? extensao)
+    {
+        if (string.IsNullOrWhiteSpace(extensao))
+        {
+            return ".file";
+        }
+
+        var valor = extensao.Trim();
+
+        return valor.StartsWith(".", StringComparison.Ordinal)
+            ? valor
+            : $".{valor}";
     }
 
     private static string FormatUpdatedAt(DateTimeOffset updatedAt)

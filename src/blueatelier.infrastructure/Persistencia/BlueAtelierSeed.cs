@@ -20,6 +20,10 @@ public static class BlueAtelierSeed
     private static readonly Guid AncientCultistId = Guid.Parse("9ecf77b5-e9f1-44d8-957b-6e8e9f39f3ce");
     private static readonly Guid ForgottenHorrorId = Guid.Parse("9a2e90c6-d5f5-4fa8-9088-0b4a1e3edac4");
     private static readonly Guid AbyssalStatueId = Guid.Parse("3d1e0b5a-3932-47a7-9f91-f40b50fd9077");
+    private static readonly Guid CthulhuIdolStlId = Guid.Parse("4437998c-8343-4ff9-87df-e52ac31df5f9");
+    private static readonly Guid CthulhuIdolSupportedId = Guid.Parse("a41c1b51-5188-4d88-8cb3-a25b57e191da");
+    private static readonly Guid CthulhuIdolReadyId = Guid.Parse("5598cf5c-25bc-4fbc-b4c6-0d53c6621220");
+    private static readonly Guid CthulhuIdolPaintingNotesId = Guid.Parse("a7bcb955-9264-4598-a343-d8bd6f33b62b");
     private static readonly Guid ReferenciasFavoritasId = Guid.Parse("f07ac854-b9f3-4d1c-b033-e4803b5241a5");
 
     public static async Task AplicarAsync(BlueAtelierDbContext contexto, CancellationToken cancellationToken = default)
@@ -229,6 +233,54 @@ public static class BlueAtelierSeed
             agora.AddDays(-9),
             cancellationToken);
 
+        await CriarArquivoVinculadoSeNaoExistirAsync(
+            contexto,
+            CthulhuIdolStlId,
+            CthulhuIdolId,
+            "cthulhu-idol.stl",
+            "C:/BlueAtelier/EldritchHorrors/CthulhuIdol/cthulhu-idol.stl",
+            TipoArquivoVinculado.Modelo3D,
+            ".stl",
+            18_245_632,
+            agora.AddDays(-14),
+            cancellationToken);
+
+        await CriarArquivoVinculadoSeNaoExistirAsync(
+            contexto,
+            CthulhuIdolSupportedId,
+            CthulhuIdolId,
+            "cthulhu-idol-supported.lys",
+            "C:/BlueAtelier/EldritchHorrors/CthulhuIdol/cthulhu-idol-supported.lys",
+            TipoArquivoVinculado.Modelo3D,
+            ".lys",
+            9_812_480,
+            agora.AddDays(-13),
+            cancellationToken);
+
+        await CriarArquivoVinculadoSeNaoExistirAsync(
+            contexto,
+            CthulhuIdolReadyId,
+            CthulhuIdolId,
+            "cthulhu-idol-ready.ctb",
+            "C:/BlueAtelier/EldritchHorrors/CthulhuIdol/cthulhu-idol-ready.ctb",
+            TipoArquivoVinculado.Modelo3D,
+            ".ctb",
+            42_418_176,
+            agora.AddDays(-12),
+            cancellationToken);
+
+        await CriarArquivoVinculadoSeNaoExistirAsync(
+            contexto,
+            CthulhuIdolPaintingNotesId,
+            CthulhuIdolId,
+            "painting-notes.md",
+            "C:/BlueAtelier/EldritchHorrors/CthulhuIdol/painting-notes.md",
+            TipoArquivoVinculado.Nota,
+            ".md",
+            12_288,
+            agora.AddDays(-11),
+            cancellationToken);
+
         var pastaExiste = await contexto.PastasFavoritos
             .AnyAsync(item => item.Nome == "Referencias", cancellationToken);
 
@@ -360,6 +412,41 @@ public static class BlueAtelierSeed
             Observacoes = observacoes,
             CriadoEm = criadoEm,
             AtualizadoEm = atualizadoEm
+        });
+    }
+
+    private static async Task CriarArquivoVinculadoSeNaoExistirAsync(
+        BlueAtelierDbContext contexto,
+        Guid id,
+        Guid modeloId,
+        string nome,
+        string caminhoLocal,
+        TipoArquivoVinculado tipo,
+        string extensao,
+        long? tamanhoBytes,
+        DateTimeOffset criadoEm,
+        CancellationToken cancellationToken)
+    {
+        var arquivoExiste = await contexto.ArquivosVinculados
+            .AnyAsync(
+                item => item.ModeloId == modeloId && item.Nome == nome,
+                cancellationToken);
+
+        if (arquivoExiste)
+        {
+            return;
+        }
+
+        contexto.ArquivosVinculados.Add(new ArquivoVinculado
+        {
+            Id = id,
+            ModeloId = modeloId,
+            Nome = nome,
+            CaminhoLocal = caminhoLocal,
+            Tipo = tipo,
+            Extensao = extensao,
+            TamanhoBytes = tamanhoBytes,
+            CriadoEm = criadoEm
         });
     }
 

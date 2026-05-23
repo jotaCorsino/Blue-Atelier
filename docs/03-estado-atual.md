@@ -42,6 +42,8 @@ O Bloco 4 foi consolidado no Recorte 1 de Modelos. A tela geral `/modelos` passo
 
 O Recorte 2 do Bloco 4 foi consolidado para conectar o Detalhe do Modelo aos dados reais do banco local por slug de colecao e slug de modelo. A rota parametrizada `/colecoes/{colecaoSlug}/modelos/{modeloSlug}` preserva a rota aprovada do `Cthulhu Idol`, mantendo galeria, arquivos vinculados, links, referencias, notas editaveis e acoes visuais como mockados.
 
+O Bloco 5 foi consolidado no Recorte 1 de Arquivos Vinculados. A secao `Linked Files` do Detalhe do Modelo passou a listar metadados reais de arquivos vinculados ao modelo pelo banco local, sem ler, validar, abrir, copiar, mover ou apagar arquivos reais.
+
 ## repositorio remoto
 
 ```txt
@@ -50,15 +52,15 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou o Bloco 4 - Modelos, recorte 2:
+A ultima tarefa concluida consolidou o Bloco 5 - Arquivos Vinculados, recorte 1:
 
-- criacao do modelo de aplicacao `ModeloDetalhe`;
-- criacao do metodo `ObterPorColecaoESlugAsync` em `IModeloRepositorio` e `ModeloRepositorio`;
-- criacao do metodo `ObterDetalhePorSlugAsync` em `IModeloServico` e `ModeloServico`;
-- conexao da tela Detalhe do Modelo com dados reais do banco local por slug da colecao e slug do modelo;
-- preservacao da rota aprovada `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
-- estado simples para modelo nao encontrado usando o padrao reutilizavel de estados;
-- galeria, arquivos vinculados, links, referencias, notas editaveis, favoritos e acoes visuais mantidos mockados;
+- criacao do repositorio concreto `ArquivoVinculadoRepositorio`;
+- criacao do servico de aplicacao `ArquivoVinculadoServico`;
+- criacao do modelo de aplicacao `ArquivoVinculadoResumo`;
+- seed idempotente de metadados de arquivos para o `Cthulhu Idol`;
+- conexao da secao `Linked Files` do Detalhe do Modelo com dados reais do banco local;
+- nenhum arquivo real lido, copiado, movido, aberto ou apagado;
+- galeria, imagens, links, referencias, notas editaveis, favoritos e acoes visuais mantidos mockados;
 - nenhum CSS visual alterado;
 - nenhum CRUD visual implementado;
 - nenhuma reintroducao das areas removidas.
@@ -143,13 +145,16 @@ Implementado:
 - testes de persistencia SQLite;
 - repositorio concreto `ColecaoRepositorio`;
 - repositorio concreto `ModeloRepositorio`;
+- repositorio concreto `ArquivoVinculadoRepositorio`;
 - servico de aplicacao `ColecaoServico`;
 - servico de aplicacao `ModeloServico`;
+- servico de aplicacao `ArquivoVinculadoServico`;
 - modelo de aplicacao `ColecaoResumo`;
 - modelo de aplicacao `ColecaoDetalhe`;
 - modelo de aplicacao `ModeloResumoColecao`;
 - modelo de aplicacao `ModeloResumo`;
 - modelo de aplicacao `ModeloDetalhe`;
+- modelo de aplicacao `ArquivoVinculadoResumo`;
 - inicializador `BlueAtelierBancoInicializador` para migration e seed;
 - seed de colecoes suficiente para manter a tela `/colecoes` visualmente proxima do estado aprovado;
 - tokens e temas CSS em `wwwroot/css/`;
@@ -159,6 +164,7 @@ Implementado:
 - lista interna de modelos do Detalhe da Colecao conectada a modelos reais do banco local;
 - tela Modelos em `/modelos` aprovada e conectada a listagem real de modelos do banco local;
 - tela de Detalhe do Modelo aprovada e conectada a dados basicos reais do modelo por slug;
+- secao `Linked Files` do Detalhe do Modelo conectada a metadados reais de arquivos vinculados no banco local;
 - tela Galeria do Modelo aprovada;
 - tela Visualizacao de Imagem aprovada;
 - tela Arquivos Vinculados aprovada;
@@ -231,7 +237,9 @@ Ainda nao implementado:
 - CRUD visual de colecoes;
 - CRUD visual de modelos;
 - CRUD real do detalhe do modelo pela UI;
-- galeria real, arquivos vinculados reais, links reais, referencias reais e notas reais editaveis do modelo;
+- galeria real, imagens reais, links reais, referencias reais e notas reais editaveis do modelo;
+- tela geral de Arquivos Vinculados conectada ao banco local;
+- leitura, validacao, abertura, copia, movimentacao ou exclusao real de arquivos;
 - integracao real de links, referencias e notas no Detalhe da Colecao;
 - integracao das demais telas com persistencia real.
 
@@ -241,14 +249,17 @@ Implementacao:
 
 - repositorio de colecoes em `src/blueatelier.infrastructure/Repositorios`;
 - repositorio de modelos em `src/blueatelier.infrastructure/Repositorios`;
+- repositorio de arquivos vinculados em `src/blueatelier.infrastructure/Repositorios`;
 - servico de aplicacao de colecoes em `src/blueatelier.application`;
 - servico de aplicacao de modelos em `src/blueatelier.application`;
+- servico de aplicacao de arquivos vinculados em `src/blueatelier.application`;
 - inicializador de banco em `src/blueatelier.infrastructure/Persistencia`;
 - registro de dependencias em `src/blueatelier.infrastructure/DependencyInjection.cs`;
 - conexao da tela `/colecoes` ao servico em `src/blueatelier.app/Components/Pages/Colecoes.razor`;
 - conexao dos cards internos do Detalhe da Colecao ao servico de modelos em `src/blueatelier.app/Components/Pages/DetalheColecao.razor`;
 - conexao da tela `/modelos` ao servico de modelos em `src/blueatelier.app/Components/Pages/Modelos.razor`;
 - conexao da tela Detalhe do Modelo ao servico de modelos em `src/blueatelier.app/Components/Pages/DetalheModelo.razor`;
+- conexao da secao `Linked Files` do Detalhe do Modelo ao servico de arquivos vinculados em `src/blueatelier.app/Components/Pages/DetalheModelo.razor`;
 - inicializacao do banco no app em `src/blueatelier.app/MauiProgram.cs`;
 - testes de colecoes em `tests/blueatelier.tests/infrastructure`.
 - testes de modelos em `tests/blueatelier.tests/infrastructure`.
@@ -259,6 +270,7 @@ Documentacao:
 - `docs/04-proximos-documentos.md`
 - `docs/48-bloco-3-colecoes.md`
 - `docs/49-bloco-4-modelos.md`
+- `docs/50-bloco-5-arquivos-vinculados.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -269,11 +281,13 @@ Documentacao:
 - O Bloco 3 - Colecoes, recorte 3, foi consolidado.
 - O Bloco 4 - Modelos, recorte 1, foi consolidado.
 - O Bloco 4 - Modelos, recorte 2, foi consolidado.
+- O Bloco 5 - Arquivos Vinculados, recorte 1, foi consolidado.
 - O repositorio `ColecaoRepositorio` implementa `IColecaoRepositorio`.
 - O repositorio `ModeloRepositorio` implementa `IModeloRepositorio`.
 - O servico `ColecaoServico` retorna `ColecaoResumo`, sem expor entidade de dominio para Razor.
 - O servico `ColecaoServico` retorna `ColecaoDetalhe` para detalhe por slug, sem expor entidade de dominio para Razor.
 - O servico `ModeloServico` retorna `ModeloResumoColecao`, `ModeloResumo` e `ModeloDetalhe`, sem expor entidade de dominio para Razor.
+- O servico `ArquivoVinculadoServico` retorna `ArquivoVinculadoResumo`, sem expor entidade de dominio para Razor.
 - O inicializador `BlueAtelierBancoInicializador` executa migration e seed.
 - O seed de colecoes foi ampliado de forma idempotente para manter a tela visualmente preenchida.
 - `/colecoes` lista dados reais do banco local via servico de aplicacao.
@@ -281,6 +295,7 @@ Documentacao:
 - `/colecoes/{slug}` carrega modelos reais da colecao via servico de aplicacao.
 - `/modelos` lista modelos reais do banco local via servico de aplicacao.
 - `/colecoes/{colecaoSlug}/modelos/{modeloSlug}` carrega dados basicos reais do modelo via servico de aplicacao.
+- A secao `Linked Files` do Detalhe do Modelo carrega metadados reais de arquivos vinculados via servico de aplicacao.
 - A navegacao por slug para `Eldritch Horrors` foi preservada.
 - A navegacao do card `Cthulhu Idol` na tela Modelos foi preservada para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`.
 - Os cards internos do Detalhe da Colecao preservam classes CSS e passam a usar dados reais de nome, etapa, status e progresso.
@@ -288,7 +303,8 @@ Documentacao:
 - A contagem visual de modelos no Detalhe da Colecao usa a quantidade real carregada.
 - Links, referencias e notas do Detalhe da Colecao continuam mockados.
 - Filtros, ordenacao e botoes visuais da tela Modelos continuam mockados.
-- Galeria, arquivos vinculados, links, referencias, notas editaveis, favoritos e acoes visuais do Detalhe do Modelo continuam mockados.
+- Galeria, imagens, links, referencias, notas editaveis, favoritos e acoes visuais do Detalhe do Modelo continuam mockados.
+- Nenhum arquivo real foi lido, copiado, movido, aberto ou apagado.
 - Nenhum formulario, modal ou CRUD visual foi implementado.
 - Nenhum CSS visual foi alterado.
 - A sidebar permanece preservada.
@@ -353,6 +369,6 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Continuar o Bloco 4 - Modelos, somente apos revisao e aprovacao do usuario.
+Continuar o Bloco 5 - Arquivos Vinculados, somente apos revisao e aprovacao do usuario.
 
-O proximo recorte de Modelos deve evoluir a funcionalidade de forma progressiva, sem redesenhar a interface. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+O proximo recorte de Arquivos Vinculados deve evoluir a funcionalidade de forma progressiva, sem redesenhar a interface e sem manipular arquivos reais sem decisao explicita. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
