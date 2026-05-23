@@ -1,24 +1,55 @@
-@page "/colecoes/eldritch-horrors/modelos/cthulhu-idol"
+@page "/colecoes/{ColecaoSlug}/modelos/{ModeloSlug}"
+@using BlueAtelier.Application.Contratos
+@using BlueAtelier.Application.Modelos
+@using BlueAtelier.Domain.Enums
+@inject IModeloServico ModeloServico
 
+@if (IsLoading)
+{
+    <section class="model-detail-page" aria-labelledby="model-detail-loading-title">
+        <AppStateBlock
+            Variant="loading"
+            Title="Carregando modelo"
+            Description="Buscando os dados locais do modelo."
+            IsCompact="true" />
+    </section>
+}
+else if (Model is null)
+{
+    <section class="model-detail-page" aria-labelledby="model-detail-not-found-title">
+        <a class="collection-detail-back" href="/modelos">
+            <span aria-hidden="true">&lt;</span>
+            <span>Back to Models</span>
+        </a>
+
+        <AppStateBlock
+            Variant="unavailable"
+            Title="Modelo não encontrado"
+            Description="Este modelo não existe no banco local atual."
+            ActionLabel="Voltar para Modelos" />
+    </section>
+}
+else
+{
 <section class="model-detail-page" aria-labelledby="model-detail-title">
-    <a class="collection-detail-back" href="/colecoes/eldritch-horrors">
+    <a class="collection-detail-back" href="@CollectionPath">
         <span aria-hidden="true">&lt;</span>
-        <span>Back to Eldritch Horrors</span>
+        <span>Back to @Model.ColecaoNome</span>
     </a>
 
     <header class="model-detail-heading">
         <div class="model-detail-heading-copy">
             <p class="model-detail-eyebrow">Model Detail</p>
-            <h1 id="model-detail-title">Cthulhu Idol</h1>
+            <h1 id="model-detail-title">@Model.Nome</h1>
             <p>
-                Eldritch centerpiece with heavy texture, tentacles, stone base, and layered dark green painting.
+                @ModelDescription
             </p>
         </div>
 
         <div class="model-detail-heading-meta" aria-label="Resumo visual do modelo">
-            <span class="model-status-pill">In Painting</span>
-            <span>Updated today</span>
-            <span>70% complete</span>
+            <span class="model-status-pill">@ModelStatus</span>
+            <span>@ModelUpdatedAt</span>
+            <span>@ModelProgressLabel complete</span>
         </div>
     </header>
 
@@ -35,12 +66,12 @@
             </div>
 
             <div class="model-title-panel">
-                <h2>Cthulhu Idol</h2>
+                <h2>@Model.Nome</h2>
                 <div class="model-breadcrumb-line" aria-label="Colecao do modelo">
                     <span>Collections</span>
                     <span aria-hidden="true">/</span>
-                    <a href="/colecoes/eldritch-horrors">Eldritch Horrors</a>
-                    <span class="model-status-pill">In Painting</span>
+                    <a href="@CollectionPath">@Model.ColecaoNome</a>
+                    <span class="model-status-pill">@ModelStatus</span>
                 </div>
 
                 <div class="model-tag-row" aria-label="Tags do modelo">
@@ -51,10 +82,10 @@
                 </div>
 
                 <div class="model-progress-block">
-                    <div class="model-progress-track" aria-label="Cthulhu Idol: 70%">
-                        <span style="width: 70%"></span>
+                    <div class="model-progress-track" aria-label="@($"{Model.Nome}: {ModelProgressLabel}")">
+                        <span style="@($"width: {ModelProgressPercent}%")"></span>
                     </div>
-                    <span>70%</span>
+                    <span>@ModelProgressLabel</span>
                 </div>
             </div>
 
@@ -123,7 +154,7 @@
                 <section class="model-panel model-panel-compact" aria-labelledby="model-files-title">
                     <div class="model-panel-heading">
                         <h2 id="model-files-title">Linked Files</h2>
-                        <a class="model-gallery-open" href="/colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos">
+                        <a class="model-gallery-open" href="@($"{ModelPathBase}/arquivos")">
                             Ver arquivos
                         </a>
                     </div>
@@ -152,7 +183,7 @@
             <section class="model-panel" aria-labelledby="model-gallery-title">
                 <div class="model-panel-heading">
                     <h2 id="model-gallery-title">Gallery</h2>
-                    <a class="model-gallery-open" href="/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria">
+                    <a class="model-gallery-open" href="@($"{ModelPathBase}/galeria")">
                         Abrir galeria
                     </a>
                 </div>
@@ -167,31 +198,82 @@
             <section class="model-panel" aria-labelledby="model-notes-title">
                 <h2 id="model-notes-title">Notes</h2>
                 <p>
-                    Focusing on deep green base and dark washes. Emphasizing texture on the tentacles
-                    before the final purple glaze.
+                    @ModelNotes
                 </p>
             </section>
         </aside>
     </div>
 </section>
+}
 
 @code {
+    [Parameter]
+    public string? ColecaoSlug { get; set; }
+
+    [Parameter]
+    public string? ModeloSlug { get; set; }
+
+    private bool IsLoading { get; set; } = true;
+
+    private ModeloDetalhe? Model { get; set; }
+
+    private string CollectionPath => Model is null
+        ? "/colecoes"
+        : $"/colecoes/{Model.ColecaoSlug}";
+
+    private string ModelPathBase => Model is null
+        ? "#"
+        : $"/colecoes/{Model.ColecaoSlug}/modelos/{Model.Slug}";
+
+    private int ModelProgressPercent => Model is null
+        ? 0
+        : Math.Clamp(Model.ProgressoPercentual, 0, 100);
+
+    private string ModelProgressLabel => $"{ModelProgressPercent}%";
+
+    private string ModelStatus => Model is null
+        ? string.Empty
+        : FormatStatus(Model.EtapaAtual);
+
+    private string ModelUpdatedAt => Model is null
+        ? string.Empty
+        : FormatUpdatedAt(Model.AtualizadoEm);
+
+    private string ModelDescription => string.IsNullOrWhiteSpace(Model?.Descricao)
+        ? "Eldritch centerpiece with heavy texture, tentacles, stone base, and layered dark green painting."
+        : Model.Descricao;
+
+    private string ModelNotes =>
+        "Focusing on deep green base and dark washes. Emphasizing texture on the tentacles before the final purple glaze.";
+
+    private IReadOnlyList<ModelInfoItem> ModelInfo => Model is null
+        ? []
+        :
+        [
+            new("Current stage", ModelStatus),
+            new("Progress", ModelProgressLabel),
+            new("File type", FormatOptional(Model.TipoArquivo)),
+            new("Scale", FormatOptional(Model.Escala)),
+            new("Estimated time", FormatOptional(Model.TempoEstimado)),
+            new("Suggested material", FormatOptional(Model.MaterialSugerido))
+        ];
+
+    private IReadOnlyList<MaterialItem> Materials => Model is null
+        ? []
+        :
+        [
+            new(FormatOptional(Model.MaterialSugerido), "resin"),
+            new("Primer black", "primer"),
+            new("Deep green paint", "green"),
+            new("Purple wash", "purple")
+        ];
+
     private static readonly string[] Tags =
     [
         "idol",
         "resin",
         "painting",
         "cosmic horror"
-    ];
-
-    private static readonly ModelInfoItem[] ModelInfo =
-    [
-        new("Current stage", "Painting"),
-        new("Progress", "70%"),
-        new("File type", "STL / CTB"),
-        new("Scale", "75 mm"),
-        new("Estimated time", "6h 40m"),
-        new("Suggested material", "Resin grey")
     ];
 
     private static readonly ChecklistItem[] Checklist =
@@ -222,14 +304,6 @@
         new(".md", "painting-notes.md")
     ];
 
-    private static readonly MaterialItem[] Materials =
-    [
-        new("Resin grey", "resin"),
-        new("Primer black", "primer"),
-        new("Deep green paint", "green"),
-        new("Purple wash", "purple")
-    ];
-
     private static readonly string[] Links =
     [
         "Dark Paint Guide",
@@ -244,6 +318,68 @@
         "stone",
         "wash"
     ];
+
+    protected override async Task OnParametersSetAsync()
+    {
+        IsLoading = true;
+        Model = await ModeloServico.ObterDetalhePorSlugAsync(
+            ColecaoSlug ?? string.Empty,
+            ModeloSlug ?? string.Empty);
+        IsLoading = false;
+    }
+
+    private static string FormatStatus(EtapaModelo etapa)
+    {
+        return etapa switch
+        {
+            EtapaModelo.Preparacao => "Preparing",
+            EtapaModelo.Modelagem => "Modeling",
+            EtapaModelo.Impressao => "Printing",
+            EtapaModelo.Pintura => "In Painting",
+            EtapaModelo.Concluido => "Finished",
+            EtapaModelo.Arquivado => "Archived",
+            _ => "Planning"
+        };
+    }
+
+    private static string FormatOptional(string? value)
+    {
+        return string.IsNullOrWhiteSpace(value)
+            ? "Not defined"
+            : value;
+    }
+
+    private static string FormatUpdatedAt(DateTimeOffset updatedAt)
+    {
+        var elapsed = DateTimeOffset.UtcNow - updatedAt.ToUniversalTime();
+
+        if (elapsed < TimeSpan.FromDays(1))
+        {
+            return "Updated today";
+        }
+
+        if (elapsed < TimeSpan.FromDays(2))
+        {
+            return "Updated yesterday";
+        }
+
+        if (elapsed < TimeSpan.FromDays(7))
+        {
+            return $"Updated {Math.Max(1, (int)elapsed.TotalDays)} days ago";
+        }
+
+        if (elapsed < TimeSpan.FromDays(14))
+        {
+            return "Updated 1 week ago";
+        }
+
+        if (elapsed < TimeSpan.FromDays(31))
+        {
+            return $"Updated {Math.Max(2, (int)(elapsed.TotalDays / 7))} weeks ago";
+        }
+
+        return "Updated 1 month ago";
+    }
 
     private sealed record ModelInfoItem(string Label, string Value);
 

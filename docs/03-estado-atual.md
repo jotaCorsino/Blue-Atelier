@@ -38,7 +38,9 @@ O Recorte 2 do Bloco 3 foi consolidado para conectar o Detalhe da Colecao aos da
 
 O Recorte 3 do Bloco 3 foi consolidado para conectar a lista interna de modelos do Detalhe da Colecao aos dados reais do banco local. A tela continua preservando o visual aprovado, enquanto links, referencias, notas e acoes visuais continuam mockados.
 
-O Bloco 4 foi consolidado no Recorte 1 de Modelos. A tela geral `/modelos` passou a listar modelos reais do banco local, preservando o visual aprovado e mantendo filtros, ordenacao, botoes visuais, detalhe real do modelo e demais areas como mockadas.
+O Bloco 4 foi consolidado no Recorte 1 de Modelos. A tela geral `/modelos` passou a listar modelos reais do banco local, preservando o visual aprovado e mantendo filtros, ordenacao e botoes visuais como mockados.
+
+O Recorte 2 do Bloco 4 foi consolidado para conectar o Detalhe do Modelo aos dados reais do banco local por slug de colecao e slug de modelo. A rota parametrizada `/colecoes/{colecaoSlug}/modelos/{modeloSlug}` preserva a rota aprovada do `Cthulhu Idol`, mantendo galeria, arquivos vinculados, links, referencias, notas editaveis e acoes visuais como mockados.
 
 ## repositorio remoto
 
@@ -48,18 +50,15 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou o Bloco 4 - Modelos, recorte 1:
+A ultima tarefa concluida consolidou o Bloco 4 - Modelos, recorte 2:
 
-- criacao do modelo de aplicacao `ModeloResumo`;
-- criacao do metodo `ListarResumoAsync` em `IModeloServico` e `ModeloServico`;
-- conexao da rota `/modelos` com modelos reais do banco local;
-- uso dos modelos ja persistidos pelo seed de `Eldritch Horrors`;
-- preservacao do visual aprovado da tela Modelos;
-- filtros, ordenacao, botoes visuais e navegacoes sem tela real mantidos mockados;
-- Detalhe do Modelo ainda nao integrado ao banco;
-- criacao de testes para listagem geral de modelos;
-- criacao do documento `docs/49-bloco-4-modelos.md`;
-- atualizacao do documento `docs/48-bloco-3-colecoes.md` para refletir o recorte anterior consolidado;
+- criacao do modelo de aplicacao `ModeloDetalhe`;
+- criacao do metodo `ObterPorColecaoESlugAsync` em `IModeloRepositorio` e `ModeloRepositorio`;
+- criacao do metodo `ObterDetalhePorSlugAsync` em `IModeloServico` e `ModeloServico`;
+- conexao da tela Detalhe do Modelo com dados reais do banco local por slug da colecao e slug do modelo;
+- preservacao da rota aprovada `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
+- estado simples para modelo nao encontrado usando o padrao reutilizavel de estados;
+- galeria, arquivos vinculados, links, referencias, notas editaveis, favoritos e acoes visuais mantidos mockados;
 - nenhum CSS visual alterado;
 - nenhum CRUD visual implementado;
 - nenhuma reintroducao das areas removidas.
@@ -150,6 +149,7 @@ Implementado:
 - modelo de aplicacao `ColecaoDetalhe`;
 - modelo de aplicacao `ModeloResumoColecao`;
 - modelo de aplicacao `ModeloResumo`;
+- modelo de aplicacao `ModeloDetalhe`;
 - inicializador `BlueAtelierBancoInicializador` para migration e seed;
 - seed de colecoes suficiente para manter a tela `/colecoes` visualmente proxima do estado aprovado;
 - tokens e temas CSS em `wwwroot/css/`;
@@ -158,7 +158,7 @@ Implementado:
 - tela de Detalhe da Colecao aprovada e conectada a dados basicos reais da colecao por slug;
 - lista interna de modelos do Detalhe da Colecao conectada a modelos reais do banco local;
 - tela Modelos em `/modelos` aprovada e conectada a listagem real de modelos do banco local;
-- tela de Detalhe do Modelo aprovada;
+- tela de Detalhe do Modelo aprovada e conectada a dados basicos reais do modelo por slug;
 - tela Galeria do Modelo aprovada;
 - tela Visualizacao de Imagem aprovada;
 - tela Arquivos Vinculados aprovada;
@@ -230,7 +230,8 @@ Ainda nao implementado:
 - edicao real de colecoes, modelos ou cards;
 - CRUD visual de colecoes;
 - CRUD visual de modelos;
-- detalhe real do modelo conectado ao banco local;
+- CRUD real do detalhe do modelo pela UI;
+- galeria real, arquivos vinculados reais, links reais, referencias reais e notas reais editaveis do modelo;
 - integracao real de links, referencias e notas no Detalhe da Colecao;
 - integracao das demais telas com persistencia real.
 
@@ -247,6 +248,7 @@ Implementacao:
 - conexao da tela `/colecoes` ao servico em `src/blueatelier.app/Components/Pages/Colecoes.razor`;
 - conexao dos cards internos do Detalhe da Colecao ao servico de modelos em `src/blueatelier.app/Components/Pages/DetalheColecao.razor`;
 - conexao da tela `/modelos` ao servico de modelos em `src/blueatelier.app/Components/Pages/Modelos.razor`;
+- conexao da tela Detalhe do Modelo ao servico de modelos em `src/blueatelier.app/Components/Pages/DetalheModelo.razor`;
 - inicializacao do banco no app em `src/blueatelier.app/MauiProgram.cs`;
 - testes de colecoes em `tests/blueatelier.tests/infrastructure`.
 - testes de modelos em `tests/blueatelier.tests/infrastructure`.
@@ -266,17 +268,19 @@ Documentacao:
 - Nenhum `design.md` do Stitch foi alterado.
 - O Bloco 3 - Colecoes, recorte 3, foi consolidado.
 - O Bloco 4 - Modelos, recorte 1, foi consolidado.
+- O Bloco 4 - Modelos, recorte 2, foi consolidado.
 - O repositorio `ColecaoRepositorio` implementa `IColecaoRepositorio`.
 - O repositorio `ModeloRepositorio` implementa `IModeloRepositorio`.
 - O servico `ColecaoServico` retorna `ColecaoResumo`, sem expor entidade de dominio para Razor.
 - O servico `ColecaoServico` retorna `ColecaoDetalhe` para detalhe por slug, sem expor entidade de dominio para Razor.
-- O servico `ModeloServico` retorna `ModeloResumoColecao` e `ModeloResumo`, sem expor entidade de dominio para Razor.
+- O servico `ModeloServico` retorna `ModeloResumoColecao`, `ModeloResumo` e `ModeloDetalhe`, sem expor entidade de dominio para Razor.
 - O inicializador `BlueAtelierBancoInicializador` executa migration e seed.
 - O seed de colecoes foi ampliado de forma idempotente para manter a tela visualmente preenchida.
 - `/colecoes` lista dados reais do banco local via servico de aplicacao.
 - `/colecoes/{slug}` carrega dados basicos reais da colecao via servico de aplicacao.
 - `/colecoes/{slug}` carrega modelos reais da colecao via servico de aplicacao.
 - `/modelos` lista modelos reais do banco local via servico de aplicacao.
+- `/colecoes/{colecaoSlug}/modelos/{modeloSlug}` carrega dados basicos reais do modelo via servico de aplicacao.
 - A navegacao por slug para `Eldritch Horrors` foi preservada.
 - A navegacao do card `Cthulhu Idol` na tela Modelos foi preservada para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`.
 - Os cards internos do Detalhe da Colecao preservam classes CSS e passam a usar dados reais de nome, etapa, status e progresso.
@@ -284,7 +288,7 @@ Documentacao:
 - A contagem visual de modelos no Detalhe da Colecao usa a quantidade real carregada.
 - Links, referencias e notas do Detalhe da Colecao continuam mockados.
 - Filtros, ordenacao e botoes visuais da tela Modelos continuam mockados.
-- O Detalhe do Modelo ainda nao foi integrado ao banco local.
+- Galeria, arquivos vinculados, links, referencias, notas editaveis, favoritos e acoes visuais do Detalhe do Modelo continuam mockados.
 - Nenhum formulario, modal ou CRUD visual foi implementado.
 - Nenhum CSS visual foi alterado.
 - A sidebar permanece preservada.

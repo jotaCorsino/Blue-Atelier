@@ -9,4 +9,9 @@ namespace BlueAtelier.Domain.Contratos;
 public interface IModeloRepositorio : IRepositorio<Modelo>
 {
     Task<IReadOnlyList<Modelo>> ListarPorColecaoAsync(Guid colecaoId, CancellationToken cancellationToken = default);
+
+    Task<Modelo?> ObterPorColecaoESlugAsync(
+        Guid colecaoId,
+        string slug,
+        CancellationToken cancellationToken = default);
 }

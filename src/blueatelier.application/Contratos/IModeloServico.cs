@@ -10,4 +10,9 @@ public interface IModeloServico
     Task<IReadOnlyList<ModeloResumoColecao>> ListarPorColecaoAsync(
         Guid colecaoId,
         CancellationToken cancellationToken = default);
+
+    Task<ModeloDetalhe?> ObterDetalhePorSlugAsync(
+        string colecaoSlug,
+        string modeloSlug,
+        CancellationToken cancellationToken = default);
 }

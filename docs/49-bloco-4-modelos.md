@@ -2,9 +2,9 @@
 
 ## objetivo
 
-Registrar a consolidacao do inicio do Bloco 4 da fase funcional do Blue Atelier, conectando a tela geral `/modelos` aos modelos reais do banco local sem alterar o visual aprovado.
+Registrar a consolidacao do inicio do Bloco 4 da fase funcional do Blue Atelier, conectando a tela geral `/modelos` e, no recorte seguinte, o Detalhe do Modelo aos modelos reais do banco local sem alterar o visual aprovado.
 
-Este recorte nao implementa o Bloco 4 inteiro. Ele apenas substitui a lista mockada da tela geral de modelos por dados persistidos e mantem CRUD visual, detalhe real do modelo, galeria real e arquivos vinculados reais fora do escopo.
+O Bloco 4 ainda nao implementa o recorte inteiro de Modelos. Os recortes atuais substituem a lista mockada da tela geral de modelos e os dados basicos do Detalhe do Modelo por dados persistidos, mantendo CRUD visual, galeria real, arquivos vinculados reais, links reais, referencias reais e favoritos reais fora do escopo.
 
 ## recorte implementado
 
@@ -151,6 +151,145 @@ Confirmado neste recorte:
 - nao houve redesenho da tela `/modelos`;
 - nao houve CRUD visual.
 
+## recorte 2 - detalhe do modelo com dados reais
+
+O Recorte 2 conecta a tela Detalhe do Modelo aos dados reais do banco local por slug de colecao e slug de modelo, preservando integralmente o visual aprovado.
+
+### objetivo
+
+O objetivo foi substituir apenas os dados fixos principais do modelo por dados vindos do servico de aplicacao:
+
+- nome;
+- colecao;
+- descricao;
+- etapa/status;
+- progresso;
+- tipo de arquivo;
+- escala;
+- tempo estimado;
+- material sugerido;
+- observacoes disponiveis no modelo de aplicacao.
+
+### arquivos criados
+
+Foi criado:
+
+- `src/blueatelier.application/Modelos/ModeloDetalhe.cs`.
+
+### arquivos alterados
+
+Foram alterados:
+
+- `src/blueatelier.domain/Contratos/IModeloRepositorio.cs`;
+- `src/blueatelier.infrastructure/Repositorios/ModeloRepositorio.cs`;
+- `src/blueatelier.application/Contratos/IModeloServico.cs`;
+- `src/blueatelier.application/Servicos/ModeloServico.cs`;
+- `src/blueatelier.app/Components/Pages/DetalheModelo.razor`;
+- `tests/blueatelier.tests/infrastructure/ModeloPersistenciaTests.cs`;
+- `docs/03-estado-atual.md`;
+- `docs/04-proximos-documentos.md`;
+- `docs/49-bloco-4-modelos.md`.
+
+Nenhum arquivo em `src/blueatelier.app/wwwroot/css` foi alterado.
+
+### metodo criado no repositorio
+
+O contrato `IModeloRepositorio` e a implementacao `ModeloRepositorio` passaram a expor:
+
+```txt
+ObterPorColecaoESlugAsync
+```
+
+Esse metodo filtra por `ColecaoId` e `Slug`, usa consulta `AsNoTracking` e retorna `null` quando o modelo nao existe para a colecao informada.
+
+### metodo criado no servico
+
+O contrato `IModeloServico` e a implementacao `ModeloServico` passaram a expor:
+
+```txt
+ObterDetalhePorSlugAsync
+```
+
+Esse metodo busca a colecao por slug, retorna `null` se ela nao existir, busca o modelo por `ColecaoId` e slug do modelo e retorna `ModeloDetalhe`, sem expor entidade de dominio diretamente para Razor.
+
+### modelo de aplicacao criado
+
+Foi criado `ModeloDetalhe`, contendo os dados necessarios para a tela Detalhe do Modelo:
+
+- `Id`;
+- `ColecaoId`;
+- `ColecaoNome`;
+- `ColecaoSlug`;
+- `Nome`;
+- `Slug`;
+- `Descricao`;
+- `EtapaAtual`;
+- `ProgressoPercentual`;
+- `TipoArquivo`;
+- `Escala`;
+- `TempoEstimado`;
+- `MaterialSugerido`;
+- `Observacoes`;
+- `CriadoEm`;
+- `AtualizadoEm`.
+
+### tela Detalhe do Modelo com dados reais
+
+A tela `DetalheModelo.razor` passou a usar rota parametrizada:
+
+```txt
+/colecoes/{ColecaoSlug}/modelos/{ModeloSlug}
+```
+
+A rota aprovada continua funcionando:
+
+```txt
+/colecoes/eldritch-horrors/modelos/cthulhu-idol
+```
+
+A tela carrega `ModeloDetalhe` pelo `IModeloServico` e substitui os dados fixos principais por dados reais do banco local. O markup e as classes CSS foram preservados o maximo possivel.
+
+Quando o modelo nao e encontrado, a tela usa `AppStateBlock` com uma mensagem curta e mantem um link visual de retorno para `/modelos`.
+
+### o que continua mockado
+
+Continuam mockados:
+
+- galeria;
+- imagens;
+- arquivos vinculados;
+- links;
+- referencias;
+- notas editaveis;
+- favoritos;
+- acoes de edicao;
+- botoes de abrir pasta, importar ou exportar;
+- qualquer leitura real de arquivo.
+
+### testes adicionados
+
+Foram adicionados ou atualizados testes para:
+
+- `ModeloRepositorio.ObterPorColecaoESlugAsync` retornar o modelo correto;
+- `ModeloRepositorio.ObterPorColecaoESlugAsync` nao retornar modelo de outra colecao;
+- `ModeloServico.ObterDetalhePorSlugAsync` retornar `ModeloDetalhe`;
+- `ModeloServico.ObterDetalhePorSlugAsync` retornar `null` para colecao inexistente;
+- `ModeloServico.ObterDetalhePorSlugAsync` retornar `null` para modelo inexistente;
+- `ModeloDetalhe` ser modelo de aplicacao, sem expor entidade de dominio para a UI.
+
+### preservacao visual do recorte 2
+
+Confirmado neste recorte:
+
+- nenhum CSS visual foi alterado;
+- nenhuma tela fora de Detalhe do Modelo foi alterada visualmente;
+- sidebar e topbar nao foram alteradas;
+- nenhuma rota removida foi recriada;
+- nenhuma area removida foi reintroduzida;
+- nao houve CRUD visual;
+- nao houve formulario ou modal;
+- nao houve galeria real ou arquivos vinculados reais.
+
 ## proxima etapa sugerida
 
-Apos revisao do Recorte 1 do Bloco 4, a proxima etapa sugerida e conectar o Detalhe do Modelo aos dados reais do banco local, preservando integralmente o visual aprovado e mantendo galeria, arquivos vinculados, links e favoritos fora do escopo ate recortes especificos.
+Apos revisao do Recorte 2 do Bloco 4, a proxima etapa sugerida e continuar Modelos de forma progressiva, sem redesenhar a interface e sem implementar CRUD visual amplo. Galeria real, arquivos vinculados reais, links reais e referencias reais devem permanecer para recortes especificos.

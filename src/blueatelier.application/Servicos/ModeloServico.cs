@@ -31,6 +31,33 @@ public sealed class ModeloServico(
             .ToList();
     }
 
+    public async Task<ModeloDetalhe?> ObterDetalhePorSlugAsync(
+        string colecaoSlug,
+        string modeloSlug,
+        CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(colecaoSlug) || string.IsNullOrWhiteSpace(modeloSlug))
+        {
+            return null;
+        }
+
+        var colecao = await colecaoRepositorio.ObterPorSlugAsync(colecaoSlug, cancellationToken);
+
+        if (colecao is null)
+        {
+            return null;
+        }
+
+        var modelo = await modeloRepositorio.ObterPorColecaoESlugAsync(
+            colecao.Id,
+            modeloSlug,
+            cancellationToken);
+
+        return modelo is null
+            ? null
+            : CriarDetalhe(modelo, colecao);
+    }
+
     private static ModeloResumo CriarResumo(Modelo modelo, Colecao? colecao)
     {
         return new ModeloResumo(
@@ -64,6 +91,27 @@ public sealed class ModeloServico(
             modelo.Escala,
             modelo.TempoEstimado,
             modelo.MaterialSugerido,
+            modelo.AtualizadoEm);
+    }
+
+    private static ModeloDetalhe CriarDetalhe(Modelo modelo, Colecao colecao)
+    {
+        return new ModeloDetalhe(
+            modelo.Id,
+            modelo.ColecaoId,
+            colecao.Nome,
+            colecao.Slug,
+            modelo.Nome,
+            modelo.Slug,
+            modelo.Descricao,
+            modelo.EtapaAtual,
+            modelo.ProgressoPercentual,
+            modelo.TipoArquivo,
+            modelo.Escala,
+            modelo.TempoEstimado,
+            modelo.MaterialSugerido,
+            modelo.Observacoes,
+            modelo.CriadoEm,
             modelo.AtualizadoEm);
     }
 }

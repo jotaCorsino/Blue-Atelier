@@ -253,6 +253,230 @@ public sealed class ModeloPersistenciaTests
     }
 
     [Fact]
+    public async Task Repositorio_DeveObterModeloPorColecaoESlug()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var colecaoId = Guid.NewGuid();
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                contexto.Colecoes.Add(new Colecao
+                {
+                    Id = colecaoId,
+                    Nome = "Eldritch Horrors",
+                    Slug = "eldritch-horrors"
+                });
+                contexto.Modelos.Add(new Modelo
+                {
+                    ColecaoId = colecaoId,
+                    Nome = "Cthulhu Idol",
+                    Slug = "cthulhu-idol",
+                    EtapaAtual = EtapaModelo.Pintura,
+                    ProgressoPercentual = 60
+                });
+
+                await contexto.SaveChangesAsync();
+            }
+
+            var repositorio = new ModeloRepositorio(new TestDbContextFactory(opcoes));
+
+            var modelo = await repositorio.ObterPorColecaoESlugAsync(colecaoId, "cthulhu-idol");
+
+            Assert.NotNull(modelo);
+            Assert.Equal("Cthulhu Idol", modelo.Nome);
+            Assert.Equal(colecaoId, modelo.ColecaoId);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Repositorio_NaoDeveRetornarModeloDeOutraColecaoPorSlug()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var colecaoId = Guid.NewGuid();
+            var outraColecaoId = Guid.NewGuid();
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                contexto.Colecoes.AddRange(
+                    new Colecao
+                    {
+                        Id = colecaoId,
+                        Nome = "Eldritch Horrors",
+                        Slug = "eldritch-horrors"
+                    },
+                    new Colecao
+                    {
+                        Id = outraColecaoId,
+                        Nome = "Ancient Ruins",
+                        Slug = "ancient-ruins"
+                    });
+
+                contexto.Modelos.Add(new Modelo
+                {
+                    ColecaoId = outraColecaoId,
+                    Nome = "Cthulhu Idol",
+                    Slug = "cthulhu-idol",
+                    EtapaAtual = EtapaModelo.Modelagem,
+                    ProgressoPercentual = 30
+                });
+
+                await contexto.SaveChangesAsync();
+            }
+
+            var repositorio = new ModeloRepositorio(new TestDbContextFactory(opcoes));
+
+            var modelo = await repositorio.ObterPorColecaoESlugAsync(colecaoId, "cthulhu-idol");
+
+            Assert.Null(modelo);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarDetalheDeModeloPorSlug()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var colecaoId = Guid.NewGuid();
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                contexto.Colecoes.Add(new Colecao
+                {
+                    Id = colecaoId,
+                    Nome = "Eldritch Horrors",
+                    Slug = "eldritch-horrors"
+                });
+                contexto.Modelos.Add(new Modelo
+                {
+                    ColecaoId = colecaoId,
+                    Nome = "Cthulhu Idol",
+                    Slug = "cthulhu-idol",
+                    Descricao = "Idolo principal da colecao",
+                    EtapaAtual = EtapaModelo.Pintura,
+                    ProgressoPercentual = 60,
+                    TipoArquivo = "STL",
+                    Escala = "32mm",
+                    TempoEstimado = "6h",
+                    MaterialSugerido = "Resin Grey",
+                    Observacoes = "Pintura em andamento"
+                });
+
+                await contexto.SaveChangesAsync();
+            }
+
+            var factory = new TestDbContextFactory(opcoes);
+            var repositorio = new ModeloRepositorio(factory);
+            var colecaoRepositorio = new ColecaoRepositorio(factory);
+            var servico = new ModeloServico(repositorio, colecaoRepositorio);
+
+            var detalhe = await servico.ObterDetalhePorSlugAsync("eldritch-horrors", "cthulhu-idol");
+
+            Assert.NotNull(detalhe);
+            Assert.IsType<ModeloDetalhe>(detalhe);
+            Assert.Equal("Cthulhu Idol", detalhe.Nome);
+            Assert.Equal("Eldritch Horrors", detalhe.ColecaoNome);
+            Assert.Equal("eldritch-horrors", detalhe.ColecaoSlug);
+            Assert.Equal("cthulhu-idol", detalhe.Slug);
+            Assert.Equal(EtapaModelo.Pintura, detalhe.EtapaAtual);
+            Assert.Equal("Resin Grey", detalhe.MaterialSugerido);
+            Assert.Equal("Pintura em andamento", detalhe.Observacoes);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarNullParaColecaoInexistenteNoDetalhe()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var factory = new TestDbContextFactory(opcoes);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+            }
+
+            var repositorio = new ModeloRepositorio(factory);
+            var colecaoRepositorio = new ColecaoRepositorio(factory);
+            var servico = new ModeloServico(repositorio, colecaoRepositorio);
+
+            var detalhe = await servico.ObterDetalhePorSlugAsync("nao-existe", "cthulhu-idol");
+
+            Assert.Null(detalhe);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarNullParaModeloInexistenteNoDetalhe()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var colecaoId = Guid.NewGuid();
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                contexto.Colecoes.Add(new Colecao
+                {
+                    Id = colecaoId,
+                    Nome = "Eldritch Horrors",
+                    Slug = "eldritch-horrors"
+                });
+
+                await contexto.SaveChangesAsync();
+            }
+
+            var factory = new TestDbContextFactory(opcoes);
+            var repositorio = new ModeloRepositorio(factory);
+            var colecaoRepositorio = new ColecaoRepositorio(factory);
+            var servico = new ModeloServico(repositorio, colecaoRepositorio);
+
+            var detalhe = await servico.ObterDetalhePorSlugAsync("eldritch-horrors", "nao-existe");
+
+            Assert.Null(detalhe);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
     public async Task Seed_DeveCriarModelosDeEldritchHorrorsSemDuplicar()
     {
         var caminhoBanco = CriarCaminhoBancoTemporario();

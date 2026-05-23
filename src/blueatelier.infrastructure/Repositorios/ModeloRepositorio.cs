@@ -41,6 +41,20 @@ public sealed class ModeloRepositorio(IDbContextFactory<BlueAtelierDbContext> db
             .SingleOrDefaultAsync(modelo => modelo.Id == id, cancellationToken);
     }
 
+    public async Task<Modelo?> ObterPorColecaoESlugAsync(
+        Guid colecaoId,
+        string slug,
+        CancellationToken cancellationToken = default)
+    {
+        await using var contexto = dbContextFactory.CreateDbContext();
+
+        return await contexto.Modelos
+            .AsNoTracking()
+            .SingleOrDefaultAsync(
+                modelo => modelo.ColecaoId == colecaoId && modelo.Slug == slug,
+                cancellationToken);
+    }
+
     public async Task<Modelo> SalvarAsync(Modelo entidade, CancellationToken cancellationToken = default)
     {
         await using var contexto = dbContextFactory.CreateDbContext();
