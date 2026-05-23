@@ -280,6 +280,148 @@ Foram adicionados testes para:
 - `ColecaoServico.ObterDetalhePorSlugAsync` retornar `null` para slug inexistente;
 - busca por slug usando dados persistidos.
 
+## recorte 3 - modelos reais no detalhe da colecao
+
+O Recorte 3 conecta a lista interna de modelos do Detalhe da Colecao aos dados reais do banco local, preservando o visual aprovado.
+
+### objetivo
+
+Este recorte implementa apenas:
+
+- repositorio concreto de modelos;
+- servico de aplicacao para listar modelos por colecao;
+- modelo de aplicacao para resumo de modelo no card da colecao;
+- seed idempotente com modelos iniciais de `Eldritch Horrors`;
+- conexao dos cards de modelos em `DetalheColecao.razor` ao banco local;
+- contagem real de modelos no meta visual da colecao;
+- testes de repositorio, servico e seed.
+
+### arquivos criados
+
+Foram criados:
+
+- `src/blueatelier.application/Contratos/IModeloServico.cs`;
+- `src/blueatelier.application/Modelos/ModeloResumoColecao.cs`;
+- `src/blueatelier.application/Servicos/ModeloServico.cs`;
+- `src/blueatelier.infrastructure/Repositorios/ModeloRepositorio.cs`;
+- `tests/blueatelier.tests/infrastructure/ModeloPersistenciaTests.cs`.
+
+### arquivos alterados
+
+Foram alterados:
+
+- `src/blueatelier.app/MauiProgram.cs`;
+- `src/blueatelier.app/Components/Pages/DetalheColecao.razor`;
+- `src/blueatelier.infrastructure/DependencyInjection.cs`;
+- `src/blueatelier.infrastructure/Persistencia/BlueAtelierSeed.cs`;
+- `docs/03-estado-atual.md`;
+- `docs/04-proximos-documentos.md`;
+- `docs/48-bloco-3-colecoes.md`.
+
+Nenhum arquivo em `src/blueatelier.app/wwwroot/css` foi alterado.
+
+### repositorio de modelos
+
+Foi criado `ModeloRepositorio`, implementando `IModeloRepositorio`.
+
+O repositorio oferece:
+
+- listar modelos;
+- listar modelos por colecao;
+- obter modelo por `Id`;
+- salvar modelo;
+- remover modelo.
+
+Neste recorte, a UI usa apenas a listagem por colecao.
+
+### servico de modelos
+
+Foi criado `ModeloServico`, expondo:
+
+```txt
+ListarPorColecaoAsync
+```
+
+O servico retorna `ModeloResumoColecao`, evitando expor entidades de dominio diretamente para Razor Components.
+
+### seed de modelos
+
+O seed foi ampliado de forma idempotente para criar, dentro da colecao `Eldritch Horrors`, os modelos:
+
+- Cthulhu Idol;
+- Deep One Bust;
+- Tentacle Beast;
+- Ancient Cultist;
+- Forgotten Horror;
+- Abyssal Statue.
+
+Cada modelo possui dados simples de etapa, progresso, tipo de arquivo, escala, tempo estimado, material sugerido e descricao curta.
+
+O seed nao cria areas removidas do escopo e nao duplica modelos ao ser executado mais de uma vez.
+
+### detalhe da colecao com modelos reais
+
+A tela `DetalheColecao.razor` continua carregando a colecao real por `slug` e agora carrega os modelos reais pelo `IModeloServico`.
+
+Foram preservados:
+
+- markup principal dos cards;
+- classes CSS existentes;
+- grid visual de modelos;
+- capas e tons visuais por metadados locais;
+- navegacao do `Cthulhu Idol` para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
+- links laterais;
+- referencias;
+- notas;
+- botoes visuais.
+
+Os dados reais usados nos cards sao:
+
+- nome;
+- etapa atual;
+- progresso percentual;
+- status textual derivado da etapa/progresso.
+
+A contagem exibida no meta visual da colecao passou a usar a quantidade real de modelos carregados para a colecao.
+
+### o que continua mockado no recorte 3
+
+Continuam mockados:
+
+- links laterais;
+- referencias/galeria lateral;
+- notas;
+- botoes de editar colecao, abrir pasta e novo modelo;
+- capas e tons visuais dos cards;
+- detalhes reais de outros modelos alem da rota aprovada do `Cthulhu Idol`;
+- galeria real;
+- arquivos vinculados reais;
+- referencias reais;
+- leitura de arquivos ou caminhos reais.
+
+### confirmacoes do recorte 3
+
+Confirmado:
+
+- nao houve CRUD visual;
+- nao houve formulario;
+- nao houve modal;
+- nao houve criacao real pela UI;
+- nao houve edicao real pela UI;
+- nao houve exclusao real pela UI;
+- nao houve alteracao de CSS visual;
+- links, referencias e notas ainda nao foram integrados;
+- nenhuma area removida foi reintroduzida.
+
+### testes adicionados no recorte 3
+
+Foram adicionados testes para:
+
+- `ModeloRepositorio.ListarPorColecaoAsync` retornar apenas modelos da colecao correta;
+- `ModeloServico.ListarPorColecaoAsync` retornar `ModeloResumoColecao`;
+- seed criar os modelos de `Eldritch Horrors` sem duplicar;
+- listagem de modelos nao misturar modelos de outra colecao.
+
 ## preservacao visual
 
 Confirmado neste recorte:
@@ -331,4 +473,4 @@ Resultado observado:
 
 ## proxima etapa sugerida
 
-Apos revisao do Recorte 2, a proxima etapa sugerida e continuar o Bloco 3 com um recorte pequeno para integrar modelos da colecao ou planejar criacao/edicao de colecoes, sempre preservando o visual aprovado e sem implementar CRUD visual amplo de uma vez.
+Apos revisao do Recorte 3, a proxima etapa sugerida e continuar o Bloco 3 com um recorte pequeno para planejar criacao/edicao de colecoes ou iniciar a integracao funcional de modelos, sempre preservando o visual aprovado e sem implementar CRUD visual amplo de uma vez.

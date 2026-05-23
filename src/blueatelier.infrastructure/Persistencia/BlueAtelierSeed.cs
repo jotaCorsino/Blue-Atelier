@@ -15,6 +15,11 @@ public static class BlueAtelierSeed
     private static readonly Guid PaintingStudiesId = Guid.Parse("da56b088-8ea8-4a86-a11f-9af2db32b526");
     private static readonly Guid MiniatureBasesId = Guid.Parse("b364b206-02d9-4c92-b93d-73f5a77798d7");
     private static readonly Guid CthulhuIdolId = Guid.Parse("1dc6625f-853a-43b8-a6f5-7be26f8a7c87");
+    private static readonly Guid DeepOneBustId = Guid.Parse("40df38fd-4c2a-4fd6-a08f-6181fbf21a05");
+    private static readonly Guid TentacleBeastId = Guid.Parse("dc335f26-731d-449f-92ad-3f2e9dbcf704");
+    private static readonly Guid AncientCultistId = Guid.Parse("9ecf77b5-e9f1-44d8-957b-6e8e9f39f3ce");
+    private static readonly Guid ForgottenHorrorId = Guid.Parse("9a2e90c6-d5f5-4fa8-9088-0b4a1e3edac4");
+    private static readonly Guid AbyssalStatueId = Guid.Parse("3d1e0b5a-3932-47a7-9f91-f40b50fd9077");
     private static readonly Guid ReferenciasFavoritasId = Guid.Parse("f07ac854-b9f3-4d1c-b033-e4803b5241a5");
 
     public static async Task AplicarAsync(BlueAtelierDbContext contexto, CancellationToken cancellationToken = default)
@@ -116,29 +121,113 @@ public static class BlueAtelierSeed
             true,
             cancellationToken);
 
-        var modeloExiste = await contexto.Modelos
-            .AnyAsync(item => item.Slug == "cthulhu-idol" && item.ColecaoId == colecao.Id, cancellationToken);
+        await CriarModeloSeNaoExistirAsync(
+            contexto,
+            CthulhuIdolId,
+            colecao.Id,
+            "Cthulhu Idol",
+            "cthulhu-idol",
+            "Idolo principal da colecao, preparado para pintura em tons profundos.",
+            EtapaModelo.Pintura,
+            60,
+            "STL",
+            "32mm",
+            "6h 20min",
+            "Resin Grey",
+            "Seed inicial para manter o Detalhe da Colecao visualmente preenchido.",
+            agora.AddDays(-18),
+            agora,
+            cancellationToken);
 
-        if (!modeloExiste)
-        {
-            contexto.Modelos.Add(new Modelo
-            {
-                Id = CthulhuIdolId,
-                ColecaoId = colecao.Id,
-                Nome = "Cthulhu Idol",
-                Slug = "cthulhu-idol",
-                Descricao = "Modelo inicial para seed minimo do Blue Atelier.",
-                EtapaAtual = EtapaModelo.Pintura,
-                ProgressoPercentual = 72,
-                TipoArquivo = "STL",
-                Escala = "32mm",
-                TempoEstimado = "6h 20min",
-                MaterialSugerido = "Resin Grey",
-                Observacoes = "Seed inicial; ainda nao conectado a UI.",
-                CriadoEm = agora,
-                AtualizadoEm = agora
-            });
-        }
+        await CriarModeloSeNaoExistirAsync(
+            contexto,
+            DeepOneBustId,
+            colecao.Id,
+            "Deep One Bust",
+            "deep-one-bust",
+            "Busto anfibio para estudos de pele fria e brilho umido.",
+            EtapaModelo.Impressao,
+            25,
+            "STL",
+            "Bust",
+            "4h 10min",
+            "Resin Grey",
+            "Seed visual para cards da colecao.",
+            agora.AddDays(-16),
+            agora.AddDays(-1),
+            cancellationToken);
+
+        await CriarModeloSeNaoExistirAsync(
+            contexto,
+            TentacleBeastId,
+            colecao.Id,
+            "Tentacle Beast",
+            "tentacle-beast",
+            "Criatura tentacular com base rochosa e volumes organicos.",
+            EtapaModelo.Impressao,
+            50,
+            "STL",
+            "32mm",
+            "7h",
+            "Resin Grey",
+            "Seed visual para cards da colecao.",
+            agora.AddDays(-15),
+            agora.AddDays(-2),
+            cancellationToken);
+
+        await CriarModeloSeNaoExistirAsync(
+            contexto,
+            AncientCultistId,
+            colecao.Id,
+            "Ancient Cultist",
+            "ancient-cultist",
+            "Cultista finalizado para acompanhar os rituais da colecao.",
+            EtapaModelo.Concluido,
+            100,
+            "STL",
+            "28mm",
+            "3h 30min",
+            "Primer Black",
+            "Seed visual para cards da colecao.",
+            agora.AddDays(-24),
+            agora.AddDays(-5),
+            cancellationToken);
+
+        await CriarModeloSeNaoExistirAsync(
+            contexto,
+            ForgottenHorrorId,
+            colecao.Id,
+            "Forgotten Horror",
+            "forgotten-horror",
+            "Forma esquecida em preparacao para impressao e pintura escura.",
+            EtapaModelo.Impressao,
+            25,
+            "STL",
+            "Large",
+            "8h",
+            "Resin Grey",
+            "Seed visual para cards da colecao.",
+            agora.AddDays(-20),
+            agora.AddDays(-7),
+            cancellationToken);
+
+        await CriarModeloSeNaoExistirAsync(
+            contexto,
+            AbyssalStatueId,
+            colecao.Id,
+            "Abyssal Statue",
+            "abyssal-statue",
+            "Estatua de ruina submersa para estudos de pedra e limo.",
+            EtapaModelo.Preparacao,
+            30,
+            "STL",
+            "Terrain",
+            "5h",
+            "Resin Grey",
+            "Seed visual para cards da colecao.",
+            agora.AddDays(-12),
+            agora.AddDays(-9),
+            cancellationToken);
 
         var pastaExiste = await contexto.PastasFavoritos
             .AnyAsync(item => item.Nome == "Referencias", cancellationToken);
@@ -227,6 +316,51 @@ public static class BlueAtelierSeed
         contexto.Colecoes.Add(colecao);
 
         return colecao;
+    }
+
+    private static async Task CriarModeloSeNaoExistirAsync(
+        BlueAtelierDbContext contexto,
+        Guid id,
+        Guid colecaoId,
+        string nome,
+        string slug,
+        string descricao,
+        EtapaModelo etapaAtual,
+        int progressoPercentual,
+        string tipoArquivo,
+        string escala,
+        string tempoEstimado,
+        string materialSugerido,
+        string observacoes,
+        DateTimeOffset criadoEm,
+        DateTimeOffset atualizadoEm,
+        CancellationToken cancellationToken)
+    {
+        var modeloExiste = await contexto.Modelos
+            .AnyAsync(item => item.Slug == slug && item.ColecaoId == colecaoId, cancellationToken);
+
+        if (modeloExiste)
+        {
+            return;
+        }
+
+        contexto.Modelos.Add(new Modelo
+        {
+            Id = id,
+            ColecaoId = colecaoId,
+            Nome = nome,
+            Slug = slug,
+            Descricao = descricao,
+            EtapaAtual = etapaAtual,
+            ProgressoPercentual = progressoPercentual,
+            TipoArquivo = tipoArquivo,
+            Escala = escala,
+            TempoEstimado = tempoEstimado,
+            MaterialSugerido = materialSugerido,
+            Observacoes = observacoes,
+            CriadoEm = criadoEm,
+            AtualizadoEm = atualizadoEm
+        });
     }
 
     private static async Task CriarLinkFavoritoSeNaoExistirAsync(

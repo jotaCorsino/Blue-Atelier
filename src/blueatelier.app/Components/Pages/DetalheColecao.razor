@@ -1,7 +1,9 @@
 @page "/colecoes/{Slug}"
 @using BlueAtelier.Application.Contratos
 @using BlueAtelier.Application.Modelos
+@using BlueAtelier.Domain.Enums
 @inject IColecaoServico ColecaoServico
+@inject IModeloServico ModeloServico
 
 @if (IsLoading)
 {
@@ -112,36 +114,47 @@ else
             <section class="collection-detail-models" aria-labelledby="collection-models-title">
                 <h2 class="visually-hidden" id="collection-models-title">Models in this collection</h2>
 
-                <div class="collection-detail-model-grid">
-                    @foreach (var model in Models)
-                    {
-                        <a class="collection-model-card collection-model-card-link"
-                           href="@(model.DetailPath ?? "#")"
-                           @onclick:preventDefault="@(model.DetailPath is null)"
-                           aria-label="@($"Open model {model.Name}")">
-                            <div class="collection-model-cover model-cover-@model.Cover">
-                                <span class="collection-model-shape"></span>
-                                <span class="card-edit-affordance model-edit-affordance">
-                                    <AppIcon Name="edit" />
-                                    <span>Editar</span>
-                                </span>
-                            </div>
-
-                            <div class="collection-model-body">
-                                <div class="collection-model-title-row">
-                                    <h3>@model.Name</h3>
-                                    <span class="collection-model-status collection-model-status-@model.StatusTone">@model.Status</span>
+                @if (Models.Count == 0)
+                {
+                    <AppStateBlock
+                        Variant="empty"
+                        Title="Nenhum modelo nesta coleção"
+                        Description="Os modelos desta coleção aparecerão aqui quando forem cadastrados no banco local."
+                        IsCompact="true" />
+                }
+                else
+                {
+                    <div class="collection-detail-model-grid">
+                        @foreach (var model in Models)
+                        {
+                            <a class="collection-model-card collection-model-card-link"
+                               href="@(model.DetailPath ?? "#")"
+                               @onclick:preventDefault="@(model.DetailPath is null)"
+                               aria-label="@($"Open model {model.Name}")">
+                                <div class="collection-model-cover model-cover-@model.Cover">
+                                    <span class="collection-model-shape"></span>
+                                    <span class="card-edit-affordance model-edit-affordance">
+                                        <AppIcon Name="edit" />
+                                        <span>Editar</span>
+                                    </span>
                                 </div>
 
-                                <p>@model.Stage</p>
+                                <div class="collection-model-body">
+                                    <div class="collection-model-title-row">
+                                        <h3>@model.Name</h3>
+                                        <span class="collection-model-status collection-model-status-@model.StatusTone">@model.Status</span>
+                                    </div>
 
-                                <div class="collection-model-progress" aria-label="@($"{model.Name}: {model.Progress}%")">
-                                    <span style="@($"width: {model.Progress}%")"></span>
+                                    <p>@model.Stage</p>
+
+                                    <div class="collection-model-progress" aria-label="@($"{model.Name}: {model.Progress}%")">
+                                        <span style="@($"width: {model.Progress}%")"></span>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    }
-                </div>
+                            </a>
+                        }
+                    </div>
+                }
             </section>
 
             <aside class="collection-detail-side" aria-label="Referências da coleção">
@@ -188,6 +201,8 @@ else
 
     private ColecaoDetalhe? Collection { get; set; }
 
+    private IReadOnlyList<CollectionModel> Models { get; set; } = [];
+
     private string CollectionStatus => Collection?.EstaArquivada == true
         ? "Archived"
         : "In Production";
@@ -198,7 +213,9 @@ else
 
     private string CollectionMeta => Collection is null
         ? string.Empty
-        : $"{CollectionVisual.ModelCount} · {FormatUpdatedAt(Collection.AtualizadoEm)} · Local folder linked";
+        : $"{CollectionModelCount} · {FormatUpdatedAt(Collection.AtualizadoEm)} · Local folder linked";
+
+    private string CollectionModelCount => $"{Models.Count} {(Models.Count == 1 ? "model" : "models")}";
 
     private string[] CollectionTags => CollectionVisual.Tags;
 
@@ -232,15 +249,17 @@ else
         "statue"
     ];
 
-    private static readonly CollectionModel[] Models =
-    [
-        new("Cthulhu Idol", "Painting", "60%", "blue", "idol", 60, "/colecoes/eldritch-horrors/modelos/cthulhu-idol"),
-        new("Deep One Bust", "Printing", "25%", "amber", "bust", 25, null),
-        new("Tentacle Beast", "Printing", "50%", "blue", "beast", 50, null),
-        new("Ancient Cultist", "Finished", "Finished", "green", "cultist", 100, null),
-        new("Forgotten Horror", "Printing", "25%", "amber", "forgotten", 25, null),
-        new("Abyssal Statue", "Sunken ruin piece", "30%", "blue", "statue", 30, null)
-    ];
+    private static readonly Dictionary<string, ModelVisualMetadata> ModelVisualBySlug = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["cthulhu-idol"] = new("idol", "blue"),
+        ["deep-one-bust"] = new("bust", "amber"),
+        ["tentacle-beast"] = new("beast", "blue"),
+        ["ancient-cultist"] = new("cultist", "green"),
+        ["forgotten-horror"] = new("forgotten", "amber"),
+        ["abyssal-statue"] = new("statue", "blue")
+    };
+
+    private static readonly ModelVisualMetadata DefaultModelVisualMetadata = new("idol", "blue");
 
     private static readonly string[] Links =
     [
@@ -261,8 +280,64 @@ else
     protected override async Task OnParametersSetAsync()
     {
         IsLoading = true;
+        Models = [];
         Collection = await ColecaoServico.ObterDetalhePorSlugAsync(Slug ?? string.Empty);
+
+        if (Collection is not null)
+        {
+            var modelos = await ModeloServico.ListarPorColecaoAsync(Collection.Id);
+            Models = modelos
+                .Select(CriarCollectionModel)
+                .ToList();
+        }
+
         IsLoading = false;
+    }
+
+    private CollectionModel CriarCollectionModel(ModeloResumoColecao modelo)
+    {
+        var visual = ModelVisualBySlug.TryGetValue(modelo.Slug, out var metadata)
+            ? metadata
+            : DefaultModelVisualMetadata;
+        var progress = Math.Clamp(modelo.ProgressoPercentual, 0, 100);
+
+        return new CollectionModel(
+            modelo.Nome,
+            FormatStage(modelo.EtapaAtual),
+            FormatStatus(modelo.EtapaAtual, progress),
+            visual.StatusTone,
+            visual.Cover,
+            progress,
+            CriarDetailPath(modelo));
+    }
+
+    private string? CriarDetailPath(ModeloResumoColecao modelo)
+    {
+        return Collection?.Slug.Equals("eldritch-horrors", StringComparison.OrdinalIgnoreCase) == true
+            && modelo.Slug.Equals("cthulhu-idol", StringComparison.OrdinalIgnoreCase)
+                ? "/colecoes/eldritch-horrors/modelos/cthulhu-idol"
+                : null;
+    }
+
+    private static string FormatStage(EtapaModelo etapa)
+    {
+        return etapa switch
+        {
+            EtapaModelo.Preparacao => "Preparation",
+            EtapaModelo.Modelagem => "Modeling",
+            EtapaModelo.Impressao => "Printing",
+            EtapaModelo.Pintura => "Painting",
+            EtapaModelo.Concluido => "Finished",
+            EtapaModelo.Arquivado => "Archived",
+            _ => "Planning"
+        };
+    }
+
+    private static string FormatStatus(EtapaModelo etapa, int progress)
+    {
+        return etapa == EtapaModelo.Concluido || progress >= 100
+            ? "Finished"
+            : $"{progress}%";
     }
 
     private static string FormatUpdatedAt(DateTimeOffset updatedAt)
@@ -298,6 +373,8 @@ else
     }
 
     private sealed record CollectionVisualMetadata(string ModelCount, string[] Tags);
+
+    private sealed record ModelVisualMetadata(string Cover, string StatusTone);
 
     private sealed record CollectionModel(
         string Name,
