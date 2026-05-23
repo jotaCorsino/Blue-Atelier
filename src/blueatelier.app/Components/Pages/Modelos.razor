@@ -1,4 +1,8 @@
 @page "/modelos"
+@using BlueAtelier.Application.Contratos
+@using BlueAtelier.Application.Modelos
+@using BlueAtelier.Domain.Enums
+@inject IModeloServico ModeloServico
 
 <section class="models-page" aria-labelledby="models-title">
     <header class="models-header">
@@ -87,9 +91,24 @@
             }
         }
     </div>
+
+    @if (ShowEmptyState)
+    {
+        <AppStateBlock
+            Variant="empty"
+            Title="Nenhum modelo cadastrado ainda."
+            Description="Os modelos aparecerão aqui quando forem registrados no banco local."
+            IsCompact="true" />
+    }
 </section>
 
 @code {
+    private bool IsLoading { get; set; } = true;
+
+    private IReadOnlyList<ModelIndexItem> Models { get; set; } = [];
+
+    private bool ShowEmptyState => !IsLoading && Models.Count == 0;
+
     private static readonly ModelsFilter[] Filters =
     [
         new("Todos", true),
@@ -100,19 +119,89 @@
         new("Arquivos ausentes", false)
     ];
 
-    private static readonly ModelIndexItem[] Models =
-    [
-        new("Cthulhu Idol", "Eldritch Horrors", "Em pintura", "60%", "Resin grey / base escura", "accent", "idol", "/colecoes/eldritch-horrors/modelos/cthulhu-idol"),
-        new("Deep One Bust", "Eldritch Horrors", "Preparando suportes", "25%", "Resin grey / busto", "neutral", "bust"),
-        new("Tentacle Beast", "Eldritch Horrors", "Fatiamento", "50%", "ABS-like / tentaculos", "neutral", "beast"),
-        new("Ancient Cultist", "Eldritch Horrors", "Impresso", "100%", "Primer aplicado", "success", "cultist"),
-        new("Abyssal Statue", "Eldritch Horrors", "Pronto para impressao", "30%", "Resin grey / pedra", "accent", "statue"),
-        new("Dragon Bust", "Dragon Busts", "Pintura", "65%", "Deep green resin", "neutral", "dragon"),
-        new("Dungeon Tiles", "Tavern Dioramas", "Arquivo ausente", "Revisar", "CTB pendente", "danger", "tiles"),
-        new("Tavern Props", "Tavern Dioramas", "Importado", "10%", "Madeira e props", "neutral", "props")
-    ];
+    private static readonly Dictionary<string, ModelVisualMetadata> ModelVisualBySlug = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["cthulhu-idol"] = new("idol", "accent"),
+        ["deep-one-bust"] = new("bust", "neutral"),
+        ["tentacle-beast"] = new("beast", "neutral"),
+        ["ancient-cultist"] = new("cultist", "success"),
+        ["forgotten-horror"] = new("beast", "neutral"),
+        ["abyssal-statue"] = new("statue", "accent")
+    };
+
+    private static readonly ModelVisualMetadata DefaultModelVisualMetadata = new("beast", "neutral");
+
+    protected override async Task OnInitializedAsync()
+    {
+        var modelos = await ModeloServico.ListarResumoAsync();
+
+        Models = modelos
+            .Select(CriarCard)
+            .ToList();
+
+        IsLoading = false;
+    }
+
+    private static ModelIndexItem CriarCard(ModeloResumo resumo)
+    {
+        var visual = ModelVisualBySlug.GetValueOrDefault(resumo.Slug, DefaultModelVisualMetadata);
+        var progress = Math.Clamp(resumo.ProgressoPercentual, 0, 100);
+
+        return new ModelIndexItem(
+            resumo.Nome,
+            resumo.ColecaoNome,
+            FormatStatus(resumo.EtapaAtual),
+            FormatProgress(resumo.EtapaAtual, progress),
+            FormatMaterial(resumo),
+            visual.Tone,
+            visual.Cover,
+            CriarCaminhoDetalhe(resumo));
+    }
+
+    private static string? CriarCaminhoDetalhe(ModeloResumo resumo)
+    {
+        return resumo.ColecaoSlug.Equals("eldritch-horrors", StringComparison.OrdinalIgnoreCase)
+               && resumo.Slug.Equals("cthulhu-idol", StringComparison.OrdinalIgnoreCase)
+            ? "/colecoes/eldritch-horrors/modelos/cthulhu-idol"
+            : null;
+    }
+
+    private static string FormatStatus(EtapaModelo etapa)
+    {
+        return etapa switch
+        {
+            EtapaModelo.Preparacao => "Pronto para impressao",
+            EtapaModelo.Modelagem => "Modelagem",
+            EtapaModelo.Impressao => "Impressao",
+            EtapaModelo.Pintura => "Em pintura",
+            EtapaModelo.Concluido => "Impresso",
+            EtapaModelo.Arquivado => "Arquivado",
+            _ => "Planejamento"
+        };
+    }
+
+    private static string FormatProgress(EtapaModelo etapa, int progress)
+    {
+        return etapa == EtapaModelo.Arquivado
+            ? "Arquivado"
+            : $"{progress}%";
+    }
+
+    private static string FormatMaterial(ModeloResumo resumo)
+    {
+        if (!string.IsNullOrWhiteSpace(resumo.MaterialSugerido) && !string.IsNullOrWhiteSpace(resumo.Escala))
+        {
+            return $"{resumo.MaterialSugerido} / {resumo.Escala}";
+        }
+
+        return resumo.MaterialSugerido
+               ?? resumo.TipoArquivo
+               ?? "Material a definir";
+    }
 
     private sealed record ModelsFilter(string Label, bool IsActive);
+
+    private sealed record ModelVisualMetadata(string Cover, string Tone);
 
     private sealed record ModelIndexItem(
         string Name,

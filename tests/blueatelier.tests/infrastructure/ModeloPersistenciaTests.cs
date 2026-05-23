@@ -1,3 +1,4 @@
+using BlueAtelier.Application.Modelos;
 using BlueAtelier.Application.Servicos;
 using BlueAtelier.Domain.Entidades;
 using BlueAtelier.Domain.Enums;
@@ -85,6 +86,61 @@ public sealed class ModeloPersistenciaTests
     }
 
     [Fact]
+    public async Task Repositorio_DeveListarTodosModelosPersistidos()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var colecaoId = Guid.NewGuid();
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                contexto.Colecoes.Add(new Colecao
+                {
+                    Id = colecaoId,
+                    Nome = "Eldritch Horrors",
+                    Slug = "eldritch-horrors"
+                });
+
+                contexto.Modelos.AddRange(
+                    new Modelo
+                    {
+                        ColecaoId = colecaoId,
+                        Nome = "Cthulhu Idol",
+                        Slug = "cthulhu-idol",
+                        EtapaAtual = EtapaModelo.Pintura,
+                        ProgressoPercentual = 60
+                    },
+                    new Modelo
+                    {
+                        ColecaoId = colecaoId,
+                        Nome = "Deep One Bust",
+                        Slug = "deep-one-bust",
+                        EtapaAtual = EtapaModelo.Impressao,
+                        ProgressoPercentual = 25
+                    });
+
+                await contexto.SaveChangesAsync();
+            }
+
+            var repositorio = new ModeloRepositorio(new TestDbContextFactory(opcoes));
+
+            var modelos = await repositorio.ListarAsync();
+
+            Assert.Equal(2, modelos.Count);
+            Assert.Contains(modelos, modelo => modelo.Slug == "cthulhu-idol");
+            Assert.Contains(modelos, modelo => modelo.Slug == "deep-one-bust");
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
     public async Task Servico_DeveRetornarResumoDeModelosDaColecao()
     {
         var caminhoBanco = CriarCaminhoBancoTemporario();
@@ -121,7 +177,8 @@ public sealed class ModeloPersistenciaTests
             }
 
             var repositorio = new ModeloRepositorio(new TestDbContextFactory(opcoes));
-            var servico = new ModeloServico(repositorio);
+            var colecaoRepositorio = new ColecaoRepositorio(new TestDbContextFactory(opcoes));
+            var servico = new ModeloServico(repositorio, colecaoRepositorio);
 
             var resumos = await servico.ListarPorColecaoAsync(colecaoId);
 
@@ -131,6 +188,63 @@ public sealed class ModeloPersistenciaTests
             Assert.Equal(EtapaModelo.Pintura, resumo.EtapaAtual);
             Assert.Equal(60, resumo.ProgressoPercentual);
             Assert.Equal("Resin Grey", resumo.MaterialSugerido);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarResumoGeralDeModelos()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var colecaoId = Guid.NewGuid();
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                contexto.Colecoes.Add(new Colecao
+                {
+                    Id = colecaoId,
+                    Nome = "Eldritch Horrors",
+                    Slug = "eldritch-horrors"
+                });
+                contexto.Modelos.Add(new Modelo
+                {
+                    ColecaoId = colecaoId,
+                    Nome = "Cthulhu Idol",
+                    Slug = "cthulhu-idol",
+                    Descricao = "Idolo principal da colecao",
+                    EtapaAtual = EtapaModelo.Pintura,
+                    ProgressoPercentual = 60,
+                    TipoArquivo = "STL",
+                    Escala = "32mm",
+                    TempoEstimado = "6h",
+                    MaterialSugerido = "Resin Grey"
+                });
+
+                await contexto.SaveChangesAsync();
+            }
+
+            var factory = new TestDbContextFactory(opcoes);
+            var repositorio = new ModeloRepositorio(factory);
+            var colecaoRepositorio = new ColecaoRepositorio(factory);
+            var servico = new ModeloServico(repositorio, colecaoRepositorio);
+
+            var resumos = await servico.ListarResumoAsync();
+
+            var resumo = Assert.Single(resumos);
+            Assert.IsType<ModeloResumo>(resumo);
+            Assert.Equal("Cthulhu Idol", resumo.Nome);
+            Assert.Equal("Eldritch Horrors", resumo.ColecaoNome);
+            Assert.Equal("eldritch-horrors", resumo.ColecaoSlug);
+            Assert.Equal(EtapaModelo.Pintura, resumo.EtapaAtual);
+            Assert.Equal(60, resumo.ProgressoPercentual);
         }
         finally
         {
@@ -169,6 +283,43 @@ public sealed class ModeloPersistenciaTests
             Assert.Contains("forgotten-horror", modelos);
             Assert.Contains("abyssal-statue", modelos);
             Assert.Equal(1, modelos.Count(slug => slug == "cthulhu-idol"));
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Seed_DeveAparecerNaListagemGeralDeModelos()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                await BlueAtelierSeed.AplicarAsync(contexto);
+            }
+
+            var factory = new TestDbContextFactory(opcoes);
+            var repositorio = new ModeloRepositorio(factory);
+            var colecaoRepositorio = new ColecaoRepositorio(factory);
+            var servico = new ModeloServico(repositorio, colecaoRepositorio);
+
+            var resumos = await servico.ListarResumoAsync();
+            var slugs = resumos.Select(modelo => modelo.Slug).ToList();
+
+            Assert.Equal(6, resumos.Count(modelo => modelo.ColecaoSlug == "eldritch-horrors"));
+            Assert.Contains("cthulhu-idol", slugs);
+            Assert.Contains("deep-one-bust", slugs);
+            Assert.Contains("tentacle-beast", slugs);
+            Assert.Contains("ancient-cultist", slugs);
+            Assert.Contains("forgotten-horror", slugs);
+            Assert.Contains("abyssal-statue", slugs);
         }
         finally
         {

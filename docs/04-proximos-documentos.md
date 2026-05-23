@@ -244,6 +244,12 @@ Arquivo: `docs/48-bloco-3-colecoes.md`
 
 Objetivo: registrar a consolidacao dos primeiros recortes funcionais de Colecoes, conectando `/colecoes`, o Detalhe da Colecao e a lista interna de modelos da colecao aos dados reais sem alterar CSS visual e sem implementar CRUD visual.
 
+### 41. bloco 4 - modelos
+
+Arquivo: `docs/49-bloco-4-modelos.md`
+
+Objetivo: registrar a consolidacao do primeiro recorte do Bloco 4 de Modelos, conectando `/modelos` aos dados reais do banco local sem alterar CSS visual e sem implementar CRUD visual.
+
 ## documentos substituidos ou removidos
 
 Os documentos abaixo foram removidos porque descreviam areas que sairam do escopo atual:
@@ -304,14 +310,15 @@ Documentos criados nesta base:
 - `docs/46-bloco-1-arquitetura-funcional.md`
 - `docs/47-bloco-2-banco-local.md`
 - `docs/48-bloco-3-colecoes.md`
+- `docs/49-bloco-4-modelos.md`
 
-O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada. O documento `docs/38-configuracoes-gerais.md` registra a tela Configuracoes Gerais visual/mockada. O documento `docs/39-configuracoes-caminhos.md` registra a tela Configuracoes de Caminhos visual/mockada. O documento `docs/40-configuracoes-aparencia.md` registra a tela Configuracoes de Aparencia e a padronizacao visual do modulo de Configuracoes. O documento `docs/41-modelo-pastas.md` registra a tela Modelo de Pastas e os ajustes de responsividade do modulo de Configuracoes. O documento `docs/42-backup-dados.md` registra a tela Backup/Dados visual/mockada. O documento `docs/43-estados-sistema.md` registra a referencia 19 como padrao reutilizavel de estados do sistema, nao como pagina. O documento `docs/44-fechamento-fase-visual.md` registra o encerramento da fase visual e as correcoes comportamentais aprovadas, incluindo o menu de contexto de Favoritos. O documento `docs/45-plano-fase-funcional.md` registra o plano inicial da fase funcional. O documento `docs/46-bloco-1-arquitetura-funcional.md` registra a consolidacao arquitetural inicial da fase funcional sem integracao visual e sem persistencia. O documento `docs/47-bloco-2-banco-local.md` registra a consolidacao da base inicial de banco local sem integracao visual. O documento `docs/48-bloco-3-colecoes.md` registra a consolidacao do primeiro recorte de Colecoes com listagem real via banco local, do segundo recorte com detalhe por slug e do terceiro recorte com modelos reais no Detalhe da Colecao, ainda sem CRUD visual.
+O documento `docs/35-mudanca-escopo-remocao-areas.md` substitui a trilha ativa das areas removidas. O documento `docs/36-favoritos.md` registra a primeira tela implementada depois da simplificacao de escopo. O documento `docs/37-busca.md` registra a tela Busca visual/mockada. O documento `docs/38-configuracoes-gerais.md` registra a tela Configuracoes Gerais visual/mockada. O documento `docs/39-configuracoes-caminhos.md` registra a tela Configuracoes de Caminhos visual/mockada. O documento `docs/40-configuracoes-aparencia.md` registra a tela Configuracoes de Aparencia e a padronizacao visual do modulo de Configuracoes. O documento `docs/41-modelo-pastas.md` registra a tela Modelo de Pastas e os ajustes de responsividade do modulo de Configuracoes. O documento `docs/42-backup-dados.md` registra a tela Backup/Dados visual/mockada. O documento `docs/43-estados-sistema.md` registra a referencia 19 como padrao reutilizavel de estados do sistema, nao como pagina. O documento `docs/44-fechamento-fase-visual.md` registra o encerramento da fase visual e as correcoes comportamentais aprovadas, incluindo o menu de contexto de Favoritos. O documento `docs/45-plano-fase-funcional.md` registra o plano inicial da fase funcional. O documento `docs/46-bloco-1-arquitetura-funcional.md` registra a consolidacao arquitetural inicial da fase funcional sem integracao visual e sem persistencia. O documento `docs/47-bloco-2-banco-local.md` registra a consolidacao da base inicial de banco local sem integracao visual. O documento `docs/48-bloco-3-colecoes.md` registra a consolidacao do primeiro recorte de Colecoes com listagem real via banco local, do segundo recorte com detalhe por slug e do terceiro recorte com modelos reais no Detalhe da Colecao, ainda sem CRUD visual. O documento `docs/49-bloco-4-modelos.md` registra o primeiro recorte do Bloco 4, conectando `/modelos` a dados reais do banco local.
 
 ## proxima etapa sugerida
 
-Continuar o Bloco 3 - Colecoes, somente apos nova aprovacao do usuario.
+Continuar o Bloco 4 - Modelos, somente apos nova aprovacao do usuario.
 
-O proximo recorte deve evoluir Colecoes ou Modelos de forma progressiva, sem alterar o visual aprovado e sem implementar CRUD visual amplo de uma vez.
+O proximo recorte deve evoluir Modelos de forma progressiva, sem alterar o visual aprovado e sem implementar CRUD visual amplo de uma vez.
 
 Essa proxima etapa deve usar como base:
 

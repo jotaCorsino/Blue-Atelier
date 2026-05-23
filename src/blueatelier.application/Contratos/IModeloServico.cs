@@ -4,6 +4,9 @@ namespace BlueAtelier.Application.Contratos;
 
 public interface IModeloServico
 {
+    Task<IReadOnlyList<ModeloResumo>> ListarResumoAsync(
+        CancellationToken cancellationToken = default);
+
     Task<IReadOnlyList<ModeloResumoColecao>> ListarPorColecaoAsync(
         Guid colecaoId,
         CancellationToken cancellationToken = default);

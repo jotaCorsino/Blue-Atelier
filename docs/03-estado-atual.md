@@ -36,7 +36,9 @@ O Bloco 3 foi consolidado no primeiro recorte de Colecoes. A tela `/colecoes` pa
 
 O Recorte 2 do Bloco 3 foi consolidado para conectar o Detalhe da Colecao aos dados reais da colecao por slug. A rota `/colecoes/{slug}` carrega dados basicos da colecao pelo servico de aplicacao.
 
-O Recorte 3 do Bloco 3 foi iniciado para conectar a lista interna de modelos do Detalhe da Colecao aos dados reais do banco local. A tela continua preservando o visual aprovado, enquanto links, referencias, notas e acoes visuais continuam mockados.
+O Recorte 3 do Bloco 3 foi consolidado para conectar a lista interna de modelos do Detalhe da Colecao aos dados reais do banco local. A tela continua preservando o visual aprovado, enquanto links, referencias, notas e acoes visuais continuam mockados.
+
+O Bloco 4 foi consolidado no Recorte 1 de Modelos. A tela geral `/modelos` passou a listar modelos reais do banco local, preservando o visual aprovado e mantendo filtros, ordenacao, botoes visuais, detalhe real do modelo e demais areas como mockadas.
 
 ## repositorio remoto
 
@@ -46,19 +48,18 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A tarefa atual iniciou o Bloco 3 - Colecoes, recorte 3:
+A ultima tarefa concluida consolidou o Bloco 4 - Modelos, recorte 1:
 
-- criacao do repositorio concreto `ModeloRepositorio`;
-- criacao do contrato `IModeloServico`;
-- criacao do servico `ModeloServico`;
-- criacao do modelo de aplicacao `ModeloResumoColecao`;
-- ampliacao idempotente do seed com modelos de `Eldritch Horrors`;
-- conexao dos cards internos do Detalhe da Colecao aos modelos reais da colecao;
-- contagem real de modelos no meta visual da colecao;
-- preservacao do visual aprovado da tela Detalhe da Colecao;
-- links, referencias, notas e acoes visuais mantidos mockados;
-- criacao de testes para repositorio, servico e seed de modelos;
-- atualizacao do documento `docs/48-bloco-3-colecoes.md`;
+- criacao do modelo de aplicacao `ModeloResumo`;
+- criacao do metodo `ListarResumoAsync` em `IModeloServico` e `ModeloServico`;
+- conexao da rota `/modelos` com modelos reais do banco local;
+- uso dos modelos ja persistidos pelo seed de `Eldritch Horrors`;
+- preservacao do visual aprovado da tela Modelos;
+- filtros, ordenacao, botoes visuais e navegacoes sem tela real mantidos mockados;
+- Detalhe do Modelo ainda nao integrado ao banco;
+- criacao de testes para listagem geral de modelos;
+- criacao do documento `docs/49-bloco-4-modelos.md`;
+- atualizacao do documento `docs/48-bloco-3-colecoes.md` para refletir o recorte anterior consolidado;
 - nenhum CSS visual alterado;
 - nenhum CRUD visual implementado;
 - nenhuma reintroducao das areas removidas.
@@ -148,6 +149,7 @@ Implementado:
 - modelo de aplicacao `ColecaoResumo`;
 - modelo de aplicacao `ColecaoDetalhe`;
 - modelo de aplicacao `ModeloResumoColecao`;
+- modelo de aplicacao `ModeloResumo`;
 - inicializador `BlueAtelierBancoInicializador` para migration e seed;
 - seed de colecoes suficiente para manter a tela `/colecoes` visualmente proxima do estado aprovado;
 - tokens e temas CSS em `wwwroot/css/`;
@@ -155,7 +157,7 @@ Implementado:
 - tela de Colecoes aprovada e conectada a listagem real do banco local;
 - tela de Detalhe da Colecao aprovada e conectada a dados basicos reais da colecao por slug;
 - lista interna de modelos do Detalhe da Colecao conectada a modelos reais do banco local;
-- tela Modelos em `/modelos` aprovada;
+- tela Modelos em `/modelos` aprovada e conectada a listagem real de modelos do banco local;
 - tela de Detalhe do Modelo aprovada;
 - tela Galeria do Modelo aprovada;
 - tela Visualizacao de Imagem aprovada;
@@ -227,6 +229,8 @@ Ainda nao implementado:
 - configuracoes reais;
 - edicao real de colecoes, modelos ou cards;
 - CRUD visual de colecoes;
+- CRUD visual de modelos;
+- detalhe real do modelo conectado ao banco local;
 - integracao real de links, referencias e notas no Detalhe da Colecao;
 - integracao das demais telas com persistencia real.
 
@@ -242,6 +246,7 @@ Implementacao:
 - registro de dependencias em `src/blueatelier.infrastructure/DependencyInjection.cs`;
 - conexao da tela `/colecoes` ao servico em `src/blueatelier.app/Components/Pages/Colecoes.razor`;
 - conexao dos cards internos do Detalhe da Colecao ao servico de modelos em `src/blueatelier.app/Components/Pages/DetalheColecao.razor`;
+- conexao da tela `/modelos` ao servico de modelos em `src/blueatelier.app/Components/Pages/Modelos.razor`;
 - inicializacao do banco no app em `src/blueatelier.app/MauiProgram.cs`;
 - testes de colecoes em `tests/blueatelier.tests/infrastructure`.
 - testes de modelos em `tests/blueatelier.tests/infrastructure`.
@@ -251,6 +256,7 @@ Documentacao:
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
 - `docs/48-bloco-3-colecoes.md`
+- `docs/49-bloco-4-modelos.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -258,21 +264,27 @@ Documentacao:
 - Nenhum HTML do Stitch foi alterado.
 - Nenhuma imagem do Stitch foi alterada.
 - Nenhum `design.md` do Stitch foi alterado.
-- O Bloco 3 - Colecoes, recorte 3, foi iniciado.
+- O Bloco 3 - Colecoes, recorte 3, foi consolidado.
+- O Bloco 4 - Modelos, recorte 1, foi consolidado.
 - O repositorio `ColecaoRepositorio` implementa `IColecaoRepositorio`.
 - O repositorio `ModeloRepositorio` implementa `IModeloRepositorio`.
 - O servico `ColecaoServico` retorna `ColecaoResumo`, sem expor entidade de dominio para Razor.
 - O servico `ColecaoServico` retorna `ColecaoDetalhe` para detalhe por slug, sem expor entidade de dominio para Razor.
-- O servico `ModeloServico` retorna `ModeloResumoColecao`, sem expor entidade de dominio para Razor.
+- O servico `ModeloServico` retorna `ModeloResumoColecao` e `ModeloResumo`, sem expor entidade de dominio para Razor.
 - O inicializador `BlueAtelierBancoInicializador` executa migration e seed.
 - O seed de colecoes foi ampliado de forma idempotente para manter a tela visualmente preenchida.
 - `/colecoes` lista dados reais do banco local via servico de aplicacao.
 - `/colecoes/{slug}` carrega dados basicos reais da colecao via servico de aplicacao.
 - `/colecoes/{slug}` carrega modelos reais da colecao via servico de aplicacao.
+- `/modelos` lista modelos reais do banco local via servico de aplicacao.
 - A navegacao por slug para `Eldritch Horrors` foi preservada.
+- A navegacao do card `Cthulhu Idol` na tela Modelos foi preservada para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`.
 - Os cards internos do Detalhe da Colecao preservam classes CSS e passam a usar dados reais de nome, etapa, status e progresso.
+- Os cards da tela Modelos preservam classes CSS e passam a usar dados reais de nome, colecao, etapa/status, progresso e material/escala.
 - A contagem visual de modelos no Detalhe da Colecao usa a quantidade real carregada.
 - Links, referencias e notas do Detalhe da Colecao continuam mockados.
+- Filtros, ordenacao e botoes visuais da tela Modelos continuam mockados.
+- O Detalhe do Modelo ainda nao foi integrado ao banco local.
 - Nenhum formulario, modal ou CRUD visual foi implementado.
 - Nenhum CSS visual foi alterado.
 - A sidebar permanece preservada.
@@ -326,8 +338,8 @@ Documentacao:
 - O Detalhe do Modelo ainda possui lista simples de materiais usados.
 - Nenhuma funcionalidade real de UI foi implementada.
 - Nenhum CRUD visual foi implementado.
-- Apenas `ColecaoRepositorio` foi implementado como repositorio concreto.
-- Apenas `ColecaoServico` foi implementado como servico de aplicacao para listagem de colecoes.
+- `ColecaoRepositorio` e `ModeloRepositorio` foram implementados como repositorios concretos.
+- `ColecaoServico` e `ModeloServico` foram implementados como servicos de aplicacao para os recortes atuais.
 - Nenhum CDN, Tailwind, Bootstrap ou biblioteca externa foi usado.
 - Nenhuma tela aprovada foi alterada.
 - Nenhuma funcionalidade real de UI foi implementada nesta etapa.
@@ -337,6 +349,6 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Continuar o Bloco 3 - Colecoes, somente apos revisao e aprovacao do usuario.
+Continuar o Bloco 4 - Modelos, somente apos revisao e aprovacao do usuario.
 
-O proximo recorte de Colecoes deve evoluir a funcionalidade de forma progressiva, sem redesenhar a interface. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+O proximo recorte de Modelos deve evoluir a funcionalidade de forma progressiva, sem redesenhar a interface. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
