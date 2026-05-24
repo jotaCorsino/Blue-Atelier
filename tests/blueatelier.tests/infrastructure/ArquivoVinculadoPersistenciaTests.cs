@@ -66,6 +66,34 @@ public sealed class ArquivoVinculadoPersistenciaTests
     }
 
     [Fact]
+    public async Task Repositorio_DeveListarTodosArquivosPersistidos()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var modeloId = Guid.NewGuid();
+            var outroModeloId = Guid.NewGuid();
+
+            await CriarModeloComArquivosAsync(opcoes, modeloId, outroModeloId);
+
+            var repositorio = new ArquivoVinculadoRepositorio(new TestDbContextFactory(opcoes));
+
+            var arquivos = await repositorio.ListarAsync();
+
+            Assert.Equal(3, arquivos.Count);
+            Assert.Contains(arquivos, arquivo => arquivo.Nome == "cthulhu-idol.stl");
+            Assert.Contains(arquivos, arquivo => arquivo.Nome == "painting-notes.md");
+            Assert.Contains(arquivos, arquivo => arquivo.Nome == "ruined-arch.stl");
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
     public async Task Servico_DeveRetornarResumoDeArquivosVinculados()
     {
         var caminhoBanco = CriarCaminhoBancoTemporario();
@@ -90,6 +118,36 @@ public sealed class ArquivoVinculadoPersistenciaTests
             Assert.Equal(".stl", resumo.Extensao);
             Assert.Equal(TipoArquivoVinculado.Modelo3D, resumo.Tipo);
             Assert.Equal(18_245_632, resumo.TamanhoBytes);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarResumoDaListagemGeral()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var modeloId = Guid.NewGuid();
+            var outroModeloId = Guid.NewGuid();
+
+            await CriarModeloComArquivosAsync(opcoes, modeloId, outroModeloId);
+
+            var repositorio = new ArquivoVinculadoRepositorio(new TestDbContextFactory(opcoes));
+            var servico = new ArquivoVinculadoServico(repositorio);
+
+            var resumos = await servico.ListarResumoAsync();
+
+            Assert.Equal(3, resumos.Count);
+            var resumo = Assert.Single(resumos, arquivo => arquivo.Nome == "ruined-arch.stl");
+            Assert.IsType<ArquivoVinculadoResumo>(resumo);
+            Assert.IsNotType<ArquivoVinculado>(resumo);
+            Assert.Equal(outroModeloId, resumo.ModeloId);
         }
         finally
         {
@@ -126,6 +184,82 @@ public sealed class ArquivoVinculadoPersistenciaTests
             Assert.Contains("cthulhu-idol-ready.ctb", arquivos);
             Assert.Contains("painting-notes.md", arquivos);
             Assert.Equal(1, arquivos.Count(nome => nome == "cthulhu-idol.stl"));
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Seed_DeveDisponibilizarArquivosDoCthulhuIdolNaListagemGeral()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                await BlueAtelierSeed.AplicarAsync(contexto);
+                await BlueAtelierSeed.AplicarAsync(contexto);
+            }
+
+            var repositorio = new ArquivoVinculadoRepositorio(new TestDbContextFactory(opcoes));
+            var servico = new ArquivoVinculadoServico(repositorio);
+
+            var arquivos = await servico.ListarResumoAsync();
+
+            Assert.Contains(arquivos, arquivo => arquivo.Nome == "cthulhu-idol.stl");
+            Assert.Contains(arquivos, arquivo => arquivo.Nome == "cthulhu-idol-supported.lys");
+            Assert.Contains(arquivos, arquivo => arquivo.Nome == "cthulhu-idol-ready.ctb");
+            Assert.Contains(arquivos, arquivo => arquivo.Nome == "painting-notes.md");
+            Assert.Equal(1, arquivos.Count(arquivo => arquivo.Nome == "cthulhu-idol.stl"));
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveListarMetadadosMesmoComCaminhoInexistente()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var modeloId = Guid.NewGuid();
+            var outroModeloId = Guid.NewGuid();
+
+            await CriarModeloComArquivosAsync(opcoes, modeloId, outroModeloId);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                contexto.ArquivosVinculados.Add(new ArquivoVinculado
+                {
+                    ModeloId = modeloId,
+                    Nome = "ghost-reference.obj",
+                    CaminhoLocal = "Z:/blue-atelier/caminho-inexistente/ghost-reference.obj",
+                    Tipo = TipoArquivoVinculado.Modelo3D,
+                    Extensao = ".obj",
+                    TamanhoBytes = 1_024
+                });
+
+                await contexto.SaveChangesAsync();
+            }
+
+            var repositorio = new ArquivoVinculadoRepositorio(new TestDbContextFactory(opcoes));
+            var servico = new ArquivoVinculadoServico(repositorio);
+
+            var arquivos = await servico.ListarResumoAsync();
+
+            Assert.Contains(arquivos, arquivo =>
+                arquivo.Nome == "ghost-reference.obj"
+                && arquivo.CaminhoLocal == "Z:/blue-atelier/caminho-inexistente/ghost-reference.obj");
         }
         finally
         {

@@ -2,11 +2,11 @@
 
 ## objetivo
 
-Registrar a consolidacao do Recorte 1 do Bloco 5 da fase funcional do Blue Atelier, conectando metadados de arquivos vinculados ao banco local sem manipular arquivos reais.
+Registrar a consolidacao progressiva do Bloco 5 da fase funcional do Blue Atelier, conectando metadados de arquivos vinculados ao banco local sem manipular arquivos reais.
 
 Este recorte preserva o visual aprovado e atua apenas sobre dados persistidos no SQLite.
 
-## recorte implementado
+## recorte 1 implementado
 
 O Recorte 1 implementa:
 
@@ -17,6 +17,17 @@ O Recorte 1 implementa:
 - conexao da secao `Linked Files` do Detalhe do Modelo com dados reais do banco local;
 - estado vazio simples quando o modelo nao possui arquivos vinculados;
 - testes de repositorio, servico e seed.
+
+## recorte 2 implementado
+
+O Recorte 2 implementa:
+
+- listagem real de arquivos vinculados na tela `/arquivos`;
+- metodo de servico para listar todos os arquivos vinculados;
+- reutilizacao do modelo de aplicacao `ArquivoVinculadoResumo`;
+- uso dos metadados persistidos pelo seed do `Cthulhu Idol`;
+- estado vazio simples quando nao existem arquivos vinculados;
+- testes de repositorio, servico, seed e listagem geral.
 
 ## arquivos criados
 
@@ -33,10 +44,14 @@ Foram criados:
 
 Foram alterados:
 
+- `src/blueatelier.application/Contratos/IArquivoVinculadoServico.cs`;
+- `src/blueatelier.application/Servicos/ArquivoVinculadoServico.cs`;
 - `src/blueatelier.infrastructure/DependencyInjection.cs`;
 - `src/blueatelier.infrastructure/Persistencia/BlueAtelierSeed.cs`;
 - `src/blueatelier.app/MauiProgram.cs`;
 - `src/blueatelier.app/Components/Pages/DetalheModelo.razor`;
+- `src/blueatelier.app/Components/Pages/ArquivosVinculados.razor`;
+- `tests/blueatelier.tests/infrastructure/ArquivoVinculadoPersistenciaTests.cs`;
 - `docs/03-estado-atual.md`;
 - `docs/04-proximos-documentos.md`.
 
@@ -63,6 +78,7 @@ O repositorio nao le, valida, abre, copia, move ou apaga arquivos reais.
 Foi criado `ArquivoVinculadoServico`, expondo:
 
 ```txt
+ListarResumoAsync
 ListarPorModeloAsync
 ```
 
@@ -120,6 +136,36 @@ Foram preservados:
 
 Se o modelo nao possuir arquivos vinculados, a secao exibe um `AppStateBlock` compacto.
 
+## tela /arquivos com metadados reais
+
+A tela `ArquivosVinculados.razor` passou a aceitar a rota geral `/arquivos` e continua preservando a rota aprovada do modelo:
+
+```txt
+/colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos
+```
+
+A tela chama `IArquivoVinculadoServico.ListarResumoAsync` e substitui a lista mockada por metadados persistidos no banco local.
+
+Foram preservados:
+
+- markup principal da tela;
+- classes CSS existentes;
+- cards/listas/tabelas existentes;
+- filtros visuais;
+- acoes e botoes como mockados;
+- painel lateral;
+- visual aprovado.
+
+A tela usa dados reais para:
+
+- nome;
+- extensao;
+- tipo/categoria visual;
+- caminho local como texto;
+- tamanho, quando disponivel.
+
+Se nao houver arquivos vinculados, a tela exibe um `AppStateBlock` compacto.
+
 ## o que continua mockado
 
 Continuam mockados:
@@ -132,14 +178,12 @@ Continuam mockados:
 - favoritos;
 - acoes de edicao;
 - botoes de abrir pasta, importar ou exportar;
-- tela geral de Arquivos Vinculados;
 - leitura, abertura ou validacao de caminhos reais.
 
 ## o que nao foi implementado
 
 Nao foi implementado:
 
-- tela geral `/arquivos` com dados reais;
 - upload/importacao real de arquivos;
 - seletor de arquivos do sistema;
 - leitura real de diretorios;
@@ -161,10 +205,10 @@ Nao foi implementado:
 Confirmado neste recorte:
 
 - nenhum CSS visual foi alterado;
-- nenhuma tela fora de Detalhe do Modelo foi redesenhada;
+- nenhuma tela fora de Detalhe do Modelo e Arquivos Vinculados foi alterada neste bloco;
+- a tela `/arquivos` foi conectada ao banco sem redesenho;
 - sidebar e topbar nao foram alteradas;
 - referencias Stitch nao foram alteradas;
-- nenhuma rota nova foi criada;
 - nenhuma area removida foi reintroduzida;
 - nao houve CRUD visual.
 
@@ -174,9 +218,13 @@ Foram adicionados testes para:
 
 - `ArquivoVinculadoRepositorio.ListarPorModeloAsync` retornar arquivos do modelo correto;
 - `ArquivoVinculadoRepositorio.ListarPorModeloAsync` nao misturar arquivos de outro modelo;
+- `ArquivoVinculadoRepositorio.ListarAsync` retornar arquivos persistidos;
 - `ArquivoVinculadoServico.ListarPorModeloAsync` retornar `ArquivoVinculadoResumo`;
+- `ArquivoVinculadoServico.ListarResumoAsync` retornar `ArquivoVinculadoResumo`;
 - seed criar arquivos vinculados para `Cthulhu Idol` sem duplicar;
-- servico nao expor entidade de dominio para UI.
+- listagem geral incluir arquivos do seed para `Cthulhu Idol`;
+- servico nao expor entidade de dominio para UI;
+- listagem geral trabalhar apenas com metadados, mesmo quando o caminho informado nao existe.
 
 ## validacoes executadas
 
@@ -196,4 +244,4 @@ Resultado observado:
 
 ## proxima etapa sugerida
 
-Apos revisao do Recorte 1 do Bloco 5, a proxima etapa sugerida e continuar Arquivos Vinculados de forma progressiva, ainda sem manipular arquivos reais. A tela geral de Arquivos Vinculados, abertura nativa, validacao de caminho e CRUD visual devem permanecer para recortes especificos e aprovados separadamente.
+Apos revisao do Recorte 2 do Bloco 5, a proxima etapa sugerida e continuar Arquivos Vinculados de forma progressiva, ainda sem manipular arquivos reais. Abertura nativa, validacao de caminho, importacao e CRUD visual devem permanecer para recortes especificos e aprovados separadamente.

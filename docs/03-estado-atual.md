@@ -44,6 +44,8 @@ O Recorte 2 do Bloco 4 foi consolidado para conectar o Detalhe do Modelo aos dad
 
 O Bloco 5 foi consolidado no Recorte 1 de Arquivos Vinculados. A secao `Linked Files` do Detalhe do Modelo passou a listar metadados reais de arquivos vinculados ao modelo pelo banco local, sem ler, validar, abrir, copiar, mover ou apagar arquivos reais.
 
+O Recorte 2 do Bloco 5 foi consolidado para conectar a tela geral `/arquivos` aos metadados reais de arquivos vinculados no banco local. A tela continua sem ler, validar, abrir, copiar, mover ou apagar arquivos reais.
+
 ## repositorio remoto
 
 ```txt
@@ -52,16 +54,16 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou o Bloco 5 - Arquivos Vinculados, recorte 1:
+A ultima tarefa concluida consolidou o Bloco 5 - Arquivos Vinculados, recorte 2:
 
-- criacao do repositorio concreto `ArquivoVinculadoRepositorio`;
-- criacao do servico de aplicacao `ArquivoVinculadoServico`;
-- criacao do modelo de aplicacao `ArquivoVinculadoResumo`;
-- seed idempotente de metadados de arquivos para o `Cthulhu Idol`;
-- conexao da secao `Linked Files` do Detalhe do Modelo com dados reais do banco local;
-- nenhum arquivo real lido, copiado, movido, aberto ou apagado;
-- galeria, imagens, links, referencias, notas editaveis, favoritos e acoes visuais mantidos mockados;
+- metodo `ListarResumoAsync` no servico de arquivos vinculados;
+- reutilizacao do modelo de aplicacao `ArquivoVinculadoResumo`;
+- conexao da tela geral `/arquivos` com metadados reais do banco local;
+- preservacao da rota aprovada `/colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos`;
+- filtros, acoes, validacao de caminho e manipulacao real de arquivos mantidos mockados ou fora do escopo;
+- nenhum arquivo real lido, validado, copiado, movido, aberto ou apagado;
 - nenhum CSS visual alterado;
+- nenhum redesenho visual aplicado;
 - nenhum CRUD visual implementado;
 - nenhuma reintroducao das areas removidas.
 
@@ -167,7 +169,7 @@ Implementado:
 - secao `Linked Files` do Detalhe do Modelo conectada a metadados reais de arquivos vinculados no banco local;
 - tela Galeria do Modelo aprovada;
 - tela Visualizacao de Imagem aprovada;
-- tela Arquivos Vinculados aprovada;
+- tela Arquivos Vinculados aprovada e conectada a metadados reais na rota `/arquivos`;
 - tela Favoritos aprovada;
 - tela Busca aprovada;
 - tela Configuracoes Gerais aprovada;
@@ -175,6 +177,7 @@ Implementado:
 - tela Configuracoes de Aparencia aprovada;
 - tela Modelo de Pastas aprovada;
 - tela Backup/Dados aprovada;
+- rota `/arquivos`;
 - rota `/favoritos`;
 - rota `/busca`;
 - rota `/configuracoes`;
@@ -238,7 +241,6 @@ Ainda nao implementado:
 - CRUD visual de modelos;
 - CRUD real do detalhe do modelo pela UI;
 - galeria real, imagens reais, links reais, referencias reais e notas reais editaveis do modelo;
-- tela geral de Arquivos Vinculados conectada ao banco local;
 - leitura, validacao, abertura, copia, movimentacao ou exclusao real de arquivos;
 - integracao real de links, referencias e notas no Detalhe da Colecao;
 - integracao das demais telas com persistencia real.

@@ -8,6 +8,16 @@ namespace BlueAtelier.Application.Servicos;
 public sealed class ArquivoVinculadoServico(
     IArquivoVinculadoRepositorio arquivoVinculadoRepositorio) : IArquivoVinculadoServico
 {
+    public async Task<IReadOnlyList<ArquivoVinculadoResumo>> ListarResumoAsync(
+        CancellationToken cancellationToken = default)
+    {
+        var arquivos = await arquivoVinculadoRepositorio.ListarAsync(cancellationToken);
+
+        return arquivos
+            .Select(CriarResumo)
+            .ToList();
+    }
+
     public async Task<IReadOnlyList<ArquivoVinculadoResumo>> ListarPorModeloAsync(
         Guid modeloId,
         CancellationToken cancellationToken = default)
