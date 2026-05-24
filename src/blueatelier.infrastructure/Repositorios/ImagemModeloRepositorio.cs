@@ -45,6 +45,20 @@ public sealed class ImagemModeloRepositorio(
             .SingleOrDefaultAsync(imagem => imagem.Id == id, cancellationToken);
     }
 
+    public async Task<ImagemDoModelo?> ObterPrincipalPorModeloAsync(
+        Guid modeloId,
+        CancellationToken cancellationToken = default)
+    {
+        await using var contexto = dbContextFactory.CreateDbContext();
+
+        return await contexto.ImagensDoModelo
+            .AsNoTracking()
+            .Where(imagem => imagem.ModeloId == modeloId && imagem.EhPrincipal)
+            .OrderBy(imagem => imagem.Ordem)
+            .ThenBy(imagem => imagem.Titulo)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
     public async Task<ImagemDoModelo> SalvarAsync(
         ImagemDoModelo entidade,
         CancellationToken cancellationToken = default)

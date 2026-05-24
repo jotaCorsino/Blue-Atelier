@@ -1,127 +1,182 @@
-@page "/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference"
+@page "/colecoes/{ColecaoSlug}/modelos/{ModeloSlug}/galeria/{ImagemSlug}"
+@using System.Globalization
+@using BlueAtelier.Application.Contratos
+@using BlueAtelier.Application.Modelos
+@using BlueAtelier.Domain.Enums
+@inject IImagemModeloServico ImagemModeloServico
 
-<section class="image-viewer-page" aria-labelledby="image-viewer-title">
-    <div class="image-viewer-main">
-        <div class="image-viewer-toolbar" aria-label="Navegacao visual entre imagens">
-            <div class="image-viewer-counter">
-                <span>Imagem 1 de 8</span>
-                <small>Main reference</small>
+@if (IsLoading)
+{
+    <section class="image-viewer-page" aria-labelledby="image-viewer-title">
+        <AppStateBlock
+            Variant="loading"
+            Title="Carregando imagem"
+            Description="Buscando metadados locais da imagem."
+            IsCompact="true" />
+    </section>
+}
+else if (Image is null)
+{
+    <section class="image-viewer-page" aria-labelledby="image-viewer-title">
+        <AppStateBlock
+            Variant="unavailable"
+            Title="Imagem nao encontrada"
+            Description="Nao foi possivel encontrar esta imagem no banco local."
+            ActionLabel="Voltar para Galeria"
+            IsCompact="true" />
+    </section>
+}
+else
+{
+    <section class="image-viewer-page" aria-labelledby="image-viewer-title">
+        <div class="image-viewer-main">
+            <div class="image-viewer-toolbar" aria-label="Navegacao visual entre imagens">
+                <div class="image-viewer-counter">
+                    <span>Imagem @Image.Ordem da galeria</span>
+                    <small>@VisualIdentifier</small>
+                </div>
+
+                <div class="image-viewer-step-actions">
+                    <button class="image-viewer-step-button" type="button">
+                        <AppIcon Name="chevron-left" />
+                        <span>Anterior</span>
+                    </button>
+                    <button class="image-viewer-step-button" type="button">
+                        <span>Proxima</span>
+                        <AppIcon Name="chevron-right" />
+                    </button>
+                </div>
             </div>
 
-            <div class="image-viewer-step-actions">
-                <button class="image-viewer-step-button" type="button">
-                    <AppIcon Name="chevron-left" />
-                    <span>Anterior</span>
-                </button>
-                <button class="image-viewer-step-button" type="button">
-                    <span>Proxima</span>
-                    <AppIcon Name="chevron-right" />
-                </button>
+            <div class="image-viewer-stage" aria-label="Visualizacao mockada da imagem">
+                <div class="image-viewer-art" aria-hidden="true">
+                    <span class="image-viewer-art-glow"></span>
+                    <span class="image-viewer-stone image-viewer-stone-one"></span>
+                    <span class="image-viewer-stone image-viewer-stone-two"></span>
+                    <span class="image-viewer-stone image-viewer-stone-three"></span>
+                    <span class="image-viewer-moss image-viewer-moss-one"></span>
+                    <span class="image-viewer-moss image-viewer-moss-two"></span>
+                    <span class="image-viewer-moss image-viewer-moss-three"></span>
+                </div>
             </div>
         </div>
 
-        <div class="image-viewer-stage" aria-label="Visualizacao mockada da imagem">
-            <div class="image-viewer-art" aria-hidden="true">
-                <span class="image-viewer-art-glow"></span>
-                <span class="image-viewer-stone image-viewer-stone-one"></span>
-                <span class="image-viewer-stone image-viewer-stone-two"></span>
-                <span class="image-viewer-stone image-viewer-stone-three"></span>
-                <span class="image-viewer-moss image-viewer-moss-one"></span>
-                <span class="image-viewer-moss image-viewer-moss-two"></span>
-                <span class="image-viewer-moss image-viewer-moss-three"></span>
-            </div>
-        </div>
-    </div>
+        <aside class="image-viewer-panel" aria-label="Informacoes da imagem">
+            <section class="image-viewer-card image-viewer-title-card">
+                <div class="image-viewer-title-row">
+                    <h1 id="image-viewer-title">@Image.Titulo</h1>
+                    @if (Image.EhPrincipal)
+                    {
+                        <span class="image-viewer-cover-badge">
+                            <span aria-hidden="true">*</span>
+                            Capa
+                        </span>
+                    }
+                </div>
 
-    <aside class="image-viewer-panel" aria-label="Informacoes da imagem">
-        <section class="image-viewer-card image-viewer-title-card">
-            <div class="image-viewer-title-row">
-                <h1 id="image-viewer-title">Main reference</h1>
-                <span class="image-viewer-cover-badge">
+                <span class="image-viewer-category">@CategoryLabel</span>
+
+                <p>@ImageDescription</p>
+
+                <div class="image-viewer-tags" aria-label="Tags da imagem">
+                    @foreach (var tag in Tags)
+                    {
+                        <span>@tag</span>
+                    }
+                </div>
+            </section>
+
+            <section class="image-viewer-card">
+                <dl class="image-viewer-metadata">
+                    <div>
+                        <dt>Modelo</dt>
+                        <dd>@Image.ModeloNome</dd>
+                    </div>
+                    <div>
+                        <dt>Colecao</dt>
+                        <dd>@Image.ColecaoNome</dd>
+                    </div>
+                    <div>
+                        <dt>Categoria</dt>
+                        <dd>@CategoryLabel</dd>
+                    </div>
+                    <div>
+                        <dt>Atualizacao</dt>
+                        <dd>@FormatDate(Image.CriadoEm)</dd>
+                    </div>
+                    <div>
+                        <dt>Tipo</dt>
+                        <dd>@TypeLabel</dd>
+                    </div>
+                    <div>
+                        <dt>Origem</dt>
+                        <dd>Metadado local</dd>
+                    </div>
+                    <div>
+                        <dt>Status</dt>
+                        <dd>
+                            <span class="image-viewer-status-dot" aria-hidden="true"></span>
+                            Metadado registrado
+                        </dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section class="image-viewer-card">
+                <h2>Notas rapidas</h2>
+                <p>@ImageNotes</p>
+            </section>
+
+            <section class="image-viewer-actions" aria-label="Acoes visuais da imagem">
+                <button class="image-viewer-action image-viewer-action-primary" type="button">
                     <span aria-hidden="true">*</span>
-                    Capa
-                </span>
-            </div>
-
-            <span class="image-viewer-category">Referencias</span>
-
-            <p>
-                Referencia principal para textura de pedra antiga, desgaste verde e clima de estatua esquecida.
-            </p>
-
-            <div class="image-viewer-tags" aria-label="Tags da imagem">
-                @foreach (var tag in Tags)
-                {
-                    <span>@tag</span>
-                }
-            </div>
-        </section>
-
-        <section class="image-viewer-card">
-            <dl class="image-viewer-metadata">
-                <div>
-                    <dt>Modelo</dt>
-                    <dd>Cthulhu Idol</dd>
-                </div>
-                <div>
-                    <dt>Colecao</dt>
-                    <dd>Eldritch Horrors</dd>
-                </div>
-                <div>
-                    <dt>Categoria</dt>
-                    <dd>Referencias</dd>
-                </div>
-                <div>
-                    <dt>Atualizacao</dt>
-                    <dd>Hoje, 14:20</dd>
-                </div>
-                <div>
-                    <dt>Tipo</dt>
-                    <dd>Imagem de referencia</dd>
-                </div>
-                <div>
-                    <dt>Origem</dt>
-                    <dd>Mock visual</dd>
-                </div>
-                <div>
-                    <dt>Status</dt>
-                    <dd>
-                        <span class="image-viewer-status-dot" aria-hidden="true"></span>
-                        Arquivo encontrado
-                    </dd>
-                </div>
-            </dl>
-        </section>
-
-        <section class="image-viewer-card">
-            <h2>Notas rapidas</h2>
-            <p>
-                Usar como guia para base de pedra, musgo nas cavidades e contraste suave nas bordas principais.
-            </p>
-        </section>
-
-        <section class="image-viewer-actions" aria-label="Acoes visuais da imagem">
-            <button class="image-viewer-action image-viewer-action-primary" type="button">
-                <span aria-hidden="true">*</span>
-                Definir como capa
-            </button>
-            <button class="image-viewer-action" type="button">
-                <AppIcon Name="edit" />
-                Editar informacoes
-            </button>
-            <button class="image-viewer-action" type="button">
-                <AppIcon Name="folder" />
-                Abrir arquivo
-            </button>
-            <button class="image-viewer-action image-viewer-action-danger" type="button">
-                <span aria-hidden="true">x</span>
-                Remover da galeria
-            </button>
-        </section>
-    </aside>
-</section>
+                    Definir como capa
+                </button>
+                <button class="image-viewer-action" type="button">
+                    <AppIcon Name="edit" />
+                    Editar informacoes
+                </button>
+                <button class="image-viewer-action" type="button">
+                    <AppIcon Name="folder" />
+                    Abrir arquivo
+                </button>
+                <button class="image-viewer-action image-viewer-action-danger" type="button">
+                    <span aria-hidden="true">x</span>
+                    Remover da galeria
+                </button>
+            </section>
+        </aside>
+    </section>
+}
 
 @code {
+    [Parameter]
+    public string? ColecaoSlug { get; set; }
+
+    [Parameter]
+    public string? ModeloSlug { get; set; }
+
+    [Parameter]
+    public string? ImagemSlug { get; set; }
+
+    private bool IsLoading { get; set; } = true;
+
+    private ImagemModeloDetalhe? Image { get; set; }
+
+    private string VisualIdentifier => ImagemSlug ?? "main-reference";
+
+    private string CategoryLabel => Image is null ? "Referencias" : FormatCategory(Image.Tipo);
+
+    private string TypeLabel => Image is null ? "Imagem de referencia" : FormatType(Image.Tipo);
+
+    private string ImageDescription => !string.IsNullOrWhiteSpace(Image?.Observacao)
+        ? Image.Observacao
+        : "Metadado visual registrado para a galeria do modelo.";
+
+    private string ImageNotes => !string.IsNullOrWhiteSpace(Image?.Observacao)
+        ? Image.Observacao
+        : "Usar como referencia visual do modelo sem abrir o arquivo real nesta etapa.";
+
     private static readonly string[] Tags =
     [
         "pedra",
@@ -129,4 +184,45 @@
         "estatua",
         "pintura"
     ];
+
+    protected override async Task OnParametersSetAsync()
+    {
+        IsLoading = true;
+        Image = await ImagemModeloServico.ObterDetalheAsync(
+            ColecaoSlug ?? string.Empty,
+            ModeloSlug ?? string.Empty,
+            ImagemSlug ?? string.Empty);
+        IsLoading = false;
+    }
+
+    private static string FormatCategory(TipoImagemModelo tipo)
+    {
+        return tipo switch
+        {
+            TipoImagemModelo.Progresso => "Pintura",
+            TipoImagemModelo.Final => "Finalizadas",
+            TipoImagemModelo.Textura => "Notas visuais",
+            TipoImagemModelo.Outro => "Notas visuais",
+            _ => "Referencias"
+        };
+    }
+
+    private static string FormatType(TipoImagemModelo tipo)
+    {
+        return tipo switch
+        {
+            TipoImagemModelo.Progresso => "Registro de pintura",
+            TipoImagemModelo.Final => "Imagem final",
+            TipoImagemModelo.Textura => "Referencia de textura",
+            TipoImagemModelo.Outro => "Imagem da galeria",
+            _ => "Imagem de referencia"
+        };
+    }
+
+    private static string FormatDate(DateTimeOffset date)
+    {
+        return date
+            .ToLocalTime()
+            .ToString("dd/MM/yyyy HH:mm", CultureInfo.GetCultureInfo("pt-BR"));
+    }
 }

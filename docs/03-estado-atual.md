@@ -48,6 +48,8 @@ O Recorte 2 do Bloco 5 foi consolidado para conectar a tela geral `/arquivos` ao
 
 O Bloco 6 foi iniciado e consolidado no Recorte 1 de Galeria. A Galeria do Modelo passou a listar metadados reais de imagens por modelo pelo banco local, sem ler, validar, abrir, copiar, mover ou apagar imagens reais.
 
+O Recorte 2 do Bloco 6 foi consolidado para conectar a Visualizacao de Imagem aos metadados reais da imagem principal do modelo no banco local. O identificador visual `main-reference` resolve o registro de imagem marcado como principal, ainda sem ler, validar, abrir, copiar, mover ou apagar imagens reais.
+
 ## repositorio remoto
 
 ```txt
@@ -56,14 +58,18 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou o Bloco 6 - Galeria, recorte 1:
+A ultima tarefa concluida consolidou o Bloco 6 - Galeria, recorte 2:
 
 - criacao do repositorio concreto `ImagemModeloRepositorio`;
 - criacao do servico de aplicacao `ImagemModeloServico`;
 - criacao do modelo de aplicacao `ImagemModeloResumo`;
+- criacao do modelo de aplicacao `ImagemModeloDetalhe`;
 - seed idempotente de metadados de imagens para o `Cthulhu Idol`;
 - conexao da Galeria do Modelo com metadados reais do banco local;
+- conexao da Visualizacao de Imagem com metadados reais da imagem principal;
+- resolucao de `main-reference` pela imagem com `EhPrincipal = true`;
 - preservacao da rota aprovada `/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria`;
+- preservacao da rota aprovada `/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference`;
 - miniaturas reais, preview real, filtros funcionais, importacao e acoes visuais mantidos mockados ou fora do escopo;
 - nenhuma imagem real lida, validada, copiada, movida, aberta ou apagada;
 - nenhum CSS visual alterado;
@@ -164,6 +170,7 @@ Implementado:
 - modelo de aplicacao `ModeloDetalhe`;
 - modelo de aplicacao `ArquivoVinculadoResumo`;
 - modelo de aplicacao `ImagemModeloResumo`;
+- modelo de aplicacao `ImagemModeloDetalhe`;
 - inicializador `BlueAtelierBancoInicializador` para migration e seed;
 - seed de colecoes suficiente para manter a tela `/colecoes` visualmente proxima do estado aprovado;
 - tokens e temas CSS em `wwwroot/css/`;
@@ -175,7 +182,7 @@ Implementado:
 - tela de Detalhe do Modelo aprovada e conectada a dados basicos reais do modelo por slug;
 - secao `Linked Files` do Detalhe do Modelo conectada a metadados reais de arquivos vinculados no banco local;
 - tela Galeria do Modelo aprovada e conectada a metadados reais de imagens por modelo;
-- tela Visualizacao de Imagem aprovada;
+- tela Visualizacao de Imagem aprovada e conectada a metadados reais da imagem principal;
 - tela Arquivos Vinculados aprovada e conectada a metadados reais na rota `/arquivos`;
 - tela Favoritos aprovada;
 - tela Busca aprovada;
@@ -302,6 +309,7 @@ Documentacao:
 - O servico `ModeloServico` retorna `ModeloResumoColecao`, `ModeloResumo` e `ModeloDetalhe`, sem expor entidade de dominio para Razor.
 - O servico `ArquivoVinculadoServico` retorna `ArquivoVinculadoResumo`, sem expor entidade de dominio para Razor.
 - O servico `ImagemModeloServico` retorna `ImagemModeloResumo`, sem expor entidade de dominio para Razor.
+- O servico `ImagemModeloServico` retorna `ImagemModeloDetalhe` para a Visualizacao de Imagem, sem expor entidade de dominio para Razor.
 - O inicializador `BlueAtelierBancoInicializador` executa migration e seed.
 - O seed de colecoes foi ampliado de forma idempotente para manter a tela visualmente preenchida.
 - `/colecoes` lista dados reais do banco local via servico de aplicacao.
@@ -311,6 +319,8 @@ Documentacao:
 - `/colecoes/{colecaoSlug}/modelos/{modeloSlug}` carrega dados basicos reais do modelo via servico de aplicacao.
 - A secao `Linked Files` do Detalhe do Modelo carrega metadados reais de arquivos vinculados via servico de aplicacao.
 - A Galeria do Modelo carrega metadados reais de imagens via servico de aplicacao.
+- A Visualizacao de Imagem carrega metadados reais da imagem principal via servico de aplicacao.
+- O identificador `main-reference` resolve a imagem principal do modelo por metadado `EhPrincipal = true`.
 - A navegacao por slug para `Eldritch Horrors` foi preservada.
 - A navegacao do card `Cthulhu Idol` na tela Modelos foi preservada para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`.
 - Os cards internos do Detalhe da Colecao preservam classes CSS e passam a usar dados reais de nome, etapa, status e progresso.

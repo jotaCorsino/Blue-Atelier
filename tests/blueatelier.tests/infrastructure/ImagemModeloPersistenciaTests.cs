@@ -66,6 +66,62 @@ public sealed class ImagemModeloPersistenciaTests
     }
 
     [Fact]
+    public async Task Repositorio_DeveObterImagemPrincipalDoModeloCorreto()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var modeloId = Guid.NewGuid();
+            var outroModeloId = Guid.NewGuid();
+
+            await CriarModeloComImagensAsync(opcoes, modeloId, outroModeloId);
+
+            var repositorio = new ImagemModeloRepositorio(new TestDbContextFactory(opcoes));
+
+            var imagem = await repositorio.ObterPrincipalPorModeloAsync(modeloId);
+
+            Assert.NotNull(imagem);
+            Assert.Equal(modeloId, imagem.ModeloId);
+            Assert.Equal("Main reference", imagem.Titulo);
+            Assert.True(imagem.EhPrincipal);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Repositorio_NaoDeveMisturarImagemPrincipalDeOutroModelo()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var modeloId = Guid.NewGuid();
+            var outroModeloId = Guid.NewGuid();
+
+            await CriarModeloComImagensAsync(opcoes, modeloId, outroModeloId);
+
+            var repositorio = new ImagemModeloRepositorio(new TestDbContextFactory(opcoes));
+
+            var imagem = await repositorio.ObterPrincipalPorModeloAsync(outroModeloId);
+
+            Assert.NotNull(imagem);
+            Assert.Equal(outroModeloId, imagem.ModeloId);
+            Assert.Equal("Ruined arch front", imagem.Titulo);
+            Assert.NotEqual("Main reference", imagem.Titulo);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
     public async Task Servico_DeveRetornarResumoDeImagensDoModelo()
     {
         var caminhoBanco = CriarCaminhoBancoTemporario();
@@ -79,7 +135,7 @@ public sealed class ImagemModeloPersistenciaTests
             await CriarModeloComImagensAsync(opcoes, modeloId, outroModeloId);
 
             var repositorio = new ImagemModeloRepositorio(new TestDbContextFactory(opcoes));
-            var servico = new ImagemModeloServico(repositorio);
+            var servico = CriarImagemModeloServico(opcoes, repositorio);
 
             var resumos = await servico.ListarPorModeloAsync(modeloId);
 
@@ -162,13 +218,166 @@ public sealed class ImagemModeloPersistenciaTests
             }
 
             var repositorio = new ImagemModeloRepositorio(new TestDbContextFactory(opcoes));
-            var servico = new ImagemModeloServico(repositorio);
+            var servico = CriarImagemModeloServico(opcoes, repositorio);
 
             var imagens = await servico.ListarPorModeloAsync(modeloId);
 
             Assert.Contains(imagens, imagem =>
                 imagem.Titulo == "Ghost image"
                 && imagem.CaminhoLocal == "Z:/blue-atelier/caminho-inexistente/ghost-image.jpg");
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarDetalheDaImagemPrincipalPorMainReference()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var modeloId = Guid.NewGuid();
+            var outroModeloId = Guid.NewGuid();
+
+            await CriarModeloComImagensAsync(opcoes, modeloId, outroModeloId);
+
+            var servico = CriarImagemModeloServico(opcoes);
+
+            var detalhe = await servico.ObterDetalheAsync(
+                "eldritch-horrors",
+                "cthulhu-idol",
+                "main-reference");
+
+            Assert.NotNull(detalhe);
+            Assert.IsType<ImagemModeloDetalhe>(detalhe);
+            Assert.IsNotType<ImagemDoModelo>(detalhe);
+            Assert.Equal(modeloId, detalhe.ModeloId);
+            Assert.Equal("Cthulhu Idol", detalhe.ModeloNome);
+            Assert.Equal("cthulhu-idol", detalhe.ModeloSlug);
+            Assert.Equal("Eldritch Horrors", detalhe.ColecaoNome);
+            Assert.Equal("eldritch-horrors", detalhe.ColecaoSlug);
+            Assert.Equal("Main reference", detalhe.Titulo);
+            Assert.Equal("C:/BlueAtelier/EldritchHorrors/CthulhuIdol/gallery/cthulhu-idol-front.jpg", detalhe.CaminhoLocal);
+            Assert.True(detalhe.EhPrincipal);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarNullParaColecaoInexistente()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await CriarModeloComImagensAsync(opcoes, Guid.NewGuid(), Guid.NewGuid());
+
+            var servico = CriarImagemModeloServico(opcoes);
+
+            var detalhe = await servico.ObterDetalheAsync(
+                "colecao-inexistente",
+                "cthulhu-idol",
+                "main-reference");
+
+            Assert.Null(detalhe);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarNullParaModeloInexistente()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await CriarModeloComImagensAsync(opcoes, Guid.NewGuid(), Guid.NewGuid());
+
+            var servico = CriarImagemModeloServico(opcoes);
+
+            var detalhe = await servico.ObterDetalheAsync(
+                "eldritch-horrors",
+                "modelo-inexistente",
+                "main-reference");
+
+            Assert.Null(detalhe);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarNullParaImagemInexistente()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await CriarModeloComImagensAsync(opcoes, Guid.NewGuid(), Guid.NewGuid());
+
+            var servico = CriarImagemModeloServico(opcoes);
+
+            var detalhe = await servico.ObterDetalheAsync(
+                "eldritch-horrors",
+                "cthulhu-idol",
+                "imagem-inexistente");
+
+            Assert.Null(detalhe);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarDetalheMesmoComCaminhoInexistente()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            var caminhoInexistente = "Z:/blue-atelier/caminho-inexistente/main-reference.jpg";
+
+            await CriarModeloComImagensAsync(opcoes, Guid.NewGuid(), Guid.NewGuid());
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                var imagemPrincipal = await contexto.ImagensDoModelo
+                    .SingleAsync(imagem => imagem.Titulo == "Main reference");
+
+                imagemPrincipal.CaminhoLocal = caminhoInexistente;
+                await contexto.SaveChangesAsync();
+            }
+
+            var servico = CriarImagemModeloServico(opcoes);
+
+            var detalhe = await servico.ObterDetalheAsync(
+                "eldritch-horrors",
+                "cthulhu-idol",
+                "main-reference");
+
+            Assert.NotNull(detalhe);
+            Assert.Equal(caminhoInexistente, detalhe.CaminhoLocal);
         }
         finally
         {
@@ -247,6 +456,19 @@ public sealed class ImagemModeloPersistenciaTests
     private static string CriarCaminhoBancoTemporario()
     {
         return Path.Combine(Path.GetTempPath(), $"blueatelier-{Guid.NewGuid():N}.db");
+    }
+
+    private static ImagemModeloServico CriarImagemModeloServico(
+        DbContextOptions<BlueAtelierDbContext> opcoes,
+        ImagemModeloRepositorio? repositorio = null)
+    {
+        var factory = new TestDbContextFactory(opcoes);
+        var imagemRepositorio = repositorio ?? new ImagemModeloRepositorio(factory);
+        var modeloServico = new ModeloServico(
+            new ModeloRepositorio(factory),
+            new ColecaoRepositorio(factory));
+
+        return new ImagemModeloServico(imagemRepositorio, modeloServico);
     }
 
     private static void RemoverBancoTemporario(string caminhoBanco)
