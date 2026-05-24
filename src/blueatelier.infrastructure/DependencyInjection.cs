@@ -22,6 +22,7 @@ public static class DependencyInjection
         services.AddScoped<IColecaoRepositorio, ColecaoRepositorio>();
         services.AddScoped<IModeloRepositorio, ModeloRepositorio>();
         services.AddScoped<IArquivoVinculadoRepositorio, ArquivoVinculadoRepositorio>();
+        services.AddScoped<IImagemModeloRepositorio, ImagemModeloRepositorio>();
         services.AddScoped<IBlueAtelierBancoInicializador, BlueAtelierBancoInicializador>();
 
         return services;

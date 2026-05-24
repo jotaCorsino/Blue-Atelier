@@ -23,6 +23,7 @@ public static class MauiProgram
         builder.Services.AddScoped<IColecaoServico, ColecaoServico>();
         builder.Services.AddScoped<IModeloServico, ModeloServico>();
         builder.Services.AddScoped<IArquivoVinculadoServico, ArquivoVinculadoServico>();
+        builder.Services.AddScoped<IImagemModeloServico, ImagemModeloServico>();
 
         var caminhoBanco = Path.Combine(FileSystem.AppDataDirectory, "blueatelier.db");
         builder.Services.AddBlueAtelierInfrastructure(caminhoBanco);

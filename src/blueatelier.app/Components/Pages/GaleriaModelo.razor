@@ -1,9 +1,14 @@
-@page "/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria"
+@page "/colecoes/{ColecaoSlug}/modelos/{ModeloSlug}/galeria"
+@using BlueAtelier.Application.Contratos
+@using BlueAtelier.Application.Modelos
+@using BlueAtelier.Domain.Enums
+@inject IModeloServico ModeloServico
+@inject IImagemModeloServico ImagemModeloServico
 
 <section class="model-gallery-page" aria-labelledby="model-gallery-page-title">
-    <a class="collection-detail-back" href="/colecoes/eldritch-horrors/modelos/cthulhu-idol">
+    <a class="collection-detail-back" href="@ModelPath">
         <span aria-hidden="true">&lt;</span>
-        <span>Back to Cthulhu Idol</span>
+        <span>Back to @ModelName</span>
     </a>
 
     <header class="model-gallery-header">
@@ -11,9 +16,9 @@
             <h1 id="model-gallery-page-title">Galeria</h1>
             <p>Imagens, referencias e registros visuais do modelo.</p>
             <div class="model-gallery-context" aria-label="Contexto da galeria">
-                <span>Cthulhu Idol</span>
+                <span>@ModelName</span>
                 <span aria-hidden="true">/</span>
-                <a href="/colecoes/eldritch-horrors">Eldritch Horrors</a>
+                <a href="@CollectionPath">@CollectionName</a>
             </div>
         </div>
 
@@ -47,63 +52,119 @@
     </nav>
 
     <section class="model-gallery-masonry" aria-label="Mosaico visual da galeria">
-        @foreach (var item in GalleryItems)
+        @if (IsLoading)
         {
-            @if (!string.IsNullOrWhiteSpace(item.Route))
+            <AppStateBlock
+                Variant="loading"
+                Title="Carregando galeria"
+                Description="Buscando metadados locais de imagens."
+                IsCompact="true" />
+        }
+        else if (Model is null)
+        {
+            <AppStateBlock
+                Variant="unavailable"
+                Title="Modelo nao encontrado"
+                Description="Nao foi possivel encontrar este modelo no banco local."
+                ActionLabel="Voltar para Modelos"
+                IsCompact="true" />
+        }
+        else if (GalleryItems.Count == 0)
+        {
+            <AppStateBlock
+                Variant="empty"
+                Title="Nenhuma imagem vinculada"
+                Description="Este modelo ainda nao possui metadados de imagens na galeria."
+                IsCompact="true" />
+        }
+        else
+        {
+            @foreach (var item in GalleryItems)
             {
-                <a class="model-gallery-card gallery-card-@item.Size" href="@item.Route" aria-label="Abrir imagem @item.Title">
-                    <div class="model-gallery-art gallery-art-@item.Art" aria-hidden="true">
-                        @if (item.IsCover)
-                        {
-                            <span class="gallery-cover-badge">Capa</span>
-                        }
+                @if (!string.IsNullOrWhiteSpace(item.Route))
+                {
+                    <a class="model-gallery-card gallery-card-@item.Size" href="@item.Route" aria-label="Abrir imagem @item.Title">
+                        <div class="model-gallery-art gallery-art-@item.Art" aria-hidden="true">
+                            @if (item.IsCover)
+                            {
+                                <span class="gallery-cover-badge">Capa</span>
+                            }
 
-                        <span class="gallery-edit-affordance">
-                            <AppIcon Name="edit" />
-                            <span>Editar</span>
-                        </span>
-                        <span class="gallery-art-shape"></span>
-                    </div>
-
-                    <div class="model-gallery-card-body">
-                        <div>
-                            <h2>@item.Title</h2>
-                            <span>@item.Category</span>
+                            <span class="gallery-edit-affordance">
+                                <AppIcon Name="edit" />
+                                <span>Editar</span>
+                            </span>
+                            <span class="gallery-art-shape"></span>
                         </div>
-                        <p>@item.Description</p>
-                    </div>
-                </a>
-            }
-            else
-            {
-                <article class="model-gallery-card gallery-card-@item.Size">
-                    <div class="model-gallery-art gallery-art-@item.Art" aria-hidden="true">
-                        @if (item.IsCover)
-                        {
-                            <span class="gallery-cover-badge">Capa</span>
-                        }
 
-                        <span class="gallery-edit-affordance">
-                            <AppIcon Name="edit" />
-                            <span>Editar</span>
-                        </span>
-                        <span class="gallery-art-shape"></span>
-                    </div>
-
-                    <div class="model-gallery-card-body">
-                        <div>
-                            <h2>@item.Title</h2>
-                            <span>@item.Category</span>
+                        <div class="model-gallery-card-body">
+                            <div>
+                                <h2>@item.Title</h2>
+                                <span>@item.Category</span>
+                            </div>
+                            <p>@item.Description</p>
                         </div>
-                        <p>@item.Description</p>
-                    </div>
-                </article>
+                    </a>
+                }
+                else
+                {
+                    <article class="model-gallery-card gallery-card-@item.Size">
+                        <div class="model-gallery-art gallery-art-@item.Art" aria-hidden="true">
+                            @if (item.IsCover)
+                            {
+                                <span class="gallery-cover-badge">Capa</span>
+                            }
+
+                            <span class="gallery-edit-affordance">
+                                <AppIcon Name="edit" />
+                                <span>Editar</span>
+                            </span>
+                            <span class="gallery-art-shape"></span>
+                        </div>
+
+                        <div class="model-gallery-card-body">
+                            <div>
+                                <h2>@item.Title</h2>
+                                <span>@item.Category</span>
+                            </div>
+                            <p>@item.Description</p>
+                        </div>
+                    </article>
+                }
             }
         }
     </section>
 </section>
 
 @code {
+    [Parameter]
+    public string? ColecaoSlug { get; set; }
+
+    [Parameter]
+    public string? ModeloSlug { get; set; }
+
+    private bool IsLoading { get; set; } = true;
+
+    private ModeloDetalhe? Model { get; set; }
+
+    private IReadOnlyList<GalleryItem> GalleryItems { get; set; } = [];
+
+    private string ModelName => Model?.Nome ?? "Cthulhu Idol";
+
+    private string CollectionName => Model?.ColecaoNome ?? "Eldritch Horrors";
+
+    private string CollectionPath => Model is null
+        ? "/colecoes/eldritch-horrors"
+        : $"/colecoes/{Model.ColecaoSlug}";
+
+    private string ModelPath => Model is null
+        ? "/colecoes/eldritch-horrors/modelos/cthulhu-idol"
+        : $"/colecoes/{Model.ColecaoSlug}/modelos/{Model.Slug}";
+
+    private string GalleryPath => Model is null
+        ? "/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria"
+        : $"/colecoes/{Model.ColecaoSlug}/modelos/{Model.Slug}/galeria";
+
     private static readonly GalleryFilter[] Filters =
     [
         new("Todas", true),
@@ -114,17 +175,97 @@
         new("Notas visuais", false)
     ];
 
-    private static readonly GalleryItem[] GalleryItems =
-    [
-        new("Main reference", "Referencias", "Mood principal do modelo / atualizado hoje", "main", "tall", true, "/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference"),
-        new("Printed front view", "Impressao", "Registro frontal depois da cura", "front", "wide", false),
-        new("Primer test", "Pintura", "Teste de primer preto fosco", "primer", "square", false),
-        new("Green base coat", "Pintura", "Base verde aplicada em duas camadas", "green", "tall", false),
-        new("Purple wash study", "Pintura", "Estudo de wash roxo nas sombras", "purple", "wide", false),
-        new("Final angle", "Finalizadas", "Angulo final para comparacao de volume", "final", "square", false),
-        new("Stone texture", "Notas visuais", "Textura de pedra para a base", "stone", "wide", false),
-        new("Tentacle detail", "Referencias", "Detalhe dos tentaculos e brilho final", "tentacle", "square", false)
-    ];
+    protected override async Task OnParametersSetAsync()
+    {
+        IsLoading = true;
+        GalleryItems = [];
+        Model = await ModeloServico.ObterDetalhePorSlugAsync(
+            ColecaoSlug ?? string.Empty,
+            ModeloSlug ?? string.Empty);
+
+        if (Model is not null)
+        {
+            var imagens = await ImagemModeloServico.ListarPorModeloAsync(Model.Id);
+            GalleryItems = imagens
+                .Select((imagem, index) => CriarGalleryItem(imagem, index, GalleryPath))
+                .ToList();
+        }
+
+        IsLoading = false;
+    }
+
+    private static GalleryItem CriarGalleryItem(
+        ImagemModeloResumo imagem,
+        int index,
+        string galleryPath)
+    {
+        var route = imagem.EhPrincipal
+            ? $"{galleryPath}/main-reference"
+            : null;
+
+        return new GalleryItem(
+            imagem.Titulo,
+            FormatCategory(imagem.Tipo),
+            FormatDescription(imagem),
+            FormatArt(imagem, index),
+            FormatSize(index),
+            imagem.EhPrincipal,
+            route);
+    }
+
+    private static string FormatCategory(TipoImagemModelo tipo)
+    {
+        return tipo switch
+        {
+            TipoImagemModelo.Progresso => "Pintura",
+            TipoImagemModelo.Final => "Finalizadas",
+            TipoImagemModelo.Textura => "Notas visuais",
+            TipoImagemModelo.Outro => "Notas visuais",
+            _ => "Referencias"
+        };
+    }
+
+    private static string FormatDescription(ImagemModeloResumo imagem)
+    {
+        if (!string.IsNullOrWhiteSpace(imagem.Observacao))
+        {
+            return imagem.Observacao;
+        }
+
+        return imagem.CaminhoLocal;
+    }
+
+    private static string FormatArt(ImagemModeloResumo imagem, int index)
+    {
+        if (imagem.EhPrincipal)
+        {
+            return "main";
+        }
+
+        return index switch
+        {
+            1 => "front",
+            2 => "primer",
+            3 => "green",
+            4 => "final",
+            5 => "stone",
+            6 => "tentacle",
+            _ => "purple"
+        };
+    }
+
+    private static string FormatSize(int index)
+    {
+        return index switch
+        {
+            0 => "tall",
+            1 => "wide",
+            2 => "square",
+            3 => "tall",
+            4 => "square",
+            _ => "wide"
+        };
+    }
 
     private sealed record GalleryFilter(string Label, bool IsActive);
 

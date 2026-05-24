@@ -24,6 +24,11 @@ public static class BlueAtelierSeed
     private static readonly Guid CthulhuIdolSupportedId = Guid.Parse("a41c1b51-5188-4d88-8cb3-a25b57e191da");
     private static readonly Guid CthulhuIdolReadyId = Guid.Parse("5598cf5c-25bc-4fbc-b4c6-0d53c6621220");
     private static readonly Guid CthulhuIdolPaintingNotesId = Guid.Parse("a7bcb955-9264-4598-a343-d8bd6f33b62b");
+    private static readonly Guid CthulhuIdolFrontImageId = Guid.Parse("60d30f70-239a-42f9-9b52-33c6ea93d5f4");
+    private static readonly Guid CthulhuIdolSideImageId = Guid.Parse("a454c15f-722f-4891-acf6-f58466ff79f6");
+    private static readonly Guid CthulhuIdolPrimerImageId = Guid.Parse("4876cf8f-ee39-4bcb-9274-d4a77d8872bb");
+    private static readonly Guid CthulhuIdolPaintingProgressImageId = Guid.Parse("cde03238-6fd8-44ad-a561-7ba828005cfe");
+    private static readonly Guid CthulhuIdolFinalImageId = Guid.Parse("ee0199d5-3520-43ac-a8a4-4f4d46b35fd4");
     private static readonly Guid ReferenciasFavoritasId = Guid.Parse("f07ac854-b9f3-4d1c-b033-e4803b5241a5");
 
     public static async Task AplicarAsync(BlueAtelierDbContext contexto, CancellationToken cancellationToken = default)
@@ -281,6 +286,71 @@ public static class BlueAtelierSeed
             agora.AddDays(-11),
             cancellationToken);
 
+        await CriarImagemDoModeloSeNaoExistirAsync(
+            contexto,
+            CthulhuIdolFrontImageId,
+            CthulhuIdolId,
+            "Main reference",
+            "C:/BlueAtelier/EldritchHorrors/CthulhuIdol/gallery/cthulhu-idol-front.jpg",
+            TipoImagemModelo.Referencia,
+            1,
+            true,
+            "Mood principal do modelo / atualizado hoje",
+            agora.AddDays(-10),
+            cancellationToken);
+
+        await CriarImagemDoModeloSeNaoExistirAsync(
+            contexto,
+            CthulhuIdolSideImageId,
+            CthulhuIdolId,
+            "Printed front view",
+            "C:/BlueAtelier/EldritchHorrors/CthulhuIdol/gallery/cthulhu-idol-side.jpg",
+            TipoImagemModelo.Progresso,
+            2,
+            false,
+            "Registro frontal depois da cura",
+            agora.AddDays(-9),
+            cancellationToken);
+
+        await CriarImagemDoModeloSeNaoExistirAsync(
+            contexto,
+            CthulhuIdolPrimerImageId,
+            CthulhuIdolId,
+            "Primer test",
+            "C:/BlueAtelier/EldritchHorrors/CthulhuIdol/gallery/cthulhu-idol-primer.jpg",
+            TipoImagemModelo.Progresso,
+            3,
+            false,
+            "Teste de primer preto fosco",
+            agora.AddDays(-8),
+            cancellationToken);
+
+        await CriarImagemDoModeloSeNaoExistirAsync(
+            contexto,
+            CthulhuIdolPaintingProgressImageId,
+            CthulhuIdolId,
+            "Green base coat",
+            "C:/BlueAtelier/EldritchHorrors/CthulhuIdol/gallery/cthulhu-idol-painting-progress.jpg",
+            TipoImagemModelo.Progresso,
+            4,
+            false,
+            "Base verde aplicada em duas camadas",
+            agora.AddDays(-7),
+            cancellationToken);
+
+        await CriarImagemDoModeloSeNaoExistirAsync(
+            contexto,
+            CthulhuIdolFinalImageId,
+            CthulhuIdolId,
+            "Final angle",
+            "C:/BlueAtelier/EldritchHorrors/CthulhuIdol/gallery/cthulhu-idol-final.jpg",
+            TipoImagemModelo.Final,
+            5,
+            false,
+            "Angulo final para comparacao de volume",
+            agora.AddDays(-6),
+            cancellationToken);
+
         var pastaExiste = await contexto.PastasFavoritos
             .AnyAsync(item => item.Nome == "Referencias", cancellationToken);
 
@@ -446,6 +516,43 @@ public static class BlueAtelierSeed
             Tipo = tipo,
             Extensao = extensao,
             TamanhoBytes = tamanhoBytes,
+            CriadoEm = criadoEm
+        });
+    }
+
+    private static async Task CriarImagemDoModeloSeNaoExistirAsync(
+        BlueAtelierDbContext contexto,
+        Guid id,
+        Guid modeloId,
+        string titulo,
+        string caminhoLocal,
+        TipoImagemModelo tipo,
+        int ordem,
+        bool ehPrincipal,
+        string? observacao,
+        DateTimeOffset criadoEm,
+        CancellationToken cancellationToken)
+    {
+        var imagemExiste = await contexto.ImagensDoModelo
+            .AnyAsync(
+                item => item.ModeloId == modeloId && item.CaminhoLocal == caminhoLocal,
+                cancellationToken);
+
+        if (imagemExiste)
+        {
+            return;
+        }
+
+        contexto.ImagensDoModelo.Add(new ImagemDoModelo
+        {
+            Id = id,
+            ModeloId = modeloId,
+            Titulo = titulo,
+            CaminhoLocal = caminhoLocal,
+            Tipo = tipo,
+            Ordem = ordem,
+            EhPrincipal = ehPrincipal,
+            Observacao = observacao,
             CriadoEm = criadoEm
         });
     }
