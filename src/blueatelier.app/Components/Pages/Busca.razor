@@ -1,4 +1,7 @@
 @page "/busca"
+@using BlueAtelier.Application.Contratos
+@using BlueAtelier.Application.Modelos
+@inject IBuscaServico BuscaServico
 
 <section class="search-page" aria-labelledby="search-title">
     <header class="search-header">
@@ -9,23 +12,27 @@
         </div>
 
         <div class="search-header-meta" aria-label="Resumo visual da busca">
-            <span>9 resultados mockados</span>
-            <span>Indice visual local</span>
+            <span>@TextoTotalResultados</span>
+            <span>Busca simples local</span>
         </div>
     </header>
 
-    <section class="search-panel" aria-label="Busca visual provisoria">
+    <section class="search-panel" aria-label="Busca local simples">
         <label class="search-input-shell">
             <AppIcon Name="search" />
-            <input type="search" placeholder="Buscar no atelier..." readonly />
-            <button type="button">Buscar</button>
+            <input type="search"
+                   placeholder="Buscar no atelier..."
+                   @bind="TermoBusca"
+                   @bind:event="oninput"
+                   @onkeydown="TratarTeclaBuscaAsync" />
+            <button type="button" @onclick="ExecutarBuscaAsync">Buscar</button>
         </label>
 
         <div class="search-suggestions" aria-label="Sugestoes rapidas">
             <span>Sugestoes rapidas</span>
             @foreach (var suggestion in Suggestions)
             {
-                <button type="button">@suggestion</button>
+                <button type="button" @onclick="() => AplicarSugestaoAsync(suggestion)">@suggestion</button>
             }
         </div>
     </section>
@@ -50,55 +57,74 @@
         </div>
 
         <div class="search-model-grid">
-            @foreach (var model in ModelResults)
+            @if (IsLoading)
             {
-                @if (model.Href is not null)
+                <AppStateBlock
+                    Variant="loading"
+                    Title="Buscando modelos"
+                    Description="Consultando os dados locais do atelier."
+                    IsCompact="true" />
+            }
+            else if (ModelResults.Count == 0)
+            {
+                <AppStateBlock
+                    Variant="no-results"
+                    Title="Nenhum modelo encontrado"
+                    Description="Tente outro termo ou limpe a busca."
+                    IsCompact="true" />
+            }
+            else
+            {
+                @foreach (var model in ModelResults)
                 {
-                    <a class="search-model-card" href="@model.Href">
-                        <div class="search-model-cover search-model-cover-@model.Cover" aria-hidden="true">
-                            <span class="search-model-shape"></span>
-                            <span class="search-bookmark"><AppIcon Name="favorites" /></span>
-                        </div>
+                    @if (model.Href is not null)
+                    {
+                        <a class="search-model-card" href="@model.Href">
+                            <div class="search-model-cover search-model-cover-@model.Cover" aria-hidden="true">
+                                <span class="search-model-shape"></span>
+                                <span class="search-bookmark"><AppIcon Name="favorites" /></span>
+                            </div>
 
-                        <div class="search-model-body">
-                            <div class="search-result-title-row">
-                                <h3>@model.Name</h3>
-                                <span>@model.Tag</span>
+                            <div class="search-model-body">
+                                <div class="search-result-title-row">
+                                    <h3>@model.Name</h3>
+                                    <span>@model.Tag</span>
+                                </div>
+                                <p>@model.Description</p>
+                                <div class="search-score">
+                                    <span style="width: @model.Score"></span>
+                                </div>
+                                <div class="search-result-foot">
+                                    <small>@model.Context</small>
+                                    <small>@model.Date</small>
+                                </div>
                             </div>
-                            <p>@model.Description</p>
-                            <div class="search-score">
-                                <span style="width: @model.Score"></span>
+                        </a>
+                    }
+                    else
+                    {
+                        <article class="search-model-card">
+                            <div class="search-model-cover search-model-cover-@model.Cover" aria-hidden="true">
+                                <span class="search-model-shape"></span>
+                                <span class="search-bookmark"><AppIcon Name="favorites" /></span>
                             </div>
-                            <div class="search-result-foot">
-                                <small>@model.Context</small>
-                                <small>@model.Date</small>
-                            </div>
-                        </div>
-                    </a>
-                }
-                else
-                {
-                    <article class="search-model-card">
-                        <div class="search-model-cover search-model-cover-@model.Cover" aria-hidden="true">
-                            <span class="search-model-shape"></span>
-                            <span class="search-bookmark"><AppIcon Name="favorites" /></span>
-                        </div>
 
-                        <div class="search-model-body">
-                            <div class="search-result-title-row">
-                                <h3>@model.Name</h3>
-                                <span>@model.Tag</span>
+                            <div class="search-model-body">
+                                <div class="search-result-title-row">
+                                    <h3>@model.Name</h3>
+                                    <span>@model.Tag</span>
+                                </div>
+                                <p>@model.Description</p>
+                                <div class="search-score">
+                                    <span style="width: @model.Score"></span>
+                                </div>
+                                <div class="search-result-foot">
+                                    <small>@model.Context</small>
+                                    <small>@model.Date</small>
+                                </div>
                             </div>
-                            <p>@model.Description</p>
-                            <div class="search-score">
-                                <span style="width: @model.Score"></span>
-                            </div>
-                            <div class="search-result-foot">
-                                <small>@model.Context</small>
-                                <small>@model.Date</small>
-                            </div>
-                        </div>
-                    </article>
+                        </article>
+                    }
                 }
             }
         </div>
@@ -111,55 +137,74 @@
                 <p>Itens relacionados a modelos, colecoes, imagens, links e arquivos vinculados.</p>
             </div>
 
-            <span>Mockado</span>
+            <span>Banco local</span>
         </div>
 
         <div class="search-result-list">
-            @foreach (var result in Results)
+            @if (IsLoading)
             {
-                @if (result.Href is not null)
+                <AppStateBlock
+                    Variant="loading"
+                    Title="Buscando resultados"
+                    Description="Consultando apenas metadados persistidos no banco local."
+                    IsCompact="true" />
+            }
+            else if (Results.Count == 0)
+            {
+                <AppStateBlock
+                    Variant="no-results"
+                    Title="Nenhum resultado encontrado"
+                    Description="A busca simples ainda consulta somente dados persistidos no banco local."
+                    IsCompact="true" />
+            }
+            else
+            {
+                @foreach (var result in Results)
                 {
-                    <a class="search-result-row" href="@result.Href">
-                        <span class="search-result-icon search-result-icon-@result.Tone" aria-hidden="true">
-                            <AppIcon Name="@result.Icon" />
-                        </span>
+                    @if (result.Href is not null)
+                    {
+                        <a class="search-result-row" href="@result.Href">
+                            <span class="search-result-icon search-result-icon-@result.Tone" aria-hidden="true">
+                                <AppIcon Name="@result.Icon" />
+                            </span>
 
-                        <span class="search-result-copy">
-                            <span class="search-result-type">@result.Type</span>
-                            <strong>@result.Name</strong>
-                            <small>@result.Description</small>
-                        </span>
+                            <span class="search-result-copy">
+                                <span class="search-result-type">@result.Type</span>
+                                <strong>@result.Name</strong>
+                                <small>@result.Description</small>
+                            </span>
 
-                        <span class="search-result-context">
-                            <span>@result.Context</span>
-                            <small>@result.Date</small>
-                        </span>
+                            <span class="search-result-context">
+                                <span>@result.Context</span>
+                                <small>@result.Date</small>
+                            </span>
 
-                        <span class="search-result-tag">@result.Tag</span>
-                        <span class="search-result-action" aria-label="Abrir resultado"><AppIcon Name="arrow" /></span>
-                    </a>
-                }
-                else
-                {
-                    <article class="search-result-row">
-                        <span class="search-result-icon search-result-icon-@result.Tone" aria-hidden="true">
-                            <AppIcon Name="@result.Icon" />
-                        </span>
+                            <span class="search-result-tag">@result.Tag</span>
+                            <span class="search-result-action" aria-label="Abrir resultado"><AppIcon Name="arrow" /></span>
+                        </a>
+                    }
+                    else
+                    {
+                        <article class="search-result-row">
+                            <span class="search-result-icon search-result-icon-@result.Tone" aria-hidden="true">
+                                <AppIcon Name="@result.Icon" />
+                            </span>
 
-                        <span class="search-result-copy">
-                            <span class="search-result-type">@result.Type</span>
-                            <strong>@result.Name</strong>
-                            <small>@result.Description</small>
-                        </span>
+                            <span class="search-result-copy">
+                                <span class="search-result-type">@result.Type</span>
+                                <strong>@result.Name</strong>
+                                <small>@result.Description</small>
+                            </span>
 
-                        <span class="search-result-context">
-                            <span>@result.Context</span>
-                            <small>@result.Date</small>
-                        </span>
+                            <span class="search-result-context">
+                                <span>@result.Context</span>
+                                <small>@result.Date</small>
+                            </span>
 
-                        <span class="search-result-tag">@result.Tag</span>
-                        <span class="search-result-action" aria-label="Abrir resultado"><AppIcon Name="arrow" /></span>
-                    </article>
+                            <span class="search-result-tag">@result.Tag</span>
+                            <span class="search-result-action" aria-label="Abrir resultado"><AppIcon Name="arrow" /></span>
+                        </article>
+                    }
                 }
             }
         </div>
@@ -175,8 +220,8 @@
         }
 
         <div class="search-summary-note">
-            <h2>Busca ainda visual</h2>
-            <p>Nenhum indice foi criado e nenhum arquivo real foi lido. Os resultados sao mockados para validar a tela.</p>
+            <h2>Busca simples local</h2>
+            <p>A consulta usa somente dados persistidos no banco local. Nenhum arquivo real e lido e nenhum link externo e aberto.</p>
         </div>
     </aside>
 </section>
@@ -203,32 +248,118 @@
         new("Links favoritos", false)
     ];
 
-    private static readonly SearchModelResult[] ModelResults =
+    private bool IsLoading { get; set; } = true;
+
+    private string TermoBusca { get; set; } = string.Empty;
+
+    private IReadOnlyList<BuscaResultado> BuscaResults { get; set; } = [];
+
+    private IReadOnlyList<SearchModelResult> ModelResults => BuscaResults
+        .Where(resultado => resultado.Tipo == "Modelo")
+        .Take(2)
+        .Select(CriarModeloResultado)
+        .ToList();
+
+    private IReadOnlyList<SearchResult> Results => BuscaResults
+        .Select(CriarResultado)
+        .ToList();
+
+    private IReadOnlyList<SearchSummaryItem> Summary =>
     [
-        new("Cthulhu Idol", "Miniatura principal da colecao, em pintura.", "Eldritch Horrors", "Hoje", "Modelo", "100%", "idol", "/colecoes/eldritch-horrors/modelos/cthulhu-idol"),
-        new("Abyssal Statue", "Estatua pronta para revisao visual e fatiamento futuro.", "Eldritch Horrors", "3 dias", "Modelo", "78%", "statue")
+        new(Results.Count.ToString(), "Resultados"),
+        new(Results.Count(item => item.Type == "Modelo").ToString(), "Modelos"),
+        new(Results.Count(item => item.Type == "Imagem").ToString(), "Imagens"),
+        new(Results.Count(item => item.Type == "Favorito").ToString(), "Links")
     ];
 
-    private static readonly SearchResult[] Results =
-    [
-        new("Cthulhu Idol", "Modelo", "Miniatura principal em pintura, com arquivos e galeria vinculados.", "Eldritch Horrors", "Hoje", "modelo", "models", "blue", "/colecoes/eldritch-horrors/modelos/cthulhu-idol"),
-        new("Eldritch Horrors", "Colecao", "Colecao de criaturas e artefatos sombrios.", "Colecoes", "Ontem", "colecao", "collections", "blue", "/colecoes/eldritch-horrors"),
-        new("Main reference", "Imagem", "Referencia principal para luz, pedra e pose.", "Galeria do Cthulhu Idol", "Hoje", "imagem", "image", "slate", "/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference"),
-        new("cthulhu-idol.stl", "Arquivo vinculado", "Arquivo base vinculado ao modelo Cthulhu Idol.", "Arquivos vinculados", "Hoje", "stl", "folder", "slate", "/colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos"),
-        new("painting-notes.md", "Arquivo vinculado", "Notas mockadas de pintura e acabamento.", "Arquivos vinculados", "2 dias", "notas", "list", "slate"),
-        new("Dark Paint Guide", "Link favorito", "Sequencia de camadas para verdes profundos.", "Favoritos", "2 dias", "link", "favorites", "blue"),
-        new("Inspiration Board", "Link favorito", "Painel visual para textura, atmosfera e acabamento.", "Favoritos", "Semana passada", "moodboard", "favorites", "slate"),
-        new("Stone texture", "Imagem", "Referencia de superficie para base e pedestal.", "Referencias", "4 dias", "textura", "image", "slate"),
-        new("Abyssal Statue", "Modelo", "Modelo relacionado a pedra, pedestal e pintura escura.", "Eldritch Horrors", "3 dias", "modelo", "models", "blue")
-    ];
+    private string TextoTotalResultados => Results.Count == 1
+        ? "1 resultado local"
+        : $"{Results.Count} resultados locais";
 
-    private static readonly SearchSummaryItem[] Summary =
-    [
-        new("9", "Resultados"),
-        new("3", "Modelos"),
-        new("2", "Imagens"),
-        new("2", "Links")
-    ];
+    protected override async Task OnInitializedAsync()
+    {
+        await BuscarAsync();
+    }
+
+    private async Task ExecutarBuscaAsync()
+    {
+        await BuscarAsync();
+    }
+
+    private async Task TratarTeclaBuscaAsync(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter")
+        {
+            await BuscarAsync();
+        }
+    }
+
+    private async Task AplicarSugestaoAsync(string suggestion)
+    {
+        TermoBusca = suggestion;
+        await BuscarAsync();
+    }
+
+    private async Task BuscarAsync()
+    {
+        IsLoading = true;
+        BuscaResults = await BuscaServico.BuscarAsync(TermoBusca);
+        IsLoading = false;
+    }
+
+    private static SearchModelResult CriarModeloResultado(BuscaResultado resultado)
+    {
+        return new SearchModelResult(
+            resultado.Titulo,
+            resultado.Descricao,
+            resultado.Contexto,
+            FormatarData(resultado.AtualizadoEm),
+            resultado.Tipo,
+            $"{Math.Clamp(resultado.Relevancia, 20, 100)}%",
+            ObterCapaModelo(resultado),
+            resultado.Rota);
+    }
+
+    private static SearchResult CriarResultado(BuscaResultado resultado)
+    {
+        return new SearchResult(
+            resultado.Titulo,
+            resultado.Tipo,
+            resultado.Descricao,
+            resultado.Contexto,
+            FormatarData(resultado.AtualizadoEm),
+            resultado.Tipo.ToLowerInvariant(),
+            resultado.Icone,
+            resultado.TomVisual,
+            resultado.Rota);
+    }
+
+    private static string ObterCapaModelo(BuscaResultado resultado)
+    {
+        var texto = $"{resultado.Titulo} {resultado.Descricao}";
+
+        if (texto.Contains("statue", StringComparison.OrdinalIgnoreCase)
+            || texto.Contains("estatua", StringComparison.OrdinalIgnoreCase))
+        {
+            return "statue";
+        }
+
+        return "idol";
+    }
+
+    private static string FormatarData(DateTimeOffset data)
+    {
+        var dias = (DateTimeOffset.UtcNow.Date - data.UtcDateTime.Date).Days;
+
+        return dias switch
+        {
+            <= 0 => "Hoje",
+            1 => "Ontem",
+            < 7 => $"{dias} dias",
+            < 14 => "Semana passada",
+            _ => data.ToString("dd/MM/yyyy")
+        };
+    }
 
     private sealed record SearchFilter(string Label, bool IsActive);
 

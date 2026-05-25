@@ -52,6 +52,8 @@ O Recorte 2 do Bloco 6 foi consolidado para conectar a Visualizacao de Imagem ao
 
 O Bloco 7 foi consolidado no Recorte 1 de Favoritos. A barra de Favoritos passou a listar pastas e links reais do banco local, sem abrir links reais, sem acessar rede, sem baixar favicons e sem implementar CRUD visual.
 
+O Bloco 8 foi consolidado no Recorte 1 de Busca. A tela `/busca` passou a consultar colecoes, modelos, arquivos vinculados, imagens e favoritos no banco local por busca simples, sem busca avancada, sem acessar internet, sem ler arquivos reais e sem abrir links externos.
+
 ## repositorio remoto
 
 ```txt
@@ -60,17 +62,17 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou o Bloco 7 - Favoritos, recorte 1:
+A ultima tarefa concluida consolidou o Bloco 8 - Busca, recorte 1:
 
-- criacao do repositorio concreto `FavoritosRepositorio`;
-- criacao do servico de aplicacao `FavoritosServico`;
-- criacao do modelo de aplicacao `FavoritoBarraItem`;
-- seed idempotente de pastas e links favoritos;
-- conexao da barra de Favoritos com dados reais do banco local;
-- favicons reais, abertura de links, drag and drop, menu funcional e CRUD visual mantidos mockados ou fora do escopo;
+- criacao do servico de aplicacao `BuscaServico`;
+- criacao do modelo de aplicacao `BuscaResultado`;
+- conexao da tela `/busca` com busca simples no banco local;
+- busca em colecoes, modelos, arquivos vinculados, imagens e favoritos como dados persistidos;
+- lista inicial pequena quando o termo esta vazio;
+- filtros avancados, ordenacao complexa, historico, sugestoes persistidas e busca fuzzy mantidos mockados ou fora do escopo;
+- nenhum arquivo real lido;
+- nenhum link externo aberto;
 - nenhum acesso a rede;
-- nenhum link real aberto;
-- nenhum favicon real baixado;
 - nenhum CSS visual alterado;
 - nenhum redesenho visual aplicado;
 - nenhum CRUD visual implementado;
@@ -164,6 +166,7 @@ Implementado:
 - servico de aplicacao `ArquivoVinculadoServico`;
 - servico de aplicacao `ImagemModeloServico`;
 - servico de aplicacao `FavoritosServico`;
+- servico de aplicacao `BuscaServico`;
 - modelo de aplicacao `ColecaoResumo`;
 - modelo de aplicacao `ColecaoDetalhe`;
 - modelo de aplicacao `ModeloResumoColecao`;
@@ -173,6 +176,7 @@ Implementado:
 - modelo de aplicacao `ImagemModeloResumo`;
 - modelo de aplicacao `ImagemModeloDetalhe`;
 - modelo de aplicacao `FavoritoBarraItem`;
+- modelo de aplicacao `BuscaResultado`;
 - inicializador `BlueAtelierBancoInicializador` para migration e seed;
 - seed de colecoes suficiente para manter a tela `/colecoes` visualmente proxima do estado aprovado;
 - tokens e temas CSS em `wwwroot/css/`;
@@ -187,7 +191,7 @@ Implementado:
 - tela Visualizacao de Imagem aprovada e conectada a metadados reais da imagem principal;
 - tela Arquivos Vinculados aprovada e conectada a metadados reais na rota `/arquivos`;
 - tela Favoritos aprovada com barra de favoritos conectada a pastas e links reais do banco local;
-- tela Busca aprovada;
+- tela Busca aprovada e conectada a busca simples no banco local;
 - tela Configuracoes Gerais aprovada;
 - tela Configuracoes de Caminhos aprovada;
 - tela Configuracoes de Aparencia aprovada;
@@ -209,7 +213,7 @@ Implementado:
 - pastas e links favoritos da barra carregados do banco local;
 - menu de contexto visual/provisorio para a barra de links favoritos;
 - menu de contexto de Favoritos fechando ao clicar fora, preservando cliques internos, troca por outro favorito no botao direito e fechamento ao selecionar uma opcao;
-- busca visual/mockada com campo principal, filtros, sugestoes rapidas, resultados e resumo visual;
+- busca simples no banco local com campo principal, sugestoes rapidas, resultados e resumo visual preservados;
 - Configuracoes Gerais visual/mockada com composicao fiel ao Stitch, navegacao secundaria, paineis de caminhos, rede, aparencia e programas padrao;
 - Configuracoes de Caminhos visual/mockada com navegacao secundaria corrigida, diretorios principais e descoberta de rede;
 - Configuracoes de Aparencia visual/mockada com selecao de tema, densidade da interface, cor de destaque e acoes visuais;
@@ -249,7 +253,7 @@ Ainda nao implementado:
 - migrations futuras alem da inicial;
 - servicos reais das demais areas;
 - sistema de arquivos real;
-- busca real;
+- busca avancada, busca fuzzy e indexacao externa;
 - filtros reais persistidos;
 - configuracoes reais;
 - edicao real de colecoes, modelos ou cards;
@@ -299,6 +303,7 @@ Documentacao:
 - `docs/50-bloco-5-arquivos-vinculados.md`
 - `docs/51-bloco-6-galeria.md`
 - `docs/52-bloco-7-favoritos.md`
+- `docs/53-bloco-8-busca.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -314,6 +319,7 @@ Documentacao:
 - O Bloco 6 - Galeria, recorte 1, foi consolidado.
 - O Bloco 6 - Galeria, recorte 2, foi consolidado.
 - O Bloco 7 - Favoritos, recorte 1, foi consolidado.
+- O Bloco 8 - Busca, recorte 1, foi consolidado.
 - O repositorio `ColecaoRepositorio` implementa `IColecaoRepositorio`.
 - O repositorio `ModeloRepositorio` implementa `IModeloRepositorio`.
 - O repositorio `ImagemModeloRepositorio` implementa `IImagemModeloRepositorio`.
@@ -323,6 +329,7 @@ Documentacao:
 - O servico `ArquivoVinculadoServico` retorna `ArquivoVinculadoResumo`, sem expor entidade de dominio para Razor.
 - O servico `ImagemModeloServico` retorna `ImagemModeloResumo`, sem expor entidade de dominio para Razor.
 - O servico `FavoritosServico` retorna `FavoritoBarraItem`, sem expor entidade de dominio para Razor.
+- O servico `BuscaServico` retorna `BuscaResultado`, sem expor entidade de dominio para Razor.
 - O servico `ImagemModeloServico` retorna `ImagemModeloDetalhe` para a Visualizacao de Imagem, sem expor entidade de dominio para Razor.
 - O inicializador `BlueAtelierBancoInicializador` executa migration e seed.
 - O seed de colecoes foi ampliado de forma idempotente para manter a tela visualmente preenchida.
@@ -336,6 +343,7 @@ Documentacao:
 - A Visualizacao de Imagem carrega metadados reais da imagem principal via servico de aplicacao.
 - O identificador `main-reference` resolve a imagem principal do modelo por metadado `EhPrincipal = true`.
 - A barra de Favoritos carrega pastas e links reais do banco local via servico de aplicacao.
+- `/busca` consulta dados persistidos de colecoes, modelos, arquivos vinculados, imagens e favoritos via servico de aplicacao.
 - A navegacao por slug para `Eldritch Horrors` foi preservada.
 - A navegacao do card `Cthulhu Idol` na tela Modelos foi preservada para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`.
 - Os cards internos do Detalhe da Colecao preservam classes CSS e passam a usar dados reais de nome, etapa, status e progresso.
@@ -347,6 +355,8 @@ Documentacao:
 - Favicons reais, abertura de links, drag and drop, menu funcional e CRUD visual de Favoritos continuam mockados ou fora do escopo.
 - Nenhum arquivo ou imagem real foi lido, validado, copiado, movido, aberto ou apagado.
 - Nenhum link real foi aberto e nenhum favicon real foi baixado.
+- Nenhuma busca em arquivo real foi implementada.
+- Nenhum acesso a internet foi implementado.
 - Nenhum formulario, modal ou CRUD visual foi implementado.
 - Nenhum CSS visual foi alterado.
 - A sidebar permanece preservada.
@@ -385,7 +395,7 @@ Documentacao:
 - Nenhuma logica real de erro, offline, retry, loading ou sincronizacao foi implementada.
 - `/favoritos` permanece preservada.
 - O menu de contexto de Favoritos permanece com fechamento ao clicar fora e sem alteracao visual.
-- `/busca` permanece preservada.
+- `/busca` permanece preservada visualmente e agora usa busca simples no banco local.
 - A barra de links favoritos permanece preservada.
 - `/fila-impressao` nao existe mais como rota.
 - `/arquivos-recentes` nao existe mais como rota.
@@ -398,19 +408,19 @@ Documentacao:
 - O CSS nao mantem blocos grandes mortos dessas paginas.
 - O Detalhe do Modelo ainda possui `Model Info`.
 - O Detalhe do Modelo ainda possui lista simples de materiais usados.
-- Nenhuma funcionalidade real de UI foi implementada.
+- Nenhum CRUD visual ou acao destrutiva de UI foi implementado.
 - Nenhum CRUD visual foi implementado.
 - `ColecaoRepositorio` e `ModeloRepositorio` foram implementados como repositorios concretos.
 - `ColecaoServico` e `ModeloServico` foram implementados como servicos de aplicacao para os recortes atuais.
 - Nenhum CDN, Tailwind, Bootstrap ou biblioteca externa foi usado.
-- Nenhuma tela aprovada foi alterada.
-- Nenhuma funcionalidade real de UI foi implementada nesta etapa.
+- Nenhuma tela fora de Busca foi alterada nesta etapa.
+- Nenhuma funcionalidade fora da busca simples local foi implementada nesta etapa.
 - `dotnet restore BlueAtelier.sln` executado com sucesso.
 - `dotnet build BlueAtelier.sln` executado com sucesso.
 - `dotnet test BlueAtelier.sln --no-build` executado com sucesso.
 
 ## proxima tarefa sugerida
 
-Continuar o Bloco 7 - Favoritos, somente apos revisao e aprovacao do usuario.
+Continuar o Bloco 8 - Busca em recortes pequenos, somente apos nova aprovacao do usuario.
 
-O proximo recorte de Favoritos deve evoluir a funcionalidade de forma progressiva, sem redesenhar a interface, sem abrir links reais e sem baixar favicons sem decisao explicita. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+O proximo recorte deve evoluir a busca de forma progressiva, sem redesenhar a interface, sem acessar internet, sem ler arquivos reais, sem abrir links externos e sem implementar busca avancada sem decisao explicita. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
