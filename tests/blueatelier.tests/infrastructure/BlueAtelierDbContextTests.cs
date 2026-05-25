@@ -99,7 +99,8 @@ public sealed class BlueAtelierDbContextTests
                 Assert.Equal(1, await contexto.Colecoes.CountAsync(colecao => colecao.Slug == "eldritch-horrors"));
                 Assert.Equal(1, await contexto.Modelos.CountAsync(modelo => modelo.Slug == "cthulhu-idol"));
                 Assert.Equal(1, await contexto.ConfiguracoesApp.CountAsync(configuracao => configuracao.Chave == "app.idioma"));
-                Assert.Equal(2, await contexto.LinksFavoritos.CountAsync());
+                Assert.Equal(4, await contexto.PastasFavoritos.CountAsync());
+                Assert.Equal(10, await contexto.LinksFavoritos.CountAsync());
             }
         }
         finally

@@ -29,7 +29,10 @@ public static class BlueAtelierSeed
     private static readonly Guid CthulhuIdolPrimerImageId = Guid.Parse("4876cf8f-ee39-4bcb-9274-d4a77d8872bb");
     private static readonly Guid CthulhuIdolPaintingProgressImageId = Guid.Parse("cde03238-6fd8-44ad-a561-7ba828005cfe");
     private static readonly Guid CthulhuIdolFinalImageId = Guid.Parse("ee0199d5-3520-43ac-a8a4-4f4d46b35fd4");
+    private static readonly Guid PinturaFavoritosId = Guid.Parse("c509c9bb-409d-4bdf-8f3b-0816a439377c");
     private static readonly Guid ReferenciasFavoritasId = Guid.Parse("f07ac854-b9f3-4d1c-b033-e4803b5241a5");
+    private static readonly Guid Impressao3DFavoritosId = Guid.Parse("f36fd34f-5604-4386-8202-d1716fa1531b");
+    private static readonly Guid LojasFavoritasId = Guid.Parse("9365f2fb-e827-4319-841d-23f917929a8a");
 
     public static async Task AplicarAsync(BlueAtelierDbContext contexto, CancellationToken cancellationToken = default)
     {
@@ -351,21 +354,63 @@ public static class BlueAtelierSeed
             agora.AddDays(-6),
             cancellationToken);
 
-        var pastaExiste = await contexto.PastasFavoritos
-            .AnyAsync(item => item.Nome == "Referencias", cancellationToken);
+        await CriarPastaFavoritosSeNaoExistirAsync(
+            contexto,
+            PinturaFavoritosId,
+            "Pintura",
+            "slate",
+            1,
+            agora,
+            cancellationToken);
 
-        if (!pastaExiste)
-        {
-            contexto.PastasFavoritos.Add(new PastaFavoritos
-            {
-                Id = ReferenciasFavoritasId,
-                Nome = "Referencias",
-                TomVisual = "azul",
-                Ordem = 1,
-                CriadoEm = agora,
-                AtualizadoEm = agora
-            });
-        }
+        await CriarPastaFavoritosSeNaoExistirAsync(
+            contexto,
+            ReferenciasFavoritasId,
+            "Referencias",
+            "blue",
+            2,
+            agora,
+            cancellationToken);
+
+        await CriarPastaFavoritosSeNaoExistirAsync(
+            contexto,
+            Impressao3DFavoritosId,
+            "Impressao 3D",
+            "slate",
+            3,
+            agora,
+            cancellationToken);
+
+        await CriarPastaFavoritosSeNaoExistirAsync(
+            contexto,
+            LojasFavoritasId,
+            "Lojas",
+            "blue",
+            4,
+            agora,
+            cancellationToken);
+
+        await CriarLinkFavoritoSeNaoExistirAsync(
+            contexto,
+            "YouTube",
+            "https://www.youtube.com",
+            "YT",
+            PinturaFavoritosId,
+            1,
+            "red",
+            agora,
+            cancellationToken);
+
+        await CriarLinkFavoritoSeNaoExistirAsync(
+            contexto,
+            "Pinterest",
+            "https://www.pinterest.com",
+            "PI",
+            ReferenciasFavoritasId,
+            2,
+            "rose",
+            agora,
+            cancellationToken);
 
         await CriarLinkFavoritoSeNaoExistirAsync(
             contexto,
@@ -373,7 +418,8 @@ public static class BlueAtelierSeed
             "https://www.artstation.com",
             "AS",
             ReferenciasFavoritasId,
-            1,
+            3,
+            "blue",
             agora,
             cancellationToken);
 
@@ -382,8 +428,75 @@ public static class BlueAtelierSeed
             "Thingiverse",
             "https://www.thingiverse.com",
             "TH",
+            Impressao3DFavoritosId,
+            4,
+            "slate",
+            agora,
+            cancellationToken);
+
+        await CriarLinkFavoritoSeNaoExistirAsync(
+            contexto,
+            "MyMiniFactory",
+            "https://www.myminifactory.com",
+            "MM",
+            Impressao3DFavoritosId,
+            5,
+            "blue",
+            agora,
+            cancellationToken);
+
+        await CriarLinkFavoritoSeNaoExistirAsync(
+            contexto,
+            "Cults3D",
+            "https://cults3d.com",
+            "C3",
+            Impressao3DFavoritosId,
+            6,
+            "slate",
+            agora,
+            cancellationToken);
+
+        await CriarLinkFavoritoSeNaoExistirAsync(
+            contexto,
+            "Google Drive",
+            "https://drive.google.com",
+            "GD",
             ReferenciasFavoritasId,
-            2,
+            7,
+            "green",
+            agora,
+            cancellationToken);
+
+        await CriarLinkFavoritoSeNaoExistirAsync(
+            contexto,
+            "ChatGPT",
+            "https://chat.openai.com",
+            "CG",
+            ReferenciasFavoritasId,
+            8,
+            "ink",
+            agora,
+            cancellationToken);
+
+        await CriarLinkFavoritoSeNaoExistirAsync(
+            contexto,
+            "Vallejo",
+            "https://acrylicosvallejo.com",
+            "VA",
+            LojasFavoritasId,
+            9,
+            "blue",
+            agora,
+            cancellationToken);
+
+        await CriarLinkFavoritoSeNaoExistirAsync(
+            contexto,
+            "Elegoo",
+            "https://www.elegoo.com",
+            "EG",
+            LojasFavoritasId,
+            10,
+            "slate",
             agora,
             cancellationToken);
 
@@ -564,6 +677,7 @@ public static class BlueAtelierSeed
         string iniciais,
         Guid pastaId,
         int ordem,
+        string tomVisual,
         DateTimeOffset agora,
         CancellationToken cancellationToken)
     {
@@ -581,7 +695,35 @@ public static class BlueAtelierSeed
             Nome = nome,
             Url = url,
             Iniciais = iniciais,
-            TomVisual = "azul",
+            TomVisual = tomVisual,
+            Ordem = ordem,
+            CriadoEm = agora,
+            AtualizadoEm = agora
+        });
+    }
+
+    private static async Task CriarPastaFavoritosSeNaoExistirAsync(
+        BlueAtelierDbContext contexto,
+        Guid id,
+        string nome,
+        string tomVisual,
+        int ordem,
+        DateTimeOffset agora,
+        CancellationToken cancellationToken)
+    {
+        var pastaExiste = await contexto.PastasFavoritos
+            .AnyAsync(item => item.Nome == nome, cancellationToken);
+
+        if (pastaExiste)
+        {
+            return;
+        }
+
+        contexto.PastasFavoritos.Add(new PastaFavoritos
+        {
+            Id = id,
+            Nome = nome,
+            TomVisual = tomVisual,
             Ordem = ordem,
             CriadoEm = agora,
             AtualizadoEm = agora

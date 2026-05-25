@@ -50,6 +50,8 @@ O Bloco 6 foi iniciado e consolidado no Recorte 1 de Galeria. A Galeria do Model
 
 O Recorte 2 do Bloco 6 foi consolidado para conectar a Visualizacao de Imagem aos metadados reais da imagem principal do modelo no banco local. O identificador visual `main-reference` resolve o registro de imagem marcado como principal, ainda sem ler, validar, abrir, copiar, mover ou apagar imagens reais.
 
+O Bloco 7 foi consolidado no Recorte 1 de Favoritos. A barra de Favoritos passou a listar pastas e links reais do banco local, sem abrir links reais, sem acessar rede, sem baixar favicons e sem implementar CRUD visual.
+
 ## repositorio remoto
 
 ```txt
@@ -58,20 +60,17 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou o Bloco 6 - Galeria, recorte 2:
+A ultima tarefa concluida consolidou o Bloco 7 - Favoritos, recorte 1:
 
-- criacao do repositorio concreto `ImagemModeloRepositorio`;
-- criacao do servico de aplicacao `ImagemModeloServico`;
-- criacao do modelo de aplicacao `ImagemModeloResumo`;
-- criacao do modelo de aplicacao `ImagemModeloDetalhe`;
-- seed idempotente de metadados de imagens para o `Cthulhu Idol`;
-- conexao da Galeria do Modelo com metadados reais do banco local;
-- conexao da Visualizacao de Imagem com metadados reais da imagem principal;
-- resolucao de `main-reference` pela imagem com `EhPrincipal = true`;
-- preservacao da rota aprovada `/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria`;
-- preservacao da rota aprovada `/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference`;
-- miniaturas reais, preview real, filtros funcionais, importacao e acoes visuais mantidos mockados ou fora do escopo;
-- nenhuma imagem real lida, validada, copiada, movida, aberta ou apagada;
+- criacao do repositorio concreto `FavoritosRepositorio`;
+- criacao do servico de aplicacao `FavoritosServico`;
+- criacao do modelo de aplicacao `FavoritoBarraItem`;
+- seed idempotente de pastas e links favoritos;
+- conexao da barra de Favoritos com dados reais do banco local;
+- favicons reais, abertura de links, drag and drop, menu funcional e CRUD visual mantidos mockados ou fora do escopo;
+- nenhum acesso a rede;
+- nenhum link real aberto;
+- nenhum favicon real baixado;
 - nenhum CSS visual alterado;
 - nenhum redesenho visual aplicado;
 - nenhum CRUD visual implementado;
@@ -159,10 +158,12 @@ Implementado:
 - repositorio concreto `ModeloRepositorio`;
 - repositorio concreto `ArquivoVinculadoRepositorio`;
 - repositorio concreto `ImagemModeloRepositorio`;
+- repositorio concreto `FavoritosRepositorio`;
 - servico de aplicacao `ColecaoServico`;
 - servico de aplicacao `ModeloServico`;
 - servico de aplicacao `ArquivoVinculadoServico`;
 - servico de aplicacao `ImagemModeloServico`;
+- servico de aplicacao `FavoritosServico`;
 - modelo de aplicacao `ColecaoResumo`;
 - modelo de aplicacao `ColecaoDetalhe`;
 - modelo de aplicacao `ModeloResumoColecao`;
@@ -171,6 +172,7 @@ Implementado:
 - modelo de aplicacao `ArquivoVinculadoResumo`;
 - modelo de aplicacao `ImagemModeloResumo`;
 - modelo de aplicacao `ImagemModeloDetalhe`;
+- modelo de aplicacao `FavoritoBarraItem`;
 - inicializador `BlueAtelierBancoInicializador` para migration e seed;
 - seed de colecoes suficiente para manter a tela `/colecoes` visualmente proxima do estado aprovado;
 - tokens e temas CSS em `wwwroot/css/`;
@@ -184,7 +186,7 @@ Implementado:
 - tela Galeria do Modelo aprovada e conectada a metadados reais de imagens por modelo;
 - tela Visualizacao de Imagem aprovada e conectada a metadados reais da imagem principal;
 - tela Arquivos Vinculados aprovada e conectada a metadados reais na rota `/arquivos`;
-- tela Favoritos aprovada;
+- tela Favoritos aprovada com barra de favoritos conectada a pastas e links reais do banco local;
 - tela Busca aprovada;
 - tela Configuracoes Gerais aprovada;
 - tela Configuracoes de Caminhos aprovada;
@@ -203,8 +205,8 @@ Implementado:
 - sidebar com Busca navegando para `/busca`;
 - sidebar com Configuracoes navegando para `/configuracoes`;
 - favoritos gerais mockados com navegacoes visuais para telas existentes;
-- barra de links favoritos estilo Chrome;
-- pastas e links favoritos mockados;
+- barra de links favoritos estilo Chrome conectada a dados reais do banco local;
+- pastas e links favoritos da barra carregados do banco local;
 - menu de contexto visual/provisorio para a barra de links favoritos;
 - menu de contexto de Favoritos fechando ao clicar fora, preservando cliques internos, troca por outro favorito no botao direito e fechamento ao selecionar uma opcao;
 - busca visual/mockada com campo principal, filtros, sugestoes rapidas, resultados e resumo visual;
@@ -255,6 +257,10 @@ Ainda nao implementado:
 - CRUD visual de modelos;
 - CRUD real do detalhe do modelo pela UI;
 - miniaturas reais, visualizacao real de imagens, imagens reais, links reais, referencias reais e notas reais editaveis do modelo;
+- CRUD visual de favoritos;
+- abertura real de links favoritos;
+- download real de favicons;
+- drag and drop funcional em favoritos;
 - leitura, validacao, abertura, copia, movimentacao ou exclusao real de arquivos e imagens;
 - integracao real de links, referencias e notas no Detalhe da Colecao;
 - integracao das demais telas com persistencia real.
@@ -266,9 +272,11 @@ Implementacao:
 - repositorio de colecoes em `src/blueatelier.infrastructure/Repositorios`;
 - repositorio de modelos em `src/blueatelier.infrastructure/Repositorios`;
 - repositorio de arquivos vinculados em `src/blueatelier.infrastructure/Repositorios`;
+- repositorio de favoritos em `src/blueatelier.infrastructure/Repositorios`;
 - servico de aplicacao de colecoes em `src/blueatelier.application`;
 - servico de aplicacao de modelos em `src/blueatelier.application`;
 - servico de aplicacao de arquivos vinculados em `src/blueatelier.application`;
+- servico de aplicacao de favoritos em `src/blueatelier.application`;
 - inicializador de banco em `src/blueatelier.infrastructure/Persistencia`;
 - registro de dependencias em `src/blueatelier.infrastructure/DependencyInjection.cs`;
 - conexao da tela `/colecoes` ao servico em `src/blueatelier.app/Components/Pages/Colecoes.razor`;
@@ -276,9 +284,11 @@ Implementacao:
 - conexao da tela `/modelos` ao servico de modelos em `src/blueatelier.app/Components/Pages/Modelos.razor`;
 - conexao da tela Detalhe do Modelo ao servico de modelos em `src/blueatelier.app/Components/Pages/DetalheModelo.razor`;
 - conexao da secao `Linked Files` do Detalhe do Modelo ao servico de arquivos vinculados em `src/blueatelier.app/Components/Pages/DetalheModelo.razor`;
+- conexao da barra de Favoritos ao servico de favoritos em `src/blueatelier.app/Components/Pages/Favoritos.razor`;
 - inicializacao do banco no app em `src/blueatelier.app/MauiProgram.cs`;
 - testes de colecoes em `tests/blueatelier.tests/infrastructure`.
 - testes de modelos em `tests/blueatelier.tests/infrastructure`.
+- testes de favoritos em `tests/blueatelier.tests/infrastructure`.
 
 Documentacao:
 
@@ -288,6 +298,7 @@ Documentacao:
 - `docs/49-bloco-4-modelos.md`
 - `docs/50-bloco-5-arquivos-vinculados.md`
 - `docs/51-bloco-6-galeria.md`
+- `docs/52-bloco-7-favoritos.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -301,6 +312,8 @@ Documentacao:
 - O Bloco 5 - Arquivos Vinculados, recorte 1, foi consolidado.
 - O Bloco 5 - Arquivos Vinculados, recorte 2, foi consolidado.
 - O Bloco 6 - Galeria, recorte 1, foi consolidado.
+- O Bloco 6 - Galeria, recorte 2, foi consolidado.
+- O Bloco 7 - Favoritos, recorte 1, foi consolidado.
 - O repositorio `ColecaoRepositorio` implementa `IColecaoRepositorio`.
 - O repositorio `ModeloRepositorio` implementa `IModeloRepositorio`.
 - O repositorio `ImagemModeloRepositorio` implementa `IImagemModeloRepositorio`.
@@ -309,6 +322,7 @@ Documentacao:
 - O servico `ModeloServico` retorna `ModeloResumoColecao`, `ModeloResumo` e `ModeloDetalhe`, sem expor entidade de dominio para Razor.
 - O servico `ArquivoVinculadoServico` retorna `ArquivoVinculadoResumo`, sem expor entidade de dominio para Razor.
 - O servico `ImagemModeloServico` retorna `ImagemModeloResumo`, sem expor entidade de dominio para Razor.
+- O servico `FavoritosServico` retorna `FavoritoBarraItem`, sem expor entidade de dominio para Razor.
 - O servico `ImagemModeloServico` retorna `ImagemModeloDetalhe` para a Visualizacao de Imagem, sem expor entidade de dominio para Razor.
 - O inicializador `BlueAtelierBancoInicializador` executa migration e seed.
 - O seed de colecoes foi ampliado de forma idempotente para manter a tela visualmente preenchida.
@@ -321,6 +335,7 @@ Documentacao:
 - A Galeria do Modelo carrega metadados reais de imagens via servico de aplicacao.
 - A Visualizacao de Imagem carrega metadados reais da imagem principal via servico de aplicacao.
 - O identificador `main-reference` resolve a imagem principal do modelo por metadado `EhPrincipal = true`.
+- A barra de Favoritos carrega pastas e links reais do banco local via servico de aplicacao.
 - A navegacao por slug para `Eldritch Horrors` foi preservada.
 - A navegacao do card `Cthulhu Idol` na tela Modelos foi preservada para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`.
 - Os cards internos do Detalhe da Colecao preservam classes CSS e passam a usar dados reais de nome, etapa, status e progresso.
@@ -329,7 +344,9 @@ Documentacao:
 - Links, referencias e notas do Detalhe da Colecao continuam mockados.
 - Filtros, ordenacao e botoes visuais da tela Modelos continuam mockados.
 - Miniaturas reais, preview real, links, referencias, notas editaveis, favoritos e acoes visuais do Detalhe do Modelo continuam mockados.
+- Favicons reais, abertura de links, drag and drop, menu funcional e CRUD visual de Favoritos continuam mockados ou fora do escopo.
 - Nenhum arquivo ou imagem real foi lido, validado, copiado, movido, aberto ou apagado.
+- Nenhum link real foi aberto e nenhum favicon real foi baixado.
 - Nenhum formulario, modal ou CRUD visual foi implementado.
 - Nenhum CSS visual foi alterado.
 - A sidebar permanece preservada.
@@ -394,6 +411,6 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Continuar o Bloco 6 - Galeria, somente apos revisao e aprovacao do usuario.
+Continuar o Bloco 7 - Favoritos, somente apos revisao e aprovacao do usuario.
 
-O proximo recorte de Galeria deve evoluir a funcionalidade de forma progressiva, sem redesenhar a interface e sem manipular imagens reais sem decisao explicita. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+O proximo recorte de Favoritos deve evoluir a funcionalidade de forma progressiva, sem redesenhar a interface, sem abrir links reais e sem baixar favicons sem decisao explicita. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

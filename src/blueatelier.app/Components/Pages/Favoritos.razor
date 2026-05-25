@@ -1,4 +1,7 @@
 @page "/favoritos"
+@using BlueAtelier.Application.Contratos
+@using BlueAtelier.Application.Modelos
+@inject IFavoritosServico FavoritosServico
 
 <section class="favorites-page" aria-labelledby="favorites-title" @onclick="CloseLinkbarMenu">
     <header class="favorites-header">
@@ -9,8 +12,8 @@
         </div>
 
         <div class="favorites-header-meta" aria-label="Resumo visual de favoritos">
-            <span>8 favoritos mockados</span>
-            <span>Tudo local e visual</span>
+            <span>Barra com dados locais</span>
+            <span>Acoes ainda visuais</span>
         </div>
     </header>
 
@@ -27,40 +30,57 @@
              @oncontextmenu="OpenLinkbarMenu"
              @oncontextmenu:preventDefault>
         <div class="favorites-linkbar" aria-label="Barra visual de links favoritos">
-            @foreach (var item in LinkBarItems)
+            @if (IsLoadingLinkBar)
             {
-                @if (item.IsFolder)
+                <AppStateBlock
+                    Variant="loading"
+                    Title="Carregando favoritos"
+                    Description="Buscando links e pastas locais."
+                    IsCompact="true" />
+            }
+            else if (LinkBarItems.Count == 0)
+            {
+                <AppStateBlock
+                    Variant="empty"
+                    Title="Nenhum favorito na barra"
+                    Description="Links e pastas favoritos ainda nao foram registrados no banco local."
+                    IsCompact="true" />
+            }
+            else
+            {
+                @foreach (var item in LinkBarItems)
                 {
-                    <button class="favorites-linkbar-item favorites-linkbar-folder favorite-linkbar-@item.Tone"
-                            type="button"
-                            title="@item.Name"
-                            aria-label="Pasta de favoritos: @item.Name"
-                            @oncontextmenu="OpenLinkbarMenu"
-                            @oncontextmenu:preventDefault
-                            @oncontextmenu:stopPropagation>
-                        <span class="favorites-linkbar-icon" aria-hidden="true">
-                            <AppIcon Name="folder" />
-                        </span>
-                        <span class="favorites-linkbar-folder-label">@item.Name</span>
-                        @if (item.Count is not null)
-                        {
-                            <span class="favorites-linkbar-count" aria-hidden="true">@item.Count</span>
-                        }
-                    </button>
-                }
-                else
-                {
-                    <a class="favorites-linkbar-item favorites-linkbar-link favorite-linkbar-@item.Tone"
-                       href="@item.Url"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       title="@item.Name"
-                       aria-label="Abrir link favorito: @item.Name"
-                       @oncontextmenu="OpenLinkbarMenu"
-                       @oncontextmenu:preventDefault
-                       @oncontextmenu:stopPropagation>
-                        <span class="favorites-linkbar-favicon" aria-hidden="true">@item.Initials</span>
-                    </a>
+                    @if (item.EhPasta)
+                    {
+                        <button class="favorites-linkbar-item favorites-linkbar-folder favorite-linkbar-@item.TomVisual"
+                                type="button"
+                                title="@item.Nome"
+                                aria-label="Pasta de favoritos: @item.Nome"
+                                @oncontextmenu="OpenLinkbarMenu"
+                                @oncontextmenu:preventDefault
+                                @oncontextmenu:stopPropagation>
+                            <span class="favorites-linkbar-icon" aria-hidden="true">
+                                <AppIcon Name="folder" />
+                            </span>
+                            <span class="favorites-linkbar-folder-label">@item.Nome</span>
+                            @if (item.QuantidadeLinks is not null)
+                            {
+                                <span class="favorites-linkbar-count" aria-hidden="true">@item.QuantidadeLinks</span>
+                            }
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="favorites-linkbar-item favorites-linkbar-link favorite-linkbar-@item.TomVisual"
+                                type="button"
+                                title="@item.Nome"
+                                aria-label="Link favorito: @item.Nome"
+                                @oncontextmenu="OpenLinkbarMenu"
+                                @oncontextmenu:preventDefault
+                                @oncontextmenu:stopPropagation>
+                            <span class="favorites-linkbar-favicon" aria-hidden="true">@item.FaviconLocalOuTexto</span>
+                        </button>
+                    }
                 }
             }
         </div>
@@ -208,7 +228,7 @@
             </div>
         }
 
-        <p>Favoritos ainda sao dados mockados. Nenhum item foi salvo ou removido de verdade.</p>
+        <p>A barra usa dados locais. Grid, menus e acoes ainda sao mockados.</p>
     </aside>
 </section>
 
@@ -227,24 +247,6 @@
     [
         new("Dark Paint Guide", "Link", "Guia de pintura escura usado como referencia recorrente.", "Pintura", "link", "blue"),
         new("Inspiration Board", "Link", "Painel visual para composicao, textura de pedra e atmosfera.", "Referencias", "image", "slate")
-    ];
-
-    private static readonly FavoriteBarItem[] LinkBarItems =
-    [
-        new("Pintura", "PT", "#", "folder", true, 3, "slate"),
-        new("Referencias", "RF", "#", "folder", true, 5, "blue"),
-        new("Impressao 3D", "3D", "#", "folder", true, 4, "slate"),
-        new("Lojas", "LJ", "#", "folder", true, 6, "blue"),
-        new("YouTube", "YT", "https://www.youtube.com", "link", false, null, "red"),
-        new("Pinterest", "PI", "https://www.pinterest.com", "link", false, null, "rose"),
-        new("ArtStation", "AS", "https://www.artstation.com", "link", false, null, "blue"),
-        new("Thingiverse", "TV", "https://www.thingiverse.com", "link", false, null, "slate"),
-        new("MyMiniFactory", "MM", "https://www.myminifactory.com", "link", false, null, "blue"),
-        new("Cults3D", "C3", "https://cults3d.com", "link", false, null, "slate"),
-        new("Google Drive", "GD", "https://drive.google.com", "link", false, null, "green"),
-        new("ChatGPT", "CG", "https://chat.openai.com", "link", false, null, "ink"),
-        new("Vallejo", "VA", "https://acrylicosvallejo.com", "link", false, null, "blue"),
-        new("Elegoo", "EG", "https://www.elegoo.com", "link", false, null, "slate")
     ];
 
     private static readonly string[] LinkbarMenuActions =
@@ -280,9 +282,20 @@
 
     private bool IsLinkbarMenuOpen { get; set; }
 
+    private bool IsLoadingLinkBar { get; set; } = true;
+
+    private IReadOnlyList<FavoritoBarraItem> LinkBarItems { get; set; } = [];
+
     private double LinkbarMenuLeft { get; set; }
 
     private double LinkbarMenuTop { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsLoadingLinkBar = true;
+        LinkBarItems = await FavoritosServico.ListarBarraAsync();
+        IsLoadingLinkBar = false;
+    }
 
     private void OpenLinkbarMenu(MouseEventArgs args)
     {
@@ -299,8 +312,6 @@
     private sealed record FavoritesFilter(string Label, bool IsActive);
 
     private sealed record FavoritePinnedItem(string Name, string Type, string Description, string Tag, string Icon, string Tone, string? Href = null);
-
-    private sealed record FavoriteBarItem(string Name, string Initials, string Url, string Type, bool IsFolder, int? Count, string Tone);
 
     private sealed record FavoriteItem(
         string Name,
