@@ -500,18 +500,14 @@ public static class BlueAtelierSeed
             agora,
             cancellationToken);
 
-        var configuracaoExiste = await contexto.ConfiguracoesApp
-            .AnyAsync(item => item.Chave == "app.idioma", cancellationToken);
-
-        if (!configuracaoExiste)
-        {
-            contexto.ConfiguracoesApp.Add(new ConfiguracaoApp
-            {
-                Chave = "app.idioma",
-                Valor = "pt-BR",
-                AtualizadoEm = agora
-            });
-        }
+        await CriarConfiguracaoSeNaoExistirAsync(contexto, "app.idioma", "pt-BR", agora, cancellationToken);
+        await CriarConfiguracaoSeNaoExistirAsync(contexto, "app.tema", "system", agora, cancellationToken);
+        await CriarConfiguracaoSeNaoExistirAsync(contexto, "app.densidade", "comfortable", agora, cancellationToken);
+        await CriarConfiguracaoSeNaoExistirAsync(contexto, "app.corDestaque", "blue", agora, cancellationToken);
+        await CriarConfiguracaoSeNaoExistirAsync(contexto, "caminhos.raiz", "C:/BlueAtelier", agora, cancellationToken);
+        await CriarConfiguracaoSeNaoExistirAsync(contexto, "caminhos.modelos", "C:/BlueAtelier/Modelos", agora, cancellationToken);
+        await CriarConfiguracaoSeNaoExistirAsync(contexto, "caminhos.backups", "C:/BlueAtelier/Backups", agora, cancellationToken);
+        await CriarConfiguracaoSeNaoExistirAsync(contexto, "backup.automatico", "false", agora, cancellationToken);
 
         await contexto.SaveChangesAsync(cancellationToken);
     }
@@ -726,6 +722,29 @@ public static class BlueAtelierSeed
             TomVisual = tomVisual,
             Ordem = ordem,
             CriadoEm = agora,
+            AtualizadoEm = agora
+        });
+    }
+
+    private static async Task CriarConfiguracaoSeNaoExistirAsync(
+        BlueAtelierDbContext contexto,
+        string chave,
+        string valor,
+        DateTimeOffset agora,
+        CancellationToken cancellationToken)
+    {
+        var configuracaoExiste = await contexto.ConfiguracoesApp
+            .AnyAsync(item => item.Chave == chave, cancellationToken);
+
+        if (configuracaoExiste)
+        {
+            return;
+        }
+
+        contexto.ConfiguracoesApp.Add(new ConfiguracaoApp
+        {
+            Chave = chave,
+            Valor = valor,
             AtualizadoEm = agora
         });
     }

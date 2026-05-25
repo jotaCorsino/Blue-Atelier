@@ -58,6 +58,8 @@ Foi feita uma correcao pontual de consistencia visual na sidebar da Home. A rota
 
 Foi consolidada uma correcao transversal de consistencia visual e textual dos cabecalhos principais das paginas. Home, Colecoes, Modelos, Favoritos, Busca, Configuracoes e paginas internas usam uma estrutura mais uniforme de titulo e descricao, com portugues e acentuacao revisados, sem alterar rotas, banco, servicos, entidades ou topbar.
 
+O Bloco 9 foi consolidado no Recorte 1 de Configuracoes. A tela `/configuracoes` passou a ler dados gerais de configuracao do banco local, preservando o visual aprovado, ainda sem salvar alteracoes pela UI, sem alterar tema real e sem acessar o sistema operacional.
+
 ## repositorio remoto
 
 ```txt
@@ -66,17 +68,19 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa consolidou a consistencia visual e textual dos cabecalhos principais:
+A ultima tarefa consolidou o Bloco 9 - Configuracoes / Recorte 1:
 
-- Home passou a exibir o cabecalho `Inicio` com descricao em portugues;
-- secoes principais da Home foram traduzidas para portugues;
-- eyebrows isolados de Modelos, Favoritos e Busca foram removidos;
-- titulos e descricoes principais receberam classe compartilhada de cabecalho;
-- acentuacao e idioma foram revisados nas paginas principais e internas;
-- cards, grids, filtros, paineis e conteudo funcional foram preservados;
-- topbar nao foi alterada;
-- nenhum servico, repositorio, entidade, migration ou rota foi alterado;
-- nenhum CRUD visual foi implementado;
+- `ConfiguracoesRepositorio` foi criado para ler configuracoes persistidas no banco local;
+- `ConfiguracoesServico` foi criado para retornar `ConfiguracoesGeraisResumo`;
+- o seed passou a garantir chaves gerais de configuracao de forma idempotente;
+- `/configuracoes` passou a ler dados gerais pelo servico de aplicacao;
+- o cabecalho padronizado recente de Configuracoes foi preservado;
+- nenhum CSS visual foi alterado;
+- sidebar e topbar nao foram alteradas;
+- nenhum caminho real foi validado;
+- nenhum arquivo externo foi lido ou escrito;
+- nenhuma alteracao real de tema foi aplicada;
+- nenhum salvamento pela UI ou CRUD visual foi implementado;
 - nenhuma reintroducao das areas removidas.
 
 ## decisoes ja tomadas
@@ -144,6 +148,7 @@ Implementado:
 - projeto de testes em `tests/`;
 - layout base em `MainLayout.razor`;
 - sidebar em `AppSidebar.razor`;
+- sidebar padronizada entre Home e demais telas, sem modo visual exclusivo para `/`;
 - topbar em `AppTopbar.razor`;
 - componentes base `AppCard`, `AppBadge` e `AppButton`;
 - componente `AppIcon` com icones SVG inline;
@@ -162,12 +167,14 @@ Implementado:
 - repositorio concreto `ArquivoVinculadoRepositorio`;
 - repositorio concreto `ImagemModeloRepositorio`;
 - repositorio concreto `FavoritosRepositorio`;
+- repositorio concreto `ConfiguracoesRepositorio`;
 - servico de aplicacao `ColecaoServico`;
 - servico de aplicacao `ModeloServico`;
 - servico de aplicacao `ArquivoVinculadoServico`;
 - servico de aplicacao `ImagemModeloServico`;
 - servico de aplicacao `FavoritosServico`;
 - servico de aplicacao `BuscaServico`;
+- servico de aplicacao `ConfiguracoesServico`;
 - modelo de aplicacao `ColecaoResumo`;
 - modelo de aplicacao `ColecaoDetalhe`;
 - modelo de aplicacao `ModeloResumoColecao`;
@@ -178,10 +185,12 @@ Implementado:
 - modelo de aplicacao `ImagemModeloDetalhe`;
 - modelo de aplicacao `FavoritoBarraItem`;
 - modelo de aplicacao `BuscaResultado`;
+- modelo de aplicacao `ConfiguracoesGeraisResumo`;
 - inicializador `BlueAtelierBancoInicializador` para migration e seed;
 - seed de colecoes suficiente para manter a tela `/colecoes` visualmente proxima do estado aprovado;
 - tokens e temas CSS em `wwwroot/css/`;
 - Home aprovada e com cards de colecao navegaveis;
+- Home usando o mesmo menu lateral global das demais telas;
 - tela de Colecoes aprovada e conectada a listagem real do banco local;
 - tela de Detalhe da Colecao aprovada e conectada a dados basicos reais da colecao por slug;
 - lista interna de modelos do Detalhe da Colecao conectada a modelos reais do banco local;
@@ -193,7 +202,7 @@ Implementado:
 - tela Arquivos Vinculados aprovada e conectada a metadados reais na rota `/arquivos`;
 - tela Favoritos aprovada com barra de favoritos conectada a pastas e links reais do banco local;
 - tela Busca aprovada e conectada a busca simples no banco local;
-- tela Configuracoes Gerais aprovada;
+- tela Configuracoes Gerais aprovada e conectada a dados gerais reais do banco local;
 - tela Configuracoes de Caminhos aprovada;
 - tela Configuracoes de Aparencia aprovada;
 - tela Modelo de Pastas aprovada;
@@ -215,7 +224,7 @@ Implementado:
 - menu de contexto visual/provisorio para a barra de links favoritos;
 - menu de contexto de Favoritos fechando ao clicar fora, preservando cliques internos, troca por outro favorito no botao direito e fechamento ao selecionar uma opcao;
 - busca simples no banco local com campo principal, sugestoes rapidas, resultados e resumo visual preservados;
-- Configuracoes Gerais visual/mockada com composicao fiel ao Stitch, navegacao secundaria, paineis de caminhos, rede, aparencia e programas padrao;
+- Configuracoes Gerais com composicao fiel ao Stitch, navegacao secundaria, paineis de caminhos, rede, aparencia e programas padrao, usando dados gerais do banco local sem salvamento funcional pela UI;
 - Configuracoes de Caminhos visual/mockada com navegacao secundaria corrigida, diretorios principais e descoberta de rede;
 - Configuracoes de Aparencia visual/mockada com selecao de tema, densidade da interface, cor de destaque e acoes visuais;
 - Backup/Dados visual/mockada com paineis de backup manual, backup automatico, exportacao/importacao e restauracao;
@@ -256,7 +265,7 @@ Ainda nao implementado:
 - sistema de arquivos real;
 - busca avancada, busca fuzzy e indexacao externa;
 - filtros reais persistidos;
-- configuracoes reais;
+- salvamento e aplicacao real de configuracoes pela UI;
 - edicao real de colecoes, modelos ou cards;
 - CRUD visual de colecoes;
 - CRUD visual de modelos;
@@ -274,37 +283,21 @@ Ainda nao implementado:
 
 Implementacao:
 
-- repositorio de colecoes em `src/blueatelier.infrastructure/Repositorios`;
-- repositorio de modelos em `src/blueatelier.infrastructure/Repositorios`;
-- repositorio de arquivos vinculados em `src/blueatelier.infrastructure/Repositorios`;
-- repositorio de favoritos em `src/blueatelier.infrastructure/Repositorios`;
-- servico de aplicacao de colecoes em `src/blueatelier.application`;
-- servico de aplicacao de modelos em `src/blueatelier.application`;
-- servico de aplicacao de arquivos vinculados em `src/blueatelier.application`;
-- servico de aplicacao de favoritos em `src/blueatelier.application`;
-- inicializador de banco em `src/blueatelier.infrastructure/Persistencia`;
+- repositorio de configuracoes em `src/blueatelier.infrastructure/Repositorios/ConfiguracoesRepositorio.cs`;
+- contrato de servico em `src/blueatelier.application/Contratos/IConfiguracoesServico.cs`;
+- servico de aplicacao em `src/blueatelier.application/Servicos/ConfiguracoesServico.cs`;
+- modelo de aplicacao em `src/blueatelier.application/Modelos/ConfiguracoesGeraisResumo.cs`;
+- seed de configuracoes em `src/blueatelier.infrastructure/Persistencia/BlueAtelierSeed.cs`;
 - registro de dependencias em `src/blueatelier.infrastructure/DependencyInjection.cs`;
-- conexao da tela `/colecoes` ao servico em `src/blueatelier.app/Components/Pages/Colecoes.razor`;
-- conexao dos cards internos do Detalhe da Colecao ao servico de modelos em `src/blueatelier.app/Components/Pages/DetalheColecao.razor`;
-- conexao da tela `/modelos` ao servico de modelos em `src/blueatelier.app/Components/Pages/Modelos.razor`;
-- conexao da tela Detalhe do Modelo ao servico de modelos em `src/blueatelier.app/Components/Pages/DetalheModelo.razor`;
-- conexao da secao `Linked Files` do Detalhe do Modelo ao servico de arquivos vinculados em `src/blueatelier.app/Components/Pages/DetalheModelo.razor`;
-- conexao da barra de Favoritos ao servico de favoritos em `src/blueatelier.app/Components/Pages/Favoritos.razor`;
-- inicializacao do banco no app em `src/blueatelier.app/MauiProgram.cs`;
-- testes de colecoes em `tests/blueatelier.tests/infrastructure`.
-- testes de modelos em `tests/blueatelier.tests/infrastructure`.
-- testes de favoritos em `tests/blueatelier.tests/infrastructure`.
+- registro do servico no app em `src/blueatelier.app/MauiProgram.cs`;
+- conexao da tela `/configuracoes` ao servico em `src/blueatelier.app/Components/Pages/Configuracoes.razor`;
+- testes de configuracoes em `tests/blueatelier.tests/infrastructure/ConfiguracoesPersistenciaTests.cs`.
 
 Documentacao:
 
 - `docs/03-estado-atual.md`
 - `docs/04-proximos-documentos.md`
-- `docs/48-bloco-3-colecoes.md`
-- `docs/49-bloco-4-modelos.md`
-- `docs/50-bloco-5-arquivos-vinculados.md`
-- `docs/51-bloco-6-galeria.md`
-- `docs/52-bloco-7-favoritos.md`
-- `docs/53-bloco-8-busca.md`
+- `docs/54-bloco-9-configuracoes.md`
 
 ## validacoes executadas na ultima tarefa
 
@@ -321,6 +314,14 @@ Documentacao:
 - O Bloco 6 - Galeria, recorte 2, foi consolidado.
 - O Bloco 7 - Favoritos, recorte 1, foi consolidado.
 - O Bloco 8 - Busca, recorte 1, foi consolidado.
+- O Bloco 9 - Configuracoes, recorte 1, foi consolidado.
+- O repositorio `ConfiguracoesRepositorio` implementa `IConfiguracoesRepositorio`.
+- O servico `ConfiguracoesServico` retorna `ConfiguracoesGeraisResumo`, sem expor entidade de dominio para Razor.
+- `/configuracoes` le dados gerais persistidos do banco local via servico de aplicacao.
+- O seed de configuracoes cria chaves gerais de forma idempotente.
+- Nenhum caminho real foi validado.
+- Nenhum arquivo externo foi lido ou escrito.
+- Nenhuma alteracao real de tema foi aplicada.
 - O repositorio `ColecaoRepositorio` implementa `IColecaoRepositorio`.
 - O repositorio `ModeloRepositorio` implementa `IModeloRepositorio`.
 - O repositorio `ImagemModeloRepositorio` implementa `IImagemModeloRepositorio`.

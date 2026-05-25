@@ -1,4 +1,7 @@
 @page "/configuracoes"
+@using BlueAtelier.Application.Contratos
+@using BlueAtelier.Application.Modelos
+@inject IConfiguracoesServico ConfiguracoesServico
 
 <section class="settings-page settings-module-page settings-stitch-page" aria-labelledby="settings-title">
     <header class="settings-header settings-module-header settings-stitch-header page-heading">
@@ -75,7 +78,7 @@
                             </span>
                         </div>
 
-                        <input type="text" value="Z:\Network\Prepared" readonly aria-label="Destino de arquivos preparados" />
+                        <input type="text" value="@ConfiguracoesGerais.DiretorioBackups" readonly aria-label="Destino de arquivos preparados" />
                     </div>
                 </section>
 
@@ -145,30 +148,32 @@
         new("Dados do App", false, null)
     ];
 
-    private static readonly SettingsPath[] MainPaths =
+    private ConfiguracoesGeraisResumo ConfiguracoesGerais { get; set; } = ConfiguracoesPadrao;
+
+    private IReadOnlyList<SettingsPath> MainPaths =>
     [
-        new("Pasta principal do atelier", @"C:\Users\Admin\Documents\BlueAtelier"),
-        new("Pasta de coleções", @"C:\Users\Admin\Documents\BlueAtelier\Collections")
+        new("Pasta principal do atelier", ConfiguracoesGerais.DiretorioRaiz),
+        new("Pasta de coleções", ConfiguracoesGerais.DiretorioModelos)
     ];
 
-    private static readonly SettingsTheme[] Themes =
+    private IReadOnlyList<SettingsTheme> Themes =>
     [
-        new("Tema claro", "sun", true, false),
-        new("Tema escuro", "moon", false, true),
-        new("Automático", "monitor", false, false)
+        new("Tema claro", "sun", TemaAtivo("light"), false),
+        new("Tema escuro", "moon", TemaAtivo("dark"), true),
+        new("Automático", "monitor", TemaAtivo("system"), false)
     ];
 
-    private static readonly SettingsAccent[] AccentColors =
+    private IReadOnlyList<SettingsAccent> AccentColors =>
     [
-        new("Azul", "#625bd8", true),
-        new("Preto azulado", "#21222d", false),
-        new("Argila", "#a7551d", false),
-        new("Ambar", "#d99b12", false),
-        new("Verde", "#3f6b5f", false),
-        new("Teal", "#2f8f8c", false),
-        new("Azul claro", "#74aef8", false),
-        new("Violeta", "#8d65db", false),
-        new("Rosa", "#d84b8a", false)
+        new("Azul", "#625bd8", CorAtiva("blue")),
+        new("Preto azulado", "#21222d", CorAtiva("ink")),
+        new("Argila", "#a7551d", CorAtiva("clay")),
+        new("Ambar", "#d99b12", CorAtiva("amber")),
+        new("Verde", "#3f6b5f", CorAtiva("green")),
+        new("Teal", "#2f8f8c", CorAtiva("teal")),
+        new("Azul claro", "#74aef8", CorAtiva("light-blue")),
+        new("Violeta", "#8d65db", CorAtiva("violet")),
+        new("Rosa", "#d84b8a", CorAtiva("rose"))
     ];
 
     private static readonly SettingsProgram[] Programs =
@@ -176,6 +181,32 @@
         new("Slicer", "Lychee Slicer", "LY", "lychee"),
         new("Modelagem", "Blender", "BL", "blender")
     ];
+
+    private static readonly ConfiguracoesGeraisResumo ConfiguracoesPadrao = new(
+        "pt-BR",
+        "system",
+        "comfortable",
+        "blue",
+        "C:/BlueAtelier",
+        "C:/BlueAtelier/Modelos",
+        "C:/BlueAtelier/Backups",
+        false,
+        DateTimeOffset.UtcNow);
+
+    protected override async Task OnInitializedAsync()
+    {
+        ConfiguracoesGerais = await ConfiguracoesServico.ObterGeraisAsync();
+    }
+
+    private bool TemaAtivo(string tema)
+    {
+        return string.Equals(ConfiguracoesGerais.Tema, tema, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool CorAtiva(string cor)
+    {
+        return string.Equals(ConfiguracoesGerais.CorDestaque, cor, StringComparison.OrdinalIgnoreCase);
+    }
 
     private sealed record SettingsCategory(string Label, bool IsActive, string? Href);
 
