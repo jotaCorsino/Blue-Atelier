@@ -5,19 +5,18 @@
 
 <section class="favorites-page" aria-labelledby="favorites-title" @onclick="CloseLinkbarMenu">
     <header class="favorites-header">
-        <div class="favorites-heading">
-            <p>Atalhos do atelier</p>
-            <h1 id="favorites-title">Favoritos</h1>
-            <span>Modelos, colecoes, imagens, links e arquivos marcados para acesso rapido.</span>
+        <div class="favorites-heading page-heading">
+            <h1 class="page-title" id="favorites-title">Favoritos</h1>
+            <p class="page-description">Modelos, coleções, imagens, links e arquivos marcados para acesso rápido.</p>
         </div>
 
         <div class="favorites-header-meta" aria-label="Resumo visual de favoritos">
             <span>Barra com dados locais</span>
-            <span>Acoes ainda visuais</span>
+            <span>Ações ainda visuais</span>
         </div>
     </header>
 
-    <section class="favorites-actions" aria-label="Acoes visuais de favoritos">
+    <section class="favorites-actions" aria-label="Ações visuais de favoritos">
         <button class="favorites-action" type="button">Organizar favoritos</button>
         <button class="favorites-action" type="button">Exportar lista</button>
         <button class="favorites-action" type="button">Limpar selecao</button>
@@ -43,7 +42,7 @@
                 <AppStateBlock
                     Variant="empty"
                     Title="Nenhum favorito na barra"
-                    Description="Links e pastas favoritos ainda nao foram registrados no banco local."
+                    Description="Links e pastas favoritos ainda não foram registrados no banco local."
                     IsCompact="true" />
             }
             else
@@ -155,7 +154,7 @@
                 <p>Itens marcados manualmente para voltar depois.</p>
             </div>
 
-            <div class="favorites-view-toggle" aria-label="Modo de visualizacao visual">
+            <div class="favorites-view-toggle" aria-label="Modo de visualização visual">
                 <button class="favorites-view-toggle-active" type="button" aria-label="Visualizar em grid">
                     <AppIcon Name="grid" />
                 </button>
@@ -228,7 +227,7 @@
             </div>
         }
 
-        <p>A barra usa dados locais. Grid, menus e acoes ainda sao mockados.</p>
+        <p>A barra usa dados locais. Grid, menus e ações ainda são mockados.</p>
     </aside>
 </section>
 
@@ -237,7 +236,7 @@
     [
         new("Todos", true),
         new("Modelos", false),
-        new("Colecoes", false),
+        new("Coleções", false),
         new("Imagens", false),
         new("Links", false),
         new("Arquivos", false)
@@ -245,8 +244,8 @@
 
     private static readonly FavoritePinnedItem[] PinnedFavorites =
     [
-        new("Dark Paint Guide", "Link", "Guia de pintura escura usado como referencia recorrente.", "Pintura", "link", "blue"),
-        new("Inspiration Board", "Link", "Painel visual para composicao, textura de pedra e atmosfera.", "Referencias", "image", "slate")
+        new("Dark Paint Guide", "Link", "Guia de pintura escura usado como referência recorrente.", "Pintura", "link", "blue"),
+        new("Inspiration Board", "Link", "Painel visual para composição, textura de pedra e atmosfera.", "Referências", "image", "slate")
     ];
 
     private static readonly string[] LinkbarMenuActions =
@@ -262,14 +261,14 @@
 
     private static readonly FavoriteItem[] Favorites =
     [
-        new("Cthulhu Idol", "Modelo", "Miniatura principal da colecao, em pintura.", "Eldritch Horrors", "Hoje", "cosmic horror", "models", "model", "/colecoes/eldritch-horrors/modelos/cthulhu-idol"),
-        new("Eldritch Horrors", "Colecao", "Colecao de criaturas e artefatos sombrios.", "Colecoes", "Ontem", "linha ativa", "collections", "collection", "/colecoes/eldritch-horrors"),
-        new("Main reference", "Imagem", "Referencia principal para luz, pedra e pose.", "Galeria do Cthulhu Idol", "Hoje", "referencia", "image", "image", "/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference"),
-        new("Dark Paint Guide", "Link", "Sequencia de camadas para verdes profundos.", "Pintura", "2 dias", "guia", "arrow", "guide"),
+        new("Cthulhu Idol", "Modelo", "Miniatura principal da coleção, em pintura.", "Eldritch Horrors", "Hoje", "cosmic horror", "models", "model", "/colecoes/eldritch-horrors/modelos/cthulhu-idol"),
+        new("Eldritch Horrors", "Coleção", "Coleção de criaturas e artefatos sombrios.", "Coleções", "Ontem", "linha ativa", "collections", "collection", "/colecoes/eldritch-horrors"),
+        new("Main reference", "Imagem", "Referência principal para luz, pedra e pose.", "Galeria do Cthulhu Idol", "Hoje", "referência", "image", "image", "/colecoes/eldritch-horrors/modelos/cthulhu-idol/galeria/main-reference"),
+        new("Dark Paint Guide", "Link", "Sequência de camadas para verdes profundos.", "Pintura", "2 dias", "guia", "arrow", "guide"),
         new("cthulhu-idol.stl", "Arquivo", "Arquivo base vinculado ao modelo Cthulhu Idol.", "Arquivos vinculados", "Hoje", "stl", "folder", "file", "/colecoes/eldritch-horrors/modelos/cthulhu-idol/arquivos"),
-        new("Abyssal Statue", "Modelo", "Estatua pronta para revisao visual e fatiamento futuro.", "Eldritch Horrors", "3 dias", "stone", "models", "statue"),
-        new("Stone texture", "Imagem", "Referencia de superficie para base e pedestal.", "Referencias", "4 dias", "textura", "image", "stone"),
-        new("Inspiration Board", "Link", "Colecao de ideias para atmosfera e acabamento.", "Pesquisa visual", "Semana passada", "moodboard", "arrow", "board")
+        new("Abyssal Statue", "Modelo", "Estátua pronta para revisão visual e fatiamento futuro.", "Eldritch Horrors", "3 dias", "stone", "models", "statue"),
+        new("Stone texture", "Imagem", "Referência de superfície para base e pedestal.", "Referências", "4 dias", "textura", "image", "stone"),
+        new("Inspiration Board", "Link", "Coleção de ideias para atmosfera e acabamento.", "Pesquisa visual", "Semana passada", "moodboard", "arrow", "board")
     ];
 
     private static readonly SummaryItem[] Summary =

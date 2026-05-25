@@ -20,7 +20,7 @@ else if (Collection is null)
     <section class="collection-detail-page" aria-labelledby="collection-detail-not-found-title">
         <a class="collection-detail-back" href="/colecoes">
             <span aria-hidden="true">←</span>
-            <span>Back to Collections</span>
+            <span>Voltar para coleções</span>
         </a>
 
         <AppStateBlock
@@ -35,7 +35,7 @@ else
     <section class="collection-detail-page" aria-labelledby="collection-detail-title">
         <a class="collection-detail-back" href="/colecoes">
             <span aria-hidden="true">←</span>
-            <span>Back to Collections</span>
+            <span>Voltar para coleções</span>
         </a>
 
         <section class="collection-detail-hero" aria-label="@($"Resumo da coleção {Collection.Nome}")">
@@ -100,11 +100,11 @@ else
                     </AppButton>
                     <AppButton Variant="ghost" Class="collection-detail-action">
                         <AppIcon Name="folder" />
-                        Open Folder
+                        Abrir pasta
                     </AppButton>
                     <AppButton Variant="primary" Class="collection-detail-action">
                         <span aria-hidden="true">+</span>
-                        New Model
+                        Novo modelo
                     </AppButton>
                 </div>
             </div>
@@ -112,7 +112,7 @@ else
 
         <div class="collection-detail-content">
             <section class="collection-detail-models" aria-labelledby="collection-models-title">
-                <h2 class="visually-hidden" id="collection-models-title">Models in this collection</h2>
+                <h2 class="visually-hidden" id="collection-models-title">Modelos nesta coleção</h2>
 
                 @if (Models.Count == 0)
                 {
@@ -130,7 +130,7 @@ else
                             <a class="collection-model-card collection-model-card-link"
                                href="@(model.DetailPath ?? "#")"
                                @onclick:preventDefault="@(model.DetailPath is null)"
-                               aria-label="@($"Open model {model.Name}")">
+                               aria-label="@($"Abrir modelo {model.Name}")">
                                 <div class="collection-model-cover model-cover-@model.Cover">
                                     <span class="collection-model-shape"></span>
                                     <span class="card-edit-affordance model-edit-affordance">
@@ -171,7 +171,7 @@ else
                 </section>
 
                 <section class="collection-side-card" aria-labelledby="collection-gallery-title">
-                    <h2 id="collection-gallery-title">Gallery / References</h2>
+                    <h2 id="collection-gallery-title">Galeria / Referências</h2>
                     <div class="collection-reference-grid">
                         @foreach (var reference in References)
                         {
@@ -182,10 +182,10 @@ else
                 </section>
 
                 <section class="collection-side-card" aria-labelledby="collection-notes-title">
-                    <h2 id="collection-notes-title">Notes</h2>
+                    <h2 id="collection-notes-title">Notas</h2>
                     <p>
-                        Focus on deep greens and purples for the main Cthulhu piece.
-                        Experiment with oil washes for the cultists.
+                        Foque em verdes profundos e roxos para a peça principal do Cthulhu.
+                        Experimente lavagens com tinta a óleo nos cultistas.
                     </p>
                 </section>
             </aside>
@@ -204,18 +204,18 @@ else
     private IReadOnlyList<CollectionModel> Models { get; set; } = [];
 
     private string CollectionStatus => Collection?.EstaArquivada == true
-        ? "Archived"
-        : "In Production";
+        ? "Arquivada"
+        : "Em produção";
 
     private string CollectionDescription => string.IsNullOrWhiteSpace(Collection?.Descricao)
-        ? "Sombrous creatures, monstrous busts, and miniatures inspired by cosmic horror."
+        ? "Criaturas sombrias, bustos monstruosos e miniaturas inspiradas em horror cósmico."
         : Collection.Descricao;
 
     private string CollectionMeta => Collection is null
         ? string.Empty
-        : $"{CollectionModelCount} · {FormatUpdatedAt(Collection.AtualizadoEm)} · Local folder linked";
+        : $"{CollectionModelCount} · {FormatUpdatedAt(Collection.AtualizadoEm)} · Pasta local vinculada";
 
-    private string CollectionModelCount => $"{Models.Count} {(Models.Count == 1 ? "model" : "models")}";
+    private string CollectionModelCount => $"{Models.Count} {(Models.Count == 1 ? "modelo" : "modelos")}";
 
     private string[] CollectionTags => CollectionVisual.Tags;
 
@@ -226,18 +226,18 @@ else
 
     private static readonly Dictionary<string, CollectionVisualMetadata> VisualMetadata = new(StringComparer.OrdinalIgnoreCase)
     {
-        ["eldritch-horrors"] = new("8 models", ["horror", "creatures", "busts", "dark painting"]),
-        ["sci-fi-marines"] = new("15 models", ["sci-fi", "stl", "marines", "armor"]),
-        ["fantasy-adventurers"] = new("5 models", ["fantasy", "painting", "party", "characters"]),
-        ["dragon-busts"] = new("2 models", ["busts", "creatures", "scale", "detail"]),
-        ["tavern-dioramas"] = new("1 model", ["scenario", "diorama", "props", "wood"]),
-        ["ancient-ruins"] = new("10 models", ["scenario", "bases", "stone", "ruins"]),
-        ["painting-studies"] = new("6 models", ["study", "colors", "textures", "paint"]),
-        ["miniature-bases"] = new("18 models", ["bases", "texture", "archive", "terrain"])
+        ["eldritch-horrors"] = new("8 modelos", ["horror", "criaturas", "bustos", "pintura escura"]),
+        ["sci-fi-marines"] = new("15 modelos", ["sci-fi", "stl", "marines", "armadura"]),
+        ["fantasy-adventurers"] = new("5 modelos", ["fantasia", "pintura", "grupo", "personagens"]),
+        ["dragon-busts"] = new("2 modelos", ["bustos", "criaturas", "escala", "detalhe"]),
+        ["tavern-dioramas"] = new("1 modelo", ["cenário", "diorama", "props", "madeira"]),
+        ["ancient-ruins"] = new("10 modelos", ["cenário", "bases", "pedra", "ruínas"]),
+        ["painting-studies"] = new("6 modelos", ["estudo", "cores", "texturas", "pintura"]),
+        ["miniature-bases"] = new("18 modelos", ["bases", "textura", "arquivo", "terreno"])
     };
 
     private static readonly CollectionVisualMetadata DefaultVisualMetadata =
-        new("0 models", ["collection", "atelier", "mock", "local"]);
+        new("0 modelos", ["coleção", "atelier", "mock", "local"]);
 
     private static readonly string[] PreviewBlocks =
     [
@@ -263,9 +263,9 @@ else
 
     private static readonly string[] Links =
     [
-        "MyMiniFactory collection",
-        "Painting references",
-        "Resin settings"
+        "Coleção MyMiniFactory",
+        "Referências de pintura",
+        "Configurações de resina"
     ];
 
     private static readonly string[] References =
@@ -323,20 +323,20 @@ else
     {
         return etapa switch
         {
-            EtapaModelo.Preparacao => "Preparation",
-            EtapaModelo.Modelagem => "Modeling",
-            EtapaModelo.Impressao => "Printing",
-            EtapaModelo.Pintura => "Painting",
-            EtapaModelo.Concluido => "Finished",
-            EtapaModelo.Arquivado => "Archived",
-            _ => "Planning"
+            EtapaModelo.Preparacao => "Preparação",
+            EtapaModelo.Modelagem => "Modelagem",
+            EtapaModelo.Impressao => "Impressão",
+            EtapaModelo.Pintura => "Pintura",
+            EtapaModelo.Concluido => "Concluído",
+            EtapaModelo.Arquivado => "Arquivado",
+            _ => "Planejamento"
         };
     }
 
     private static string FormatStatus(EtapaModelo etapa, int progress)
     {
         return etapa == EtapaModelo.Concluido || progress >= 100
-            ? "Finished"
+            ? "Concluído"
             : $"{progress}%";
     }
 
@@ -346,30 +346,30 @@ else
 
         if (elapsed < TimeSpan.FromDays(1))
         {
-            return "Updated today";
+            return "Atualizada hoje";
         }
 
         if (elapsed < TimeSpan.FromDays(2))
         {
-            return "Updated yesterday";
+            return "Atualizada ontem";
         }
 
         if (elapsed < TimeSpan.FromDays(7))
         {
-            return $"Updated {Math.Max(1, (int)elapsed.TotalDays)} days ago";
+            return $"Atualizada há {Math.Max(1, (int)elapsed.TotalDays)} dias";
         }
 
         if (elapsed < TimeSpan.FromDays(14))
         {
-            return "Updated 1 week ago";
+            return "Atualizada há 1 semana";
         }
 
         if (elapsed < TimeSpan.FromDays(31))
         {
-            return $"Updated {Math.Max(2, (int)(elapsed.TotalDays / 7))} weeks ago";
+            return $"Atualizada há {Math.Max(2, (int)(elapsed.TotalDays / 7))} semanas";
         }
 
-        return "Updated 1 month ago";
+        return "Atualizada há 1 mês";
     }
 
     private sealed record CollectionVisualMetadata(string ModelCount, string[] Tags);

@@ -20,8 +20,8 @@ else if (Image is null)
     <section class="image-viewer-page" aria-labelledby="image-viewer-title">
         <AppStateBlock
             Variant="unavailable"
-            Title="Imagem nao encontrada"
-            Description="Nao foi possivel encontrar esta imagem no banco local."
+            Title="Imagem não encontrada"
+            Description="Não foi possível encontrar esta imagem no banco local."
             ActionLabel="Voltar para Galeria"
             IsCompact="true" />
     </section>
@@ -30,7 +30,7 @@ else
 {
     <section class="image-viewer-page" aria-labelledby="image-viewer-title">
         <div class="image-viewer-main">
-            <div class="image-viewer-toolbar" aria-label="Navegacao visual entre imagens">
+            <div class="image-viewer-toolbar" aria-label="Navegação visual entre imagens">
                 <div class="image-viewer-counter">
                     <span>Imagem @Image.Ordem da galeria</span>
                     <small>@VisualIdentifier</small>
@@ -42,13 +42,13 @@ else
                         <span>Anterior</span>
                     </button>
                     <button class="image-viewer-step-button" type="button">
-                        <span>Proxima</span>
+                        <span>Próxima</span>
                         <AppIcon Name="chevron-right" />
                     </button>
                 </div>
             </div>
 
-            <div class="image-viewer-stage" aria-label="Visualizacao mockada da imagem">
+            <div class="image-viewer-stage" aria-label="Visualização mockada da imagem">
                 <div class="image-viewer-art" aria-hidden="true">
                     <span class="image-viewer-art-glow"></span>
                     <span class="image-viewer-stone image-viewer-stone-one"></span>
@@ -61,7 +61,7 @@ else
             </div>
         </div>
 
-        <aside class="image-viewer-panel" aria-label="Informacoes da imagem">
+        <aside class="image-viewer-panel" aria-label="Informações da imagem">
             <section class="image-viewer-card image-viewer-title-card">
                 <div class="image-viewer-title-row">
                     <h1 id="image-viewer-title">@Image.Titulo</h1>
@@ -93,7 +93,7 @@ else
                         <dd>@Image.ModeloNome</dd>
                     </div>
                     <div>
-                        <dt>Colecao</dt>
+                        <dt>Coleção</dt>
                         <dd>@Image.ColecaoNome</dd>
                     </div>
                     <div>
@@ -101,7 +101,7 @@ else
                         <dd>@CategoryLabel</dd>
                     </div>
                     <div>
-                        <dt>Atualizacao</dt>
+                        <dt>Atualização</dt>
                         <dd>@FormatDate(Image.CriadoEm)</dd>
                     </div>
                     <div>
@@ -123,18 +123,18 @@ else
             </section>
 
             <section class="image-viewer-card">
-                <h2>Notas rapidas</h2>
+                <h2>Notas rápidas</h2>
                 <p>@ImageNotes</p>
             </section>
 
-            <section class="image-viewer-actions" aria-label="Acoes visuais da imagem">
+            <section class="image-viewer-actions" aria-label="Ações visuais da imagem">
                 <button class="image-viewer-action image-viewer-action-primary" type="button">
                     <span aria-hidden="true">*</span>
                     Definir como capa
                 </button>
                 <button class="image-viewer-action" type="button">
                     <AppIcon Name="edit" />
-                    Editar informacoes
+                    Editar informações
                 </button>
                 <button class="image-viewer-action" type="button">
                     <AppIcon Name="folder" />
@@ -165,9 +165,9 @@ else
 
     private string VisualIdentifier => ImagemSlug ?? "main-reference";
 
-    private string CategoryLabel => Image is null ? "Referencias" : FormatCategory(Image.Tipo);
+    private string CategoryLabel => Image is null ? "Referências" : FormatCategory(Image.Tipo);
 
-    private string TypeLabel => Image is null ? "Imagem de referencia" : FormatType(Image.Tipo);
+    private string TypeLabel => Image is null ? "Imagem de referência" : FormatType(Image.Tipo);
 
     private string ImageDescription => !string.IsNullOrWhiteSpace(Image?.Observacao)
         ? Image.Observacao
@@ -175,7 +175,7 @@ else
 
     private string ImageNotes => !string.IsNullOrWhiteSpace(Image?.Observacao)
         ? Image.Observacao
-        : "Usar como referencia visual do modelo sem abrir o arquivo real nesta etapa.";
+        : "Usar como referência visual do modelo sem abrir o arquivo real nesta etapa.";
 
     private static readonly string[] Tags =
     [
@@ -203,7 +203,7 @@ else
             TipoImagemModelo.Final => "Finalizadas",
             TipoImagemModelo.Textura => "Notas visuais",
             TipoImagemModelo.Outro => "Notas visuais",
-            _ => "Referencias"
+            _ => "Referências"
         };
     }
 
@@ -213,9 +213,9 @@ else
         {
             TipoImagemModelo.Progresso => "Registro de pintura",
             TipoImagemModelo.Final => "Imagem final",
-            TipoImagemModelo.Textura => "Referencia de textura",
+            TipoImagemModelo.Textura => "Referência de textura",
             TipoImagemModelo.Outro => "Imagem da galeria",
-            _ => "Imagem de referencia"
+            _ => "Imagem de referência"
         };
     }
 

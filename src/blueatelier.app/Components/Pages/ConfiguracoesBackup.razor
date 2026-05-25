@@ -1,13 +1,13 @@
 @page "/configuracoes/backup"
 
 <section class="settings-page settings-module-page settings-stitch-page settings-backup-page" aria-labelledby="settings-backup-title">
-    <header class="settings-header settings-module-header settings-stitch-header">
-        <h1 id="settings-backup-title">Backup e Dados</h1>
-        <p>Gerencie a seguranca do seu banco de dados, configuracoes e preferencias.</p>
+    <header class="settings-header settings-module-header settings-stitch-header page-heading">
+        <h1 class="page-title" id="settings-backup-title">Backup e Dados</h1>
+        <p class="page-description">Gerencie a segurança do seu banco de dados, configurações e preferências.</p>
     </header>
 
     <div class="settings-layout settings-module-layout settings-stitch-layout">
-        <nav class="settings-secondary-nav settings-stitch-nav" aria-label="Categorias de configuracoes">
+        <nav class="settings-secondary-nav settings-stitch-nav" aria-label="Categorias de configurações">
             @foreach (var item in Categories)
             {
                 @if (item.Href is null)
@@ -40,11 +40,11 @@
                         <div class="settings-backup-meta-row">
                             <span>
                                 <AppIcon Name="info" />
-                                Ultimo backup: hoje, 14:32
+                                Último backup: hoje, 14:32
                             </span>
                             <strong>
                                 <AppIcon Name="check" />
-                                Concluido
+                                Concluído
                             </strong>
                         </div>
 
@@ -79,7 +79,7 @@
                             </button>
                             <button type="button">
                                 <AppIcon Name="download" />
-                                Exportar Configuracoes
+                                Exportar configurações
                             </button>
                             <button class="settings-backup-export-wide" type="button">
                                 <AppIcon Name="upload" />
@@ -89,7 +89,7 @@
 
                         <div class="settings-backup-note">
                             <AppIcon Name="info" />
-                            <p>Arquivos 3D e fotos nao sao incluidos no backup automatico para manter a leveza.</p>
+                            <p>Arquivos 3D e fotos não são incluídos no backup automático para manter a leveza.</p>
                         </div>
                     </section>
                 </div>
@@ -97,18 +97,18 @@
                 <div class="settings-backup-column">
                     <section class="settings-backup-card" aria-labelledby="auto-backup-title">
                         <div class="settings-backup-card-header">
-                            <h2 id="auto-backup-title">Backup Automatico</h2>
+                            <h2 id="auto-backup-title">Backup automático</h2>
 
                             <div class="settings-backup-toggle-row">
                                 <span>ON</span>
-                                <button class="settings-backup-toggle" type="button" aria-pressed="true" aria-label="Backup automatico ativado">
+                                <button class="settings-backup-toggle" type="button" aria-pressed="true" aria-label="Backup automático ativado">
                                     <span></span>
                                 </button>
                             </div>
                         </div>
 
-                        <div class="settings-backup-frequency" aria-label="Frequencia de backup mockada">
-                            <button type="button">Diario</button>
+                        <div class="settings-backup-frequency" aria-label="Frequência de backup mockada">
+                            <button type="button">Diário</button>
                             <button class="settings-backup-frequency-active" type="button">Semanal</button>
                             <button type="button">Mensal</button>
                         </div>
@@ -131,7 +131,7 @@
                                             <AppIcon Name="chevron-down" />
                                         </th>
                                         <th scope="col">Tamanho</th>
-                                        <th scope="col">Acao</th>
+                                        <th scope="col">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -159,7 +159,7 @@
 
                         <div class="settings-backup-warning">
                             <AppIcon Name="alert" />
-                            <p>A restauracao substituira os dados atuais. Recomendamos um backup antes de prosseguir.</p>
+                            <p>A restauração substituirá os dados atuais. Recomendamos um backup antes de prosseguir.</p>
                         </div>
                     </section>
                 </div>
@@ -173,7 +173,7 @@
     [
         new("Geral", false, "/configuracoes"),
         new("Caminhos", false, "/configuracoes/caminhos"),
-        new("Aparencia", false, "/configuracoes/aparencia"),
+        new("Aparência", false, "/configuracoes/aparencia"),
         new("Backup", true, "/configuracoes/backup"),
         new("Modelo de Pastas", false, "/configuracoes/modelo-pastas"),
         new("Dados do App", false, null)

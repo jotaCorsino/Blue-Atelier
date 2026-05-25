@@ -54,6 +54,10 @@ O Bloco 7 foi consolidado no Recorte 1 de Favoritos. A barra de Favoritos passou
 
 O Bloco 8 foi consolidado no Recorte 1 de Busca. A tela `/busca` passou a consultar colecoes, modelos, arquivos vinculados, imagens e favoritos no banco local por busca simples, sem busca avancada, sem acessar internet, sem ler arquivos reais e sem abrir links externos.
 
+Foi feita uma correcao pontual de consistencia visual na sidebar da Home. A rota `/` usa o mesmo padrao de menu lateral das demais telas, com avatar `BA`, marca `Blue Atelier`, labels em portugues, item `Inicio` ativo e sem botao lateral exclusivo de nova colecao.
+
+Foi consolidada uma correcao transversal de consistencia visual e textual dos cabecalhos principais das paginas. Home, Colecoes, Modelos, Favoritos, Busca, Configuracoes e paginas internas usam uma estrutura mais uniforme de titulo e descricao, com portugues e acentuacao revisados, sem alterar rotas, banco, servicos, entidades ou topbar.
+
 ## repositorio remoto
 
 ```txt
@@ -62,20 +66,17 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa concluida consolidou o Bloco 8 - Busca, recorte 1:
+A ultima tarefa consolidou a consistencia visual e textual dos cabecalhos principais:
 
-- criacao do servico de aplicacao `BuscaServico`;
-- criacao do modelo de aplicacao `BuscaResultado`;
-- conexao da tela `/busca` com busca simples no banco local;
-- busca em colecoes, modelos, arquivos vinculados, imagens e favoritos como dados persistidos;
-- lista inicial pequena quando o termo esta vazio;
-- filtros avancados, ordenacao complexa, historico, sugestoes persistidas e busca fuzzy mantidos mockados ou fora do escopo;
-- nenhum arquivo real lido;
-- nenhum link externo aberto;
-- nenhum acesso a rede;
-- nenhum CSS visual alterado;
-- nenhum redesenho visual aplicado;
-- nenhum CRUD visual implementado;
+- Home passou a exibir o cabecalho `Inicio` com descricao em portugues;
+- secoes principais da Home foram traduzidas para portugues;
+- eyebrows isolados de Modelos, Favoritos e Busca foram removidos;
+- titulos e descricoes principais receberam classe compartilhada de cabecalho;
+- acentuacao e idioma foram revisados nas paginas principais e internas;
+- cards, grids, filtros, paineis e conteudo funcional foram preservados;
+- topbar nao foi alterada;
+- nenhum servico, repositorio, entidade, migration ou rota foi alterado;
+- nenhum CRUD visual foi implementado;
 - nenhuma reintroducao das areas removidas.
 
 ## decisoes ja tomadas
@@ -421,6 +422,6 @@ Documentacao:
 
 ## proxima tarefa sugerida
 
-Continuar o Bloco 8 - Busca em recortes pequenos, somente apos nova aprovacao do usuario.
+Continuar o Bloco 9 - Configuracoes em recortes pequenos, somente apos nova aprovacao do usuario.
 
-O proximo recorte deve evoluir a busca de forma progressiva, sem redesenhar a interface, sem acessar internet, sem ler arquivos reais, sem abrir links externos e sem implementar busca avancada sem decisao explicita. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.
+O proximo recorte deve evoluir Configuracoes de forma progressiva, sem redesenhar a interface, sem salvar alteracoes pela UI, sem validar caminhos reais, sem acessar o sistema operacional e sem aplicar tema real sem decisao explicita. A proxima tarefa deve preservar Home, Colecoes, Detalhe da Colecao, Modelos, Detalhe do Modelo, Galeria do Modelo, Visualizacao de Imagem, Arquivos Vinculados, Favoritos, Busca, Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas, Backup/Dados e a fundacao visual ja aprovadas. Nao reintroduzir Fila de Impressao, Arquivos Recentes, Materiais ou Detalhe do Material sem nova decisao explicita do usuario.

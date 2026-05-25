@@ -20,7 +20,7 @@ else if (Model is null)
     <section class="model-detail-page" aria-labelledby="model-detail-not-found-title">
         <a class="collection-detail-back" href="/modelos">
             <span aria-hidden="true">&lt;</span>
-            <span>Back to Models</span>
+            <span>Voltar para modelos</span>
         </a>
 
         <AppStateBlock
@@ -35,14 +35,13 @@ else
 <section class="model-detail-page" aria-labelledby="model-detail-title">
     <a class="collection-detail-back" href="@CollectionPath">
         <span aria-hidden="true">&lt;</span>
-        <span>Back to @Model.ColecaoNome</span>
+        <span>Voltar para @Model.ColecaoNome</span>
     </a>
 
     <header class="model-detail-heading">
-        <div class="model-detail-heading-copy">
-            <p class="model-detail-eyebrow">Model Detail</p>
-            <h1 id="model-detail-title">@Model.Nome</h1>
-            <p>
+        <div class="model-detail-heading-copy page-heading">
+            <h1 class="page-title" id="model-detail-title">@Model.Nome</h1>
+            <p class="page-description">
                 @ModelDescription
             </p>
         </div>
@@ -50,12 +49,12 @@ else
         <div class="model-detail-heading-meta" aria-label="Resumo visual do modelo">
             <span class="model-status-pill">@ModelStatus</span>
             <span>@ModelUpdatedAt</span>
-            <span>@ModelProgressLabel complete</span>
+            <span>@ModelProgressLabel concluído</span>
         </div>
     </header>
 
     <div class="model-detail-grid">
-        <section class="model-detail-visual-column" aria-label="Capa e informacoes do modelo">
+        <section class="model-detail-visual-column" aria-label="Capa e informações do modelo">
             <div class="model-cover-card">
                 <div class="model-main-cover" aria-hidden="true">
                     <span class="model-cover-orb"></span>
@@ -68,8 +67,8 @@ else
 
             <div class="model-title-panel">
                 <h2>@Model.Nome</h2>
-                <div class="model-breadcrumb-line" aria-label="Colecao do modelo">
-                    <span>Collections</span>
+                <div class="model-breadcrumb-line" aria-label="Coleção do modelo">
+                    <span>Coleções</span>
                     <span aria-hidden="true">/</span>
                     <a href="@CollectionPath">@Model.ColecaoNome</a>
                     <span class="model-status-pill">@ModelStatus</span>
@@ -91,7 +90,7 @@ else
             </div>
 
             <section class="model-info-card" aria-labelledby="model-info-title">
-                <h3 id="model-info-title">Model Info</h3>
+                <h3 id="model-info-title">Informações do modelo</h3>
                 <dl>
                     @foreach (var item in ModelInfo)
                     {
@@ -104,9 +103,9 @@ else
             </section>
         </section>
 
-        <section class="model-detail-workflow-column" aria-label="Checklist e acoes do modelo">
+        <section class="model-detail-workflow-column" aria-label="Checklist e ações do modelo">
             <section class="model-panel" aria-labelledby="model-checklist-title">
-                <h2 id="model-checklist-title">Production Checklist</h2>
+                <h2 id="model-checklist-title">Checklist de produção</h2>
                 <ul class="model-checklist">
                     @foreach (var item in Checklist)
                     {
@@ -124,7 +123,7 @@ else
             </section>
 
             <section class="model-action-section" aria-labelledby="model-actions-title">
-                <h2 id="model-actions-title">Action Grid</h2>
+                <h2 id="model-actions-title">Ações</h2>
                 <div class="model-action-grid">
                     @foreach (var action in Actions)
                     {
@@ -139,7 +138,7 @@ else
 
         <aside class="model-detail-side-column" aria-label="Detalhes relacionados ao modelo">
             <section class="model-panel" aria-labelledby="model-materials-title">
-                <h2 id="model-materials-title">Materials</h2>
+                <h2 id="model-materials-title">Materiais</h2>
                 <div class="model-material-grid">
                     @foreach (var material in Materials)
                     {
@@ -154,7 +153,7 @@ else
             <div class="model-side-split">
                 <section class="model-panel model-panel-compact" aria-labelledby="model-files-title">
                     <div class="model-panel-heading">
-                        <h2 id="model-files-title">Linked Files</h2>
+                        <h2 id="model-files-title">Arquivos vinculados</h2>
                         <a class="model-gallery-open" href="@($"{ModelPathBase}/arquivos")">
                             Ver arquivos
                         </a>
@@ -165,7 +164,7 @@ else
                             <AppStateBlock
                                 Variant="empty"
                                 Title="Nenhum arquivo vinculado"
-                                Description="Este modelo ainda nao possui metadados de arquivos vinculados."
+                                Description="Este modelo ainda não possui metadados de arquivos vinculados."
                                 IsCompact="true" />
                         }
                         else
@@ -194,7 +193,7 @@ else
 
             <section class="model-panel" aria-labelledby="model-gallery-title">
                 <div class="model-panel-heading">
-                    <h2 id="model-gallery-title">Gallery</h2>
+                    <h2 id="model-gallery-title">Galeria</h2>
                     <a class="model-gallery-open" href="@($"{ModelPathBase}/galeria")">
                         Abrir galeria
                     </a>
@@ -208,7 +207,7 @@ else
             </section>
 
             <section class="model-panel" aria-labelledby="model-notes-title">
-                <h2 id="model-notes-title">Notes</h2>
+                <h2 id="model-notes-title">Notas</h2>
                 <p>
                     @ModelNotes
                 </p>
@@ -254,22 +253,22 @@ else
         : FormatUpdatedAt(Model.AtualizadoEm);
 
     private string ModelDescription => string.IsNullOrWhiteSpace(Model?.Descricao)
-        ? "Eldritch centerpiece with heavy texture, tentacles, stone base, and layered dark green painting."
+        ? "Peça central eldritch com textura pesada, tentáculos, base de pedra e pintura verde escura em camadas."
         : Model.Descricao;
 
     private string ModelNotes =>
-        "Focusing on deep green base and dark washes. Emphasizing texture on the tentacles before the final purple glaze.";
+        "Foco em base verde profunda e lavagens escuras. Reforce a textura dos tentáculos antes da camada roxa final.";
 
     private IReadOnlyList<ModelInfoItem> ModelInfo => Model is null
         ? []
         :
         [
-            new("Current stage", ModelStatus),
-            new("Progress", ModelProgressLabel),
-            new("File type", FormatOptional(Model.TipoArquivo)),
-            new("Scale", FormatOptional(Model.Escala)),
-            new("Estimated time", FormatOptional(Model.TempoEstimado)),
-            new("Suggested material", FormatOptional(Model.MaterialSugerido))
+            new("Etapa atual", ModelStatus),
+            new("Progresso", ModelProgressLabel),
+            new("Tipo de arquivo", FormatOptional(Model.TipoArquivo)),
+            new("Escala", FormatOptional(Model.Escala)),
+            new("Tempo estimado", FormatOptional(Model.TempoEstimado)),
+            new("Material sugerido", FormatOptional(Model.MaterialSugerido))
         ];
 
     private IReadOnlyList<MaterialItem> Materials => Model is null
@@ -277,17 +276,17 @@ else
         :
         [
             new(FormatOptional(Model.MaterialSugerido), "resin"),
-            new("Primer black", "primer"),
-            new("Deep green paint", "green"),
-            new("Purple wash", "purple")
+            new("Primer preto", "primer"),
+            new("Tinta verde profunda", "green"),
+            new("Lavagem roxa", "purple")
         ];
 
     private static readonly string[] Tags =
     [
-        "idol",
-        "resin",
-        "painting",
-        "cosmic horror"
+        "ídolo",
+        "resina",
+        "pintura",
+        "horror cósmico"
     ];
 
     private static readonly ChecklistItem[] Checklist =
@@ -307,7 +306,7 @@ else
         new("Editar modelo", "edit", false),
         new("Abrir pasta", "folder", true),
         new("Revisar preparo", "check", false),
-        new("Adicionar referencia", "image", false)
+        new("Adicionar referência", "image", false)
     ];
 
     private static readonly string[] Links =
@@ -348,20 +347,20 @@ else
     {
         return etapa switch
         {
-            EtapaModelo.Preparacao => "Preparing",
-            EtapaModelo.Modelagem => "Modeling",
-            EtapaModelo.Impressao => "Printing",
-            EtapaModelo.Pintura => "In Painting",
-            EtapaModelo.Concluido => "Finished",
-            EtapaModelo.Arquivado => "Archived",
-            _ => "Planning"
+            EtapaModelo.Preparacao => "Preparando",
+            EtapaModelo.Modelagem => "Modelagem",
+            EtapaModelo.Impressao => "Impressão",
+            EtapaModelo.Pintura => "Em pintura",
+            EtapaModelo.Concluido => "Concluído",
+            EtapaModelo.Arquivado => "Arquivado",
+            _ => "Planejamento"
         };
     }
 
     private static string FormatOptional(string? value)
     {
         return string.IsNullOrWhiteSpace(value)
-            ? "Not defined"
+            ? "Não definido"
             : value;
     }
 
@@ -390,30 +389,30 @@ else
 
         if (elapsed < TimeSpan.FromDays(1))
         {
-            return "Updated today";
+            return "Atualizado hoje";
         }
 
         if (elapsed < TimeSpan.FromDays(2))
         {
-            return "Updated yesterday";
+            return "Atualizado ontem";
         }
 
         if (elapsed < TimeSpan.FromDays(7))
         {
-            return $"Updated {Math.Max(1, (int)elapsed.TotalDays)} days ago";
+            return $"Atualizado há {Math.Max(1, (int)elapsed.TotalDays)} dias";
         }
 
         if (elapsed < TimeSpan.FromDays(14))
         {
-            return "Updated 1 week ago";
+            return "Atualizado há 1 semana";
         }
 
         if (elapsed < TimeSpan.FromDays(31))
         {
-            return $"Updated {Math.Max(2, (int)(elapsed.TotalDays / 7))} weeks ago";
+            return $"Atualizado há {Math.Max(2, (int)(elapsed.TotalDays / 7))} semanas";
         }
 
-        return "Updated 1 month ago";
+        return "Atualizado há 1 mês";
     }
 
     private sealed record ModelInfoItem(string Label, string Value);

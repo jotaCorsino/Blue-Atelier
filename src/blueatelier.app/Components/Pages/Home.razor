@@ -2,160 +2,165 @@
 
 <section class="home-stitch" aria-labelledby="home-title">
     <div class="home-stitch-content">
-        <h1 class="visually-hidden" id="home-title">Blue Atelier Home</h1>
+        <header class="page-heading">
+            <h1 class="page-title" id="home-title">Início</h1>
+            <p class="page-description">Acompanhe suas coleções, modelos em andamento e itens recentes do atelier.</p>
+        </header>
 
-        <section class="home-stitch-section" aria-labelledby="recent-collections-title">
-            <h2 class="home-stitch-title" id="recent-collections-title">Recent Collections</h2>
+        <div class="home-stitch-stack">
+            <section class="home-stitch-section" aria-labelledby="recent-collections-title">
+                <h2 class="home-stitch-title" id="recent-collections-title">Coleções recentes</h2>
 
-            <div class="home-stitch-grid">
-                @foreach (var collection in RecentCollections)
-                {
-                    <a class="home-visual-card" href="@collection.Href">
-                        <div class="home-card-cover home-cover-@collection.Cover" aria-hidden="true">
-                            <span class="home-cover-shape"></span>
-                        </div>
+                <div class="home-stitch-grid">
+                    @foreach (var collection in RecentCollections)
+                    {
+                        <a class="home-visual-card" href="@collection.Href">
+                            <div class="home-card-cover home-cover-@collection.Cover" aria-hidden="true">
+                                <span class="home-cover-shape"></span>
+                            </div>
 
-                        <div class="home-card-body">
-                            <div class="home-card-title-row">
-                                <h3>@collection.Name</h3>
+                            <div class="home-card-body">
+                                <div class="home-card-title-row">
+                                    <h3>@collection.Name</h3>
+
+                                    @if (collection.Progress is not null)
+                                    {
+                                        <span class="home-progress-value">@($"{collection.Progress}%")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="home-status home-status-@collection.StatusTone">@collection.Status</span>
+                                    }
+                                </div>
 
                                 @if (collection.Progress is not null)
                                 {
-                                    <span class="home-progress-value">@($"{collection.Progress}%")</span>
+                                    <div class="home-progress-track" aria-label="@($"{collection.Name}: {collection.Progress}% concluído")">
+                                        <span class="home-progress-fill" style="@($"width: {collection.Progress}%")"></span>
+                                    </div>
                                 }
-                                else
-                                {
-                                    <span class="home-status home-status-@collection.StatusTone">@collection.Status</span>
-                                }
+
+                                <p>@collection.Detail</p>
                             </div>
+                        </a>
+                    }
+                </div>
+            </section>
 
-                            @if (collection.Progress is not null)
-                            {
-                                <div class="home-progress-track" aria-label="@($"{collection.Name}: {collection.Progress}% complete")">
-                                    <span class="home-progress-fill" style="@($"width: {collection.Progress}%")"></span>
-                                </div>
-                            }
+            <section class="home-stitch-section" aria-labelledby="models-progress-title">
+                <h2 class="home-stitch-title" id="models-progress-title">Modelos em andamento</h2>
 
-                            <p>@collection.Detail</p>
-                        </div>
-                    </a>
-                }
-            </div>
-        </section>
-
-        <section class="home-stitch-section" aria-labelledby="models-progress-title">
-            <h2 class="home-stitch-title" id="models-progress-title">Models in Progress</h2>
-
-            <div class="home-stitch-grid">
-                @foreach (var model in ModelsInProgress)
-                {
-                    <article class="home-visual-card">
-                        <div class="home-card-cover home-cover-@model.Cover" aria-hidden="true">
-                            <span class="home-cover-shape"></span>
-                        </div>
-
-                        <div class="home-card-body">
-                            <div class="home-card-title-row">
-                                <h3>@model.Name</h3>
-                                <span class="home-progress-value">@($"{model.Progress}%")</span>
-                            </div>
-
-                            <div class="home-progress-track" aria-label="@($"{model.Name}: {model.Progress}% complete")">
-                                <span class="home-progress-fill" style="@($"width: {model.Progress}%")"></span>
-                            </div>
-
-                            <p>@model.Detail</p>
-                        </div>
-                    </article>
-                }
-            </div>
-        </section>
-
-        <section class="home-stitch-section" aria-labelledby="ready-print-title">
-            <h2 class="home-stitch-title" id="ready-print-title">Ready to Print</h2>
-
-            <div class="home-ready-grid">
-                @foreach (var item in ReadyToPrint)
-                {
-                    <article class="home-ready-card">
-                        <div class="home-ready-cover home-cover-@item.Cover" aria-hidden="true">
-                            <span class="home-cover-shape"></span>
-                        </div>
-
-                        <div class="home-ready-body">
-                            <h3>@item.Name</h3>
-                            <p>@item.Detail</p>
-                        </div>
-                    </article>
-                }
-            </div>
-        </section>
-
-        <section class="home-support-grid" aria-label="Quick atelier references">
-            <div class="home-support-panel">
-                <h2 class="home-support-title">Linked Files</h2>
-
-                <div class="home-file-list">
-                    @foreach (var file in LinkedFiles)
+                <div class="home-stitch-grid">
+                    @foreach (var model in ModelsInProgress)
                     {
-                        <article class="home-file-item">
-                            <span>@file.Type</span>
-                            <div>
-                                <h3>@file.Name</h3>
-                                <p>@file.Location</p>
+                        <article class="home-visual-card">
+                            <div class="home-card-cover home-cover-@model.Cover" aria-hidden="true">
+                                <span class="home-cover-shape"></span>
+                            </div>
+
+                            <div class="home-card-body">
+                                <div class="home-card-title-row">
+                                    <h3>@model.Name</h3>
+                                    <span class="home-progress-value">@($"{model.Progress}%")</span>
+                                </div>
+
+                                <div class="home-progress-track" aria-label="@($"{model.Name}: {model.Progress}% concluído")">
+                                    <span class="home-progress-fill" style="@($"width: {model.Progress}%")"></span>
+                                </div>
+
+                                <p>@model.Detail</p>
                             </div>
                         </article>
                     }
                 </div>
-            </div>
+            </section>
 
-            <div class="home-support-panel">
-                <h2 class="home-support-title">Quick Favorites</h2>
+            <section class="home-stitch-section" aria-labelledby="ready-print-title">
+                <h2 class="home-stitch-title" id="ready-print-title">Prontos para impressão</h2>
 
-                <div class="home-favorite-list">
-                    @foreach (var favorite in QuickFavorites)
+                <div class="home-ready-grid">
+                    @foreach (var item in ReadyToPrint)
                     {
-                        <button class="home-favorite-chip" type="button">@favorite</button>
+                        <article class="home-ready-card">
+                            <div class="home-ready-cover home-cover-@item.Cover" aria-hidden="true">
+                                <span class="home-cover-shape"></span>
+                            </div>
+
+                            <div class="home-ready-body">
+                                <h3>@item.Name</h3>
+                                <p>@item.Detail</p>
+                            </div>
+                        </article>
                     }
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <section class="home-support-grid" aria-label="Referências rápidas do atelier">
+                <div class="home-support-panel">
+                    <h2 class="home-support-title">Arquivos vinculados</h2>
+
+                    <div class="home-file-list">
+                        @foreach (var file in LinkedFiles)
+                        {
+                            <article class="home-file-item">
+                                <span>@file.Type</span>
+                                <div>
+                                    <h3>@file.Name</h3>
+                                    <p>@file.Location</p>
+                                </div>
+                            </article>
+                        }
+                    </div>
+                </div>
+
+                <div class="home-support-panel">
+                    <h2 class="home-support-title">Favoritos rápidos</h2>
+
+                    <div class="home-favorite-list">
+                        @foreach (var favorite in QuickFavorites)
+                        {
+                            <button class="home-favorite-chip" type="button">@favorite</button>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 </section>
 
 @code {
     private static readonly HomeCollection[] RecentCollections =
     [
-        new("Eldritch Horrors", "8 Models, 4 Painted", "IN PROGRESS", "blue", "eldritch", "/colecoes/eldritch-horrors"),
-        new("Sci-Fi Marines", "15 Models, 12 STL Files", "READY TO PRINT", "green", "marines", "/colecoes/eldritch-horrors"),
-        new("Fantasy Adventurers", "5 Models, 2 Primed", "", "neutral", "adventurers", "/colecoes/eldritch-horrors", 40)
+        new("Eldritch Horrors", "8 modelos, 4 pintados", "EM ANDAMENTO", "blue", "eldritch", "/colecoes/eldritch-horrors"),
+        new("Sci-Fi Marines", "15 modelos, 12 arquivos STL", "PRONTO PARA IMPRESSÃO", "green", "marines", "/colecoes/eldritch-horrors"),
+        new("Fantasy Adventurers", "5 modelos, 2 com primer", "", "neutral", "adventurers", "/colecoes/eldritch-horrors", 40)
     ];
 
     private static readonly HomeModel[] ModelsInProgress =
     [
-        new("Dragon Bust", "Painting - Stage 3: Glazing", "dragon", 65),
-        new("Tavern Diorama", "Slicing - Supports Added", "tavern", 20),
-        new("Orc Warlord", "Post-Processing - Curing", "orc", 90)
+        new("Dragon Bust", "Pintura - etapa 3: veladuras", "dragon", 65),
+        new("Tavern Diorama", "Fatiamento - suportes adicionados", "tavern", 20),
+        new("Orc Warlord", "Pós-processamento - cura", "orc", 90)
     ];
 
     private static readonly HomeReadyItem[] ReadyToPrint =
     [
-        new("Modular Dungeon Tiles", "34 Files, Est. 12h 45m", "dungeon"),
-        new("Ancient Ruins Scatter", "6 Files, Est. 4h 20m", "ruins")
+        new("Modular Dungeon Tiles", "34 arquivos, est. 12h45", "dungeon"),
+        new("Ancient Ruins Scatter", "6 arquivos, est. 4h20", "ruins")
     ];
 
     private static readonly HomeLinkedFile[] LinkedFiles =
     [
-        new("cthulhu-idol-ready.ctb", "CTB", "ready-to-print"),
-        new("stone-texture-reference.jpg", "JPG", "references"),
-        new("painting-notes.md", "MD", "notes")
+        new("cthulhu-idol-ready.ctb", "CTB", "pronto-para-impressão"),
+        new("stone-texture-reference.jpg", "JPG", "referências"),
+        new("painting-notes.md", "MD", "notas")
     ];
 
     private static readonly string[] QuickFavorites =
     [
         "MyMiniFactory",
-        "Resin Settings",
-        "Stone Textures"
+        "Configurações de resina",
+        "Texturas de pedra"
     ];
 
     private sealed record HomeCollection(

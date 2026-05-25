@@ -8,13 +8,13 @@
 <section class="model-gallery-page" aria-labelledby="model-gallery-page-title">
     <a class="collection-detail-back" href="@ModelPath">
         <span aria-hidden="true">&lt;</span>
-        <span>Back to @ModelName</span>
+        <span>Voltar para @ModelName</span>
     </a>
 
     <header class="model-gallery-header">
-        <div class="model-gallery-header-copy">
-            <h1 id="model-gallery-page-title">Galeria</h1>
-            <p>Imagens, referencias e registros visuais do modelo.</p>
+        <div class="model-gallery-header-copy page-heading">
+            <h1 class="page-title" id="model-gallery-page-title">Galeria do Modelo</h1>
+            <p class="page-description">Imagens, referências e registros visuais do modelo.</p>
             <div class="model-gallery-context" aria-label="Contexto da galeria">
                 <span>@ModelName</span>
                 <span aria-hidden="true">/</span>
@@ -22,14 +22,14 @@
             </div>
         </div>
 
-        <div class="model-gallery-actions" aria-label="Acoes visuais da galeria">
+        <div class="model-gallery-actions" aria-label="Ações visuais da galeria">
             <button class="model-gallery-action model-gallery-action-primary" type="button">
                 <span aria-hidden="true">+</span>
                 Adicionar imagem
             </button>
             <button class="model-gallery-action" type="button">
                 <AppIcon Name="image" />
-                Adicionar referencia
+                Adicionar referência
             </button>
             <button class="model-gallery-action" type="button">
                 <AppIcon Name="settings" />
@@ -37,7 +37,7 @@
             </button>
             <button class="model-gallery-action" type="button">
                 <AppIcon Name="edit" />
-                Editar informacoes
+                Editar informações
             </button>
         </div>
     </header>
@@ -64,8 +64,8 @@
         {
             <AppStateBlock
                 Variant="unavailable"
-                Title="Modelo nao encontrado"
-                Description="Nao foi possivel encontrar este modelo no banco local."
+                Title="Modelo não encontrado"
+                Description="Não foi possível encontrar este modelo no banco local."
                 ActionLabel="Voltar para Modelos"
                 IsCompact="true" />
         }
@@ -74,7 +74,7 @@
             <AppStateBlock
                 Variant="empty"
                 Title="Nenhuma imagem vinculada"
-                Description="Este modelo ainda nao possui metadados de imagens na galeria."
+                Description="Este modelo ainda não possui metadados de imagens na galeria."
                 IsCompact="true" />
         }
         else
@@ -168,7 +168,7 @@
     private static readonly GalleryFilter[] Filters =
     [
         new("Todas", true),
-        new("Referencias", false),
+        new("Referências", false),
         new("Impressao", false),
         new("Pintura", false),
         new("Finalizadas", false),
@@ -221,7 +221,7 @@
             TipoImagemModelo.Final => "Finalizadas",
             TipoImagemModelo.Textura => "Notas visuais",
             TipoImagemModelo.Outro => "Notas visuais",
-            _ => "Referencias"
+            _ => "Referências"
         };
     }
 

@@ -1,13 +1,13 @@
 @page "/configuracoes/caminhos"
 
 <section class="settings-page settings-module-page settings-stitch-page settings-paths-page" aria-labelledby="settings-paths-title">
-    <header class="settings-header settings-module-header settings-stitch-header">
-        <h1 id="settings-paths-title">Caminhos Locais e Rede</h1>
-        <p>Gerencie os diretorios de armazenamento e conexoes de rede.</p>
+    <header class="settings-header settings-module-header settings-stitch-header page-heading">
+        <h1 class="page-title" id="settings-paths-title">Caminhos</h1>
+        <p class="page-description">Gerencie os diretórios de armazenamento e conexões de rede.</p>
     </header>
 
     <div class="settings-layout settings-module-layout settings-stitch-layout">
-        <nav class="settings-secondary-nav settings-stitch-nav" aria-label="Categorias de configuracoes">
+        <nav class="settings-secondary-nav settings-stitch-nav" aria-label="Categorias de configurações">
             @foreach (var item in Categories)
             {
                 @if (item.Href is null)
@@ -29,9 +29,9 @@
             }
         </nav>
 
-        <main class="settings-content settings-module-content settings-paths-content" aria-label="Configuracoes de caminhos mockadas">
+        <main class="settings-content settings-module-content settings-paths-content" aria-label="Configurações de caminhos mockadas">
             <section class="settings-paths-card" aria-labelledby="main-directories-title">
-                <h2 id="main-directories-title">Diretorios Principais</h2>
+                <h2 id="main-directories-title">Diretórios principais</h2>
 
                 <div class="settings-directory-list">
                     @foreach (var directory in Directories)
@@ -102,7 +102,7 @@
     [
         new("Geral", false, "/configuracoes"),
         new("Caminhos", true, "/configuracoes/caminhos"),
-        new("Aparencia", false, "/configuracoes/aparencia"),
+        new("Aparência", false, "/configuracoes/aparencia"),
         new("Backup", false, "/configuracoes/backup"),
         new("Modelo de Pastas", false, "/configuracoes/modelo-pastas"),
         new("Dados do App", false, null)
@@ -110,9 +110,9 @@
 
     private static readonly DirectoryItem[] Directories =
     [
-        new("Diretorio Principal (Main)", "C:\\BlueAtelier\\MainLibrary", "Conectado", "connected", "Alterar", "folder", null),
-        new("Colecoes (Collections)", "Z:\\NetworkDrive\\BlueAtelier\\Collections", "Offline", "offline", "Alterar", "collections", "Caminho de rede inacessivel no momento."),
-        new("Arquivos Preparados (Prepared Files)", "Diretorio nao configurado", "Ausente", "missing", "Criar", "upload", null)
+        new("Diretório principal", "C:\\BlueAtelier\\MainLibrary", "Conectado", "connected", "Alterar", "folder", null),
+        new("Coleções", "Z:\\NetworkDrive\\BlueAtelier\\Collections", "Offline", "offline", "Alterar", "collections", "Caminho de rede inacessível no momento."),
+        new("Arquivos preparados", "Diretório não configurado", "Ausente", "missing", "Criar", "upload", null)
     ];
 
     private sealed record DirectoryItem(

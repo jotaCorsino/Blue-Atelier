@@ -1,13 +1,13 @@
 @page "/configuracoes/modelo-pastas"
 
 <section class="settings-page settings-module-page settings-stitch-page settings-folder-template-page" aria-labelledby="folder-template-title">
-    <header class="settings-header settings-module-header settings-stitch-header">
-        <h1 id="folder-template-title">Modelo de Pastas</h1>
-        <p>Configure a estrutura de diretorios padrao para organizar seus arquivos de impressao 3D.</p>
+    <header class="settings-header settings-module-header settings-stitch-header page-heading">
+        <h1 class="page-title" id="folder-template-title">Modelo de Pastas</h1>
+        <p class="page-description">Configure a estrutura de diretórios padrão para organizar seus arquivos de impressão 3D.</p>
     </header>
 
     <div class="settings-layout settings-module-layout settings-stitch-layout">
-        <nav class="settings-secondary-nav settings-stitch-nav" aria-label="Categorias de configuracoes">
+        <nav class="settings-secondary-nav settings-stitch-nav" aria-label="Categorias de configurações">
             @foreach (var item in Categories)
             {
                 @if (item.Href is null)
@@ -69,9 +69,9 @@
                 </div>
 
                 <section class="settings-folder-template-preview" aria-labelledby="folder-template-preview-title">
-                    <h2 id="folder-template-preview-title">Pre-visualizacao do Caminho</h2>
+                    <h2 id="folder-template-preview-title">Pré-visualização do caminho</h2>
 
-                    <div class="settings-folder-template-path" aria-label="Pre-visualizacao do caminho final">
+                    <div class="settings-folder-template-path" aria-label="Pré-visualização do caminho final">
                         <span>/</span>
                         <span>3D_Prints</span>
                         <span>/</span>
@@ -84,8 +84,8 @@
                     </div>
                 </section>
 
-                <footer class="settings-folder-template-actions" aria-label="Acoes mockadas do modelo de pastas">
-                    <button class="settings-folder-template-save" type="button">Salvar Alteracoes</button>
+                <footer class="settings-folder-template-actions" aria-label="Ações mockadas do modelo de pastas">
+                    <button class="settings-folder-template-save" type="button">Salvar alterações</button>
                 </footer>
             </div>
         </main>
@@ -97,7 +97,7 @@
     [
         new("Geral", false, "/configuracoes"),
         new("Caminhos", false, "/configuracoes/caminhos"),
-        new("Aparencia", false, "/configuracoes/aparencia"),
+        new("Aparência", false, "/configuracoes/aparencia"),
         new("Backup", false, "/configuracoes/backup"),
         new("Modelo de Pastas", true, "/configuracoes/modelo-pastas"),
         new("Dados do App", false, null)
@@ -105,7 +105,7 @@
 
     private static readonly FolderTemplate[] Templates =
     [
-        new("Colecao", "folder-template-collection-title", "collections", "{Nome da Colecao}", ["Imagens", "Manuais", "Modelos Base"]),
+        new("Coleção", "folder-template-collection-title", "collections", "{Nome da Coleção}", ["Imagens", "Manuais", "Modelos base"]),
         new("Modelo", "folder-template-model-title", "models", "{Nome do Modelo}", ["Arquivos STL", "Arquivos Suportados", "Fotos"])
     ];
 

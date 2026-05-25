@@ -6,13 +6,12 @@
 
 <section class="models-page" aria-labelledby="models-title">
     <header class="models-header">
-        <div class="models-heading">
-            <p>Biblioteca visual</p>
-            <h1 id="models-title">Modelos</h1>
-            <span>Modelos cadastrados e organizados por colecao, status e etapa de producao.</span>
+        <div class="models-heading page-heading">
+            <h1 class="page-title" id="models-title">Modelos</h1>
+            <p class="page-description">Modelos cadastrados e organizados por coleção, status e etapa de produção.</p>
         </div>
 
-        <div class="models-actions" aria-label="Acoes visuais de modelos">
+        <div class="models-actions" aria-label="Ações visuais de modelos">
             <button class="models-action models-action-primary" type="button">Novo modelo</button>
             <button class="models-action" type="button">Importar modelo</button>
             <button class="models-action" type="button">Organizar modelos</button>
@@ -113,7 +112,7 @@
     [
         new("Todos", true),
         new("Em pintura", false),
-        new("Prontos para impressao", false),
+        new("Prontos para impressão", false),
         new("Impressos", false),
         new("Favoritos", false),
         new("Arquivos ausentes", false)
@@ -170,9 +169,9 @@
     {
         return etapa switch
         {
-            EtapaModelo.Preparacao => "Pronto para impressao",
+            EtapaModelo.Preparacao => "Pronto para impressão",
             EtapaModelo.Modelagem => "Modelagem",
-            EtapaModelo.Impressao => "Impressao",
+            EtapaModelo.Impressao => "Impressão",
             EtapaModelo.Pintura => "Em pintura",
             EtapaModelo.Concluido => "Impresso",
             EtapaModelo.Arquivado => "Arquivado",

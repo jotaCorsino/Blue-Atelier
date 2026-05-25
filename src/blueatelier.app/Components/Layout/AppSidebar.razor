@@ -3,17 +3,10 @@
 @implements IDisposable
 @inject NavigationManager Navigation
 
-<aside class="app-sidebar @(IsHomePage ? "app-sidebar-home" : null)" aria-label="Navegacao principal">
+<aside class="app-sidebar" aria-label="Navegacao principal">
     <div class="sidebar-brand" aria-label="Blue Atelier">
-        <span class="sidebar-brand-mark @(IsHomePage ? "sidebar-brand-mark-home" : null)" aria-hidden="true">
-            @if (IsHomePage)
-            {
-                <span class="sidebar-brand-triangle"></span>
-            }
-            else
-            {
-                <span>BA</span>
-            }
+        <span class="sidebar-brand-mark" aria-hidden="true">
+            <span>BA</span>
         </span>
         <span class="sidebar-brand-text">Blue Atelier</span>
     </div>
@@ -21,63 +14,42 @@
     <nav class="sidebar-nav">
         <NavLink class="sidebar-link" href="/" Match="NavLinkMatch.All">
             <span class="sidebar-icon" aria-hidden="true"><AppIcon Name="home" /></span>
-            <span>@(IsHomePage ? "Home" : "Inicio")</span>
+            <span>In&iacute;cio</span>
         </NavLink>
 
         <a class="sidebar-link @(IsCollectionsNavActive ? "active" : null)" href="/colecoes">
             <span class="sidebar-icon" aria-hidden="true"><AppIcon Name="collections" /></span>
-            <span>@(IsHomePage ? "Collections" : "Colecoes")</span>
+            <span>Cole&ccedil;&otilde;es</span>
         </a>
 
         @foreach (var item in FutureItems)
         {
-            if (IsHomePage && item.HasDividerBefore)
-            {
-                <span class="sidebar-home-divider" aria-hidden="true"></span>
-            }
-
             if (item.Href is not null)
             {
                 <a class="sidebar-link @(IsFutureItemActive(item) ? "active" : null)" href="@item.Href">
                     <span class="sidebar-icon" aria-hidden="true"><AppIcon Name="@item.Icon" /></span>
-                    <span>@(IsHomePage ? item.HomeLabel : item.Label)</span>
+                    <span>@((MarkupString)item.Label)</span>
                 </a>
             }
             else
             {
                 <a class="sidebar-link sidebar-link-disabled @(IsFutureItemActive(item) ? "active" : null)" href="#" aria-disabled="true" @onclick:preventDefault>
                     <span class="sidebar-icon" aria-hidden="true"><AppIcon Name="@item.Icon" /></span>
-                    <span>@(IsHomePage ? item.HomeLabel : item.Label)</span>
+                    <span>@((MarkupString)item.Label)</span>
                 </a>
             }
         }
     </nav>
-
-    @if (IsHomePage)
-    {
-        <div class="sidebar-home-action">
-            <AppButton Variant="primary" Class="sidebar-new-collection">+ New Collection</AppButton>
-        </div>
-    }
 </aside>
 
 @code {
     private static readonly SidebarItem[] FutureItems =
     [
-        new("Modelos", "Models", "models", Href: "/modelos"),
-        new("Favoritos", "Favorites", "favorites", true, Href: "/favoritos"),
-        new("Busca", "Search", "search", Href: "/busca"),
-        new("Configuracoes", "Settings", "settings", Href: "/configuracoes")
+        new("Modelos", "models", Href: "/modelos"),
+        new("Favoritos", "favorites", Href: "/favoritos"),
+        new("Busca", "search", Href: "/busca"),
+        new("Configura&ccedil;&otilde;es", "settings", Href: "/configuracoes")
     ];
-
-    private bool IsHomePage
-    {
-        get
-        {
-            var relativePath = Navigation.ToBaseRelativePath(Navigation.Uri).Trim('/');
-            return string.IsNullOrWhiteSpace(relativePath);
-        }
-    }
 
     protected override void OnInitialized()
     {
@@ -121,7 +93,7 @@
         }
     }
 
-    private sealed record SidebarItem(string Label, string HomeLabel, string Icon, bool HasDividerBefore = false, string? Href = null);
+    private sealed record SidebarItem(string Label, string Icon, string? Href = null);
 
     public void Dispose()
     {

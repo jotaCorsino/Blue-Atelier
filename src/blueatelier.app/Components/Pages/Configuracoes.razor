@@ -1,13 +1,13 @@
 @page "/configuracoes"
 
 <section class="settings-page settings-module-page settings-stitch-page" aria-labelledby="settings-title">
-    <header class="settings-header settings-module-header settings-stitch-header">
-        <h1 id="settings-title">Configuracoes</h1>
-        <p>Gerencie caminhos, aparencia, backup e preferencias do seu atelier</p>
+    <header class="settings-header settings-module-header settings-stitch-header page-heading">
+        <h1 class="page-title" id="settings-title">Configurações</h1>
+        <p class="page-description">Gerencie caminhos, aparência, backup e preferências do seu atelier.</p>
     </header>
 
     <div class="settings-layout settings-module-layout settings-stitch-layout">
-        <nav class="settings-secondary-nav settings-stitch-nav" aria-label="Categorias de configuracoes">
+        <nav class="settings-secondary-nav settings-stitch-nav" aria-label="Categorias de configurações">
             @foreach (var item in Categories)
             {
                 @if (item.Href is null)
@@ -29,9 +29,9 @@
             }
         </nav>
 
-        <main class="settings-content settings-module-content settings-stitch-panels" aria-label="Paineis de configuracoes mockadas">
+        <main class="settings-content settings-module-content settings-stitch-panels" aria-label="Painéis de configurações mockadas">
             <section class="settings-stitch-card settings-stitch-card-wide" aria-labelledby="settings-paths-title">
-                <h2 id="settings-paths-title">Caminhos Principais</h2>
+                <h2 id="settings-paths-title">Caminhos principais</h2>
 
                 <div class="settings-path-grid">
                     @foreach (var path in MainPaths)
@@ -80,7 +80,7 @@
                 </section>
 
                 <section class="settings-stitch-card settings-appearance-card" aria-labelledby="settings-appearance-title">
-                    <h2 id="settings-appearance-title">Aparencia</h2>
+                    <h2 id="settings-appearance-title">Aparência</h2>
 
                     <div class="settings-theme-grid" aria-label="Tema visual mockado">
                         @foreach (var theme in Themes)
@@ -112,7 +112,7 @@
             </div>
 
             <section class="settings-stitch-card settings-stitch-card-wide" aria-labelledby="settings-programs-title">
-                <h2 id="settings-programs-title">Programas Padrao</h2>
+                <h2 id="settings-programs-title">Programas padrão</h2>
 
                 <div class="settings-program-grid">
                     @foreach (var program in Programs)
@@ -139,7 +139,7 @@
     [
         new("Geral", true, "/configuracoes"),
         new("Caminhos", false, "/configuracoes/caminhos"),
-        new("Aparencia", false, "/configuracoes/aparencia"),
+        new("Aparência", false, "/configuracoes/aparencia"),
         new("Backup", false, "/configuracoes/backup"),
         new("Modelo de Pastas", false, "/configuracoes/modelo-pastas"),
         new("Dados do App", false, null)
@@ -148,14 +148,14 @@
     private static readonly SettingsPath[] MainPaths =
     [
         new("Pasta principal do atelier", @"C:\Users\Admin\Documents\BlueAtelier"),
-        new("Pasta de colecoes", @"C:\Users\Admin\Documents\BlueAtelier\Collections")
+        new("Pasta de coleções", @"C:\Users\Admin\Documents\BlueAtelier\Collections")
     ];
 
     private static readonly SettingsTheme[] Themes =
     [
-        new("Tema Claro", "sun", true, false),
-        new("Tema Escuro", "moon", false, true),
-        new("Automatico", "monitor", false, false)
+        new("Tema claro", "sun", true, false),
+        new("Tema escuro", "moon", false, true),
+        new("Automático", "monitor", false, false)
     ];
 
     private static readonly SettingsAccent[] AccentColors =

@@ -20,11 +20,10 @@
             <span class="linked-files-cover-tentacle tentacle-right"></span>
         </div>
 
-        <div class="linked-files-heading-copy">
-            <p>Arquivos Vinculados</p>
-            <h1 id="linked-files-title">Cthulhu Idol</h1>
+        <div class="linked-files-heading-copy page-heading">
+            <h1 class="page-title" id="linked-files-title">Arquivos vinculados</h1>
             <span>Cthulhu Idol / Eldritch Horrors</span>
-            <small>Arquivos 3D, fatiamento, referencias e notas associados ao modelo.</small>
+            <small class="page-description">Arquivos 3D, fatiamento, referências e notas associados aos modelos do atelier.</small>
 
             <div class="linked-files-summary" aria-label="Resumo de arquivos vinculados">
                 @foreach (var item in SummaryItems)
@@ -41,7 +40,7 @@
         </div>
     </header>
 
-    <section class="linked-files-actions" aria-label="Acoes visuais de arquivos vinculados">
+    <section class="linked-files-actions" aria-label="Ações visuais de arquivos vinculados">
         <button class="linked-files-action linked-files-action-primary" type="button">
             <span aria-hidden="true">+</span>
             Vincular arquivo
@@ -84,7 +83,7 @@
                 <AppStateBlock
                     Variant="empty"
                     Title="Nenhum arquivo vinculado"
-                    Description="Ainda nao existem metadados de arquivos vinculados no banco local."
+                    Description="Ainda não existem metadados de arquivos vinculados no banco local."
                     IsCompact="true" />
             }
             else
@@ -117,7 +116,7 @@
                                         @file.Status
                                     </span>
 
-                                    <div class="linked-file-actions" aria-label="Acoes visuais para @file.Name">
+                                    <div class="linked-file-actions" aria-label="Ações visuais para @file.Name">
                                         <button type="button" title="Abrir arquivo" aria-label="Abrir arquivo @file.Name">
                                             <AppIcon Name="folder" />
                                         </button>
@@ -199,7 +198,7 @@
         new("Todos", true),
         new("Modelos 3D", false),
         new("Fatiamento", false),
-        new("Referencias", false),
+        new("Referências", false),
         new("Notas", false),
         new("Outros", false)
     ];
@@ -250,7 +249,7 @@
         return tipo switch
         {
             TipoArquivoVinculado.Modelo3D => new FileGroupDefinition(10, "linked-files-3d", "Arquivos 3D"),
-            TipoArquivoVinculado.Imagem or TipoArquivoVinculado.Referencia => new FileGroupDefinition(30, "linked-files-references", "Referencias"),
+            TipoArquivoVinculado.Imagem or TipoArquivoVinculado.Referencia => new FileGroupDefinition(30, "linked-files-references", "Referências"),
             TipoArquivoVinculado.Documento or TipoArquivoVinculado.Nota => new FileGroupDefinition(40, "linked-files-notes", "Documentos e Notas"),
             _ => new FileGroupDefinition(50, "linked-files-other", "Outros")
         };
@@ -271,7 +270,7 @@
             TipoArquivoVinculado.Imagem => "Imagem",
             TipoArquivoVinculado.Documento => "Documento",
             TipoArquivoVinculado.Nota => "Notas",
-            TipoArquivoVinculado.Referencia => "Referencias",
+            TipoArquivoVinculado.Referencia => "Referências",
             _ => "Outros"
         };
     }
@@ -354,7 +353,7 @@
     {
         if (string.IsNullOrWhiteSpace(caminhoLocal))
         {
-            return "Caminho nao informado";
+            return "Caminho não informado";
         }
 
         var caminho = caminhoLocal.Trim();

@@ -5,10 +5,9 @@
 
 <section class="search-page" aria-labelledby="search-title">
     <header class="search-header">
-        <div class="search-heading">
-            <p>Busca global</p>
-            <h1 id="search-title">Busca</h1>
-            <span>Encontre modelos, colecoes, imagens, arquivos vinculados e links favoritos do atelier.</span>
+        <div class="search-heading page-heading">
+            <h1 class="page-title" id="search-title">Busca</h1>
+            <p class="page-description">Encontre modelos, coleções, imagens, arquivos vinculados e links favoritos do atelier.</p>
         </div>
 
         <div class="search-header-meta" aria-label="Resumo visual da busca">
@@ -28,8 +27,8 @@
             <button type="button" @onclick="ExecutarBuscaAsync">Buscar</button>
         </label>
 
-        <div class="search-suggestions" aria-label="Sugestoes rapidas">
-            <span>Sugestoes rapidas</span>
+        <div class="search-suggestions" aria-label="Sugestões rápidas">
+            <span>Sugestões rápidas</span>
             @foreach (var suggestion in Suggestions)
             {
                 <button type="button" @onclick="() => AplicarSugestaoAsync(suggestion)">@suggestion</button>
@@ -50,7 +49,7 @@
         <div class="search-section-heading">
             <div>
                 <h2 id="search-models-title">Modelos</h2>
-                <p>Resultados mais proximos encontrados no atelier.</p>
+                <p>Resultados mais próximos encontrados no atelier.</p>
             </div>
 
             <a href="/modelos">Ver todos</a>
@@ -134,7 +133,7 @@
         <div class="search-section-heading">
             <div>
                 <h2 id="search-results-title">Resultados</h2>
-                <p>Itens relacionados a modelos, colecoes, imagens, links e arquivos vinculados.</p>
+                <p>Itens relacionados a modelos, coleções, imagens, links e arquivos vinculados.</p>
             </div>
 
             <span>Banco local</span>
@@ -221,7 +220,7 @@
 
         <div class="search-summary-note">
             <h2>Busca simples local</h2>
-            <p>A consulta usa somente dados persistidos no banco local. Nenhum arquivo real e lido e nenhum link externo e aberto.</p>
+            <p>A consulta usa somente dados persistidos no banco local. Nenhum arquivo real é lido e nenhum link externo é aberto.</p>
         </div>
     </aside>
 </section>
@@ -232,7 +231,7 @@
         "Cthulhu",
         "Eldritch",
         "pintura",
-        "referencia",
+        "referência",
         "STL",
         "pedra",
         "wash"
@@ -242,7 +241,7 @@
     [
         new("Todos", true),
         new("Modelos", false),
-        new("Colecoes", false),
+        new("Coleções", false),
         new("Imagens", false),
         new("Arquivos vinculados", false),
         new("Links favoritos", false)
