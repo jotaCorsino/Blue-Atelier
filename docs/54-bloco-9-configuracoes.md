@@ -2,9 +2,9 @@
 
 ## objetivo
 
-Registrar os primeiros recortes do Bloco 9 da fase funcional do Blue Atelier, conectando Configuracoes Gerais e Configuracoes de Caminhos a dados reais do banco local.
+Registrar os primeiros recortes do Bloco 9 da fase funcional do Blue Atelier, conectando Configuracoes Gerais, Configuracoes de Caminhos e Configuracoes de Aparencia a dados reais do banco local.
 
-Estes recortes trabalham apenas com dados persistidos no SQLite. Eles nao acessam o sistema operacional, nao validam caminhos reais, nao alteram tema real do app, nao leem ou escrevem arquivos externos e nao implementam salvamento pela UI.
+Estes recortes trabalham apenas com dados persistidos no SQLite. Eles nao acessam o sistema operacional, nao validam caminhos reais, nao alteram tema real do app, nao alteram CSS visual, nao leem ou escrevem arquivos externos e nao implementam salvamento pela UI.
 
 ## recorte 1 implementado
 
@@ -336,6 +336,137 @@ Foram adicionados testes para:
 - servico nao expor entidade de dominio para UI;
 - servico retornar caminho inexistente como texto, sem validar sistema de arquivos.
 
+## recorte 3 - aparencia
+
+O Recorte 3 conecta Configuracoes de Aparencia aos dados reais de preferencias persistidas no banco local, preservando o visual aprovado.
+
+### objetivo
+
+Este recorte implementa apenas:
+
+- leitura real das preferencias de aparencia persistidas;
+- modelo de aplicacao para Configuracoes de Aparencia;
+- metodo no servico de Configuracoes para obter aparencia;
+- conexao da tela `/configuracoes/aparencia` com dados vindos do banco local;
+- uso das chaves ja existentes no seed;
+- testes de servico e seed.
+
+### arquivos criados
+
+Foi criado:
+
+- `src/blueatelier.application/Modelos/ConfiguracoesAparenciaResumo.cs`.
+
+### arquivos alterados
+
+Foram alterados:
+
+- `src/blueatelier.application/Contratos/IConfiguracoesServico.cs`;
+- `src/blueatelier.application/Servicos/ConfiguracoesServico.cs`;
+- `src/blueatelier.app/Components/Pages/ConfiguracoesAparencia.razor`;
+- `tests/blueatelier.tests/infrastructure/ConfiguracoesPersistenciaTests.cs`;
+- `docs/03-estado-atual.md`;
+- `docs/04-proximos-documentos.md`;
+- `docs/54-bloco-9-configuracoes.md`.
+
+Nenhum arquivo em `src/blueatelier.app/wwwroot/css` foi alterado.
+
+### metodo criado no servico
+
+O contrato `IConfiguracoesServico` passou a expor:
+
+```txt
+ObterAparenciaAsync
+```
+
+O metodo usa `IConfiguracoesRepositorio.ListarConfiguracoesAsync` e retorna `ConfiguracoesAparenciaResumo`, sem expor entidades de dominio diretamente para Razor Components.
+
+### modelo de aplicacao criado
+
+Foi criado `ConfiguracoesAparenciaResumo`, contendo:
+
+- `Tema`;
+- `Densidade`;
+- `CorDestaque`;
+- `UltimaAtualizacao`.
+
+### chaves usadas
+
+O recorte usa as chaves ja existentes no seed:
+
+- `app.tema`;
+- `app.densidade`;
+- `app.corDestaque`.
+
+Quando alguma chave nao existe, o servico aplica valores padrao seguros:
+
+```txt
+system
+comfortable
+blue
+```
+
+### tela /configuracoes/aparencia conectada ao banco
+
+A tela `ConfiguracoesAparencia.razor`, rota `/configuracoes/aparencia`, passou a carregar dados pelo `IConfiguracoesServico.ObterAparenciaAsync`.
+
+Foram preservados:
+
+- markup principal;
+- classes CSS existentes;
+- cabecalho padronizado;
+- navegacao secundaria de Configuracoes;
+- cards e paineis;
+- selecao visual de tema;
+- selecao visual de densidade;
+- selecao visual de cor de destaque;
+- botoes visuais;
+- sidebar e topbar.
+
+Os dados reais usados na tela sao:
+
+- tema ativo;
+- densidade ativa;
+- cor de destaque ativa.
+
+### o que continua mockado no recorte 3
+
+Continuam mockados:
+
+- clique em tema;
+- clique em densidade;
+- clique em cor;
+- botao salvar alteracoes;
+- botao restaurar padroes;
+- aplicacao real de tema;
+- aplicacao real de densidade;
+- aplicacao real de cor;
+- persistencia de mudancas pela UI;
+- preview real do tema no app inteiro.
+
+### confirmacoes do recorte 3
+
+Confirmado:
+
+- nao houve aplicacao real de tema;
+- nao houve salvamento pela UI;
+- nao houve CRUD visual;
+- nao houve alteracao de CSS visual;
+- nenhuma alteracao global de aparencia foi aplicada;
+- nenhum arquivo externo foi lido ou escrito;
+- nenhuma area removida foi reintroduzida.
+
+### testes adicionados no recorte 3
+
+Foram adicionados testes para:
+
+- `ConfiguracoesServico.ObterAparenciaAsync` retornar `ConfiguracoesAparenciaResumo`;
+- servico usar `app.tema`, `app.densidade` e `app.corDestaque`;
+- servico aplicar valores padrao quando chaves nao existem;
+- servico nao expor entidade de dominio para UI;
+- servico nao alterar tema real nem depender de CSS;
+- seed manter chaves de aparencia sem duplicar.
+
 ## validacoes executadas
 
 Este recorte foi validado com:
@@ -354,6 +485,6 @@ Resultado observado:
 
 ## proxima etapa sugerida
 
-Apos revisao do Recorte 1 do Bloco 9, a proxima etapa sugerida e continuar Configuracoes em recortes pequenos, ainda sem redesenhar telas e sem acessar o sistema operacional.
+Apos revisao do Recorte 3 do Bloco 9, a proxima etapa sugerida e continuar Configuracoes em recortes pequenos, ainda sem redesenhar telas e sem acessar o sistema operacional.
 
 Configurar caminhos com seletor real, validar diretorios, aplicar tema real, salvar preferencias pela UI e integrar backup real devem permanecer para recortes especificos e aprovados separadamente.

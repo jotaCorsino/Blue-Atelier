@@ -9,4 +9,7 @@ public interface IConfiguracoesServico
 
     Task<IReadOnlyList<ConfiguracaoCaminhoResumo>> ListarCaminhosAsync(
         CancellationToken cancellationToken = default);
+
+    Task<ConfiguracoesAparenciaResumo> ObterAparenciaAsync(
+        CancellationToken cancellationToken = default);
 }

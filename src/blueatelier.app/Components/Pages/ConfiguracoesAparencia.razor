@@ -1,4 +1,7 @@
 @page "/configuracoes/aparencia"
+@using BlueAtelier.Application.Contratos
+@using BlueAtelier.Application.Modelos
+@inject IConfiguracoesServico ConfiguracoesServico
 
 <section class="settings-page settings-module-page settings-stitch-page settings-appearance-page" aria-labelledby="settings-appearance-title">
     <header class="settings-header settings-module-header settings-stitch-header settings-appearance-header page-heading">
@@ -29,12 +32,12 @@
             }
         </nav>
 
-        <main class="settings-content settings-module-content settings-appearance-content" aria-label="Configurações de aparência mockadas">
+        <main class="settings-content settings-module-content settings-appearance-content" aria-label="Configurações de aparência">
             <div class="settings-appearance-grid">
                 <section class="settings-appearance-panel settings-appearance-theme-panel" aria-labelledby="appearance-theme-title">
                     <h2 id="appearance-theme-title">Tema</h2>
 
-                    <div class="appearance-theme-options" aria-label="Tema visual mockado">
+                    <div class="appearance-theme-options" aria-label="Tema visual">
                         @foreach (var theme in Themes)
                         {
                             <button class="appearance-theme-card @(theme.IsActive ? "appearance-theme-card-active" : null)"
@@ -71,7 +74,7 @@
                 <section class="settings-appearance-panel settings-appearance-density-panel" aria-labelledby="appearance-density-title">
                     <h2 id="appearance-density-title">Densidade da interface</h2>
 
-                    <div class="appearance-density-options" aria-label="Densidade visual mockada">
+                    <div class="appearance-density-options" aria-label="Densidade visual">
                         @foreach (var density in Densities)
                         {
                             <button class="appearance-density-option @(density.IsActive ? "appearance-density-option-active" : null)"
@@ -102,7 +105,7 @@
                         <button type="button">Restaurar padrão</button>
                     </div>
 
-                    <div class="appearance-accent-swatches" aria-label="Cores de destaque mockadas">
+                    <div class="appearance-accent-swatches" aria-label="Cores de destaque">
                         @foreach (var swatch in AccentSwatches)
                         {
                             <button class="appearance-accent-swatch @(swatch.IsActive ? "appearance-accent-swatch-active" : null)"
@@ -121,7 +124,7 @@
                 </section>
             </div>
 
-            <footer class="settings-appearance-actions" aria-label="Ações de aparência mockadas">
+            <footer class="settings-appearance-actions" aria-label="Ações de aparência">
                 <button type="button">Cancelar</button>
                 <button class="settings-appearance-save" type="button">Salvar alterações</button>
             </footer>
@@ -140,28 +143,56 @@
         new("Dados do App", false, null)
     ];
 
-    private static readonly ThemeOption[] Themes =
+    private ConfiguracoesAparenciaResumo AparenciaResumo { get; set; } = ConfiguracoesAparenciaPadrao;
+
+    private IReadOnlyList<ThemeOption> Themes =>
     [
-        new("Claro", "light", true),
-        new("Escuro", "dark", false),
-        new("Automático", "auto", false)
+        new("Claro", "light", TemaAtivo("light")),
+        new("Escuro", "dark", TemaAtivo("dark")),
+        new("Automático", "auto", TemaAtivo("system"))
     ];
 
-    private static readonly DensityOption[] Densities =
+    private IReadOnlyList<DensityOption> Densities =>
     [
-        new("Padrão", "Espaçamento confortável e legível.", true),
-        new("Compacto", "Mais informações visíveis na tela.", false)
+        new("Padrão", "Espaçamento confortável e legível.", DensidadeAtiva("comfortable")),
+        new("Compacto", "Mais informações visíveis na tela.", DensidadeAtiva("compact"))
     ];
 
-    private static readonly AccentSwatch[] AccentSwatches =
+    private IReadOnlyList<AccentSwatch> AccentSwatches =>
     [
-        new("Azul padrão", "#0058be", true),
-        new("Verde secundário", "#466558", false),
-        new("Dourado terciario", "#755800", false),
-        new("Vermelho sistema", "#ba1a1a", false),
-        new("Violeta", "#6750a4", false),
-        new("Teal", "#006a6a", false)
+        new("Azul padrão", "blue", "#0058be", CorAtiva("blue")),
+        new("Verde secundário", "green", "#466558", CorAtiva("green")),
+        new("Dourado terciário", "amber", "#755800", CorAtiva("amber")),
+        new("Vermelho sistema", "red", "#ba1a1a", CorAtiva("red")),
+        new("Violeta", "violet", "#6750a4", CorAtiva("violet")),
+        new("Teal", "teal", "#006a6a", CorAtiva("teal"))
     ];
+
+    private static readonly ConfiguracoesAparenciaResumo ConfiguracoesAparenciaPadrao = new(
+        "system",
+        "comfortable",
+        "blue",
+        DateTimeOffset.UtcNow);
+
+    protected override async Task OnInitializedAsync()
+    {
+        AparenciaResumo = await ConfiguracoesServico.ObterAparenciaAsync();
+    }
+
+    private bool TemaAtivo(string tema)
+    {
+        return string.Equals(AparenciaResumo.Tema, tema, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool DensidadeAtiva(string densidade)
+    {
+        return string.Equals(AparenciaResumo.Densidade, densidade, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool CorAtiva(string cor)
+    {
+        return string.Equals(AparenciaResumo.CorDestaque, cor, StringComparison.OrdinalIgnoreCase);
+    }
 
     private sealed record SettingsCategory(string Label, bool IsActive, string? Href);
 
@@ -169,5 +200,5 @@
 
     private sealed record DensityOption(string Label, string Description, bool IsActive);
 
-    private sealed record AccentSwatch(string Label, string Color, bool IsActive);
+    private sealed record AccentSwatch(string Label, string Key, string Color, bool IsActive);
 }

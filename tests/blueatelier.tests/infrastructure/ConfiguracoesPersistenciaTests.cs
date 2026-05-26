@@ -91,6 +91,80 @@ public sealed class ConfiguracoesPersistenciaTests
     }
 
     [Fact]
+    public async Task Servico_DeveRetornarConfiguracoesAparencia()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            await AplicarSeedAsync(opcoes);
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var resumo = await servico.ObterAparenciaAsync();
+
+            Assert.IsType<ConfiguracoesAparenciaResumo>(resumo);
+            Assert.Equal("system", resumo.Tema);
+            Assert.Equal("comfortable", resumo.Densidade);
+            Assert.Equal("blue", resumo.CorDestaque);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeAparencia_DeveUsarChavesPersistidas()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                contexto.ConfiguracoesApp.AddRange(
+                    new ConfiguracaoApp
+                    {
+                        Chave = "app.tema",
+                        Valor = "dark",
+                        AtualizadoEm = DateTimeOffset.UtcNow
+                    },
+                    new ConfiguracaoApp
+                    {
+                        Chave = "app.densidade",
+                        Valor = "compact",
+                        AtualizadoEm = DateTimeOffset.UtcNow
+                    },
+                    new ConfiguracaoApp
+                    {
+                        Chave = "app.corDestaque",
+                        Valor = "teal",
+                        AtualizadoEm = DateTimeOffset.UtcNow
+                    });
+
+                await contexto.SaveChangesAsync();
+            }
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var resumo = await servico.ObterAparenciaAsync();
+
+            Assert.Equal("dark", resumo.Tema);
+            Assert.Equal("compact", resumo.Densidade);
+            Assert.Equal("teal", resumo.CorDestaque);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
     public async Task Seed_DeveCriarConfiguracoesSemDuplicar()
     {
         var caminhoBanco = CriarCaminhoBancoTemporario();
@@ -110,6 +184,9 @@ public sealed class ConfiguracoesPersistenciaTests
 
             Assert.Equal(8, await consulta.ConfiguracoesApp.CountAsync());
             Assert.Equal(1, await consulta.ConfiguracoesApp.CountAsync(item => item.Chave == "app.idioma"));
+            Assert.Equal(1, await consulta.ConfiguracoesApp.CountAsync(item => item.Chave == "app.tema"));
+            Assert.Equal(1, await consulta.ConfiguracoesApp.CountAsync(item => item.Chave == "app.densidade"));
+            Assert.Equal(1, await consulta.ConfiguracoesApp.CountAsync(item => item.Chave == "app.corDestaque"));
             Assert.Equal(1, await consulta.ConfiguracoesApp.CountAsync(item => item.Chave == "caminhos.raiz"));
             Assert.Equal(1, await consulta.ConfiguracoesApp.CountAsync(item => item.Chave == "backup.automatico"));
         }
@@ -153,6 +230,34 @@ public sealed class ConfiguracoesPersistenciaTests
     }
 
     [Fact]
+    public async Task Servico_DeAparencia_DeveAplicarPadroesQuandoChavesNaoExistem()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+            }
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var resumo = await servico.ObterAparenciaAsync();
+
+            Assert.Equal("system", resumo.Tema);
+            Assert.Equal("comfortable", resumo.Densidade);
+            Assert.Equal("blue", resumo.CorDestaque);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
     public async Task Servico_NaoExpoeEntidadeDeDominioParaUi()
     {
         var caminhoBanco = CriarCaminhoBancoTemporario();
@@ -168,6 +273,87 @@ public sealed class ConfiguracoesPersistenciaTests
 
             Assert.IsType<ConfiguracoesGeraisResumo>(resumo);
             Assert.IsNotType<ConfiguracaoApp>((object)resumo);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeAparencia_NaoExpoeEntidadeDeDominioParaUi()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            await AplicarSeedAsync(opcoes);
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var resumo = await servico.ObterAparenciaAsync();
+
+            Assert.IsType<ConfiguracoesAparenciaResumo>(resumo);
+            Assert.IsNotType<ConfiguracaoApp>((object)resumo);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeAparencia_NaoAlteraTemaRealNemDependeDeCss()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                contexto.ConfiguracoesApp.AddRange(
+                    new ConfiguracaoApp
+                    {
+                        Chave = "app.tema",
+                        Valor = "dark",
+                        AtualizadoEm = DateTimeOffset.UtcNow
+                    },
+                    new ConfiguracaoApp
+                    {
+                        Chave = "app.densidade",
+                        Valor = "compact",
+                        AtualizadoEm = DateTimeOffset.UtcNow
+                    },
+                    new ConfiguracaoApp
+                    {
+                        Chave = "app.corDestaque",
+                        Valor = "teal",
+                        AtualizadoEm = DateTimeOffset.UtcNow
+                    });
+
+                await contexto.SaveChangesAsync();
+            }
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var resumo = await servico.ObterAparenciaAsync();
+
+            await using var consulta = new BlueAtelierDbContext(opcoes);
+            var configuracoes = await consulta.ConfiguracoesApp
+                .AsNoTracking()
+                .ToListAsync();
+
+            Assert.Equal("dark", resumo.Tema);
+            Assert.Equal("compact", resumo.Densidade);
+            Assert.Equal("teal", resumo.CorDestaque);
+            Assert.Equal(3, configuracoes.Count);
+            Assert.Single(configuracoes, item => item.Chave == "app.tema" && item.Valor == "dark");
+            Assert.Single(configuracoes, item => item.Chave == "app.densidade" && item.Valor == "compact");
+            Assert.Single(configuracoes, item => item.Chave == "app.corDestaque" && item.Valor == "teal");
         }
         finally
         {

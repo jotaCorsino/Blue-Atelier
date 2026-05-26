@@ -47,6 +47,21 @@ public sealed class ConfiguracoesServico(
             .ToList();
     }
 
+    public async Task<ConfiguracoesAparenciaResumo> ObterAparenciaAsync(
+        CancellationToken cancellationToken = default)
+    {
+        var configuracoes = await configuracoesRepositorio.ListarConfiguracoesAsync(cancellationToken);
+        var configuracoesPorChave = configuracoes.ToDictionary(
+            configuracao => configuracao.Chave,
+            StringComparer.OrdinalIgnoreCase);
+
+        return new ConfiguracoesAparenciaResumo(
+            ObterValor(configuracoesPorChave, "app.tema", TemaPadrao),
+            ObterValor(configuracoesPorChave, "app.densidade", DensidadePadrao),
+            ObterValor(configuracoesPorChave, "app.corDestaque", CorDestaquePadrao),
+            ObterUltimaAtualizacao(configuracoes));
+    }
+
     private static string ObterValor(
         IReadOnlyDictionary<string, ConfiguracaoApp> configuracoes,
         string chave,

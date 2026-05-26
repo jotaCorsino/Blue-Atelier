@@ -60,7 +60,9 @@ Foi consolidada uma correcao transversal de consistencia visual e textual dos ca
 
 O Bloco 9 foi consolidado no Recorte 1 de Configuracoes. A tela `/configuracoes` passou a ler dados gerais de configuracao do banco local, preservando o visual aprovado, ainda sem salvar alteracoes pela UI, sem alterar tema real e sem acessar o sistema operacional.
 
-O Recorte 2 do Bloco 9 foi iniciado para revisao. A tela `/configuracoes/caminhos` passou a ler caminhos configurados persistidos no banco local, ainda sem salvar alteracoes pela UI, sem seletor de pasta, sem validar caminhos reais e sem acessar o sistema operacional.
+O Recorte 2 do Bloco 9 foi consolidado para conectar Configuracoes de Caminhos aos dados reais do banco local. A tela `/configuracoes/caminhos` passou a ler caminhos configurados persistidos, ainda sem salvar alteracoes pela UI, sem seletor de pasta, sem validar caminhos reais e sem acessar o sistema operacional.
+
+O Recorte 3 do Bloco 9 foi consolidado para conectar Configuracoes de Aparencia aos dados reais do banco local. A tela `/configuracoes/aparencia` passou a ler preferencias de aparencia persistidas, ainda sem salvar alteracoes pela UI, sem aplicar tema real, sem alterar CSS visual e sem acessar o sistema operacional.
 
 ## repositorio remoto
 
@@ -70,16 +72,16 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa implementada para revisao iniciou o Bloco 9 - Configuracoes / Recorte 2:
+A ultima tarefa consolidada foi o Bloco 9 - Configuracoes / Recorte 3:
 
-- `ConfiguracoesServico` passou a retornar `ConfiguracaoCaminhoResumo`;
-- o seed passou a garantir caminhos configurados minimos de forma idempotente;
-- `/configuracoes/caminhos` passou a ler caminhos persistidos pelo servico de aplicacao;
-- o cabecalho padronizado recente de Configuracoes de Caminhos foi preservado;
+- `ConfiguracoesServico` passou a retornar `ConfiguracoesAparenciaResumo`;
+- `/configuracoes/aparencia` passou a ler `app.tema`, `app.densidade` e `app.corDestaque` pelo servico de aplicacao;
+- a selecao visual de tema, densidade e cor de destaque passou a refletir dados persistidos;
+- o cabecalho padronizado recente de Configuracoes de Aparencia foi preservado;
 - nenhum CSS visual foi alterado;
 - sidebar e topbar nao foram alteradas;
-- nenhum caminho real foi validado;
-- nenhum diretorio real foi lido, criado ou aberto;
+- nenhum tema real foi aplicado;
+- nenhuma alteracao real de densidade ou cor foi aplicada;
 - nenhum arquivo externo foi lido ou escrito;
 - nenhum salvamento pela UI ou CRUD visual foi implementado;
 - nenhuma reintroducao das areas removidas.
@@ -188,6 +190,7 @@ Implementado:
 - modelo de aplicacao `BuscaResultado`;
 - modelo de aplicacao `ConfiguracoesGeraisResumo`;
 - modelo de aplicacao `ConfiguracaoCaminhoResumo`;
+- modelo de aplicacao `ConfiguracoesAparenciaResumo`;
 - inicializador `BlueAtelierBancoInicializador` para migration e seed;
 - seed de colecoes suficiente para manter a tela `/colecoes` visualmente proxima do estado aprovado;
 - tokens e temas CSS em `wwwroot/css/`;
@@ -206,7 +209,7 @@ Implementado:
 - tela Busca aprovada e conectada a busca simples no banco local;
 - tela Configuracoes Gerais aprovada e conectada a dados gerais reais do banco local;
 - tela Configuracoes de Caminhos aprovada e conectada a caminhos configurados reais do banco local;
-- tela Configuracoes de Aparencia aprovada;
+- tela Configuracoes de Aparencia aprovada e conectada a preferencias reais de aparencia do banco local;
 - tela Modelo de Pastas aprovada;
 - tela Backup/Dados aprovada;
 - rota `/arquivos`;
@@ -228,7 +231,7 @@ Implementado:
 - busca simples no banco local com campo principal, sugestoes rapidas, resultados e resumo visual preservados;
 - Configuracoes Gerais com composicao fiel ao Stitch, navegacao secundaria, paineis de caminhos, rede, aparencia e programas padrao, usando dados gerais do banco local sem salvamento funcional pela UI;
 - Configuracoes de Caminhos com navegacao secundaria corrigida, diretorios principais e descoberta de rede, usando caminhos configurados reais do banco local sem salvamento funcional pela UI;
-- Configuracoes de Aparencia visual/mockada com selecao de tema, densidade da interface, cor de destaque e acoes visuais;
+- Configuracoes de Aparencia com selecao visual de tema, densidade da interface e cor de destaque conectada aos dados reais do banco local, ainda sem aplicar tema real e sem salvamento pela UI;
 - Backup/Dados visual/mockada com paineis de backup manual, backup automatico, exportacao/importacao e restauracao;
 - layout padronizado entre Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas e Backup/Dados;
 - navegacao secundaria de Configuracoes com `Backup` apontando para `/configuracoes/backup`;
@@ -287,9 +290,8 @@ Implementacao:
 
 - contrato de servico em `src/blueatelier.application/Contratos/IConfiguracoesServico.cs`;
 - servico de aplicacao em `src/blueatelier.application/Servicos/ConfiguracoesServico.cs`;
-- modelo de aplicacao de caminho em `src/blueatelier.application/Modelos/ConfiguracaoCaminhoResumo.cs`;
-- seed de configuracoes em `src/blueatelier.infrastructure/Persistencia/BlueAtelierSeed.cs`;
-- conexao da tela `/configuracoes/caminhos` ao servico em `src/blueatelier.app/Components/Pages/ConfiguracoesCaminhos.razor`;
+- modelo de aplicacao de aparencia em `src/blueatelier.application/Modelos/ConfiguracoesAparenciaResumo.cs`;
+- conexao da tela `/configuracoes/aparencia` ao servico em `src/blueatelier.app/Components/Pages/ConfiguracoesAparencia.razor`;
 - testes de configuracoes em `tests/blueatelier.tests/infrastructure/ConfiguracoesPersistenciaTests.cs`.
 
 Documentacao:
@@ -314,16 +316,20 @@ Documentacao:
 - O Bloco 7 - Favoritos, recorte 1, foi consolidado.
 - O Bloco 8 - Busca, recorte 1, foi consolidado.
 - O Bloco 9 - Configuracoes, recorte 1, foi consolidado.
-- O Bloco 9 - Configuracoes, recorte 2, foi iniciado para revisao.
+- O Bloco 9 - Configuracoes, recorte 2, foi consolidado.
+- O Bloco 9 - Configuracoes, recorte 3, foi consolidado.
 - O repositorio `ConfiguracoesRepositorio` implementa `IConfiguracoesRepositorio`.
 - O servico `ConfiguracoesServico` retorna `ConfiguracoesGeraisResumo`, sem expor entidade de dominio para Razor.
 - `/configuracoes` le dados gerais persistidos do banco local via servico de aplicacao.
 - `/configuracoes/caminhos` le caminhos configurados persistidos do banco local via servico de aplicacao.
+- `/configuracoes/aparencia` le preferencias de aparencia persistidas do banco local via servico de aplicacao.
 - O seed de configuracoes cria chaves gerais de forma idempotente.
 - O seed de caminhos configurados cria registros minimos de forma idempotente.
+- O seed de configuracoes mantem chaves de aparencia de forma idempotente.
 - Nenhum caminho real foi validado.
 - Nenhum arquivo externo foi lido ou escrito.
 - Nenhuma alteracao real de tema foi aplicada.
+- Nenhuma alteracao real de densidade ou cor de destaque foi aplicada.
 - O repositorio `ColecaoRepositorio` implementa `IColecaoRepositorio`.
 - O repositorio `ModeloRepositorio` implementa `IModeloRepositorio`.
 - O repositorio `ImagemModeloRepositorio` implementa `IImagemModeloRepositorio`.
@@ -391,6 +397,7 @@ Documentacao:
 - Nenhuma criacao real de pastas foi implementada.
 - Nenhuma leitura real de diretorios foi implementada.
 - Nenhuma gravacao real de configuracao foi implementada.
+- Nenhuma aplicacao real de tema, densidade ou cor foi implementada.
 - Nenhum backup real foi implementado.
 - Nenhuma exportacao real foi implementada.
 - Nenhuma importacao real foi implementada.
