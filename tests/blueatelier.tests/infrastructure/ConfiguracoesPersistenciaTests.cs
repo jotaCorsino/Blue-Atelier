@@ -1,6 +1,7 @@
 using BlueAtelier.Application.Modelos;
 using BlueAtelier.Application.Servicos;
 using BlueAtelier.Domain.Entidades;
+using BlueAtelier.Domain.Enums;
 using BlueAtelier.Infrastructure.Persistencia;
 using BlueAtelier.Infrastructure.Repositorios;
 using Microsoft.Data.Sqlite;
@@ -201,6 +202,179 @@ public sealed class ConfiguracoesPersistenciaTests
             var resumo = await servico.ObterGeraisAsync();
 
             Assert.Equal("Z:/caminho-inexistente/blueatelier", resumo.DiretorioRaiz);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Repositorio_DeveListarCaminhosPersistidos()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            await AplicarSeedAsync(opcoes);
+
+            var repositorio = new ConfiguracoesRepositorio(new TestDbContextFactory(opcoes));
+
+            var caminhos = await repositorio.ListarCaminhosAsync();
+
+            Assert.Contains(caminhos, caminho => caminho.Nome == "Raiz do atelier");
+            Assert.Contains(caminhos, caminho => caminho.Nome == "Modelos");
+            Assert.Contains(caminhos, caminho => caminho.Nome == "Backups");
+            Assert.Contains(caminhos, caminho => caminho.Nome == "Exporta\u00e7\u00f5es");
+            Assert.All(caminhos, caminho => Assert.IsType<CaminhoConfigurado>(caminho));
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarResumoDeCaminhos()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            await AplicarSeedAsync(opcoes);
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var caminhos = await servico.ListarCaminhosAsync();
+
+            Assert.Contains(caminhos, caminho =>
+                caminho.Nome == "Raiz do atelier"
+                && caminho.Tipo == "raiz"
+                && caminho.Caminho == "C:/BlueAtelier"
+                && caminho.StatusVisual == "Conectado"
+                && caminho.EhObrigatorio);
+            Assert.All(caminhos, caminho => Assert.IsType<ConfiguracaoCaminhoResumo>(caminho));
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Seed_DeveCriarCaminhosSemDuplicar()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                await BlueAtelierSeed.AplicarAsync(contexto);
+                await BlueAtelierSeed.AplicarAsync(contexto);
+            }
+
+            await using var consulta = new BlueAtelierDbContext(opcoes);
+
+            Assert.Equal(4, await consulta.CaminhosConfigurados.CountAsync());
+            Assert.Equal(1, await consulta.CaminhosConfigurados.CountAsync(item => item.Tipo == TipoCaminhoConfigurado.PrincipalAtelier));
+            Assert.Equal(1, await consulta.CaminhosConfigurados.CountAsync(item => item.Tipo == TipoCaminhoConfigurado.Modelos));
+            Assert.Equal(1, await consulta.CaminhosConfigurados.CountAsync(item => item.Tipo == TipoCaminhoConfigurado.Backup));
+            Assert.Equal(1, await consulta.CaminhosConfigurados.CountAsync(item => item.Tipo == TipoCaminhoConfigurado.Exportacao));
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarListaVaziaQuandoNaoHouverCaminhos()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+            }
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var caminhos = await servico.ListarCaminhosAsync();
+
+            Assert.Empty(caminhos);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeCaminhos_NaoExpoeEntidadeDeDominioParaUi()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            await AplicarSeedAsync(opcoes);
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var caminhos = await servico.ListarCaminhosAsync();
+            var primeiroCaminho = Assert.Single(caminhos, caminho => caminho.Tipo == "raiz");
+
+            Assert.IsType<ConfiguracaoCaminhoResumo>(primeiroCaminho);
+            Assert.IsNotType<CaminhoConfigurado>((object)primeiroCaminho);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeCaminhos_NaoValidaCaminhosReais()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                contexto.CaminhosConfigurados.Add(new CaminhoConfigurado
+                {
+                    Nome = "Caminho inexistente",
+                    Caminho = "Z:/caminho-inexistente/blueatelier",
+                    Tipo = TipoCaminhoConfigurado.Rede,
+                    EstaAtivo = true,
+                    AtualizadoEm = DateTimeOffset.UtcNow
+                });
+
+                await contexto.SaveChangesAsync();
+            }
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var caminhos = await servico.ListarCaminhosAsync();
+
+            Assert.Contains(caminhos, caminho =>
+                caminho.Nome == "Caminho inexistente"
+                && caminho.Caminho == "Z:/caminho-inexistente/blueatelier"
+                && caminho.StatusVisual == "Conectado");
         }
         finally
         {

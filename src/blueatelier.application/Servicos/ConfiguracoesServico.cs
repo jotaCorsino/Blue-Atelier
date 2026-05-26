@@ -2,6 +2,7 @@ using BlueAtelier.Application.Contratos;
 using BlueAtelier.Application.Modelos;
 using BlueAtelier.Domain.Contratos;
 using BlueAtelier.Domain.Entidades;
+using BlueAtelier.Domain.Enums;
 
 namespace BlueAtelier.Application.Servicos;
 
@@ -36,6 +37,16 @@ public sealed class ConfiguracoesServico(
             ObterUltimaAtualizacao(configuracoes));
     }
 
+    public async Task<IReadOnlyList<ConfiguracaoCaminhoResumo>> ListarCaminhosAsync(
+        CancellationToken cancellationToken = default)
+    {
+        var caminhos = await configuracoesRepositorio.ListarCaminhosAsync(cancellationToken);
+
+        return caminhos
+            .Select(MapearCaminho)
+            .ToList();
+    }
+
     private static string ObterValor(
         IReadOnlyDictionary<string, ConfiguracaoApp> configuracoes,
         string chave,
@@ -64,5 +75,67 @@ public sealed class ConfiguracoesServico(
         return configuracoes.Count == 0
             ? DateTimeOffset.UtcNow
             : configuracoes.Max(configuracao => configuracao.AtualizadoEm);
+    }
+
+    private static ConfiguracaoCaminhoResumo MapearCaminho(CaminhoConfigurado caminho)
+    {
+        return new ConfiguracaoCaminhoResumo(
+            caminho.Id,
+            caminho.Nome,
+            ObterTipoVisual(caminho.Tipo),
+            caminho.Caminho,
+            ObterDescricao(caminho.Tipo),
+            ObterStatusVisual(caminho),
+            EhObrigatorio(caminho.Tipo),
+            caminho.AtualizadoEm);
+    }
+
+    private static string ObterTipoVisual(TipoCaminhoConfigurado tipo)
+    {
+        return tipo switch
+        {
+            TipoCaminhoConfigurado.PrincipalAtelier => "raiz",
+            TipoCaminhoConfigurado.Colecoes => "colecoes",
+            TipoCaminhoConfigurado.Modelos => "modelos",
+            TipoCaminhoConfigurado.ImagensReferencias => "referencias",
+            TipoCaminhoConfigurado.ArquivosVinculados => "arquivos",
+            TipoCaminhoConfigurado.Exportacao => "exportacoes",
+            TipoCaminhoConfigurado.Rede => "rede",
+            TipoCaminhoConfigurado.Backup => "backups",
+            _ => "outro"
+        };
+    }
+
+    private static string ObterDescricao(TipoCaminhoConfigurado tipo)
+    {
+        return tipo switch
+        {
+            TipoCaminhoConfigurado.PrincipalAtelier => "Diretorio principal do atelier.",
+            TipoCaminhoConfigurado.Colecoes => "Pasta usada para organizar colecoes.",
+            TipoCaminhoConfigurado.Modelos => "Pasta principal dos modelos cadastrados.",
+            TipoCaminhoConfigurado.ImagensReferencias => "Pasta reservada para imagens e referencias.",
+            TipoCaminhoConfigurado.ArquivosVinculados => "Pasta reservada para arquivos vinculados.",
+            TipoCaminhoConfigurado.Exportacao => "Pasta reservada para exportacoes futuras.",
+            TipoCaminhoConfigurado.Rede => "Caminho de rede registrado como metadado.",
+            TipoCaminhoConfigurado.Backup => "Pasta local usada como destino visual de backups.",
+            _ => "Caminho configurado do atelier."
+        };
+    }
+
+    private static string ObterStatusVisual(CaminhoConfigurado caminho)
+    {
+        if (string.IsNullOrWhiteSpace(caminho.Caminho))
+        {
+            return "Ausente";
+        }
+
+        return caminho.EstaAtivo ? "Conectado" : "Offline";
+    }
+
+    private static bool EhObrigatorio(TipoCaminhoConfigurado tipo)
+    {
+        return tipo is TipoCaminhoConfigurado.PrincipalAtelier
+            or TipoCaminhoConfigurado.Modelos
+            or TipoCaminhoConfigurado.Backup;
     }
 }

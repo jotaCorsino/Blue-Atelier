@@ -2,11 +2,11 @@
 
 ## objetivo
 
-Registrar o Recorte 1 do Bloco 9 da fase funcional do Blue Atelier, conectando Configuracoes Gerais a dados reais de configuracao no banco local.
+Registrar os primeiros recortes do Bloco 9 da fase funcional do Blue Atelier, conectando Configuracoes Gerais e Configuracoes de Caminhos a dados reais do banco local.
 
-Este recorte trabalha apenas com dados persistidos no SQLite. Ele nao acessa o sistema operacional, nao valida caminhos reais, nao altera tema real do app, nao le ou escreve arquivos externos e nao implementa salvamento pela UI.
+Estes recortes trabalham apenas com dados persistidos no SQLite. Eles nao acessam o sistema operacional, nao validam caminhos reais, nao alteram tema real do app, nao leem ou escrevem arquivos externos e nao implementam salvamento pela UI.
 
-## recorte implementado
+## recorte 1 implementado
 
 O Recorte 1 implementa:
 
@@ -196,6 +196,145 @@ Foram adicionados testes para:
 - servico aplicar valores padrao quando chaves nao existem;
 - servico nao expor entidade de dominio para UI;
 - servico nao validar caminhos reais.
+
+## recorte 2 - caminhos configurados
+
+O Recorte 2 conecta Configuracoes de Caminhos aos dados reais de caminhos configurados no banco local, preservando o visual aprovado.
+
+### objetivo
+
+Este recorte implementa apenas:
+
+- leitura real dos caminhos configurados persistidos;
+- modelo de aplicacao para item de caminho configurado;
+- metodo no servico de Configuracoes para listar caminhos;
+- seed idempotente com caminhos minimos;
+- conexao da tela `/configuracoes/caminhos` com dados vindos do banco local;
+- estado vazio simples quando nao existem caminhos configurados;
+- testes de repositorio, servico e seed.
+
+### arquivos criados
+
+Foi criado:
+
+- `src/blueatelier.application/Modelos/ConfiguracaoCaminhoResumo.cs`.
+
+### arquivos alterados
+
+Foram alterados:
+
+- `src/blueatelier.application/Contratos/IConfiguracoesServico.cs`;
+- `src/blueatelier.application/Servicos/ConfiguracoesServico.cs`;
+- `src/blueatelier.infrastructure/Persistencia/BlueAtelierSeed.cs`;
+- `src/blueatelier.app/Components/Pages/ConfiguracoesCaminhos.razor`;
+- `tests/blueatelier.tests/infrastructure/ConfiguracoesPersistenciaTests.cs`;
+- `docs/03-estado-atual.md`;
+- `docs/04-proximos-documentos.md`;
+- `docs/54-bloco-9-configuracoes.md`.
+
+Nenhum arquivo em `src/blueatelier.app/wwwroot/css` foi alterado.
+
+### metodo criado no servico
+
+O contrato `IConfiguracoesServico` passou a expor:
+
+```txt
+ListarCaminhosAsync
+```
+
+O metodo usa `IConfiguracoesRepositorio.ListarCaminhosAsync` e retorna `ConfiguracaoCaminhoResumo`, sem expor entidades de dominio diretamente para Razor Components.
+
+### modelo de aplicacao criado
+
+Foi criado `ConfiguracaoCaminhoResumo`, contendo:
+
+- `Id`;
+- `Nome`;
+- `Tipo`;
+- `Caminho`;
+- `Descricao`;
+- `StatusVisual`;
+- `EhObrigatorio`;
+- `AtualizadoEm`.
+
+Como a entidade `CaminhoConfigurado` ainda nao possui descricao ou status detalhado, esses dados sao derivados pelo servico a partir de `Tipo`, `Caminho` e `EstaAtivo`. Essa derivacao nao valida diretorios reais.
+
+### seed de caminhos configurados
+
+O seed foi ampliado de forma idempotente para criar:
+
+- `Raiz do atelier` com caminho `C:/BlueAtelier`;
+- `Modelos` com caminho `C:/BlueAtelier/Modelos`;
+- `Backups` com caminho `C:/BlueAtelier/Backups`;
+- `Exportacoes` com caminho `C:/BlueAtelier/Exportacoes`.
+
+Esses caminhos sao apenas texto persistido. O seed nao verifica se eles existem, nao le diretorios e nao cria pastas.
+
+### tela /configuracoes/caminhos conectada ao banco
+
+A tela `ConfiguracoesCaminhos.razor`, rota `/configuracoes/caminhos`, passou a carregar dados pelo `IConfiguracoesServico.ListarCaminhosAsync`.
+
+Foram preservados:
+
+- markup principal;
+- classes CSS existentes;
+- cabecalho padronizado;
+- navegacao secundaria de Configuracoes;
+- cards e paineis;
+- inputs/campos visuais;
+- indicadores visuais de status;
+- botoes visuais;
+- sidebar e topbar.
+
+Os dados reais usados na tela sao:
+
+- nome do caminho;
+- caminho local como texto;
+- status visual derivado do metadado persistido;
+- icone e acao visual derivados do tipo/status.
+
+Se nao houver caminhos, a tela exibe um `AppStateBlock` compacto.
+
+### o que continua mockado no recorte 2
+
+Continuam mockados:
+
+- botao alterar;
+- botao testar;
+- botao procurar/criar;
+- botao salvar alteracoes;
+- botao restaurar padroes;
+- validacao real de caminhos;
+- status real de pasta existente ou inexistente;
+- status real de rede;
+- deteccao de disco;
+- leitura de diretorios;
+- criacao de diretorios;
+- abertura de pasta;
+- salvamento pela UI.
+
+### confirmacoes do recorte 2
+
+Confirmado:
+
+- nao houve validacao real de caminhos;
+- nenhum diretorio real foi lido, criado ou aberto;
+- nenhum arquivo externo foi lido ou escrito;
+- nao houve salvamento pela UI;
+- nao houve CRUD visual;
+- nao houve alteracao de CSS visual;
+- nenhuma area removida foi reintroduzida.
+
+### testes adicionados no recorte 2
+
+Foram adicionados testes para:
+
+- `ConfiguracoesRepositorio.ListarCaminhosAsync` retornar caminhos persistidos;
+- `ConfiguracoesServico.ListarCaminhosAsync` retornar `ConfiguracaoCaminhoResumo`;
+- seed criar caminhos configurados sem duplicar;
+- servico retornar lista vazia quando nao houver caminhos;
+- servico nao expor entidade de dominio para UI;
+- servico retornar caminho inexistente como texto, sem validar sistema de arquivos.
 
 ## validacoes executadas
 

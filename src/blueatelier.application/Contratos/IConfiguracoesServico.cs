@@ -6,4 +6,7 @@ public interface IConfiguracoesServico
 {
     Task<ConfiguracoesGeraisResumo> ObterGeraisAsync(
         CancellationToken cancellationToken = default);
+
+    Task<IReadOnlyList<ConfiguracaoCaminhoResumo>> ListarCaminhosAsync(
+        CancellationToken cancellationToken = default);
 }

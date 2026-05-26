@@ -60,6 +60,8 @@ Foi consolidada uma correcao transversal de consistencia visual e textual dos ca
 
 O Bloco 9 foi consolidado no Recorte 1 de Configuracoes. A tela `/configuracoes` passou a ler dados gerais de configuracao do banco local, preservando o visual aprovado, ainda sem salvar alteracoes pela UI, sem alterar tema real e sem acessar o sistema operacional.
 
+O Recorte 2 do Bloco 9 foi iniciado para revisao. A tela `/configuracoes/caminhos` passou a ler caminhos configurados persistidos no banco local, ainda sem salvar alteracoes pela UI, sem seletor de pasta, sem validar caminhos reais e sem acessar o sistema operacional.
+
 ## repositorio remoto
 
 ```txt
@@ -68,18 +70,17 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa consolidou o Bloco 9 - Configuracoes / Recorte 1:
+A ultima tarefa implementada para revisao iniciou o Bloco 9 - Configuracoes / Recorte 2:
 
-- `ConfiguracoesRepositorio` foi criado para ler configuracoes persistidas no banco local;
-- `ConfiguracoesServico` foi criado para retornar `ConfiguracoesGeraisResumo`;
-- o seed passou a garantir chaves gerais de configuracao de forma idempotente;
-- `/configuracoes` passou a ler dados gerais pelo servico de aplicacao;
-- o cabecalho padronizado recente de Configuracoes foi preservado;
+- `ConfiguracoesServico` passou a retornar `ConfiguracaoCaminhoResumo`;
+- o seed passou a garantir caminhos configurados minimos de forma idempotente;
+- `/configuracoes/caminhos` passou a ler caminhos persistidos pelo servico de aplicacao;
+- o cabecalho padronizado recente de Configuracoes de Caminhos foi preservado;
 - nenhum CSS visual foi alterado;
 - sidebar e topbar nao foram alteradas;
 - nenhum caminho real foi validado;
+- nenhum diretorio real foi lido, criado ou aberto;
 - nenhum arquivo externo foi lido ou escrito;
-- nenhuma alteracao real de tema foi aplicada;
 - nenhum salvamento pela UI ou CRUD visual foi implementado;
 - nenhuma reintroducao das areas removidas.
 
@@ -186,6 +187,7 @@ Implementado:
 - modelo de aplicacao `FavoritoBarraItem`;
 - modelo de aplicacao `BuscaResultado`;
 - modelo de aplicacao `ConfiguracoesGeraisResumo`;
+- modelo de aplicacao `ConfiguracaoCaminhoResumo`;
 - inicializador `BlueAtelierBancoInicializador` para migration e seed;
 - seed de colecoes suficiente para manter a tela `/colecoes` visualmente proxima do estado aprovado;
 - tokens e temas CSS em `wwwroot/css/`;
@@ -203,7 +205,7 @@ Implementado:
 - tela Favoritos aprovada com barra de favoritos conectada a pastas e links reais do banco local;
 - tela Busca aprovada e conectada a busca simples no banco local;
 - tela Configuracoes Gerais aprovada e conectada a dados gerais reais do banco local;
-- tela Configuracoes de Caminhos aprovada;
+- tela Configuracoes de Caminhos aprovada e conectada a caminhos configurados reais do banco local;
 - tela Configuracoes de Aparencia aprovada;
 - tela Modelo de Pastas aprovada;
 - tela Backup/Dados aprovada;
@@ -225,7 +227,7 @@ Implementado:
 - menu de contexto de Favoritos fechando ao clicar fora, preservando cliques internos, troca por outro favorito no botao direito e fechamento ao selecionar uma opcao;
 - busca simples no banco local com campo principal, sugestoes rapidas, resultados e resumo visual preservados;
 - Configuracoes Gerais com composicao fiel ao Stitch, navegacao secundaria, paineis de caminhos, rede, aparencia e programas padrao, usando dados gerais do banco local sem salvamento funcional pela UI;
-- Configuracoes de Caminhos visual/mockada com navegacao secundaria corrigida, diretorios principais e descoberta de rede;
+- Configuracoes de Caminhos com navegacao secundaria corrigida, diretorios principais e descoberta de rede, usando caminhos configurados reais do banco local sem salvamento funcional pela UI;
 - Configuracoes de Aparencia visual/mockada com selecao de tema, densidade da interface, cor de destaque e acoes visuais;
 - Backup/Dados visual/mockada com paineis de backup manual, backup automatico, exportacao/importacao e restauracao;
 - layout padronizado entre Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas e Backup/Dados;
@@ -283,14 +285,11 @@ Ainda nao implementado:
 
 Implementacao:
 
-- repositorio de configuracoes em `src/blueatelier.infrastructure/Repositorios/ConfiguracoesRepositorio.cs`;
 - contrato de servico em `src/blueatelier.application/Contratos/IConfiguracoesServico.cs`;
 - servico de aplicacao em `src/blueatelier.application/Servicos/ConfiguracoesServico.cs`;
-- modelo de aplicacao em `src/blueatelier.application/Modelos/ConfiguracoesGeraisResumo.cs`;
+- modelo de aplicacao de caminho em `src/blueatelier.application/Modelos/ConfiguracaoCaminhoResumo.cs`;
 - seed de configuracoes em `src/blueatelier.infrastructure/Persistencia/BlueAtelierSeed.cs`;
-- registro de dependencias em `src/blueatelier.infrastructure/DependencyInjection.cs`;
-- registro do servico no app em `src/blueatelier.app/MauiProgram.cs`;
-- conexao da tela `/configuracoes` ao servico em `src/blueatelier.app/Components/Pages/Configuracoes.razor`;
+- conexao da tela `/configuracoes/caminhos` ao servico em `src/blueatelier.app/Components/Pages/ConfiguracoesCaminhos.razor`;
 - testes de configuracoes em `tests/blueatelier.tests/infrastructure/ConfiguracoesPersistenciaTests.cs`.
 
 Documentacao:
@@ -315,10 +314,13 @@ Documentacao:
 - O Bloco 7 - Favoritos, recorte 1, foi consolidado.
 - O Bloco 8 - Busca, recorte 1, foi consolidado.
 - O Bloco 9 - Configuracoes, recorte 1, foi consolidado.
+- O Bloco 9 - Configuracoes, recorte 2, foi iniciado para revisao.
 - O repositorio `ConfiguracoesRepositorio` implementa `IConfiguracoesRepositorio`.
 - O servico `ConfiguracoesServico` retorna `ConfiguracoesGeraisResumo`, sem expor entidade de dominio para Razor.
 - `/configuracoes` le dados gerais persistidos do banco local via servico de aplicacao.
+- `/configuracoes/caminhos` le caminhos configurados persistidos do banco local via servico de aplicacao.
 - O seed de configuracoes cria chaves gerais de forma idempotente.
+- O seed de caminhos configurados cria registros minimos de forma idempotente.
 - Nenhum caminho real foi validado.
 - Nenhum arquivo externo foi lido ou escrito.
 - Nenhuma alteracao real de tema foi aplicada.

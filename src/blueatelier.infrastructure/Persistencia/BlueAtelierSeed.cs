@@ -33,6 +33,10 @@ public static class BlueAtelierSeed
     private static readonly Guid ReferenciasFavoritasId = Guid.Parse("f07ac854-b9f3-4d1c-b033-e4803b5241a5");
     private static readonly Guid Impressao3DFavoritosId = Guid.Parse("f36fd34f-5604-4386-8202-d1716fa1531b");
     private static readonly Guid LojasFavoritasId = Guid.Parse("9365f2fb-e827-4319-841d-23f917929a8a");
+    private static readonly Guid CaminhoRaizAtelierId = Guid.Parse("d7e2a57c-5df1-4d98-9655-17a3b40eb926");
+    private static readonly Guid CaminhoModelosId = Guid.Parse("bd3e4e20-214d-4035-8b07-9b77f9bb3b2a");
+    private static readonly Guid CaminhoBackupsId = Guid.Parse("1fdcf930-6134-4274-80b5-76d2ac4e59c8");
+    private static readonly Guid CaminhoExportacoesId = Guid.Parse("eff52d2f-40af-4cdd-9a9b-ff9659441644");
 
     public static async Task AplicarAsync(BlueAtelierDbContext contexto, CancellationToken cancellationToken = default)
     {
@@ -509,6 +513,46 @@ public static class BlueAtelierSeed
         await CriarConfiguracaoSeNaoExistirAsync(contexto, "caminhos.backups", "C:/BlueAtelier/Backups", agora, cancellationToken);
         await CriarConfiguracaoSeNaoExistirAsync(contexto, "backup.automatico", "false", agora, cancellationToken);
 
+        await CriarCaminhoSeNaoExistirAsync(
+            contexto,
+            CaminhoRaizAtelierId,
+            "Raiz do atelier",
+            "C:/BlueAtelier",
+            TipoCaminhoConfigurado.PrincipalAtelier,
+            true,
+            agora,
+            cancellationToken);
+
+        await CriarCaminhoSeNaoExistirAsync(
+            contexto,
+            CaminhoModelosId,
+            "Modelos",
+            "C:/BlueAtelier/Modelos",
+            TipoCaminhoConfigurado.Modelos,
+            true,
+            agora,
+            cancellationToken);
+
+        await CriarCaminhoSeNaoExistirAsync(
+            contexto,
+            CaminhoBackupsId,
+            "Backups",
+            "C:/BlueAtelier/Backups",
+            TipoCaminhoConfigurado.Backup,
+            true,
+            agora,
+            cancellationToken);
+
+        await CriarCaminhoSeNaoExistirAsync(
+            contexto,
+            CaminhoExportacoesId,
+            "Exporta\u00e7\u00f5es",
+            "C:/BlueAtelier/Exportacoes",
+            TipoCaminhoConfigurado.Exportacao,
+            true,
+            agora,
+            cancellationToken);
+
         await contexto.SaveChangesAsync(cancellationToken);
     }
 
@@ -745,6 +789,35 @@ public static class BlueAtelierSeed
         {
             Chave = chave,
             Valor = valor,
+            AtualizadoEm = agora
+        });
+    }
+
+    private static async Task CriarCaminhoSeNaoExistirAsync(
+        BlueAtelierDbContext contexto,
+        Guid id,
+        string nome,
+        string caminho,
+        TipoCaminhoConfigurado tipo,
+        bool estaAtivo,
+        DateTimeOffset agora,
+        CancellationToken cancellationToken)
+    {
+        var caminhoExiste = await contexto.CaminhosConfigurados
+            .AnyAsync(item => item.Tipo == tipo || item.Nome == nome, cancellationToken);
+
+        if (caminhoExiste)
+        {
+            return;
+        }
+
+        contexto.CaminhosConfigurados.Add(new CaminhoConfigurado
+        {
+            Id = id,
+            Nome = nome,
+            Caminho = caminho,
+            Tipo = tipo,
+            EstaAtivo = estaAtivo,
             AtualizadoEm = agora
         });
     }
