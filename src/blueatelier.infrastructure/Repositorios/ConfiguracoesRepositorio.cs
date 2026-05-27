@@ -98,11 +98,14 @@ public sealed class ConfiguracoesRepositorio(
     {
         await using var contexto = dbContextFactory.CreateDbContext();
 
-        return await contexto.ModelosPastas
+        var modelos = await contexto.ModelosPastas
             .AsNoTracking()
+            .ToListAsync(cancellationToken);
+
+        return modelos
             .OrderByDescending(modeloPastas => modeloPastas.AtualizadoEm)
             .ThenBy(modeloPastas => modeloPastas.Nome)
-            .FirstOrDefaultAsync(cancellationToken);
+            .FirstOrDefault();
     }
 
     public async Task<ModeloPastas> SalvarModeloPastasAsync(

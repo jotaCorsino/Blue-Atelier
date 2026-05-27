@@ -568,6 +568,183 @@ public sealed class ConfiguracoesPersistenciaTests
         }
     }
 
+    [Fact]
+    public async Task Repositorio_DeveObterModeloPastasPersistido()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            await AplicarSeedAsync(opcoes);
+
+            var repositorio = new ConfiguracoesRepositorio(new TestDbContextFactory(opcoes));
+
+            var modeloPastas = await repositorio.ObterModeloPastasAsync();
+
+            Assert.NotNull(modeloPastas);
+            Assert.Equal("Modelo padr\u00e3o do atelier", modeloPastas.Nome);
+            Assert.Contains("modelo/original/", modeloPastas.Estrutura);
+            Assert.IsType<ModeloPastas>(modeloPastas);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarModeloPastasResumo()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            await AplicarSeedAsync(opcoes);
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var resumo = await servico.ObterModeloPastasAsync();
+
+            Assert.NotNull(resumo);
+            Assert.IsType<ModeloPastasResumo>(resumo);
+            Assert.Equal("Modelo padr\u00e3o do atelier", resumo.Nome);
+            Assert.Contains("modelo/original/", resumo.Estrutura);
+            Assert.Contains(resumo.Itens, item =>
+                item.Nome == "modelo"
+                && item.CaminhoRelativo == "modelo/"
+                && item.Nivel == 0
+                && item.Tipo == "raiz"
+                && item.EhObrigatorio);
+            Assert.Contains(resumo.Itens, item =>
+                item.Nome == "original"
+                && item.CaminhoRelativo == "modelo/original/"
+                && item.Nivel == 1
+                && item.Tipo == "pasta");
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Seed_DeveCriarModeloPastasSemDuplicar()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                await BlueAtelierSeed.AplicarAsync(contexto);
+                await BlueAtelierSeed.AplicarAsync(contexto);
+            }
+
+            await using var consulta = new BlueAtelierDbContext(opcoes);
+
+            Assert.Equal(1, await consulta.ModelosPastas.CountAsync());
+            Assert.Equal(1, await consulta.ModelosPastas.CountAsync(item => item.Nome == "Modelo padr\u00e3o do atelier"));
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeveRetornarNullQuandoNaoHouverModeloPastas()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+            }
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var resumo = await servico.ObterModeloPastasAsync();
+
+            Assert.Null(resumo);
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeModeloPastas_NaoExpoeEntidadeDeDominioParaUi()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+            await AplicarSeedAsync(opcoes);
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var resumo = await servico.ObterModeloPastasAsync();
+
+            Assert.NotNull(resumo);
+            Assert.IsType<ModeloPastasResumo>(resumo);
+            Assert.IsNotType<ModeloPastas>((object)resumo);
+            Assert.All(resumo.Itens, item => Assert.IsType<ModeloPastasItemResumo>(item));
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
+    [Fact]
+    public async Task Servico_DeModeloPastas_NaoCriaPastasReais()
+    {
+        var caminhoBanco = CriarCaminhoBancoTemporario();
+
+        try
+        {
+            var opcoes = BlueAtelierDbContextFactory.CriarOpcoesSqlite(caminhoBanco);
+
+            await using (var contexto = new BlueAtelierDbContext(opcoes))
+            {
+                await contexto.Database.MigrateAsync();
+                contexto.ModelosPastas.Add(new ModeloPastas
+                {
+                    Nome = "Modelo com caminho inexistente",
+                    Estrutura = "pasta-inexistente/\npasta-inexistente/subpasta/",
+                    AtualizadoEm = DateTimeOffset.UtcNow
+                });
+
+                await contexto.SaveChangesAsync();
+            }
+
+            var servico = CriarConfiguracoesServico(opcoes);
+
+            var resumo = await servico.ObterModeloPastasAsync();
+
+            Assert.NotNull(resumo);
+            Assert.Equal("pasta-inexistente/\npasta-inexistente/subpasta/", resumo.Estrutura);
+            Assert.Contains(resumo.Itens, item =>
+                item.CaminhoRelativo == "pasta-inexistente/subpasta/"
+                && item.Nome == "subpasta");
+        }
+        finally
+        {
+            RemoverBancoTemporario(caminhoBanco);
+        }
+    }
+
     private static async Task AplicarSeedAsync(DbContextOptions<BlueAtelierDbContext> opcoes)
     {
         await using var contexto = new BlueAtelierDbContext(opcoes);

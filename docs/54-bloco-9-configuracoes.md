@@ -2,9 +2,9 @@
 
 ## objetivo
 
-Registrar os primeiros recortes do Bloco 9 da fase funcional do Blue Atelier, conectando Configuracoes Gerais, Configuracoes de Caminhos e Configuracoes de Aparencia a dados reais do banco local.
+Registrar os primeiros recortes do Bloco 9 da fase funcional do Blue Atelier, conectando Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia e Modelo de Pastas a dados reais do banco local.
 
-Estes recortes trabalham apenas com dados persistidos no SQLite. Eles nao acessam o sistema operacional, nao validam caminhos reais, nao alteram tema real do app, nao alteram CSS visual, nao leem ou escrevem arquivos externos e nao implementam salvamento pela UI.
+Estes recortes trabalham apenas com dados persistidos no SQLite. Eles nao acessam o sistema operacional, nao validam caminhos reais, nao criam pastas reais, nao alteram tema real do app, nao alteram CSS visual, nao leem ou escrevem arquivos externos e nao implementam salvamento pela UI.
 
 ## recorte 1 implementado
 
@@ -467,6 +467,158 @@ Foram adicionados testes para:
 - servico nao alterar tema real nem depender de CSS;
 - seed manter chaves de aparencia sem duplicar.
 
+## recorte 4 - modelo de pastas
+
+O Recorte 4 conecta Modelo de Pastas aos dados reais de estrutura persistida no banco local, preservando o visual aprovado.
+
+Status: consolidado.
+
+### objetivo
+
+Este recorte implementa apenas:
+
+- leitura real do modelo de pastas persistido;
+- modelos de aplicacao para Modelo de Pastas e seus itens;
+- metodo no servico de Configuracoes para obter modelo de pastas;
+- seed idempotente com modelo de pastas inicial;
+- conexao da tela `/configuracoes/modelo-pastas` com dados vindos do banco local;
+- estado vazio simples quando nao existe modelo de pastas;
+- testes de repositorio, servico e seed.
+
+### arquivos criados
+
+Foram criados:
+
+- `src/blueatelier.application/Modelos/ModeloPastasResumo.cs`;
+- `src/blueatelier.application/Modelos/ModeloPastasItemResumo.cs`.
+
+### arquivos alterados
+
+Foram alterados:
+
+- `src/blueatelier.application/Contratos/IConfiguracoesServico.cs`;
+- `src/blueatelier.application/Servicos/ConfiguracoesServico.cs`;
+- `src/blueatelier.infrastructure/Persistencia/BlueAtelierSeed.cs`;
+- `src/blueatelier.app/Components/Pages/ConfiguracoesModeloPastas.razor`;
+- `tests/blueatelier.tests/infrastructure/ConfiguracoesPersistenciaTests.cs`;
+- `docs/03-estado-atual.md`;
+- `docs/04-proximos-documentos.md`;
+- `docs/54-bloco-9-configuracoes.md`.
+
+Nenhum arquivo em `src/blueatelier.app/wwwroot/css` foi alterado.
+
+### metodo criado no servico
+
+O contrato `IConfiguracoesServico` passou a expor:
+
+```txt
+ObterModeloPastasAsync
+```
+
+O metodo usa `IConfiguracoesRepositorio.ObterModeloPastasAsync` e retorna `ModeloPastasResumo`, sem expor entidades de dominio diretamente para Razor Components.
+
+### modelos de aplicacao criados
+
+Foi criado `ModeloPastasResumo`, contendo:
+
+- `Id`;
+- `Nome`;
+- `Descricao`;
+- `Estrutura`;
+- `Itens`;
+- `AtualizadoEm`.
+
+Foi criado `ModeloPastasItemResumo`, contendo:
+
+- `Nome`;
+- `CaminhoRelativo`;
+- `Nivel`;
+- `Tipo`;
+- `Ordem`;
+- `EhObrigatorio`.
+
+### seed de modelo de pastas
+
+O seed foi ampliado de forma idempotente para criar:
+
+- nome `Modelo padrao do atelier`;
+- estrutura textual:
+  - `modelo/`;
+  - `modelo/original/`;
+  - `modelo/preparado/`;
+  - `imagens/`;
+  - `imagens/referencias/`;
+  - `imagens/progresso/`;
+  - `imagens/final/`;
+  - `documentos/`;
+  - `exportacoes/`.
+
+Essas pastas sao apenas texto persistido. O seed nao cria diretorios reais, nao le diretorios e nao valida caminhos.
+
+### tela /configuracoes/modelo-pastas conectada ao banco
+
+A tela `ConfiguracoesModeloPastas.razor`, rota `/configuracoes/modelo-pastas`, passou a carregar dados pelo `IConfiguracoesServico.ObterModeloPastasAsync`.
+
+Foram preservados:
+
+- markup principal;
+- classes CSS existentes;
+- cabecalho padronizado;
+- navegacao secundaria de Configuracoes;
+- cards e paineis;
+- arvore/lista visual de pastas;
+- botoes visuais;
+- sidebar e topbar.
+
+Os dados reais usados na tela sao:
+
+- nome das pastas;
+- estrutura textual persistida;
+- itens derivados para exibicao visual;
+- pre-visualizacao textual do caminho baseada no metadado persistido.
+
+Se nao houver modelo de pastas, a tela exibe um `AppStateBlock` compacto.
+
+### o que continua mockado no recorte 4
+
+Continuam mockados:
+
+- botao adicionar pasta;
+- botao remover pasta;
+- botao editar;
+- botao salvar alteracoes;
+- botao restaurar padrao;
+- preview real no sistema de arquivos;
+- criacao real de diretorios;
+- validacao real de caminhos;
+- aplicacao do modelo em modelos reais;
+- leitura de diretorios;
+- escrita de arquivos externos;
+- salvamento pela UI.
+
+### confirmacoes do recorte 4
+
+Confirmado:
+
+- nao houve criacao real de pastas;
+- nenhum diretorio real foi lido;
+- nenhum arquivo externo foi lido ou escrito;
+- nao houve salvamento pela UI;
+- nao houve CRUD visual;
+- nao houve alteracao de CSS visual;
+- nenhuma area removida foi reintroduzida.
+
+### testes adicionados no recorte 4
+
+Foram adicionados testes para:
+
+- `ConfiguracoesRepositorio.ObterModeloPastasAsync` retornar modelo persistido;
+- `ConfiguracoesServico.ObterModeloPastasAsync` retornar `ModeloPastasResumo`;
+- seed criar modelo de pastas sem duplicar;
+- servico retornar `null` quando nao houver modelo de pastas;
+- servico nao expor entidade de dominio para UI;
+- servico retornar estrutura persistida como metadado, sem criar pastas reais.
+
 ## validacoes executadas
 
 Este recorte foi validado com:
@@ -485,6 +637,6 @@ Resultado observado:
 
 ## proxima etapa sugerida
 
-Apos revisao do Recorte 3 do Bloco 9, a proxima etapa sugerida e continuar Configuracoes em recortes pequenos, ainda sem redesenhar telas e sem acessar o sistema operacional.
+Apos revisao do Recorte 4 do Bloco 9, a proxima etapa sugerida e continuar Configuracoes em recortes pequenos, ainda sem redesenhar telas e sem acessar o sistema operacional.
 
-Configurar caminhos com seletor real, validar diretorios, aplicar tema real, salvar preferencias pela UI e integrar backup real devem permanecer para recortes especificos e aprovados separadamente.
+Configurar caminhos com seletor real, validar diretorios, criar pastas reais, aplicar tema real, salvar preferencias pela UI e integrar backup real devem permanecer para recortes especificos e aprovados separadamente.

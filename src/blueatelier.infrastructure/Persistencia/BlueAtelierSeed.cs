@@ -37,6 +37,7 @@ public static class BlueAtelierSeed
     private static readonly Guid CaminhoModelosId = Guid.Parse("bd3e4e20-214d-4035-8b07-9b77f9bb3b2a");
     private static readonly Guid CaminhoBackupsId = Guid.Parse("1fdcf930-6134-4274-80b5-76d2ac4e59c8");
     private static readonly Guid CaminhoExportacoesId = Guid.Parse("eff52d2f-40af-4cdd-9a9b-ff9659441644");
+    private static readonly Guid ModeloPastasPadraoId = Guid.Parse("30adf9db-bb57-4587-8aa3-e36d08a6ac78");
 
     public static async Task AplicarAsync(BlueAtelierDbContext contexto, CancellationToken cancellationToken = default)
     {
@@ -553,6 +554,14 @@ public static class BlueAtelierSeed
             agora,
             cancellationToken);
 
+        await CriarModeloPastasSeNaoExistirAsync(
+            contexto,
+            ModeloPastasPadraoId,
+            "Modelo padr\u00e3o do atelier",
+            CriarEstruturaModeloPastasPadrao(),
+            agora,
+            cancellationToken);
+
         await contexto.SaveChangesAsync(cancellationToken);
     }
 
@@ -820,5 +829,48 @@ public static class BlueAtelierSeed
             EstaAtivo = estaAtivo,
             AtualizadoEm = agora
         });
+    }
+
+    private static async Task CriarModeloPastasSeNaoExistirAsync(
+        BlueAtelierDbContext contexto,
+        Guid id,
+        string nome,
+        string estrutura,
+        DateTimeOffset agora,
+        CancellationToken cancellationToken)
+    {
+        var modeloExiste = await contexto.ModelosPastas
+            .AnyAsync(item => item.Id == id || item.Nome == nome, cancellationToken);
+
+        if (modeloExiste)
+        {
+            return;
+        }
+
+        contexto.ModelosPastas.Add(new ModeloPastas
+        {
+            Id = id,
+            Nome = nome,
+            Estrutura = estrutura,
+            AtualizadoEm = agora
+        });
+    }
+
+    private static string CriarEstruturaModeloPastasPadrao()
+    {
+        return string.Join(
+            "\n",
+            new[]
+            {
+                "modelo/",
+                "modelo/original/",
+                "modelo/preparado/",
+                "imagens/",
+                "imagens/referencias/",
+                "imagens/progresso/",
+                "imagens/final/",
+                "documentos/",
+                "exportacoes/"
+            });
     }
 }

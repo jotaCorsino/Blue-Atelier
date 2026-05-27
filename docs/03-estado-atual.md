@@ -64,6 +64,8 @@ O Recorte 2 do Bloco 9 foi consolidado para conectar Configuracoes de Caminhos a
 
 O Recorte 3 do Bloco 9 foi consolidado para conectar Configuracoes de Aparencia aos dados reais do banco local. A tela `/configuracoes/aparencia` passou a ler preferencias de aparencia persistidas, ainda sem salvar alteracoes pela UI, sem aplicar tema real, sem alterar CSS visual e sem acessar o sistema operacional.
 
+O Recorte 4 do Bloco 9 foi consolidado. A tela `/configuracoes/modelo-pastas` passou a ler o modelo de pastas persistido no banco local, ainda sem salvar alteracoes pela UI, sem criar pastas reais, sem ler diretorios reais, sem validar caminhos reais e sem acessar o sistema operacional.
+
 ## repositorio remoto
 
 ```txt
@@ -72,16 +74,17 @@ https://github.com/jotaCorsino/Blue-Atelier.git
 
 ## ultima tarefa concluida
 
-A ultima tarefa consolidada foi o Bloco 9 - Configuracoes / Recorte 3:
+A ultima tarefa implementada para revisao iniciou o Bloco 9 - Configuracoes / Recorte 4:
 
-- `ConfiguracoesServico` passou a retornar `ConfiguracoesAparenciaResumo`;
-- `/configuracoes/aparencia` passou a ler `app.tema`, `app.densidade` e `app.corDestaque` pelo servico de aplicacao;
-- a selecao visual de tema, densidade e cor de destaque passou a refletir dados persistidos;
-- o cabecalho padronizado recente de Configuracoes de Aparencia foi preservado;
+- `ConfiguracoesServico` passou a retornar `ModeloPastasResumo`;
+- o seed passou a garantir um modelo de pastas inicial de forma idempotente;
+- `/configuracoes/modelo-pastas` passou a ler a estrutura de pastas persistida pelo servico de aplicacao;
+- o cabecalho padronizado recente de Modelo de Pastas foi preservado;
 - nenhum CSS visual foi alterado;
 - sidebar e topbar nao foram alteradas;
-- nenhum tema real foi aplicado;
-- nenhuma alteracao real de densidade ou cor foi aplicada;
+- nenhuma pasta real foi criada;
+- nenhum diretorio real foi lido;
+- nenhum caminho real foi validado;
 - nenhum arquivo externo foi lido ou escrito;
 - nenhum salvamento pela UI ou CRUD visual foi implementado;
 - nenhuma reintroducao das areas removidas.
@@ -191,6 +194,8 @@ Implementado:
 - modelo de aplicacao `ConfiguracoesGeraisResumo`;
 - modelo de aplicacao `ConfiguracaoCaminhoResumo`;
 - modelo de aplicacao `ConfiguracoesAparenciaResumo`;
+- modelo de aplicacao `ModeloPastasResumo`;
+- modelo de aplicacao `ModeloPastasItemResumo`;
 - inicializador `BlueAtelierBancoInicializador` para migration e seed;
 - seed de colecoes suficiente para manter a tela `/colecoes` visualmente proxima do estado aprovado;
 - tokens e temas CSS em `wwwroot/css/`;
@@ -210,7 +215,7 @@ Implementado:
 - tela Configuracoes Gerais aprovada e conectada a dados gerais reais do banco local;
 - tela Configuracoes de Caminhos aprovada e conectada a caminhos configurados reais do banco local;
 - tela Configuracoes de Aparencia aprovada e conectada a preferencias reais de aparencia do banco local;
-- tela Modelo de Pastas aprovada;
+- tela Modelo de Pastas aprovada e conectada ao modelo de pastas real do banco local;
 - tela Backup/Dados aprovada;
 - rota `/arquivos`;
 - rota `/favoritos`;
@@ -236,7 +241,7 @@ Implementado:
 - layout padronizado entre Configuracoes Gerais, Configuracoes de Caminhos, Configuracoes de Aparencia, Modelo de Pastas e Backup/Dados;
 - navegacao secundaria de Configuracoes com `Backup` apontando para `/configuracoes/backup`;
 - navegacao secundaria de Configuracoes com `Modelo de Pastas` apontando para `/configuracoes/modelo-pastas`;
-- tela Modelo de Pastas visual/mockada com cards `Colecao` e `Modelo`, pre-visualizacao do caminho e acao `Salvar Alteracoes`;
+- tela Modelo de Pastas com arvore/lista visual conectada ao modelo de pastas real do banco local, ainda sem criar pastas reais e sem salvamento pela UI;
 - padrao reutilizavel de estados do sistema com variantes visuais de vazio, erro, offline, sem resultados, caminho indisponivel, loading e sincronizacao pendente;
 - responsividade revisada nas paginas de Configuracoes;
 - navegacao do card Cthulhu Idol para `/colecoes/eldritch-horrors/modelos/cthulhu-idol`;
@@ -291,7 +296,10 @@ Implementacao:
 - contrato de servico em `src/blueatelier.application/Contratos/IConfiguracoesServico.cs`;
 - servico de aplicacao em `src/blueatelier.application/Servicos/ConfiguracoesServico.cs`;
 - modelo de aplicacao de aparencia em `src/blueatelier.application/Modelos/ConfiguracoesAparenciaResumo.cs`;
-- conexao da tela `/configuracoes/aparencia` ao servico em `src/blueatelier.app/Components/Pages/ConfiguracoesAparencia.razor`;
+- modelo de aplicacao de modelo de pastas em `src/blueatelier.application/Modelos/ModeloPastasResumo.cs`;
+- modelo de aplicacao de item de modelo de pastas em `src/blueatelier.application/Modelos/ModeloPastasItemResumo.cs`;
+- seed de modelo de pastas em `src/blueatelier.infrastructure/Persistencia/BlueAtelierSeed.cs`;
+- conexao da tela `/configuracoes/modelo-pastas` ao servico em `src/blueatelier.app/Components/Pages/ConfiguracoesModeloPastas.razor`;
 - testes de configuracoes em `tests/blueatelier.tests/infrastructure/ConfiguracoesPersistenciaTests.cs`.
 
 Documentacao:
@@ -318,18 +326,23 @@ Documentacao:
 - O Bloco 9 - Configuracoes, recorte 1, foi consolidado.
 - O Bloco 9 - Configuracoes, recorte 2, foi consolidado.
 - O Bloco 9 - Configuracoes, recorte 3, foi consolidado.
+- O Bloco 9 - Configuracoes, recorte 4, foi consolidado.
 - O repositorio `ConfiguracoesRepositorio` implementa `IConfiguracoesRepositorio`.
 - O servico `ConfiguracoesServico` retorna `ConfiguracoesGeraisResumo`, sem expor entidade de dominio para Razor.
 - `/configuracoes` le dados gerais persistidos do banco local via servico de aplicacao.
 - `/configuracoes/caminhos` le caminhos configurados persistidos do banco local via servico de aplicacao.
 - `/configuracoes/aparencia` le preferencias de aparencia persistidas do banco local via servico de aplicacao.
+- `/configuracoes/modelo-pastas` le o modelo de pastas persistido do banco local via servico de aplicacao.
 - O seed de configuracoes cria chaves gerais de forma idempotente.
 - O seed de caminhos configurados cria registros minimos de forma idempotente.
 - O seed de configuracoes mantem chaves de aparencia de forma idempotente.
+- O seed de configuracoes cria modelo de pastas inicial de forma idempotente.
 - Nenhum caminho real foi validado.
 - Nenhum arquivo externo foi lido ou escrito.
 - Nenhuma alteracao real de tema foi aplicada.
 - Nenhuma alteracao real de densidade ou cor de destaque foi aplicada.
+- Nenhuma pasta real foi criada.
+- Nenhum diretorio real foi lido.
 - O repositorio `ColecaoRepositorio` implementa `IColecaoRepositorio`.
 - O repositorio `ModeloRepositorio` implementa `IModeloRepositorio`.
 - O repositorio `ImagemModeloRepositorio` implementa `IImagemModeloRepositorio`.
@@ -398,6 +411,7 @@ Documentacao:
 - Nenhuma leitura real de diretorios foi implementada.
 - Nenhuma gravacao real de configuracao foi implementada.
 - Nenhuma aplicacao real de tema, densidade ou cor foi implementada.
+- Nenhuma criacao real de pastas foi implementada.
 - Nenhum backup real foi implementado.
 - Nenhuma exportacao real foi implementada.
 - Nenhuma importacao real foi implementada.

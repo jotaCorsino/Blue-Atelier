@@ -12,4 +12,7 @@ public interface IConfiguracoesServico
 
     Task<ConfiguracoesAparenciaResumo> ObterAparenciaAsync(
         CancellationToken cancellationToken = default);
+
+    Task<ModeloPastasResumo?> ObterModeloPastasAsync(
+        CancellationToken cancellationToken = default);
 }

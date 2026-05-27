@@ -1,4 +1,7 @@
 @page "/configuracoes/modelo-pastas"
+@using BlueAtelier.Application.Contratos
+@using BlueAtelier.Application.Modelos
+@inject IConfiguracoesServico ConfiguracoesServico
 
 <section class="settings-page settings-module-page settings-stitch-page settings-folder-template-page" aria-labelledby="folder-template-title">
     <header class="settings-header settings-module-header settings-stitch-header page-heading">
@@ -29,60 +32,75 @@
             }
         </nav>
 
-        <main class="settings-content settings-module-content settings-folder-template-content" aria-label="Modelo de pastas mockado">
+        <main class="settings-content settings-module-content settings-folder-template-content" aria-label="Modelo de pastas">
             <div class="settings-folder-template-canvas">
-                <div class="settings-folder-template-grid">
-                    @foreach (var template in Templates)
-                    {
-                        <section class="settings-folder-template-card" aria-labelledby="@template.TitleId">
-                            <div class="settings-folder-template-card-header">
-                                <h2 id="@template.TitleId">
-                                    <span class="settings-folder-template-title-icon" aria-hidden="true">
-                                        <AppIcon Name="@template.Icon" />
-                                    </span>
-                                    @template.Title
-                                </h2>
+                @if (ModeloPastas is null)
+                {
+                    <AppStateBlock Variant="empty"
+                                   Title="Nenhum modelo de pastas configurado"
+                                   Description="A estrutura padrão será exibida aqui quando existir metadado no banco local."
+                                   IsCompact="true" />
+                }
+                else
+                {
+                    <div class="settings-folder-template-grid">
+                        @foreach (var template in Templates)
+                        {
+                            <section class="settings-folder-template-card" aria-labelledby="@template.TitleId">
+                                <div class="settings-folder-template-card-header">
+                                    <h2 id="@template.TitleId">
+                                        <span class="settings-folder-template-title-icon" aria-hidden="true">
+                                            <AppIcon Name="@template.Icon" />
+                                        </span>
+                                        @template.Title
+                                    </h2>
 
-                                <button type="button" title="Editar modelo de @template.Title" aria-label="Editar modelo de @template.Title">
-                                    <AppIcon Name="edit" />
-                                </button>
-                            </div>
-
-                            <div class="settings-folder-tree" aria-label="Estrutura de pastas para @template.Title">
-                                <div class="settings-folder-tree-root">
-                                    <AppIcon Name="folder" />
-                                    <span>@template.Root</span>
+                                    <button type="button" title="Editar modelo de @template.Title" aria-label="Editar modelo de @template.Title">
+                                        <AppIcon Name="edit" />
+                                    </button>
                                 </div>
 
-                                <div class="settings-folder-tree-children">
-                                    @foreach (var child in template.Children)
-                                    {
-                                        <div class="settings-folder-tree-child">
-                                            <AppIcon Name="folder" />
-                                            <span>@child</span>
-                                        </div>
-                                    }
+                                <div class="settings-folder-tree" aria-label="Estrutura de pastas para @template.Title">
+                                    <div class="settings-folder-tree-root">
+                                        <AppIcon Name="folder" />
+                                        <span>@template.Root</span>
+                                    </div>
+
+                                    <div class="settings-folder-tree-children">
+                                        @foreach (var child in template.Children)
+                                        {
+                                            <div class="settings-folder-tree-child">
+                                                <AppIcon Name="folder" />
+                                                <span>@child</span>
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
-                    }
-                </div>
-
-                <section class="settings-folder-template-preview" aria-labelledby="folder-template-preview-title">
-                    <h2 id="folder-template-preview-title">Pré-visualização do caminho</h2>
-
-                    <div class="settings-folder-template-path" aria-label="Pré-visualização do caminho final">
-                        <span>/</span>
-                        <span>3D_Prints</span>
-                        <span>/</span>
-                        <span>Fantasy_Miniatures</span>
-                        <span>/</span>
-                        <strong>Guerreiro_Elfo</strong>
-                        <span>/</span>
-                        <span>Arquivos_STL</span>
-                        <span>/</span>
+                            </section>
+                        }
                     </div>
-                </section>
+
+                    <section class="settings-folder-template-preview" aria-labelledby="folder-template-preview-title">
+                        <h2 id="folder-template-preview-title">Pré-visualização do caminho</h2>
+
+                        <div class="settings-folder-template-path" aria-label="Pré-visualização do caminho final">
+                            <span>/</span>
+                            @foreach (var segment in PreviewSegments)
+                            {
+                                @if (segment.IsHighlight)
+                                {
+                                    <strong>@segment.Value</strong>
+                                }
+                                else
+                                {
+                                    <span>@segment.Value</span>
+                                }
+
+                                <span>/</span>
+                            }
+                        </div>
+                    </section>
+                }
 
                 <footer class="settings-folder-template-actions" aria-label="Ações mockadas do modelo de pastas">
                     <button class="settings-folder-template-save" type="button">Salvar alterações</button>
@@ -103,13 +121,83 @@
         new("Dados do App", false, null)
     ];
 
-    private static readonly FolderTemplate[] Templates =
-    [
-        new("Coleção", "folder-template-collection-title", "collections", "{Nome da Coleção}", ["Imagens", "Manuais", "Modelos base"]),
-        new("Modelo", "folder-template-model-title", "models", "{Nome do Modelo}", ["Arquivos STL", "Arquivos Suportados", "Fotos"])
-    ];
+    private ModeloPastasResumo? ModeloPastas { get; set; }
+
+    private IReadOnlyList<FolderTemplate> Templates =>
+        ModeloPastas?.Itens
+            .Where(item => item.Nivel == 0)
+            .OrderBy(item => item.Ordem)
+            .Select(CriarTemplate)
+            .ToList()
+        ?? [];
+
+    private IReadOnlyList<PathSegment> PreviewSegments =>
+        ObterCaminhoPreview()
+            .Split('/', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Select((segmento, indice) => new PathSegment(segmento, indice == 0))
+            .ToList();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ModeloPastas = await ConfiguracoesServico.ObterModeloPastasAsync();
+    }
+
+    private FolderTemplate CriarTemplate(ModeloPastasItemResumo raiz)
+    {
+        var children = ModeloPastas?.Itens
+            .Where(item =>
+                item.Nivel == raiz.Nivel + 1
+                && item.CaminhoRelativo.StartsWith(raiz.CaminhoRelativo, StringComparison.OrdinalIgnoreCase)
+                && !string.Equals(item.CaminhoRelativo, raiz.CaminhoRelativo, StringComparison.OrdinalIgnoreCase))
+            .OrderBy(item => item.Ordem)
+            .Select(item => item.Nome)
+            .ToArray()
+            ?? [];
+
+        return new FolderTemplate(
+            ObterTitulo(raiz.Nome),
+            $"folder-template-{raiz.Nome}-title",
+            ObterIcone(raiz.Nome),
+            raiz.Nome,
+            children);
+    }
+
+    private string ObterCaminhoPreview()
+    {
+        return ModeloPastas?.Itens
+            .Where(item => item.Nivel > 0)
+            .OrderBy(item => item.Ordem)
+            .Select(item => item.CaminhoRelativo)
+            .FirstOrDefault()
+            ?? ModeloPastas?.Itens.OrderBy(item => item.Ordem).Select(item => item.CaminhoRelativo).FirstOrDefault()
+            ?? string.Empty;
+    }
+
+    private static string ObterTitulo(string nome)
+    {
+        return nome switch
+        {
+            "modelo" => "Modelo",
+            "imagens" => "Imagens",
+            "documentos" => "Documentos",
+            "exportacoes" => "Exportações",
+            _ => nome
+        };
+    }
+
+    private static string ObterIcone(string nome)
+    {
+        return nome switch
+        {
+            "modelo" => "models",
+            "imagens" => "collections",
+            _ => "folder"
+        };
+    }
 
     private sealed record SettingsCategory(string Label, bool IsActive, string? Href);
 
     private sealed record FolderTemplate(string Title, string TitleId, string Icon, string Root, string[] Children);
+
+    private sealed record PathSegment(string Value, bool IsHighlight);
 }

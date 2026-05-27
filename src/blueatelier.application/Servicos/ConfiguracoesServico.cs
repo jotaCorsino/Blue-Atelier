@@ -16,6 +16,7 @@ public sealed class ConfiguracoesServico(
     private const string DiretorioRaizPadrao = "C:/BlueAtelier";
     private const string DiretorioModelosPadrao = "C:/BlueAtelier/Modelos";
     private const string DiretorioBackupsPadrao = "C:/BlueAtelier/Backups";
+    private const string DescricaoModeloPastasPadrao = "Estrutura base para organizar arquivos de modelos, imagens, referencias e exportacoes.";
 
     public async Task<ConfiguracoesGeraisResumo> ObterGeraisAsync(
         CancellationToken cancellationToken = default)
@@ -60,6 +61,22 @@ public sealed class ConfiguracoesServico(
             ObterValor(configuracoesPorChave, "app.densidade", DensidadePadrao),
             ObterValor(configuracoesPorChave, "app.corDestaque", CorDestaquePadrao),
             ObterUltimaAtualizacao(configuracoes));
+    }
+
+    public async Task<ModeloPastasResumo?> ObterModeloPastasAsync(
+        CancellationToken cancellationToken = default)
+    {
+        var modeloPastas = await configuracoesRepositorio.ObterModeloPastasAsync(cancellationToken);
+
+        return modeloPastas is null
+            ? null
+            : new ModeloPastasResumo(
+                modeloPastas.Id,
+                modeloPastas.Nome,
+                DescricaoModeloPastasPadrao,
+                modeloPastas.Estrutura,
+                MapearItensModeloPastas(modeloPastas.Estrutura),
+                modeloPastas.AtualizadoEm);
     }
 
     private static string ObterValor(
@@ -152,5 +169,31 @@ public sealed class ConfiguracoesServico(
         return tipo is TipoCaminhoConfigurado.PrincipalAtelier
             or TipoCaminhoConfigurado.Modelos
             or TipoCaminhoConfigurado.Backup;
+    }
+
+    private static IReadOnlyList<ModeloPastasItemResumo> MapearItensModeloPastas(string estrutura)
+    {
+        return estrutura
+            .Replace("\r\n", "\n", StringComparison.Ordinal)
+            .Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Select((linha, indice) => MapearItemModeloPastas(linha, indice))
+            .Where(item => !string.IsNullOrWhiteSpace(item.Nome))
+            .ToList();
+    }
+
+    private static ModeloPastasItemResumo MapearItemModeloPastas(string linha, int indice)
+    {
+        var caminhoRelativo = linha.Trim().TrimStart('/').Replace('\\', '/');
+        var partes = caminhoRelativo.Split(["/"], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        var nome = partes.Length == 0 ? string.Empty : partes[^1];
+        var nivel = Math.Max(0, partes.Length - 1);
+
+        return new ModeloPastasItemResumo(
+            nome,
+            caminhoRelativo.EndsWith("/", StringComparison.Ordinal) ? caminhoRelativo : $"{caminhoRelativo}/",
+            nivel,
+            nivel == 0 ? "raiz" : "pasta",
+            indice,
+            nivel == 0);
     }
 }
